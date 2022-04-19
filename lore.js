@@ -18,7 +18,8 @@ let lore = {
     `, 
     alliance: `
       The mostly passive but politically very active group. Has major support in one part of the [1,6] subsystem. Has their own fleet, with very well trained personnel.
-      Basically modern-day democracy, with it's usual flaws. (so far pretty boring)
+      Basically modern-day democracy, with it's usual flaws. (so far pretty boring). They wanna keep the economic system of oppression, but want to introduce democracy based
+      on electoral college, to which members are voted from the self-governing territories.
     `,
     colonists: `
       Collective term for all population not directly affiliated or under the rule of the Crown, they either reject the Crown or aren't interested in their politics. 
@@ -28,9 +29,15 @@ let lore = {
       Dismissing them completely, however, may cause more trouble than any one ship could handle. Their orbital defences are powerful and well-kept.
     `,
     traders_union: `
-      (TEMPORARY NAME) A loosely organized society of traders. Without a major settlement, their base of operations is a large space-station orbiting Tauri B
+      (TEMPORARY NAME) A loosely organized society of traders. Without owning or controlling any major settlements, 
+      their base of operations is a large space-station orbiting Tauri B
       Has deep connections to almost every faction. There are self-sufficient colonies and systems, but they
       are far and few between. The handful of individuals at the helm of the union hold immense power, more than most leaders are willing to admit.
+    `,
+  },
+  locations: {
+    tauri_b: `
+    A terrestrial planet in a regular G-type main-sequence star system. Home to the Traders Union base of operations, orbiting the planet.
     `,
   },
   lexicon: {
@@ -43,15 +50,12 @@ let lore = {
       Short term for "cryogenic fugue", a type of device that freezes your body safely, used for long-distance interstellar travel.
     `,
     hive: `
-      A physical "computer sphere", home to many artificial entities, in close contant with each other.
+      A physical "sphere" used as a host to artificial life. Usually orbiting planets or moons. Each is usually home to many artificial entities, all in close contant with each other.
     `,
     SIE: `
       Standard Interstellar English. The universal language if you want to get around any place. 
       It is by law taught in all schools under the rule of the Crown, alongside the local languages in each system.
     `,
-  },
-  locations: {
-
   },
 }
 
