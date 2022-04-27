@@ -1,5 +1,8 @@
 class Player {
   constructor() {
-    this.hitbox = _.cloneDeep(data.ships.hitbox)
+    this.ships = []
+    this.ship_current = {
+      // class Ship
+    }
   }
 }

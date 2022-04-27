@@ -31,14 +31,16 @@ function easeLinear(curTime, valueFrom, valueTo, duration) {
   return (valueTo * curTime) / duration + valueFrom;
 }
 
-function mode(arr){
+function mode(arr) {
   return arr.sort((a,b) =>
-        arr.filter(v => v===a).length
-      - arr.filter(v => v===b).length
+        arr.filter(v => v === a).length
+      - arr.filter(v => v === b).length
   ).pop();
 }
 
 const reducer = (accumulator, curr) => accumulator + curr;
+
+// usage: [].reduce(reducer()) or something
 
 function vectorRotate(x, y, rot) {
   var sin = Math.sin(rot);
@@ -50,6 +52,13 @@ function vectorRotate(x, y, rot) {
   return newPos;
 }
 
+function vectorScale(vector, factor) {
+  var newPos = {
+    x: vector.x * factor,
+    y: vector.y * factor
+  }
+  return newPos;
+}
 
 function weightedRandom(values = {apple: 1, orange: 2}) {
   let weights = []
