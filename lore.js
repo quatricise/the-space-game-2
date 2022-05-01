@@ -57,7 +57,8 @@ let lore = {
       Dismissing them completely, however, may cause more trouble than any one ship could handle. Their orbital defences are powerful and well-kept and some planets
       house up to at least several battle-cruisers.
 
-      Amongst the colonies you may find many valuable allies.
+      Amongst the colonies you may find many valuable allies. Some former high-ranking officials fled the confinement and anxiety of their position to lead a more free
+      and relaxed lifestyle in the outback.
     `,
     traders_union: `
       A loosely organized society of traders. Without owning or controlling any major settlements, their base of operations is a large space-station orbiting Tauri B.
@@ -74,7 +75,8 @@ let lore = {
 
       Also, the traders union - they wanna own everyone through capitalism, basically.
 
-      I think it should be possible to resolve most problems and do not lead to bloodshed. Like in undertale.
+      I think it should be possible to resolve most problems and do not lead to bloodshed. Like in undertale. You should be able to force ships to surrender by crippling
+      the ships. But this sounds quite complicated for now.
     `,
   },
   locations: {
@@ -158,7 +160,7 @@ let lore = {
       Not everyone though and bribery can be met with hostility if you attempt it at the wrong time.
       Bribing can lead you to get valuable information, but also makes you seem less trustworthy and doesn't win true allies.
     `,
-    "small vs large ships, advantages/disadvantages": `
+    ship_classes: `
 
       (small)
 
@@ -174,7 +176,7 @@ let lore = {
       The small size and relative inexpensive nature of the craft is well suited for entering asteroid fields or exploring outback systems, where accidents and ambushes
       are more frequent.
 
-      Fighters have no automated weapon systems, generally weak armor plating and
+      Fighters have no automated weapon systems, generally weak armor plating and shield strenght.
 
       || Scout class ||
 
@@ -191,33 +193,60 @@ let lore = {
       The cruiser is the all-round solution to all your problems. If you happen to have one at your disposal, that is. Well suited for most situations, except for fighting
       entire fleets or using it as sacrifice. The best cruisers can mount 4-6 weapons, all weapon types except for deathbeam.
 
-      Cargo ship class (small couriers, midsize, large)
+      Cargo ships (small couriers, midsize carriers, large freighters)
+
+      || Courier class || 
+
+      Couriers are used to transport confidential messages and items, which cannot be legally transported along regular cargo. By design unarmed and fragile, except for the
+      ship's black box which contains a trapped-blackhole auto-destruction module, guaranteed to destroy anything that was stored within it's containment field, if discovered without the proper
+      authorization to enter the black box.
+
+      || Freighter class || (midsize and large)
+
+      This class of ship is bulky, sluggist, and without armament. However, it is often equipped with VWB sensors, powerful reactor and can transport multiple times the capacity
+      of most other ships. It isn't viable for much else than cargo transport.
+
+      Civilian ships (Small under-10 passenger civilian ships, midsize 10-300, planet class transporters 500-10000)
+
+      || Civilian || 
+
+      Civilian ships aren't used for much other than the transport of civilians, there aren't armed, have no or very weak shields. Not very important, but it's important
+      to mention that they exist.
+
+      (large)
 
       || Battleship class ||
 
-      The pinacle of engineering, sporting the most advanced weapons and defence systems in the entire fleet of spaceships. Usually only one or couple per task-force, 
+      The pinacle of engineering, sporting the most advanced weapons and defence systems of the entire fleet. Usually only one or couple per task-force, 
       Territorial fleets, including the Crown's compound (5 divisions) fleet often keep only a handful of them in combat duty, due to the high cost of maintenance.
 
+      They are often armed with a variety of weapon systems, manual and auto, laser, missile and shrapnell, often including deathbeam.
+
+      For the player, the most important ships will be: fighter, cruiser, scout, battleship, cargo,
     `,
     looting_mechanic: ` (draft)
 
     Disabling a ship can be done in several ways:
     
       • Explode it. 
+
         Good if you have no other option. This scenario is often the result of delivering the fatal blow with a missile. 
         Exploding a ship can often leave not much of value left. Especially no electronic devices. Some raw materials can however be salvaged.
       
       • Cause a breach by damaging the ships hull, the crew will suffocate.
 
       • Kill the crew
+
+      • Force to surrender by crippling the ship's defences/attack capabilities
     
-      After disabling a ship you have several options of what to do with it: 
+      After disabling a ship you have several options what to do with it: 
 
       • Leave it there (idk why you'd want this)
       • Loot it for money, equipment and surviving crew members, (then optionally) send it to a repair station or scrapyard.
       • Send a towing service of any faction you decide to call, they'll tow the ship to their repair station and restore it for combat readiness, or scrap it for material.
 
-      The decisions you make after destroying a ship can have pretty big consequences, be too greedy and you'll end up with a lot of extra useless cargo and loot.
+      The decisions you make after destroying a ship can have pretty big consequences, be too greedy and you'll end up with a lot of extra useless cargo and loot. Also
+      your allies might want to use those ships.
       Be too selfless and you'll soon run out of supplies and ammunition.
 
     `,

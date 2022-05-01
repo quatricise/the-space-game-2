@@ -42,6 +42,9 @@ class Room {
       asteroids: {},
       ships: {},
       debris: {},
+      get rigid() {
+        return [this.ships, this.asteroids, this.stations, this.debris]
+      }
     }
     this.background = {
       background_color: "hsl()",
