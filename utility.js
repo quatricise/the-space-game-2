@@ -18,6 +18,12 @@ function pickRand(values = [0,1]) {
   let index = Math.round(Math.random()*(values.length - 1))
   return values[index]
 }
+function clamp(value, min, max) {
+  let val = value
+  if(val < min) val = min
+  if(val > max) val = max
+  return val
+}
 
 function sum(values = []) {
   let result = 0

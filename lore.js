@@ -148,10 +148,14 @@ let lore = {
       A short distance jump a ship can make through the VWB medium. It consumes the ship's main energy reserves, the longer the skip, the more power it consumes.
       Any ship, while skipping, is invulnerable to damage, but it can still be detected by sensors, so your enemy usually knows where you are.
     `,
+    dash: `
+      Short-term burst of energy, accumulates charge over time as a byproduct of the reactors activity. The more powerful your reactor,
+      the faster the recharge on your dash.
+    `,
     jump: `
       Travel from one node to the next on the ultra-port system.
     `,
-    translate_to_Cplus: `
+    translate_to_c_plus: `
       Reach FTL velocities, basically disappear from system and enter hyperspace. Translating is a slower alternative to ultra-port, but it is sometimes necessary, since
       some systems do not house ultra-port portals.
     `,

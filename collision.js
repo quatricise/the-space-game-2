@@ -25,7 +25,8 @@ function createPolygon(vertices) {
         vertex.y = newPos.y
       })
       this.edges = buildEdges(vertices)
-    }
+    },
+    //todo this is missing the ability to rotate hitboxes on objects with position which isn't 0,0
   };
 
   polygon.projectInAxis = function(x, y) {
@@ -129,9 +130,9 @@ function intervalDistance(minA, maxA, minB, maxB) {
 }
 
 
-const PolygonBuilder = {
+class PolygonBuilder {
   //where the center of rotation
-  triangle_right(dim = {x: 100, y: 100}, offset = {x: 0, y: 0}, flipHorizontal = false, flipVertical = false, rotationDeg = 0 ) { //rotation in deg
+  static Triangle_right(dim = {x: 100, y: 100}, offset = {x: 0, y: 0}, flipHorizontal = false, flipVertical = false, rotationDeg = 0 ) { //rotation in deg
     let rotation = rotationDeg * PI/180
     let pivot = {x: dim.x/2, y: dim.y/2}
     let vertices = [
@@ -151,24 +152,122 @@ const PolygonBuilder = {
       vertex.y += offset*2
     })
 
+    this.rotateVertices(vertices, rotation)
+    this.offsetVertices(vertices, offset)
+    return createPolygon(vertices)
+  }
+  static Rectangle(a, b, offset = {x: 0, y: 0}, rotationDeg = 0) {
+    let rotation = rotationDeg * PI/180
+    let vertices = [
+      {x: 0, y: 0},
+      {x: a, y: 0},
+      {x: a , y: b},
+      {x: 0 , y: b},
+    ]
+    this.rotateVertices(vertices, rotation)
+    this.offsetVertices(vertices, offset)
+    return createPolygon(vertices)
+  }
+  static Square(a, offset = {x: 0, y: 0}, rotationDeg = 0) {
+    let rotation = rotationDeg * PI/180
+    let vertices = [
+      {x: 0, y: 0},
+      {x: a, y: 0},
+      {x: a , y: a},
+      {x: 0 , y: a},
+    ]
+    this.rotateVertices(vertices, rotation)
+    this.offsetVertices(vertices, offset)
+    return createPolygon(vertices)
+
+  }
+  static rotateVertices(vertices, rotation) {
     vertices.forEach((vertex) => {
       let newPos = vectorRotate(vertex.x, vertex.y, rotation)
       vertex.x = newPos.x
       vertex.y = newPos.y //this works
-
-      vertex = vectorRotate(vertex.x, vertex.y, rotation) //doesn't work somehow, idk
-      
+    })
+  }
+  static offsetVertices(vertices, offset) {
+    vertices.forEach((vertex) => {   
       vertex.x += offset.x
       vertex.y += offset.y
     })
-    return createPolygon(vertices, offset)
-  },
-  rectangle(dim = {x: 0, y: 0}) {
-
   }
 }
 
 
-function boxCollision(hitbox1, hitbox2) {
+class Collision {
+  static polygonCircle(polygon, circle) {
+    let vertices_array = []
+    polygon.vertices.forEach((vertex)=> {
+      vertices_array.push(vertex.x)
+      vertices_array.push(vertex.y)
+    })
+    
+    return Intersects.polygonCircle(
+      vertices_array,
+      circle.pos.x,
+      circle.pos.y,
+      circle.radius,
+    )
+  }
+  static polygonPolygon(polygon1, polygon2) {
 
+  }
+  static circleCircle(circle1, circle2) {
+    return Intersects.circleCircle(
+      circle1.pos.x, circle1.pos.y, circle1.radius,
+      circle2.pos.x, circle2.pos.y, circle2.radius,
+    )
+  }
+  static boxBox(box1, box2) {
+    return Intersects.boxBox(
+      box1.x, box1.y, box1.dim.x, box1.dim.y, 
+      box2.x, box2.y, box2.dim.x, box2.dim.y 
+    )
+  }
+}
+
+class HitboxTools {
+  static drawPolygonHitbox(hitbox) {
+    graphics.clear()
+    hitbox.bodies.forEach((body) => {
+      graphics.lineStyle(2, color, 1);
+      body.vertices.forEach((vertex, index) => {
+        graphics.moveTo(vertex.x, vertex.y);
+
+        if(index === body.vertices.length - 1)
+        graphics.lineTo(body.vertices[0].x, body.vertices[0].y);
+        else
+        graphics.lineTo(body.vertices[index + 1].x, body.vertices[index + 1].y);
+      })
+      graphics.closePath();
+    })
+  }
+  static drawCircleHitbox(hitbox) {
+
+  }
+  static rotatePolygonHitbox(entity) {
+    entity.hitbox.bodies.forEach((body, b) => {
+      body.vertices.forEach((vertex, v) => {
+        vertex.x = entity.hitbox_relative.bodies[b].vertices[v].x
+        vertex.y = entity.hitbox_relative.bodies[b].vertices[v].y
+      })
+      body.rotate(-entity.rotation)
+      body.vertices.forEach(vertex=> {
+        vertex.x += entity.pos.x
+        vertex.y += entity.pos.y
+      })
+    })
+  }
+  static updatePolygonHitbox(entity) {
+    entity.hitbox.bodies.forEach((body, b) => {
+      body.vertices.forEach((vertex, v) => {
+        vertex.x = entity.pos.x + entity.hitbox_relative.bodies[b].vertices[v].x
+        vertex.y = entity.pos.y + entity.hitbox_relative.bodies[b].vertices[v].y
+      })
+      body.edges = buildEdges(body)
+    })
+  }
 }

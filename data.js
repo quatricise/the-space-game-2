@@ -2,17 +2,57 @@
 let data = {
   ships: {
     asf100: {
-      model_name: "A-SF100",
-      sources: sources.img["A-SF100"],
+      model_name: "debug_ship",
+      sources: sources.img["debug_ship"],
       hitbox: new PolygonHitbox([
-        PolygonBuilder.triangle_right({x: 100, y: 50}, {x: 0, y: 200}, true, false, 0),
-        PolygonBuilder.triangle_right({x: 100, y: 50}, {x: 200, y: 200}, false, false, 0),
+        PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: -200, y: 0}, true, false, 0),
+        PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: 200, y: 0}, false, false, 0),
       ]),
       inventory: {
         capacity: 50
       },
-      rotation_speed: 210,
-      max_speed: 50 //todo, still arbitrary numbers, make it concrete
+      rotation_speed_base: 150, //deg per second, the ship class will recalculate this to rad
+      accel: 20, //todo, still arbitrary numbers, make it concrete
+      max_speed: 500, //px per second
+
+      shields: {
+        level: 1,
+        recharge: 500, //ms
+        active: false,
+      },
+      reactor: {
+        power: 20,
+      },
+      engines: {
+        main: {
+          accel: 20,
+          max_speed: 500,
+          level: 1,
+          level_max: 5,
+          upgrade() {
+            if(this.level >= this.level_max) return // new Info("The engine has reached max level") 
+            this.accel += 2
+            this.max_speed += 50
+          }
+        },
+        braking: {
+          power: 10,
+          installed: true,
+        },
+        steering: {
+          rotation_speed_bonus: 25, //improves rotation speed by this number; does nothing else
+          installed: false,
+        }
+      },
+      brakes: {
+        power: 2, //again, arbitrary number
+        auto: true,
+      },
+      dash: {
+        ready: true,
+        active: false,
+        recharge: 0 //will be recalculated based on reactor power
+      }
     },
   }, 
 
@@ -52,7 +92,20 @@ let data = {
     }
   },
 
-
+  entities: {
+    asteroids: {
+      medium_0: {
+        sources: sources.img.asteroids.medium_0,
+        mass: 5, //in kilotons
+        hitbox: new CircleHitbox(45)
+      },
+      medium_1: {
+        sources: sources.img.asteroids.medium_1,
+        mass: 5, //in kilotons
+        hitbox: new CircleHitbox(45)
+      },
+    },
+  },
 
   player: {
     inventory: {
@@ -60,6 +113,9 @@ let data = {
     },
     ships: [], // object reference
     currentShip: {} // object reference
+  },
+  global: {
+    rotation_smoothing: 8 // frames basically
   },
 }
 

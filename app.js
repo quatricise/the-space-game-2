@@ -1,180 +1,36 @@
-let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight });
+let app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, });
 document.body.appendChild(app.view);
+
+let debug_app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight });
+// document.body.appendChild(debug_app.view);
+
+let graphics = new PIXI.Graphics()
+app.stage.addChild(graphics)
+
 const loader = PIXI.Loader.shared
 
 
 let cw = window.innerWidth
 let ch = window.innerHeight
 
-const test_ship = {
-  img_sources: {},
-  sprites: {
-    get all() {
-      return this.highlights
-    },
-    highlights: {
-      angle_0: "",
-      angle_90: "",
-      angle_180: "",
-      angle_270: "",
-    },
-  }
-}
-
 let entities = [] //all game objects which exist in the world and need per-frame updating
 let rigids = [] // entities that exist in the world and can collide with each other
 let ships = []
 
-let layer_ships = PIXI.Container()
+let characters = [] //array of people, they are like the player and can drive ships
 
-let render_layers = [
-  layer_ships
+let layer_debris = new PIXI.Container()
+let layer_ships = new PIXI.Container()
+
+let render_layers = [ 
+  //sequential order of render layers
+  layer_debris,
+  layer_ships,
 ]
 
-
-// const ship = {
-//   img_sources: {
-//     glow: {
-//       src: "assets/ship_crown_large/ship_glow.png",
-//     },
-//     flame: {
-//       src: "assets/ship_crown_large/ship_flame.png",
-//     },
-//     fill: {
-//       src: "assets/ship_crown_large/ship_fill.png",
-//     },
-//     highlights_0: {
-//       src: "assets/ship_crown_large/ship_highlights_0.png",
-//     },
-//     highlights_90: {
-//       src: "assets/ship_crown_large/ship_highlights_90.png",
-//     },
-//     highlights_180: {
-//       src: "assets/ship_crown_large/ship_highlights_180.png",
-//     },
-//     highlights_270: {
-//       src: "assets/ship_crown_large/ship_highlights_270.png",
-//     },
-//     linework: {
-//       src: "assets/ship_crown_large/ship_linework.png",
-//     },
-//   },
-//   sprites: [],
-//   container: new PIXI.Container(),
-//   sprites_highlights: [],
-//   animations: [ //todo gonna be solved by using pixiJS AnimatedSprite
-//     {
-//       src: "assets/ship_crown_large/anim_json/lights_blue.json",
-//       sprite: null, // PIXI.AnimatedSprite
-//       fps: 15,
-//       repeat: true,
-//       wait_before_repeat: 5000,
-//       current_frame: 0,
-//       current_time: 0,
-//     },
-//   ],
-//   rotation: 0,
-//   rotation_speed: 210, //degrees per second
-//   maxSpeed: 20, //some units lol
-//   vel: {
-//     x: 0,
-//     y: 0
-//   },
-//   pos: {
-//     x: cw/2,
-//     y: ch/2,
-//   },
-  
-//   addToScene() {
-//     let sources = Object.keys(this.img_sources)
-//     for (let i = 0; i < sources.length; i++) {
-//       let sprite = PIXI.Sprite.from(this.img_sources[sources[i]].src);
-//       sprite.scale.x = 0.8
-//       sprite.scale.y = 0.8
-//       // this.sprites.push(sprite)
-//       // console.log(this.container)
-//       this.container.addChild(sprite)
-//       if(sources[i].includes("highlights")) this.sprites_highlights.push(sprite) //todo, put everything inside the sprite container
-//       sprite.anchor.x = 0.5
-//       sprite.anchor.y = 0.5
-//     }
-//     app.stage.addChild(this.container)
-
-//     let anim = AnimatedSprite("assets/ship_crown_large/anim_lights_blue/ship_the_crown0000.png", 31)
-//     anim.anchor.x = 0.5
-//     anim.anchor.y = 0.5
-//     anim.animationSpeed = 0.1
-//     anim.play()
-//     this.container.addChild(anim)
-
-//     app.ticker.add((delta) => {
-//       this.update(delta)
-//     })
-//   },
-//   rotate(delta) {
-//     if(keys.rotateCW) {
-//       this.rotation += (this.rotation_speed * PI/180) * delta * 0.01
-//     }
-//     if(keys.rotateCCW) {
-//       this.rotation -= (this.rotation_speed * PI/180) * delta * 0.01
-//     }
-//     if(this.rotation >= PI*2) this.rotation = 0
-//     if(this.rotation < 0) this.rotation = PI*2
-
-//   },
-//   updateHighlights() {
-//     let deg = this.rotation * 180/PI
-//     for (let i = 0; i < this.sprites_highlights.length; i++) {
-
-//       let offsetFromFront = i*90 - deg
-//       if(offsetFromFront <= -270) offsetFromFront = 360 + offsetFromFront
-//       offsetFromFront = Math.abs(offsetFromFront)
-//       this.sprites_highlights[i].alpha = Math.max(0,Math.round((1 - offsetFromFront/90 )*100)/100) //this puts the alpha between 0 and 1 with 0.01 precision
-//     }
-//   },
-//   updateSprite() { //todo all sprites in a ship will be grouped into a container
-//     this.container.position.x = this.pos.x
-//     this.container.position.y = this.pos.y
-
-//     this.container.rotation = this.rotation
-//   },
-//   accelerate(delta) {
-//     if(!keys.accel) return
-//     let accel = vectorRotate(this.maxSpeed/100, 0, this.rotation)
-//     accel.y *= -1
-//     this.vel.x += accel.x * delta
-//     this.vel.y += accel.y * delta
-    
-//   },
-//   move(delta) {
-//     this.pos.x += this.vel.x * delta
-//     this.pos.y += this.vel.y * delta
-//   },
-//   brake(delta) {
-//     if(keys.accel) return
-//     this.vel.x *= 0.97 * delta
-//     this.vel.y *= 0.97 * delta
-//     if(Math.abs(this.vel.x) < 0.001 && Math.abs(this.vel.y) < 0.001) this.vel.x = this.vel.y = 0
-//   },
-//   animate() {
-
-//   },
-//   updateCamera() {
-//     camera.pos.x = this.pos.x
-//     camera.pos.y = this.pos.y
-//   },
-//   update(delta) {
-//     this.rotate(delta)
-//     this.updateHighlights()
-//     this.accelerate(delta)
-//     this.move(delta)
-//     this.brake(delta)
-//     this.updateSprite()
-//     this.animate()
-//   }
-// }
-
-// ship.addToScene()
+render_layers.forEach(layer => {
+  app.stage.addChild(layer)
+})
 
 const binds = {
   rotateCW: "KeyD",
@@ -214,41 +70,30 @@ function updateKeys(event, eventType = "keydown") {
   }
 }
 
-let dt = 0;
-function render() {
-  entities.forEach(entity=> {
-    entity.update()
-  })
-}
-
 
 const camera = {
   pos: {
     x: 0,
     y: 0
   },
-  lockedToPlayer: true,
-  lockToPlayer() {
-    //smoothly transition to player
-  },
-  focusOn(object) {
+  lockedTo: null,
+
+  lockTo(object) { //object === player or some point of interest
     //this smoothly transitions the camera from player, to an objects origin
+    this.lockedTo = object
+  },
+  updatePosition() {
+    this.pos.x = this.lockedTo.pos.x
+    this.pos.y = this.lockedTo.pos.y
   },
   update() {
-    // app.stage.updateLocalTransform() 
-    //fucking update the stage translate, so it moves with the ship
+    this.updatePosition()
+    app.stage.position.x = -this.pos.x + cw/2
+    app.stage.position.y = -this.pos.y + ch/2 //maybe like this
+    grid.sprite.position.x = Math.floor(this.pos.x / grid.cell_size) * grid.cell_size - grid.cell_size*2
+    grid.sprite.position.y = Math.floor(this.pos.y / grid.cell_size) * grid.cell_size - grid.cell_size
   }
 }
-
-
-// function FrameSequence(sources = ["assets/something.png"]) {
-//   let frames = []
-//   sources.forEach(src=> {
-//     let img = new Image(); img.src = src
-//     frames.push(img)
-//   })
-//   return frames
-// }
 
 function ImgSequence(src = "path/to/file0000.png", frames_total = 5) {
   let str = src.slice(0, src.length - 8)
@@ -279,23 +124,133 @@ function AnimatedSprite(first_image = "assets/file0000.png", image_count) {
   return sprite
 }
 
-let new_ship = new Ship(data.ships.asf100, {x: 0, y: 0}, 0)
-new_ship.constructSprites()
-new_ship.addToScene()
+let debug_ship = new Ship(data.ships.asf100, new Vector(cw/2, ch/2), 0)
+debug_ship.addToScene()
+
+let player = new Player()
+player.ship = debug_ship
 
 
-function tick(delta) { //this is called on each ticker tick
-  dt = delta
+let debug_asteroid_0 = new Asteroid(data.entities.asteroids.medium_0, new Vector(100,100), new Vector(0,0), 150, 1.2)
+debug_asteroid_0.addToScene()
+// let debug_asteroid_1 = new Asteroid(data.entities.asteroids.medium_1, new Vector(15,15), new Vector(0,0), 150, 0.4)
+// debug_asteroid_1.addToScene()
+
+
+let dt = 0;
+let dtf = 0;
+
+
+function tick(delta) {
+  dt = app.ticker.deltaMS / 1000
+  dtf = delta
+
+  camera.update()
+  entities.forEach(entity => {
+    entity.update()
+    entity.cell_pos.x = Math.floor(entity.pos.x / grid.cell_size)
+    entity.cell_pos.y = Math.floor(entity.pos.y / grid.cell_size)
+  })
+  HitboxTools.drawPolygonHitbox(player.ship.hitbox)
+  testCollision()
+  player.update()
+
 }
 
-function AItick() { //function called less often, used to update enemy ai, including obstacle avoidance, which should be really expensive to calculate
+function tickAI() { //function called less often, used to update enemy ai, including obstacle avoidance, which should be really expensive to calculate
 
 }
 
 function init() {
-  app.ticker.add((delta) => {
-    camera.update()
-    tick(delta)
-    entities.forEach(entity => entity.update())
-  })
+  camera.lockTo(player.ship)
+  app.ticker.add(tick)
 }
+
+let texture = PIXI.Texture.from("assets/grid_cell.png")
+const grid = {
+  sprite: null,
+  cell_size: 512,
+  origin: Vector.zero(), //not gonna mess with this, just wanna point out that the grid origin is in the app.stage origin
+}
+grid.sprite = new PIXI.TilingSprite(texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
+layer_debris.addChild(grid.sprite)
+
+let circle = PIXI.Sprite.from("assets/circle.png")
+circle.anchor.x = 0.5
+circle.anchor.y = 0.5
+app.stage.addChild(circle)
+
+
+function testCollision() { //run per-frame on all rigids[]
+  let collision_successful = false //temporary shit 
+  rigids.forEach(rigid => {
+    //broadphase
+    let candidates = rigids.filter(candidate => 
+      candidate.cell_pos.x >= rigid.cell_pos.x - 1 &&
+      candidate.cell_pos.x <= rigid.cell_pos.x + 1 &&
+      candidate.cell_pos.y >= rigid.cell_pos.y - 1 &&
+      candidate.cell_pos.y <= rigid.cell_pos.y + 1
+    )
+    //second phase
+    candidates.forEach(candidate => {
+      //rule out self-collision
+      if(candidate === rigid) return
+
+      if(rigid.hitbox.type === "circle" && candidate.hitbox.type === "circle") {
+        let circle1 = {
+          pos: {
+            x: rigid.pos.x,
+            y: rigid.pos.y,
+          },
+          radius: rigid.hitbox.radius
+        }
+        let circle2 = {
+          pos: {
+            x: candidate.pos.x,
+            y: candidate.pos.y,
+          },
+          radius: candidate.hitbox.radius
+        }
+        let haveCollided = Collision.circleCircle(circle1, circle2)
+        if(haveCollided) collision_successful = true
+        //todo, implement the physics handling somewhere
+      }
+      if(
+        (rigid.hitbox.type === "polygon" && candidate.hitbox.type === "circle") ||
+        (rigid.hitbox.type === "circle" && candidate.hitbox.type === "polygon") 
+      ) {
+        let circular;
+        let polygonal;
+        if(rigid.hitbox.type === "circle") {
+          circular = rigid
+          polygonal = candidate
+        }
+        else {
+          circular = candidate
+          polygonal = rigid
+        }
+        let circle = {
+          pos: {
+            x: circular.pos.x,
+            y: circular.pos.y,
+          },
+          radius: circular.hitbox.radius
+        }
+        polygonal.hitbox.bodies.forEach(body => {
+          //make the hitbox coordinates absolute
+          let haveCollided = Collision.polygonCircle(body, circle)
+          if(haveCollided) collision_successful = true
+        })
+      }
+    })
+  })
+  if(collision_successful) color = color_yes
+  else color = color_no
+}
+
+
+let color_no = 0xffff00
+
+let color_yes = 0xff0000
+
+let color = color_no
