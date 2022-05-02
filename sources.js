@@ -40,6 +40,60 @@ let sources = {
         src: "assets/ship_crown_large/shield.png",
       },
     },
+    "crimson_fighter": {
+      // glow: {
+      //   src: "assets/ship_crown_large/glow.png",
+      // },
+      // flame: {
+      //   src: "assets/ship_crown_large/flame.png",
+      // },
+      fill: {
+        src: "assets/crimson_league_elite_fighter/fill.png",
+      },
+      highlights_0: {
+        src: "assets/crimson_league_elite_fighter/highlights_0.png",
+      },
+      highlights_90: {
+        src: "assets/crimson_league_elite_fighter/highlights_90.png",
+      },
+      highlights_180: {
+        src: "assets/crimson_league_elite_fighter/highlights_180.png",
+      },
+      highlights_270: {
+        src: "assets/crimson_league_elite_fighter/highlights_270.png",
+      },
+      linework: {
+        src: "assets/crimson_league_elite_fighter/linework.png",
+      },
+    },
+    stations: {
+      "crimson": {
+        fill: {
+          src: "assets/crimson_league_station/fill.png",
+        },
+        highlights_0: {
+          src: "assets/crimson_league_station/highlights_0.png",
+        },
+        highlights_90: {
+          src: "assets/crimson_league_station/highlights_90.png",
+        },
+        highlights_180: {
+          src: "assets/crimson_league_station/highlights_180.png",
+        },
+        highlights_270: {
+          src: "assets/crimson_league_station/highlights_270.png",
+        }, 
+        lights: {
+          src: "assets/crimson_league_station/lights.png",
+        },
+        lights_overlay: {
+          src: "assets/crimson_league_station/lights_overlay.png",
+        },
+        linework: {
+          src: "assets/crimson_league_station/linework.png",
+        },
+      }
+    },
     asteroids: {
       medium_0: {
         fill: {

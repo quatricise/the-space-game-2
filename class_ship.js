@@ -17,6 +17,7 @@ class Ship {
 
     this.invulnerable = false
     this.steering = false
+    this.colliding = false
 
     //sprites
     this.sources = ship.sources
@@ -64,7 +65,7 @@ class Ship {
   }
   rotate() {
     this.rotation += this.rotation_velocity * dt
-    if(!this.steering) this.rotation_velocity *= 0.5
+    if(!this.steering) this.rotation_velocity *= (1- d.global.rotation_smoothing)
     if(Math.abs(this.rotation_velocity) < 0.01) this.rotation_velocity = 0
   }
   clampRotation() {
@@ -111,6 +112,11 @@ class Ship {
     this.vel.y *= 0.97 * dtf
     if(this.vel.length() < 0.03) this.vel.x = this.vel.y = 0
   }
+  decelerate() {
+    //todo
+    // console.log("deceleration initiated")
+    this.brake()
+  }
   animate() {
 
   }
@@ -123,5 +129,6 @@ class Ship {
     this.rotate()
     this.updateSprite()
     this.animate()
+    HitboxTools.drawPolygonHitbox(this.hitbox) //todo, have a global debug object
   }
 }

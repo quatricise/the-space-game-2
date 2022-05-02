@@ -35,7 +35,8 @@ render_layers.forEach(layer => {
 const binds = {
   rotateCW: "KeyD",
   rotateCCW: "KeyA",
-  accel: "KeyW"
+  accel: "KeyW",
+  decel: "KeyS",
 }
 const keys = {}
 {
@@ -92,7 +93,13 @@ const camera = {
     app.stage.position.y = -this.pos.y + ch/2 //maybe like this
     grid.sprite.position.x = Math.floor(this.pos.x / grid.cell_size) * grid.cell_size - grid.cell_size*2
     grid.sprite.position.y = Math.floor(this.pos.y / grid.cell_size) * grid.cell_size - grid.cell_size
-  }
+  },
+  zoomOut() {
+
+  },
+  zoomIn() {
+
+  },
 }
 
 function ImgSequence(src = "path/to/file0000.png", frames_total = 5) {
@@ -130,6 +137,11 @@ debug_ship.addToScene()
 let player = new Player()
 player.ship = debug_ship
 
+let debug_station = new Asteroid(data.entities.asteroids.crimson_station, new Vector(1000, 1000), new Vector(0,0), 0, 0.2)
+debug_station.addToScene()
+
+let debug_fighter = new Asteroid(data.entities.asteroids.crimson_fighter, new Vector(500, 500), new Vector(0,0))
+debug_fighter.addToScene()
 
 let debug_asteroid_0 = new Asteroid(data.entities.asteroids.medium_0, new Vector(100,100), new Vector(0,0), 150, 1.2)
 debug_asteroid_0.addToScene()
@@ -151,7 +163,6 @@ function tick(delta) {
     entity.cell_pos.x = Math.floor(entity.pos.x / grid.cell_size)
     entity.cell_pos.y = Math.floor(entity.pos.y / grid.cell_size)
   })
-  HitboxTools.drawPolygonHitbox(player.ship.hitbox)
   testCollision()
   player.update()
 

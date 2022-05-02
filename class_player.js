@@ -14,6 +14,7 @@ class Player {
     let ship = this.ship
     if(!keys.accel && ship.brakes.auto) ship.brake() 
     if(keys.accel) ship.accelerate() 
+    if(keys.decel) ship.decelerate() 
     if(keys.rotateCCW || keys.rotateCW) {
       ship.steering = true
     }

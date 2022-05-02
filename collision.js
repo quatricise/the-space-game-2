@@ -26,7 +26,7 @@ function createPolygon(vertices) {
       })
       this.edges = buildEdges(vertices)
     },
-    //todo this is missing the ability to rotate hitboxes on objects with position which isn't 0,0
+    //todo this is missing the ability to rotate hitboxes on objects with position other than 0,0
   };
 
   polygon.projectInAxis = function(x, y) {
@@ -102,7 +102,7 @@ function createPolygon(vertices) {
 	return polygon;
 }
 
-function buildEdges(vertices) {
+function buildEdges(vertices) { //todo move this to a class, it's clumsily in the global scope
   const edges = [];
   if (vertices.length < 3) {
       console.error("Only polygons supported.");
@@ -131,7 +131,7 @@ function intervalDistance(minA, maxA, minB, maxB) {
 
 
 class PolygonBuilder {
-  //where the center of rotation
+  //where the center of rotation is somewhere, ffs, but i don't know where
   static Triangle_right(dim = {x: 100, y: 100}, offset = {x: 0, y: 0}, flipHorizontal = false, flipVertical = false, rotationDeg = 0 ) { //rotation in deg
     let rotation = rotationDeg * PI/180
     let pivot = {x: dim.x/2, y: dim.y/2}
@@ -179,6 +179,11 @@ class PolygonBuilder {
     this.rotateVertices(vertices, rotation)
     this.offsetVertices(vertices, offset)
     return createPolygon(vertices)
+  }
+  static Polygon(edge_count, offset = {x: 0, y: 0}, rotationDeg = 0) {
+
+  }
+  static Custom(vertices = [{x:0, y:0}], offset = {x: 0, y: 0}, rotationDeg = 0) {
 
   }
   static rotateVertices(vertices, rotation) {
@@ -213,7 +218,8 @@ class Collision {
     )
   }
   static polygonPolygon(polygon1, polygon2) {
-
+    //todo 
+    return false
   }
   static circleCircle(circle1, circle2) {
     return Intersects.circleCircle(
@@ -231,6 +237,7 @@ class Collision {
 
 class HitboxTools {
   static drawPolygonHitbox(hitbox) {
+    if(hitbox.type !== "polygon") return
     graphics.clear()
     hitbox.bodies.forEach((body) => {
       graphics.lineStyle(2, color, 1);

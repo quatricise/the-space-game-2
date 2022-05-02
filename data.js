@@ -4,20 +4,31 @@ let data = {
     asf100: {
       model_name: "debug_ship",
       sources: sources.img["debug_ship"],
+      // hitbox: new PolygonHitbox([
+      //   PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: -200, y: 0}, true, false, 0),
+      //   PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: 200, y: 0}, false, false, 0),
+      // ]),
       hitbox: new PolygonHitbox([
-        PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: -200, y: 0}, true, false, 0),
-        PolygonBuilder.Triangle_right({x: 100, y: 100}, {x: 200, y: 0}, false, false, 0),
+        PolygonBuilder.Rectangle(220, 150, {x: -110, y: -75})
       ]),
       inventory: {
         capacity: 50
       },
-      rotation_speed_base: 150, //deg per second, the ship class will recalculate this to rad
+      rotation_speed_base: 85, //deg per second, the ship class will recalculate this to rad
       accel: 20, //todo, still arbitrary numbers, make it concrete
-      max_speed: 500, //px per second
+      max_speed: 250, //px per second
 
       shields: {
+        type: "bubble",
         level: 1,
         recharge: 500, //ms
+        active: false,
+      },
+      shields_type2: {
+        type: "energy blast",
+        desc: "The mechanism generates a short burst of energy around the craft, diverting any incoming projectiles",
+        level: 1,
+        recharge: 1000, //ms
         active: false,
       },
       reactor: {
@@ -26,7 +37,7 @@ let data = {
       engines: {
         main: {
           accel: 20,
-          max_speed: 500,
+          max_speed: 250,
           level: 1,
           level_max: 5,
           upgrade() {
@@ -36,7 +47,7 @@ let data = {
           }
         },
         braking: {
-          power: 10,
+          power: 10, //not sure what this number represents
           installed: true,
         },
         steering: {
@@ -56,8 +67,15 @@ let data = {
     },
   }, 
 
-
-  
+  infrastructure: { //todo, where to store stuff like stations and other non-ship types of infrastructure
+    stations: {
+      "crimson": {
+        model_name: "crimson placeholder station",
+        type: "repair",
+        sources: "",
+      }
+    },
+  },  
   ship_actions: {
     //jumpout has this nice action pool where ship actions are stored so they are all in one place, probably
     // could be nice, if ships had standardized actions, but i want flexibility in my code so it's not all the same code
@@ -104,6 +122,16 @@ let data = {
         mass: 5, //in kilotons
         hitbox: new CircleHitbox(45)
       },
+      crimson_station: {
+        sources: sources.img.stations.crimson,
+        mass: 300, //in kilotons
+        hitbox: new CircleHitbox(240)
+      },
+      crimson_fighter: {
+        sources: sources.img.crimson_fighter,
+        mass: 300, //in kilotons
+        hitbox: new CircleHitbox(120)
+      },
     },
   },
 
@@ -115,7 +143,13 @@ let data = {
     currentShip: {} // object reference
   },
   global: {
-    rotation_smoothing: 8 // frames basically
+    rotation_smoothing: 0.08
+     //todo - figure out if this global or not, it could be very annoying
+     // for different ships to have different values, but it might also make it good
+     // worth experimenting with - making a a fighter more reactive than a cargo
+
+     //also - total reactor power divided by the ship total weight could affect these stats, 
+     //but then, it could really screw with muscle memory and make it impossible to enjoy the game
   },
 }
 
