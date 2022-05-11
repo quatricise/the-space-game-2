@@ -8,7 +8,12 @@ let lore = {
       Their fleet is much smaller than the Crown, or even the Alliance. They have a limited number of freighters and mostly rely on the Traders Union
     `,
     the_crown: `
-      The current ruling faction in draco II. The state is mostly a typical institutional monarchy, with the upper classes holding the majority of power. Members of the
+      The current ruling faction in draco II. Its grip on power is growing increasingly thin, as they struggle to police
+      all the regions they managed to seize control of.
+      
+      Space christian monarchy.
+      
+      The state is mostly a typical institutional monarchy, with the upper classes holding the majority of power. Members of the
       parliament vote the next ruler and pass laws into legislation. 
       Mostly loyal.
       The crown houses some of the best trained military personnel, elite fighters and arguable the most advanced aircraft.
@@ -221,12 +226,12 @@ let lore = {
 
       || Battleship class ||
 
-      The pinacle of engineering, sporting the most advanced weapons and defence systems of the entire fleet. Usually only one or couple per task-force, 
-      Territorial fleets, including the Crown's compound (5 divisions) fleet often keep only a handful of them in combat duty, due to the high cost of maintenance.
+      The pinnacle of engineering, sporting the most advanced weapon and defence systems of the entire fleet. Usually only one or couple per task-force, 
+      Territorial fleets, including the Crown's compound (5 divisions) fleet often keep only a handful in combat duty, due to high cost of maintenance.
 
       They are often armed with a variety of weapon systems, manual and auto, laser, missile and shrapnell, often including deathbeam.
 
-      For the player, the most important ships will be: fighter, cruiser, scout, battleship, cargo,
+      For the player, the most important ships will be: fighter, cruiser, scout, battleship, cargo
     `,
     looting_mechanic: ` (draft)
 

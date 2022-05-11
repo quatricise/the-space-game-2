@@ -5,32 +5,76 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>the space game 2</title>
+  <link rel="stylesheet" href="style_general.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- <canvas id="game" width="512" height="512"></canvas> -->
+  <main>
+    <div id="map-ui-container" class="full-screen-container hidden">
+      <div class="map-sidebar"></div>
+    </div>
+    <div class="full-screen-container">
+      <div id="dialogue-editor" class="dialogue-editor hidden">
+        <div class="editor-label" title="Close editor" onclick="ui.dialogue_editor.toggle_visibility()">Dialogue editor</div>
+        <div id="dialogue-editor-sidebar" class="dialogue-editor-sidebar">
+          <div class="arrow-open" onclick="ui.dialogue_editor.toggle_sidebar()"></div>
+          <div class="sidebar-header">Properties</div>
 
+          <div id="text-container" class="sidebar-container">
+            <div class="sidebar-container-header">Text</div>
+            <!-- <div class="text-variant"></div> child elements -->
+          </div>
+          <div id="text-rules-container" class="sidebar-container">
+            <div class="sidebar-container-header">Text rules</div>
+            <!-- <div class="text-variant"></div> child elements -->
+          </div>
+          <div id="response-container" class="sidebar-container">
+            <div class="sidebar-container-header">Responses</div>
+            <!-- <div class="response"></div> child elements -->
+          </div>
+          <div id="response-rules-container" class="sidebar-container">
+            <div class="sidebar-container-header">Response rules</div>
+            <!-- <div class="response-rule"></div> child elements -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
   <script src="dependencies/lodash.js"></script> <!-- 4.17.15 -->
   <script src="dependencies/pixi.js"></script> <!-- 6.3.0 -->
   <script src="dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
   
+  <script src="state.js"></script>
   <script src="utility.js"></script>
   <script src="sources.js"></script>
   <script src="collision.js"></script>
-  <script src="dialogue.js"></script>
   <script src="data.js"></script>
+  <script src="dialogue.js"></script>
+  <script src="class_entity.js"></script>
+  <script src="class_interactable.js"></script>
+  <script src="class_rigid.js"></script>
+  <script src="class_projectile.js"></script>
+  <script src="class_item.js"></script>
+  <script src="class_ship_system.js"></script>
+  <script src="class_ship_system_weapons.js"></script>
   <script src="class_ship.js"></script>
   <script src="class_player.js"></script>
-  <script src="class_room.js"></script>
-
+  <script src="class_scene.js"></script>
+  
   <script src="class_asteroid.js"></script>
   <script src="class_sprite_tools.js"></script>
-
+  
+  <script src="dialogue_editor.js"></script>
   <script src="ui.js"></script>
+  <script src="class_camera.js"></script>
+  <script src="input.js"></script>
+  <script src="map.js"></script>
   <script src="app.js"></script>
   <script src="init.js"></script>
 
-  
+  <!-- the stuff for the interactible polygon -->
+  <!-- <canvas id="game" width="512" height="512"></canvas> -->
+
   <!-- <script src="sat.js"></script> -->
   <!-- <script src="sat_test.js"></script> -->
   <!-- <script src="combinatorics.js"></script> -->

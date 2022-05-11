@@ -1,4 +1,4 @@
-class UI {
+class GameUI {
   constructor() {
     this.menus = {
       start: {
@@ -17,6 +17,7 @@ class UI {
         open: false,
       },
     },
+    this.dialogue_editor = new DialogueEditor()
     this.overlays = {
       top_left: {
         pos: {
@@ -51,4 +52,4 @@ class UI {
 
 }
 
-const ui = new UI()
+const ui = new GameUI()

@@ -5,6 +5,46 @@ function Qa(query) {
   return Array.from(document.querySelectorAll(query))
 }
 
+function El(
+  element_tag_name = "div", 
+  css_class = "words separated by spaces", 
+  attributes = [] /* = [["key", "value"]] */,
+  inner_text = "",
+) {
+  let element = document.createElement(element_tag_name)
+  let css_classes = css_class.split(' ')
+  attributes.forEach(attr=> {
+    element.setAttribute(attr[0], attr[1])
+  })
+  css_classes.forEach(cls => {
+    element.classList.add(cls)
+  })
+  element.innerText = inner_text
+  return element
+}
+
+El.special = (name) => {
+  if(name === "node-socket") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other sockets"]])
+}
+
+function SVGEl(
+  element_tag_name = "div", 
+  css_class = "words separated by spaces", 
+  attributes = [] /* = [["key", "value"]] */,
+  inner_text = "",
+  ) {
+  let element = document.createElementNS("http://www.w3.org/2000/svg", element_tag_name)
+  let css_classes = css_class.split(' ')
+  attributes.forEach(attr=> {
+    element.setAttribute(attr[0], attr[1])
+  })
+  css_classes.forEach(cls => {
+    element.classList.add(cls)
+  })
+  element.innerText = inner_text
+  return element
+}
+
 function rand(min, max) {
   return Math.random()*(max-min) + min
 }
@@ -20,8 +60,8 @@ function pickRand(values = [0,1]) {
 }
 function clamp(value, min, max) {
   let val = value
-  if(val < min) val = min
-  if(val > max) val = max
+  if(val <= min) val = min
+  if(val >= max) val = max
   return val
 }
 
@@ -33,9 +73,42 @@ function sum(values = []) {
   return result
 }
 
-function easeLinear(curTime, valueFrom, valueTo, duration) {
-  return (valueTo * curTime) / duration + valueFrom;
+function uniqueID(array) {
+  let id = randR(0, 1_000_000)
+  let isUnique = false
+  while(!isUnique) {
+    isUnique = true
+    array.forEach(item => {
+      if(item.id === id) {
+        isUnique = false
+        id = randR(0, 1_000_000)
+      }
+    })
+  }
+  return id
 }
+
+//valueTo is more accurately an ADD value to the valueFrom - if valueFrom = 900, valueTo = 100, the resulting value = 1000
+function easeLinear(curTime, valueFrom, valueAdd, duration) {
+  return (valueAdd * curTime) / duration + valueFrom;
+}
+
+function easeInOutQuad(curTime, valueFrom, valueAdd, duration) {
+  if ((curTime /= duration / 2) < 1) {
+    return (valueAdd / 2) * curTime * curTime + valueFrom;
+  } else {
+    return (-valueAdd / 2) * (--curTime * (curTime - 2) - 1) + valueFrom;
+  }
+}
+
+function easeOutQuad(curTime, valueFrom, valueAdd, duration) {
+  return -valueAdd * (curTime /= duration) * (curTime - 2) + valueFrom;
+}
+
+function easeInQuad(curTime, valueFrom, valueAdd, duration) {
+  return valueAdd * (curTime /= duration) * curTime + valueFrom;
+}
+
 
 function mode(arr) {
   return arr.sort((a,b) =>
@@ -145,6 +218,10 @@ class Vector {
       return this
     }
 
+    this.dot = function(vector) {
+      console.log('dot product not finished')
+    }
+
     this.sub = function (vector) {
       this.x = this.x - vector.x
       this.y = this.y - vector.y
@@ -203,5 +280,3 @@ class Vector {
     return new Vector(Math.cos(rotation), Math.sin(rotation))
   }
 }
-
-// let v = new Vector(10,10)

@@ -5,11 +5,11 @@ class Player {
       // instance of Ship class
     }
     this.reputation = {} //todo
+    this.currency = 0
   }
   update() {
     this.controlShip()
   }
-
   controlShip() {
     let ship = this.ship
     if(!keys.accel && ship.brakes.auto) ship.brake() 
@@ -21,11 +21,11 @@ class Player {
     if(!keys.rotateCCW && !keys.rotateCW) {
       ship.steering = false
     }
-    if(keys.rotateCW) {
-      ship.rotateCW()
+    if(keys.rotateCW && !keys.rotateCCW) {
+      ship.rotate(1)
     }
-    if(keys.rotateCCW) {
-      ship.rotateCCW()
+    if(keys.rotateCCW && !keys.rotateCC) {
+      ship.rotate(-1)
     }
   }
 }

@@ -1,40 +1,21 @@
-class Entity {
-  constructor(pos = Vector.zero(), vel = Vector.zero(), rotation = 0, rotation_velocity = 0) {
-    this.pos = pos
-    this.vel = vel
-    this.rotation = rotation
-    this.rotation_velocity = rotation_velocity
-    this.id = 420 //todo some id system
-    this.cell_pos = Vector.zero()
-    this.referenced_in = [entities]
-    entities.push(this)
-  }
-}
-
-class Asteroid extends Entity {
-  constructor(asteroid, pos, vel, rotation, rotation_velocity) {
-    super(pos, vel, rotation, rotation_velocity)
+class Asteroid extends Rigid {
+  constructor(pos, vel, rotation, rotation_velocity, asteroid) {
+    super(pos, vel, rotation, rotation_velocity, asteroid.hitbox)
     this.sources = asteroid.sources
     this.mass = asteroid.mass
+    this.material = asteroid.material
     this.sprites = []
     this.sprites_special = {
       highlights: []
     }
-    this.hitbox = _.cloneDeep(asteroid.hitbox)
     this.sprite_container = new PIXI.Container()
     SpriteTools.constructSprites(this)
-
-    rigids.push(this)
   }
   addToScene() {
     app.stage.addChild(this.sprite_container)
+    this.disabled = false
   }
-  update() {
-    this.updateHitbox()
-    this.move()
-    this.rotate()
-    this.updateSprite()
-  }
+
   move() {
     this.pos.x += this.vel.x * dt
     this.pos.y += this.vel.y * dt
@@ -48,20 +29,47 @@ class Asteroid extends Entity {
     if(this.rotation >= PI*2) this.rotation = 0
     if(this.rotation < 0) this.rotation = PI*2
   }
-  updateSprite() {
+  // updateSprite() {
+  //   //rudimentary solution
+  //   this.sprite_container.position.x = this.pos.x
+  //   this.sprite_container.position.y = this.pos.y
+  //   this.sprite_container.rotation = this.rotation
+
+  //   SpriteTools.updateHighlights(this)
+  // }
+  destroy() {
+    for (let i = 0; i < this.referenced_in.length; i++) {
+      let index = this.referenced_in[i].indexOf(this)
+      this.referenced_in[i].splice(index, 1)
+    }
+    this.removeFromScene()
+  }
+  removeFromScene() {
+    this.disabled = true
+    app.stage.removeChild(this.sprite_container)
+  }
+  update() {
+    this.move()
+    this.rotate()
+    this.updateSprite()
+  }
+}
+
+class GlobalMethods {
+  constructor() {
+    
+  }
+  static updateSprite() {
     this.sprite_container.position.x = this.pos.x
     this.sprite_container.position.y = this.pos.y
     this.sprite_container.rotation = this.rotation
-
     SpriteTools.updateHighlights(this)
   }
-  updateHitbox() {
-
-  }
-  destroy() {
-
-  }
 }
+
+Asteroid.prototype.updateSprite = GlobalMethods.updateSprite
+
+//todo i wanna do away with inheritance entirely and use some sort of prototype composition approach
 
 
 //todo, it'll model asteroid
