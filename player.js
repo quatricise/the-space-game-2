@@ -6,11 +6,13 @@ class Player {
     }
     this.reputation = {} //todo
     this.currency = 0
+    this.character = "Deborah"
   }
   update() {
     this.controlShip()
   }
   controlShip() {
+    if(ui.windows.active !== game) return
     let ship = this.ship
     if(!keys.accel && ship.brakes.auto) ship.brake() 
     if(keys.accel) ship.accelerate() 

@@ -40,6 +40,26 @@ let sources = {
         src: "assets/ship_crown_large/shield.png",
       },
     },
+    bluebird_needle: {
+      fill: {
+        src: "assets/bluebird_needle/fill.png",
+      },
+      highlights_0: {
+        src: "assets/bluebird_needle/highlights_0.png",
+      },
+      highlights_90: {
+        src: "assets/bluebird_needle/highlights_90.png",
+      },
+      highlights_180: {
+        src: "assets/bluebird_needle/highlights_180.png",
+      },
+      highlights_270: {
+        src: "assets/bluebird_needle/highlights_270.png",
+      }, 
+      linework: {
+        src: "assets/bluebird_needle/linework.png",
+      },
+    },
     "crimson_fighter": {
       glow: {
         src: "assets/crimson_league_elite_fighter_smaller/glow.png",

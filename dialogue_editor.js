@@ -1,321 +1,374 @@
-let dialogue_nodes = [] //shit, this needs to be proofed, i'll create a map of id's, and the id needs to be checked against that, but the map must be continuously updated
-
 class DialogueNode {
-  constructor(id = uniqueID(dialogue_nodes), x, y, name = "Start", from_socket = null, text = "Text", speaker = "Deborah", responses = []) {
-    this.id = id
-    this.pos = {
-      x: x,
-      y: y
-    }
-    this.dragged = false
-    this.name = name
-    this.text = text
+  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2)) {
+    this.id = uniqueID(dialogue_editor.nodes)
+    this.pos = pos.clone()
+    this.type = type
     this.speaker = speaker
-    this.responses = [
-      {
-        value: "No thank you",
-        lead_to: {}
-      },
-      {
-        value: "Yes, thank you",
-        lead_to: {
-          //node id
-        }
-      },
-      {
-        value: "Maybe, but thank you",
-        lead_to: {}
-      },
-    ]
-    this.sockets = {
-      in: [],
-      out: [],
-      get all() {
-        return this.in.concat(this.out)
+    this.text = text
+    this.facts = []
+    this.in = []
+    this.out = []
+    dialogue_editor.nodes.push(this)
+    switch(type) {
+      case "player-text": {
+        this.create_html_player_text()
+        break
+      }
+      case "npc-text": {
+        this.create_html_npc_text()
+        break
+      }
+      case "response-picker": {
+        this.create_html_response_picker()
+        break
       }
     }
-    this.max_width = 600
-    this.visual = El("div", "dialogue-node")
-    let node = this.visual
+    this.update()
+  }
+  update() {
+    this.element.style.left = this.pos.x + "px"
+    this.element.style.top = this.pos.y + "px"
+  }
+  drag() {
+    this.pos.add(mouse.client_moved)
+  }
+  create_html_player_text() {
+    let node = El('div', "dialogue-node")
     let header = El('div', "dialogue-node-header")
-    let node_name = El("div", "dialogue-node-label", [["title", "Conversation name | Click to edit"]], this.name)
-    let widget_edit = El("div", "dialogue-node-widget edit",  [["title", "Click to open in sidebar"]])
-    let widget_drag = El("div", "dialogue-node-widget drag", undefined)
+    let widget_drag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
     let widget_remove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]], undefined)
-    let widget_resize = El("div", "dialogue-node-widget resize", [["title", "Resize"]], undefined)
-    let speaker_field = El('div', "dialogue-node-row dialogue-node-speaker", undefined, this.speaker)
-    let text_field = El('div', "dialogue-node-row dialogue-node-text-field", undefined, this.text)
+    
+    let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
+    let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
+    let wrapper_out = El('div', "dialogue-node-socket-wrapper out")
+    let wrapper_in  = El('div', "dialogue-node-socket-wrapper in")
+    
+    let socket_out = El.special('node-socket-out')
+    let socket_in = El.special('node-socket-in')
+    socket_out.dataset.index = this.out.length
 
-  
-    let node_socket_out = El.special("node-socket")
-    this.sockets.out.push(new NodeConnectionSocket(node_socket_out, this))
+    wrapper_out.append(socket_out)
+    wrapper_in.append(socket_in)
+    node.dataset.id = this.id
+    header.append(widget_drag, widget_remove)
+    node.append(header, speaker, text, wrapper_out, wrapper_in )
 
-    let node_socket_in;
-    if(from_socket) {
-      node_socket_in = ui.dialogue_editor.active_object.visual
-      node_socket_in.style = ""
-      node_socket_in.classList.replace("out", "in")
-      this.sockets.in.push(ui.dialogue_editor.active_object)
-    }
-    else {
-      node_socket_in = El('div', "dialogue-node-socket in", [["title", "Drag to connect to other sockets"]])     
-      this.sockets.in.push(new NodeConnectionSocket(node_socket_in, this))
-    }
-
-    node.style.left = this.pos.x + "px"
-    node.style.top = this.pos.y + "px"
-
-    node_name.dataset.editable = "true"
-    speaker_field.dataset.editable = "true"
-    text_field.dataset.editable = "true"
-
-    //exact string representation of the properties of <this>
-    node_name.dataset.datatype = "name"
-    speaker_field.dataset.datatype = "speaker"
-    text_field.dataset.datatype = "text"
-
-    widget_edit.onclick = () => {
-      ui.dialogue_editor.edit_node_properties(this)
-      ui.dialogue_editor.show_sidebar()
-    }
-
-    widget_drag.dataset.nodeid = this.id
-    widget_drag.onmousedown = () => {
-      this.dragBegin()
-    }
-
-    widget_drag.onmouseup = () => {
-      this.dragEnd()
-    }
-
-    widget_remove.onclick = () => {
-      this.remove()
-    }
-
-    widget_resize.onmousedown = () => {
-      this.resizeBegin()
-    }
-
-    header.append(node_name, widget_edit, widget_drag, widget_remove, widget_resize)
-
-    //todo - same here, this could get replaced once i decide you can drag IN-sockets to OUT-sockets
-    node_socket_out.onmousedown = () => {
-      state.switchState("dragging_node_connection_point")
-      let conn = new NodeConnection(this.sockets.out[0])
-      ui.dialogue_editor.active_object = conn.sockets[1]
-      ui.dialogue_editor.active_connection = conn
-      console.log(this)
-    }
-    //todo - you set this once for the initial sockets, but this needs to be set for all sockets in the class
-    node_socket_in.onmouseup = () => {
-      if(state.current === "dragging_node_connection_point") {
-        this.visual.removeChild(this.sockets.in[0].visual)
-        this.sockets.in[0].connections.forEach(conn=> conn.remove())
-        this.sockets.in[0] = ui.dialogue_editor.returnActiveObject()
-
-        let socket = this.sockets.in[0].visual
-        socket.style = ""
-        socket.classList.replace("out", "in")
-        this.visual.append(socket)
-      }
-    }
-    node.append(header, speaker_field, text_field,  node_socket_in, node_socket_out)
-
-    let children = node.querySelectorAll("*")
-    for (let i = 0; i < children.length; i++) {
-      children[i].dataset.nodeid = this.id
-    }
-
-    Q('#dialogue-editor').append(node)
-    dialogue_nodes.push(this)
+    dialogue_editor.element.append(node)
+    this.element = node
   }
-  add_in_socket() {
+  create_html_npc_text() {
+    this.create_html_player_text()
+  }
+  create_html_response_picker() {
+    let node = El('div', "dialogue-node")
+    let header = El('div', "dialogue-node-header")
+    let widget_drag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
+    let widget_remove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]], undefined)
+    
+    let wrapper_in  = El('div', "dialogue-node-socket-wrapper in")
+    let wrapper_out = El('div', "dialogue-node-socket-wrapper out")
+    
+    let socket_in = El.special('node-socket-in')
+    let socket_out = El.special('node-socket-out')
+    socket_out.dataset.index = this.out.length
+    
+    let buttons = El('div', "flex")
+    let add_btn = El('div', "dialogue-node-icon dialogue-add-output")
+    let remove_btn = El('div', "dialogue-node-icon dialogue-remove-output")
+    wrapper_out.append(socket_out)
+    wrapper_in.append(socket_in)
+    node.dataset.id = this.id
+    header.append(widget_drag, widget_remove)
+    buttons.append(add_btn, remove_btn)
+    node.append(header, buttons, wrapper_in, wrapper_out, )
 
+    dialogue_editor.element.append(node)
+    this.element = node
   }
-  add_out_socket() {
-
-  }
-  dragBegin () {
-    ui.dialogue_editor.active_object = this
-    state.switchState("dragging_node")
-  }
-  dragEnd() {
-    ui.dialogue_editor.active_object = ui.dialogue_editor.returnActiveObject()
-    state.revertState()
-  }
-  drag(event) {
-    this.pos.x += mouse.client_moved.x
-    this.pos.y += mouse.client_moved.y
-    this.visual.style.left = this.pos.x + "px"
-    this.visual.style.top = this.pos.y + "px"
-  }
-  resizeBegin() {
-    ui.dialogue_editor.active_object = this
-    this.max_width = this.visual.clientWidth
-    state.switchState("resizing_node")
-  }
-  resize() {
-    this.max_width += mouse.client_moved.x
-    this.max_width = clamp(this.max_width, 200, 600)
-    this.visual.style.maxWidth = this.max_width + "px"
-  }
-  resizeEnd() {
-    ui.dialogue_editor.active_object = ui.dialogue_editor.returnActiveObject()
-    state.revertState()
-  }
-  addResponse() {
-    this.responses.push(
-      {}
-    )
-  }
-  remove() {
-    dialogue_nodes = dialogue_nodes.filter(node => node !== this)
-    this.sockets.all.forEach(sock => {
-      sock.connections.forEach(conn=> conn.remove())
+  reorder_outputs() {
+    let sockets = Array.from(this.element.querySelectorAll(".dialogue-node-socket.out"))
+    sockets.forEach(s => s.remove())
+    for (let i = 0; i < this.out.length + 1*(this.type === "response-picker"); i++) {
+      let socket_out = El.special('node-socket-out')
+      socket_out.dataset.index = i
+      this.element.querySelector(".dialogue-node-socket-wrapper.out").append(socket_out)
+    }
+    this.out.forEach((node, index) => {
+      node.index = index
     })
-    this.visual.remove()
+  }
+  create_connection(to) {
+    if(this.type !== "response-picker") this.delete_out()
+    if(to.in.find(connection => connection.from.id === this.id)){ 
+      console.log('already exists')
+      return
+    }
+    if(to.out.find(connection => connection.to.id === this.id)) {
+      console.log('already exists')
+      return
+    }
+    let index = this.out.length
+    let conn = {
+      to: to,
+      index: index,
+    }
+    
+    this.out.push(conn)
+
+    to.in.push({
+      from: this
+    })
+
+    if(this.type === "response-picker") {
+      this.reorder_outputs()
+    }
+
+    console.log('created conn')
+  }
+  delete_connection(index) {
+    let conn = this.out[index]
+    console.log("connection index", index)
+    let to = dialogue_editor.nodes.find(node => node.id === conn.to.id)
+    let destination_ref = to.in.find(conn => conn.from.id === this.id)
+    to.in.splice(to.in.indexOf(destination_ref), 1)
+    this.out.splice(index, 1)
+    this.reorder_outputs()
+  }
+  delete_in() {
+    this.in.forEach(conn => {
+      let from = dialogue_editor.nodes.find(node => node.id === conn.from.id)
+      let origin_ref = from.out.find(conn => conn.to.id === this.id)
+      from.reorder_outputs()
+      from.out.splice(from.out.indexOf(origin_ref), 1)
+    })
+    this.in = []
+  }
+  delete_out() {
+    this.out.forEach(conn => {
+      let to = dialogue_editor.nodes.find(node => node.id === conn.to.id)
+      let destination_ref = to.in.find(conn => conn.from.id === this.id)
+      to.in.splice(to.in.indexOf(destination_ref), 1)
+    })
+    this.out = []
+  }
+  delete() {
+    this.delete_in()
+    this.delete_out()
+    this.element.remove()
+    dialogue_editor.nodes = dialogue_editor.nodes.filter(node => node !== this)
   }
 }
 
 class DialogueEditor {
   constructor() {
-    this.active_object = this.initActiveObject()
-    this.edited_object = {
-      element: null,
-      parent: null,
-      text_input: El("textarea", undefined, [["type", "text"],["size", "300"],["width", ""]])
-    }
-    this.active_connection = {}
+    this.nodes = []
+    this.graphics = new PIXI.Graphics()
     this.element = Q('#dialogue-editor')
-    this.sidebar = {
-      element: Q('#dialogue-editor-sidebar'),
-      text: Q('#dialogue-editor-sidebar #text-container'),
-      text_rules: Q('#dialogue-editor-sidebar #text-rules-container'),
-      response: Q('#dialogue-editor-sidebar #response-container'),
-      response_rules: Q('#dialogue-editor-sidebar #response-rules-container'),
+    this.create_html()
+    this.state = {
+      set(value) {
+        let val = this.values.find(v => v === value)
+        if(val) {
+          this.previous = this.current
+          this.current = val
+          console.log("state: "  + this.current)
+        }
+        else {
+          console.log('invalid value')
+        }
+      },
+      revert() {
+        this.current = this.previous
+      },
+      is(...values) {
+        let match = false
+        values.forEach(val => {
+          if(this.current === val) match = true
+        })
+        return match
+      },
+      values: [
+        "default",
+        "connecting",
+        "creating",
+        "panning",
+        "dragging",
+      ],
+      current: "default",
+      previous: "default"
     }
-
-    this.selection = null
+    this.selected = {
+      connections: [],
+      nodes: [],
+    }
+    this.active_node = {}
   }
-  editObject(element) {
-    if(this.edited_object.element) this.cancelEdit()
-    let input = this.edited_object.text_input
-
-    this.edited_object.element = element
-    this.edited_object.parent = element.parentElement
-    element.replaceWith(input)
-    input.setAttribute("class", element.className)
-    input.value = element.innerText
-    input.select()
-    state.switchState("editing_text_field")
+  create_html() {
+    this.svg_cont = El("div", "svg-container")
+    this.element.append(this.svg_cont)
   }
-  cancelEdit() {
-    this.edited_object.text_input.replaceWith(this.edited_object.element)
-    this.edited_object.element = null
-    this.edited_object.parent = null
-    state.revertState()
+  show() {
+    this.element.classList.remove('hidden')
   }
-  confirmEdit() {
-    let element = this.edited_object.element
-    let input = this.edited_object.text_input
-
-    this.edited_object.text_input.replaceWith(element)
-    this.edited_object.element = null
-    this.edited_object.parent = null
-    element.innerText = input.value
-
-    let node = dialogue_nodes.find(node => node.id === +element.dataset.nodeid)
-    node[element.dataset.datatype] = element.innerText
-    state.revertState()
+  hide() {
+    this.element.classList.add('hidden')
   }
-  returnActiveObject() {
-    let obj = this.active_object
-    this.active_object = this.initActiveObject()
-    state.revertState()
-    return obj
-  }
-  initActiveObject() {
-    this.active_object = {drag() {},resize() {}}
-  }
-  toggle_visibility() {
+  toggle() {
     this.element.classList.toggle('hidden')
   }
-  toggle_sidebar() {
-    this.sidebar.element.classList.toggle("open")
+  pan() {
+    this.nodes.forEach(node => {
+      node.pos.add(mouse.client_moved)
+    })
   }
-  show_sidebar() {
-    this.sidebar.element.classList.add("open")
+  handle_input(event) {
+    if(ui.windows.active !== this) return
+    switch(event.type) {
+      case "keydown"    : { this.handle_keydown(event); break;}
+      case "keyup"      : { this.handle_keyup(event); break;}
+      case "mousedown"  : { this.handle_mousedown(event); break;}
+      case "mousemove"  : { this.handle_mousemove(event); break;}
+      case "mouseup"    : { this.handle_mouseup(event); break;}
+      case "click"      : { this.handle_click(event); break;}
+    }
   }
-  edit_node_properties(node) {
-    Array.from(this.sidebar.element.querySelectorAll('.sidebar-row')).forEach(el => el.remove())
-    this.sidebar.element.append(El("div", "sidebar-row label", undefined, "text"))
-    this.sidebar.element.append(El("div", "sidebar-row text", undefined, node.text))
-  }
-  begin_selection() {
+  handle_keydown(event) { 
 
   }
-  end_selection() {
+  handle_keyup(event) {
     
   }
-  update_selection () {
+  handle_mousedown(event) {
+    let target = event.target
+    this.active_node = this.get_node_from_event(event)
+    if(event.button === 0) {
+      if(event.target.closest(".dialogue-node-socket.out")) {
+        this.state.set("connecting")
+      }
+      if(event.target.closest(".dialogue-node-widget.drag")) {
+        this.state.set("dragging")
+      }
+      if(event.target.closest(".dialogue-node-widget.remove")) {
+        this.active_node.delete()
+      }
+      if(event.target === this.element) {
+        this.state.set("creating")
+      }
+      if(event.target.closest("path")) {
+        let svg = event.target.closest("svg")
+        svg.childNodes[0].setAttribute("stroke", "blue")
+        let node = this.nodes.find(node => node.id === +event.target.closest("svg").dataset.id)
+        let index = +svg.dataset.index
+        node.delete_connection(index)
+        this.reconstruct_html()
+      }
 
-  }
-}
-
-let node_connections = []
-
-class NodeConnection {
-  constructor(socket_origin) {
-    this.visual = SVGEl("svg", "dialogue-node-connection", [["viewBox", "0 0 " + cw + " " + ch],["preserveAspectRatio", "xMinYMax"],["width", cw],["height", ch], ["fill", "none"]])
-    this.path = SVGEl("path", undefined, [["d", "M 0 0 L 250 250"],["stroke", "green"], ["stroke-width","2"]])
-    this.sockets = [
-      socket_origin, 
-      new NodeConnectionSocket(El.special('node-socket'))
-    ]
-    this.sockets.forEach(sock=> {sock.connections.push(this)})
-    this.visual.append(this.path)
-    Q('#dialogue-editor').append(this.visual)
-    node_connections.push(this)
-    console.log(this.visual)
-  }
-  updateVisual() {
-    let rects = [ 
-      this.sockets[0].visual.getBoundingClientRect(),
-      this.sockets[1].visual.getBoundingClientRect(),
-    ]
-    this.path.setAttribute("d", 
-    "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
-    "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
-    )
-  }
-  remove() {
-    node_connections = node_connections.filter(conn => conn !== this)
-    this.visual.remove()
-  }
-}
-
-class NodeConnectionSocket {
-  constructor(visual, parent_node = null) {
-    this.visual = visual
-    this.pos = {
-      x: mouse.client_pos.x,
-      y: mouse.client_pos.y,
     }
-    this.parent_node = parent_node
-    this.connections = []
-    Q('#dialogue-editor').append(this.visual)
+    if(event.button === 1) {
+      if(event.target === this.element) {
+        this.state.set("panning")
+      }
+    }
+    if(event.button === 2) {
+      if(event.target === this.element) {
+        this.state.set("creating")
+      }
+    }
   }
-  drag(e) {
-    this.pos.x += mouse.client_moved.x
-    this.pos.y += mouse.client_moved.y
-    this.visual.style.left = this.pos.x + "px"
-    this.visual.style.top = this.pos.y + "px"
+  handle_mousemove(event) {
+    if(this.state.is("dragging")) {
+      this.active_node.drag(event)
+    }
+    if(this.state.is("panning")) {
+      this.pan()
+    }
+    this.update_html()
   }
-  beginConnection() {
+  handle_mouseup(event) {
+    if(event.button === 0) {
+      if(this.state.is("connecting") && event.target.closest(".dialogue-node")) {
+        let connect_to = this.get_node_from_event(event)
+        this.active_node.create_connection(connect_to, 0)
+        this.active_node = {}
+      }
+      if(this.state.is("connecting") && event.target === this.element) {
+        let node = this.create_node("player-text")
+        this.active_node.create_connection(node)
+      }
+      if(this.state.is("creating") && event.target === this.element) {
+        this.create_node("player-text")
+      }
+    }
+    if(event.button === 2) {
+      if(this.state.is("creating") && event.target === this.element) {
+        this.create_node("response-picker")
+      }
+    }
+    this.state.set("default")
+    this.reconstruct_html()
+  }
+  handle_click(event) {
 
   }
-  closeConnection() {
-
+  create_node(type) {
+    let node = new DialogueNode(type, "Lorem Ipsum", "unknown", mouse.client_pos)
+    return node
   }
+  get_node_from_event(event) {
+    if(event.target.closest(".dialogue-node")) {
+      return this.nodes.find(node => node.id === +event.target.closest(".dialogue-node").dataset.id)
+    }
+    else return null
+  }
+  reconstruct_html() {
+    console.log("Reconstruct")
+    //generate svgs for connections
+    this.svg_cont.innerHTML = ""
+    this.nodes.forEach(node => {
+      node.update()
+      node.out.forEach(conn => {
+        let svg = SVGEl("svg", "dialogue-node-connection", [["viewBox", "0 0 " + cw + " " + ch],["preserveAspectRatio", "xMinYMax"],["width", cw],["height", ch], ["fill", "none"]])
+        let path = SVGEl("path", undefined, [["d", "M 0 0 L 250 250"],["stroke", "green"], ["stroke-width","8"]])
+        // console.log("index", conn.index)
+        let rects = [
+          node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
+          conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
+        ]
+        // console.log(node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`))
+        path.setAttribute("d", 
+          "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
+          "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
+        )
+        svg.append(path)
+        svg.dataset.id = node.id
+        svg.dataset.index = conn.index
+        this.svg_cont.append(svg)
+      })
+    })
+    this.update_html()
+  }
+  update_html() {
+    // console.log('update')
+    this.nodes.forEach(node => {
+      node.update()
+      node.out.forEach(conn => {
+        let rects = [
+          node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
+          conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
+        ]
+        let selector = "svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path"
+        let path = this.svg_cont.querySelector(selector)
 
+        path.setAttribute("d",
+          "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
+          "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
+        )
+      })
+    })
+  }
+  static node_types = [
+    "player-text",
+    "npc-text",
+    "response-picker",
+  ]
 }

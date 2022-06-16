@@ -2,8 +2,11 @@ let debug = {
   camera: false,
   hitbox: false,
   mouse: false,
+  editor: false,
+  dialogue_editor: false,
   colors: {
     hitbox_no_collision: 0xffff00,
+    hitbox_shape_selected: 0x0000ff,
     hitbox_collision: 0xff0000,
     hitbox_interactable: 0x00ff00,
   },
@@ -36,8 +39,10 @@ const state = {
     "dragging_node_connection_point",
     "editing_text_field",
     "resizing_node",
+    "panning_dialogue_editor",
+    "editing_hitbox",
   ],
-  switchState(value) {
+  set(value) {
     this.previous = this.current
     let state = this.options.find(state => state === value)
     if(state === undefined) console.log('State not allowed to be set to: ' + value)
@@ -45,16 +50,30 @@ const state = {
     this.current = state
     console.log("state: " + this.current)
   },
+  is(...values) {
+    let match = false
+    values.forEach(val => {
+      if(val === this.current) match = true
+    })
+    return match
+  },
+  any(...values) {
+    let match = false
+    values.forEach(val => {
+      if(val === this.current) match = true
+    })
+    return match
+  },
+  isnt(...values) {
+    let match = true
+    values.forEach(val => {
+      if(val === this.current) match = false
+    })
+    return match
+  },
+
   revertState() {
     this.current = this.previous
     console.log("state: " + this.current)
   }
-}
-
-let map_open = false
-
-const facts = {
-  has_bought_burger: false,
-  has_money: false,
-  tried_to_steal_burger: false,
 }

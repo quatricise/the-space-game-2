@@ -2,7 +2,12 @@
   font-family: "space";
   src: url(fonts/space_grotesk_variable.ttf);
 }
-
+:root {
+  --dark-1: #131314;
+  --dark-2: #1b1d1f;
+  --dark-3: #393c3f;
+  --dark-3: #2b2d30;
+}
 body {
   margin: 0;
   padding: 0;
@@ -34,6 +39,7 @@ body {
 
 input[type = "text"] {
   color: inherit;
+  background-color: inherit;
   outline: none;
   border: none;
   font-family: inherit;
@@ -43,9 +49,60 @@ input[type = "text"] {
 
 textarea {
   color: inherit;
+  background-color: inherit;
   outline: none;
   border: none;
   font-family: inherit;
   width: inherit;
   max-width: inherit;
+  min-height: max-content;
+}
+
+#mouse-tooltip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  background-color: var(--dark-3);
+  z-index: 100;
+  color: white;
+  width: max-content;
+}
+
+.search-bar {
+  position: absolute;
+  top: 20px;
+  border-radius: 100px;
+  background-color: var(--dark-3);
+  max-width: 300px;
+  min-width: max-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+}
+
+.search-bar input {
+  background-color: var(--dark-1);
+  border-radius: 2px;
+  height: 24px;
+  caret-color: white;
+  padding: 5px;
+  color: white;
+}
+
+.search-icon {
+  background-image: url(assets/hitbox_editor/icon-search.png);
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 12px;
+  user-select: none;
+  pointer-events: none;
 }

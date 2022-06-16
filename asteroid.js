@@ -12,7 +12,7 @@ class Asteroid extends Rigid {
     SpriteTools.constructSprites(this)
   }
   addToScene() {
-    app.stage.addChild(this.sprite_container)
+    layer_debris.addChild(this.sprite_container)
     this.disabled = false
   }
 
@@ -22,10 +22,10 @@ class Asteroid extends Rigid {
   }
   rotate() {
     this.rotation += this.rotation_velocity * dt
-    this.clampRotation()
+    this.wrapRotation()
     if(Math.abs(this.rotation_velocity) < 0.01) this.rotation_velocity = 0
   }
-  clampRotation() {
+  wrapRotation() {
     if(this.rotation >= PI*2) this.rotation = 0
     if(this.rotation < 0) this.rotation = PI*2
   }

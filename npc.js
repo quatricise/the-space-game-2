@@ -8,6 +8,9 @@ class NPC {
   controlShip() {
 
   }
+  choose_target() {
+    
+  }
   check_for_collision() {
     //filter rigidbodies for candidates for collision
     //maybe use this, but it might not be enough scope to effectively dodge projectiles

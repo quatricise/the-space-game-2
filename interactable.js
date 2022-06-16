@@ -12,6 +12,6 @@ class Interactable extends Entity {
     }
   }
   update() {
-    
+    //HitboxTools.updateHitbox(this.hitbox) i guess
   }
 }

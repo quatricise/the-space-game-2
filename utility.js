@@ -24,15 +24,24 @@ function El(
 }
 
 El.special = (name) => {
-  if(name === "node-socket") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other sockets"]])
+  if(name === "node-socket-out") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other sockets"]])
+  if(name === "node-socket-in") return El('div', "dialogue-node-socket in", [["title", "Drag to connect to other sockets"]])
+}
+
+El.has_all_classes = (element, classes = []) => {
+  let predicate = true
+  classes.forEach(cls => {
+    if(element.classList.contains(cls) === false) predicate = false 
+  })
+  return predicate
 }
 
 function SVGEl(
-  element_tag_name = "div", 
+  element_tag_name = "svg", 
   css_class = "words separated by spaces", 
   attributes = [] /* = [["key", "value"]] */,
   inner_text = "",
-  ) {
+) {
   let element = document.createElementNS("http://www.w3.org/2000/svg", element_tag_name)
   let css_classes = css_class.split(' ')
   attributes.forEach(attr=> {
@@ -198,7 +207,8 @@ const PI = Math.PI
 class Vector {
   constructor(x, y) {
     this.x = x
-    this.y = y
+    if(y === undefined) this.y = x
+    else this.y = y
 
     this.length = function () {
       return Math.sqrt(this.x * this.x + this.y * this.y)
@@ -226,6 +236,10 @@ class Vector {
       this.x = this.x - vector.x
       this.y = this.y - vector.y
       return this
+    }
+
+    this.clone = function () {
+      return new Vector(this.x, this.y)
     }
 
     this.mult = function (magnitude) {
@@ -272,6 +286,11 @@ class Vector {
     this.inbound = function (bound) {
       return this.x < bound && this.x > -bound && this.y < bound && this.y > -bound
     }
+    this.set = function (x, y) {
+      this.x = x
+      if(y === undefined) this.y = x
+      else this.y = y
+    }
   }
   static zero() {
     return new Vector(0, 0)
@@ -279,4 +298,8 @@ class Vector {
   static fromAngle(rotation) {
     return new Vector(Math.cos(rotation), Math.sin(rotation))
   }
+}
+
+function capitalize(string) {
+  return string.charAt(0).toLocaleUpperCase() + string.slice(1)
 }

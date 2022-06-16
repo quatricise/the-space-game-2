@@ -36,3 +36,33 @@ class SpriteTools {
     }
   }
 }
+
+
+function ImgSequence(src = "path/to/file0000.png", frames_total = 5) {
+  let str = src.slice(0, src.length - 8)
+  let sequence = []
+    for (let i = 0; i < frames_total; i++) {
+      let src;
+      if(i > 999) src = str + "" + i + ".png"
+      else
+      if(i > 99) src = str + "0" + i + ".png"
+      else
+      if(i > 9) src = str + "00" + i + ".png"
+      else src = str + "000" + i + ".png"
+      sequence.push(src)
+    }
+    return sequence
+}
+
+function AnimatedSprite(first_image = "assets/file0000.png", image_count) {
+  let img_sequence = ImgSequence(first_image, image_count)
+  let textureArray = []
+
+  for (let i = 0; i < img_sequence.length; i++)
+  {
+      let texture = PIXI.Texture.from(img_sequence[i]);
+      textureArray.push(texture);
+  };
+  let sprite = new PIXI.AnimatedSprite(textureArray);
+  return sprite
+}

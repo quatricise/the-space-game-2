@@ -2,39 +2,83 @@ let scenes = [] //temporary way to store all info relating to one physical world
 let cameras = []
 let entities = [] //all game objects which exist in the world and need per-frame updating
 let rigids = [] // all rigidbodies with physics
+let projectiles = []
 let ships = []
 let characters = [] //array of people, they are like the player and can drive ships
 let interactables = [] //entities in the world which can trigger events
 
+const loader = PIXI.Loader.shared
+
+let editor_app = new PIXI.Application({ width: cw, height: ch, });
+editor_app.view.classList.add('editor-app')
+
+let editor_layer_debris = new PIXI.Container()
+let editor_layer_ships = new PIXI.Container()
+let editor_layer_graphics = new PIXI.Container()
+
+let editor_layers = [
+  editor_layer_debris,
+  editor_layer_ships,
+  editor_layer_graphics,
+]
+
+const editor = new HitboxEditor()
+editor.element.append(editor_app.view)
+
+editor_layers.forEach(layer => {
+  editor.app.stage.addChild(layer)
+})
+
+class Game {
+  constructor() {
+    this.element = Q('#game')
+    this.graphics = new PIXI.Graphics()
+    this.app = app
+    layer_graphics.addChild(this.graphics)
+  }
+  show() {
+    this.element.classList.remove('hidden')
+  }
+  hide() {
+    this.element.classList.add('hidden')
+  }
+  toggle() {
+    this.element.classList.toggle('hidden')
+  }
+}
+
+
 let app = new PIXI.Application({ width: cw, height: ch, });
 document.body.appendChild(app.view);
 
-let debug_app = new PIXI.Application({ width: cw, height: ch, });
-// document.body.appendChild(debug_app.view);
-
-let graphics = new PIXI.Graphics()
-app.stage.addChild(graphics)
-
-const loader = PIXI.Loader.shared
-
-//render layers //todo, currently not implemented
+//render layers //todo, currently not very implemented
 let layer_debris = new PIXI.Container()
+let layer_projectiles = new PIXI.Container()
 let layer_ships = new PIXI.Container()
+let layer_graphics = new PIXI.Container()
 
 let render_layers = [ 
   layer_debris,
+  layer_projectiles,
   layer_ships,
+  layer_graphics,
 ]
+
+let game = new Game()
+
 render_layers.forEach(layer => {
-  app.stage.addChild(layer)
+  game.app.stage.addChild(layer)
 })
+
+//dialogue editor
+const dialogue_editor = new DialogueEditor()
 
 //background grid
 let texture = PIXI.Texture.from("assets/grid_cell.png")
 const grid = {
   sprite: null,
   cell_size: 512,
-  origin: Vector.zero(),
+  origin: new Vector(0),
 }
 grid.sprite = new PIXI.TilingSprite(texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
 layer_debris.addChild(grid.sprite)
@@ -44,36 +88,8 @@ circle.anchor.x = 0.5
 circle.anchor.y = 0.5
 app.stage.addChild(circle)
 
-function ImgSequence(src = "path/to/file0000.png", frames_total = 5) {
-  let str = src.slice(0, src.length - 8)
-  let sequence = []
-    for (let i = 0; i < frames_total; i++) {
-      let src;
-      if(i > 999) src = str + "" + i + ".png"
-      else
-      if(i > 99) src = str + "0" + i + ".png"
-      else
-      if(i > 9) src = str + "00" + i + ".png"
-      else src = str + "000" + i + ".png"
-      sequence.push(src)
-    }
-    return sequence
-}
 
-function AnimatedSprite(first_image = "assets/file0000.png", image_count) {
-  let img_sequence = ImgSequence(first_image, image_count)
-  let textureArray = []
-
-  for (let i = 0; i < img_sequence.length; i++)
-  {
-      let texture = PIXI.Texture.from(img_sequence[i]);
-      textureArray.push(texture);
-  };
-  let sprite = new PIXI.AnimatedSprite(textureArray);
-  return sprite
-}
-
-let debug_ship = new Ship(new Vector(cw/2, ch/2), undefined, undefined, undefined, data.ships.crimson_fighter)
+let debug_ship = new Ship(new Vector(0,0), undefined, undefined, undefined, data.ships.crimson_fighter)
 debug_ship.addToScene()
 
 let player = new Player()
@@ -85,7 +101,7 @@ debug_station.addToScene()
 let debug_fighter = new Asteroid(new Vector(500, 500), new Vector(0,0), 0, 0, data.entities.asteroids.crimson_fighter)
 debug_fighter.addToScene()
 
-let debug_asteroid_0 = new Asteroid(new Vector(-5,-5), new Vector(0,0), 150, 1.2, data.entities.asteroids.medium_0)
+let debug_asteroid_0 = new Asteroid(new Vector(-500,-500), new Vector(0,0), 150, 1.2, data.entities.asteroids.medium_0)
 debug_asteroid_0.addToScene()
 
 let debug_asteroid_1 = new Asteroid(new Vector(-70,-70), new Vector(0,0), 150, 0.4, data.entities.asteroids.medium_1)
@@ -96,50 +112,11 @@ interactables.push(new Interactable(new Vector(200, 200)))
 let dt = 0;
 let dtf = 0;
 
-
-function tick(delta) {
-  dt = app.ticker.deltaMS / 1000
-  dtf = delta
-
-  graphics.clear()
-
-  cameras.forEach(camera => camera.update())
-  mouse.update_world_pos()
-  entities.forEach(entity => {
-    entity.update()
-    entity.cell_pos.x = Math.floor(entity.pos.x / grid.cell_size)
-    entity.cell_pos.y = Math.floor(entity.pos.y / grid.cell_size)
-  })
-  rigids.forEach(rigid=> {
-    HitboxTools.updateHitbox(rigid)
-  })
-  player.update()
-  
-  testCollision()
-  solveCollision()
-
-  interactables.forEach(interactable => {
-    HitboxTools.drawHitbox(interactable)
-  })
-  rigids.forEach(rigid => {
-    HitboxTools.drawHitbox(rigid)
-  })
-
-  ui.map.update()
-
-  graphics.lineStyle(2, 0x0000FF, 1);
-  graphics.arc(rigids[0].pos.x, rigids[0].pos.y, 150, rigids[0].rotation + 1, rigids[0].rotation + PI - 1)
-  graphics.closePath()
-  graphics.arc(rigids[0].pos.x, rigids[0].pos.y, 150, rigids[0].rotation + PI + 1, rigids[0].rotation - 1)
-  graphics.closePath()
-}
-
-
 ui.map = new WorldMap()
-let map = ui.map
 const camera = new Camera("world_camera")
+let map = ui.map
 
-function init() {
-  camera.lockTo(player.ship)
-  app.ticker.add(tick)
-}
+ui.windows.all.push(editor)
+ui.windows.all.push(game)
+ui.windows.all.push(dialogue_editor)
+ui.windows.active = game

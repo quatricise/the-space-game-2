@@ -34,6 +34,15 @@ class Ship extends Rigid {
     this.shields = _.cloneDeep(ship.systems.shields)
     this.dash = _.cloneDeep(ship.systems.dash)
 
+    //location
+    this.location = {
+      system: "tauri_b",
+      planet: "tauri_b",
+    }
+    //crew
+    this.crew = []
+    this.captain = {}
+
     ships.push(this)
     this.referenced_in.push(ships)
 
@@ -43,10 +52,10 @@ class Ship extends Rigid {
     //after being spawned, it'll recalculate the hitbox data to be in the right position
   }
   addToScene() {
-    app.stage.addChild(this.sprite_container)
+    layer_ships.addChild(this.sprite_container)
   }
   removeFromScene() {
-    app.scene.removeChild(this.container)
+    layer_ships.removeChild(this.sprite_container)
     // !! don't remove the ship from ships[], for continuity reasons
   }
   rotate(direction = [-1 || 1]) {
@@ -131,6 +140,12 @@ class Ship extends Rigid {
     //this will take control away from the controlling entity and dock it into a station or some place,
     //specifying the a vec2 offset if it's not to be parked to the center of the object //maybe move this logic inside the station itself
   }
+  skip() {
+
+  }
+  draw_ghosts() {
+
+  }
   update() {
     this.updateHitbox()
     this.move()
@@ -140,8 +155,18 @@ class Ship extends Rigid {
   }
   destroy() {
     for (let i = 0; i < this.referenced_in.length; i++) {
-      this.referenced_in[i] = this.referenced_in[i].filter(object => object !== this)
+      this.referenced_in[i].splice(this.referenced_in[i].indexOf(this), 1)
     }
+    this.sprites.forEach(sprite => sprite.destroy())
+    this.sprite_container.destroy()
     this.removeFromScene()
   }
 }
+
+// Ship.prototype.add_body = Rigid.prototype.add_body
+// Ship.prototype.offset_body = Rigid.prototype.offset_body
+// Ship.prototype.remove_body = Rigid.prototype.remove_body
+// Ship.prototype.offset_vertex = Rigid.prototype.offset_vertex
+// Ship.prototype.move_point = Rigid.prototype.move_point
+// Ship.prototype.remove_point = Rigid.prototype.remove_point
+// Ship.prototype.get_indices = Rigid.prototype.get_indices

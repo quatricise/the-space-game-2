@@ -33,6 +33,7 @@ class Polygon {
   constructor(vertices) {
     this.vertices = vertices
     this.edges = this.buildEdges(vertices)
+    this.color = debug.colors.hitbox_no_collision
   }
   rotate(rotation) {
     this.vertices.forEach(vertex => {
@@ -43,6 +44,7 @@ class Polygon {
     this.edges = this.buildEdges()
   }
   buildEdges() {
+    return
     let edges = [];
     let vertices = this.vertices
     if (vertices.length < 3) {
@@ -156,12 +158,23 @@ class Collision {
       verts.push(vertex.x)
       verts.push(vertex.y)
     })
-    
     return Intersects.polygonCircle(
       verts,
       circle.pos.x,
       circle.pos.y,
       circle.radius,
+    )
+  }
+  static polygonPoint(polygon, point) {
+    let verts = []
+    polygon.vertices.forEach((vertex)=> {
+      verts.push(vertex.x)
+      verts.push(vertex.y)
+    })
+    return Intersects.polygonPoint(
+      verts,
+      point.x,
+      point.y,
     )
   }
   static polygonPolygon(polygon1, polygon2) {
@@ -201,41 +214,46 @@ class Collision {
 }
 
 class HitboxTools {
+  static drawPolygon(body) {
+    let color = body.color
+        ui.windows.active.graphics.lineStyle(2, color, 1);
+        body.vertices.forEach((vertex, index) => {
+          ui.windows.active.graphics.moveTo(vertex.x, vertex.y);
+          
+          if(index === body.vertices.length - 1)
+          ui.windows.active.graphics.lineTo(body.vertices[0].x, body.vertices[0].y);
+          else
+          ui.windows.active.graphics.lineTo(body.vertices[index + 1].x, body.vertices[index + 1].y);
+        })
+      ui.windows.active.graphics.closePath();
+  }
   static drawHitbox(entity) {
     if(!visible.hitbox) return
     let color = entity.hitbox.color
     if(entity.hitbox.type === "circle") {
-      graphics.lineStyle(2, color, 1);
-      graphics.drawCircle(entity.pos.x, entity.pos.y, entity.hitbox.radius)
-      graphics.closePath();
+      ui.windows.active.graphics.lineStyle(2, color, 1);
+      ui.windows.active.graphics.drawCircle(entity.pos.x, entity.pos.y, entity.hitbox.radius)
+      ui.windows.active.graphics.closePath();
     }
     if(entity.hitbox.type === "polygon") {
+      
       let hitbox = entity.hitbox
       hitbox.bodies.forEach((body) => {
-        graphics.lineStyle(2, color, 1);
-        body.vertices.forEach((vertex, index) => {
-          graphics.moveTo(vertex.x, vertex.y);
-          
-          if(index === body.vertices.length - 1)
-          graphics.lineTo(body.vertices[0].x, body.vertices[0].y);
-          else
-          graphics.lineTo(body.vertices[index + 1].x, body.vertices[index + 1].y);
-        })
-        graphics.closePath();
+        this.drawPolygon(body)
       })
     }
     if(entity.hitbox.type === "box") {
       let box = entity.hitbox
       let pos = entity.pos
       
-      graphics.lineStyle(2, color, 1);
-      graphics.drawRect(
+      ui.windows.active.graphics.lineStyle(2, color, 1);
+      ui.windows.active.graphics.drawRect(
         pos.x - box.dim.x/2, 
         pos.y - box.dim.y/2, 
         box.dim.x, 
         box.dim.y
       )
-      graphics.closePath()
+      ui.windows.active.graphics.closePath()
     }
   }
   static rotatePolygonHitbox(entity) {
@@ -270,7 +288,7 @@ class HitboxTools {
       entity.hitbox.pos.y = entity.pos.y
     }
     if(entity.hitbox.type === "polygon") {
-      this.updatePolygonHitbox(entity) //shit, this needs to be called first actually
+      this.updatePolygonHitbox(entity)
       this.rotatePolygonHitbox(entity)
     }
 
@@ -285,17 +303,15 @@ class HitboxTools {
 
 
 function testCollision() { 
+  let total = 0
   let number_of_checks = 0
   rigids.forEach(rigid => {
     rigid.collided = false
     rigid.collided_with = null
   })
-  // console.log(rigids.filter(rigid=> rigid.collided === true))
   rigids.forEach(rigid => {
     //broadphase
     let candidates = Collision.broadphaseFilter(rigid) 
-    // let candidates = Collision.broadphaseFilter(rigid) 
-
 
     //second phase
     candidates.forEach(candidate => {
@@ -325,6 +341,7 @@ function testCollision() {
         }
         if(Collision.circleCircle(circle1, circle2)) {
           collided = true
+          total++
         }
       }
       else
@@ -344,6 +361,7 @@ function testCollision() {
         polygonal.hitbox.bodies.forEach(body => {
           if(Collision.polygonCircle(body, circular.hitbox)) {
             collided = true
+            total++
           }
         })
       }
@@ -354,7 +372,10 @@ function testCollision() {
         rigid.hitbox.bodies.forEach(r_body => {
           candidate.hitbox.bodies.forEach(c_body => {
             if(checked_bodies.find(body => body === c_body)) return
-            if(Collision.polygonPolygon(r_body, c_body)) collided = true
+            if(Collision.polygonPolygon(r_body, c_body)) {
+              collided = true
+              total++
+            }
           })
           checked_bodies.push(r_body)
         })
@@ -376,8 +397,6 @@ function testCollision() {
   if(debug.hitbox) console.log("number of checks/s: " + number_of_checks)
 
   //test player inside interactable objects
-  //todo, maybe this needs the broadphase too, but given it's just comparing boxes,
-  //probably not
   interactables.forEach(interactable => {
     if(interactable.hitbox.type === "box") {
       let box = {
@@ -394,6 +413,7 @@ function testCollision() {
       }
     }
   })
+  Q('#collision-count').innerText = total
 }
 
 function solveCollision() {

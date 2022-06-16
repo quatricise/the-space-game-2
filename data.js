@@ -1,5 +1,4 @@
 let data = {
-
   weapons: {
     missile_mk1: {
       type: "missile",
@@ -15,6 +14,18 @@ let data = {
       projectile_speed: 400, // px/s
       reload_speed: 750,
       firerate: 4, // rounds/s
+    },
+    missile_helios: {
+      type: "missile",
+      damage: 3,
+      speed: 300, // px/s
+      target_locking: true,
+      effects: [
+        {
+          type: "fire",
+          chance: 80,
+        }
+      ]
     }
   },
 
@@ -35,27 +46,22 @@ let data = {
       crimson_station: {
         sources: sources.img.stations.crimson,
         mass: 300, //in kilotons
-        hitbox: new PolygonHitbox([
-          PolygonBuilder.Square(200, {x: 0, y: 0}),
-        ])
+        hitbox: "crimson_station",
       },
       crimson_fighter: {
         sources: sources.img.crimson_fighter,
         mass: 300, //in kilotons
-        hitbox: new PolygonHitbox([
-          PolygonBuilder.Square(50, {x: 0, y: 0}),
-        ])
+        // hitbox: new PolygonHitbox([
+        //   PolygonBuilder.Square(50, {x: 0, y: 0}),
+        // ])
+        hitbox: "crimson_fighter_small"
       },
     },
   },
 
-  //dialogues might be tied to characters, that seems like
-  //a sensible choice - you can have the same conversation
-  //with similar implications in any star system the character
-  //is found in
   characters: {
-    "Character Name": {
-      full_name: "Character Middle Last Name",
+    "Character": {
+      full_name: "Character Name",
       age: 25,
       alignment: { //how much they respect each faction 0-10
         crimson: 8,
@@ -75,8 +81,11 @@ let data = {
         honest: 7,
       },
     },
-    "Deborah": {
-      full_name: "",
+  },
+
+  player: {
+    character: {
+      full_name: "Deborah",
       age: 38,
       lore: `
         Mother of three. Space captain.
@@ -88,12 +97,10 @@ let data = {
         other social problems. She is currently stuck in combat duty, unable to fly back or help them.
 
         She is christian, or at least doesn't mind calling herself that. She's become quite numb
-        to the constant doubts of her faith.
+        to the constant doubts of her faith. 
+        #professional writing
       `,
-    }
-  },
-
-  player: {
+    },
     inventory: [
       //for things which aren't stored in the ship's cargo storage
       {
@@ -102,7 +109,7 @@ let data = {
       },
     ],
     currency: 20, //starting currency
-    ships: [], // object reference
+    ships: [], // all ships you have access to, can direct or pilot yourself
     currentShip: {} // object reference
   },
 
@@ -125,7 +132,7 @@ let data = {
 
 data.projectiles = {
   debug_laser: {
-    speed: 1000,
+    speed: 100,
     hitbox: new CircleHitbox(8),
     life_max: 5000, //time till the projectile either explodes or is destroyed
   }
@@ -152,16 +159,16 @@ data.locations = {
       stations: [],  
     },
   },
-
 }
 
 data.ships = {
   crimson_fighter: {
     model_name: "crimson_fighter",
-    sources: sources.img["crimson_fighter"],
-    hitbox: new PolygonHitbox([
-      PolygonBuilder.Rectangle(60, 80, {x: -30, y: -40})
-    ]),
+    sources: sources.img["bluebird_needle"],
+    // hitbox: new PolygonHitbox([
+    //   PolygonBuilder.Rectangle(60, 80, {x: -30, y: -40}),
+    // ]),
+    hitbox: "bluebird_needle",
     inventory: {
       items: [],
       capacity: 50,
@@ -331,10 +338,23 @@ data.ship_actions = {
   // weapon fire will be mostly localized to the scope of the weapons so they can be used on any ship and behave the same way
 }
 
+data.factions = {
+  crimson_league: {
+    army: {
+      ships: [],
+      personnel: []
+    },
+    territories: [] //list of controlled territories
+  },
+  alliance: {},
+  crown: {},
+  hive: {},
+  traders_union: {},
+}
 
 //create a copy of data, so things can be reverted back at any point
 let data_default = _.cloneDeep(data)
-let d = data //make it easier to reference
+let d = data
 
 let session = {} //idk, some temporary data about things like playtime, performance statistics, idk, open editors, etc..
-let s = session //make it easier to reference
+let s = session
