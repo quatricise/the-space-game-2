@@ -1,8 +1,11 @@
-function exportToJsonFile(data) {
+function exportToJsonFile(data, filename) {
   let dataStr = JSON.stringify(data);
   let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
   // console.log(dataUri)
-  let exportFileDefaultName = 'object.json';
+  let exportFileDefaultName = filename || 'data.json';
+  if(filename) {
+    exportFileDefaultName += ".json"
+  }
 
   let linkElement = document.createElement('a');
   linkElement.setAttribute('href', dataUri);

@@ -19,36 +19,42 @@
     <div class="full-screen-container">
       <div class="game-overlay-tools">
         <div class="hitbox-editor-icon editor-icon" title="Hitbox Editor" onclick="ui.windows.set(editor)"></div>
+        <div class="dialogue-editor-icon editor-icon" title="Dialogue Editor" onclick="ui.windows.set(dialogue_editor)"></div>
       </div>
       <div class="game-stats">
         <div>Collision: <span id="collision-count"></span></div>
       </div>
       <div id="game"></div>
       <div id="dialogue-editor" class="dialogue-editor">
-        <div class="editor-label" title="" onclick="ui.windows.close()">Dialogue editor</div>
-        <div id="dialogue-editor-sidebar" class="dialogue-editor-sidebar">
-          <div class="arrow-open" onclick="dialogue_editor.toggle_sidebar()"></div>
-          <div class="sidebar-header">Properties</div>
-
-          <div id="text-container" class="sidebar-container">
-            <div class="sidebar-container-header">Text</div>
-            <!-- <div class="text-variant"></div> child elements -->
+        <div class="dialogue-editor-navbar">
+          <div class="dialogue-name">Dialogue name</div>
+        </div>
+        <div id="fact-container" class="fact-container hidden">
+          <div class="fact-container-header">
+            <div class="dialogue-node-widget remove"></div>
+            <div class="fact-add-button" title="Add new fact"></div>
+            <div class="fact-input-wrapper">
+              <input id="fact-input" class="fact-input" type="text"></input>
+            </div>
           </div>
-          <div id="text-rules-container" class="sidebar-container">
-            <div class="sidebar-container-header">Text rules</div>
-            <!-- <div class="text-variant"></div> child elements -->
+          <div>
+            <div class="fact-search-bar">
+              <div class="fact-search-icon"></div>
+              <input type="text" name="" id="fact-search-input" onfocus="dialogue_editor.display_fact_search()" oninput="dialogue_editor.display_fact_search()">
+            </div>
+            <div id="fact-search-list" class="fact-search-list hidden">
+              
+            </div>
           </div>
-          <div id="response-container" class="sidebar-container">
-            <div class="sidebar-container-header">Responses</div>
-            <!-- <div class="response"></div> child elements -->
-          </div>
-          <div id="response-rules-container" class="sidebar-container">
-            <div class="sidebar-container-header">Response rules</div>
-            <!-- <div class="response-rule"></div> child elements -->
-          </div>
+          <div class="fact-list-label">Active</div>
+          <div id="fact-list" class="fact-list"></div>
+        </div>
+        <div class="editor-label" title="" onclick="">Dialogue editor</div>
+        <div class="icon-close-container">
+          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
         </div>
       </div>
-      <div id="hitbox-editor" class="full-screen-container">
+      <div id="hitbox-editor" class="hitbox-editor full-screen-container">
         <div class="search-bar hidden" id="hitbox-editor-search-bar">
           <div class="search-icon"></div>
           <input title="Search for editable object" type="text" name="" id="hitbox-editor-search-input">

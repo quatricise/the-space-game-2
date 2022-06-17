@@ -5,8 +5,10 @@
 :root {
   --dark-1: #131314;
   --dark-2: #1b1d1f;
-  --dark-3: #393c3f;
   --dark-3: #2b2d30;
+  --dark-4: #393c3f;
+  --bright-3: #9da6af;
+  --bright-4: #888f96;
 }
 body {
   margin: 0;
@@ -45,6 +47,7 @@ input[type = "text"] {
   font-family: inherit;
   width: inherit;
   max-width: inherit;
+  padding: 0;
 }
 
 textarea {

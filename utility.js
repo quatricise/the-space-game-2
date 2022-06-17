@@ -96,7 +96,11 @@ function uniqueID(array) {
   }
   return id
 }
-
+function stringToBool(string) {
+  if(string === "true") return true
+  if(string === "false") return false
+  else alert(`not "false" or "true"`)
+}
 //valueTo is more accurately an ADD value to the valueFrom - if valueFrom = 900, valueTo = 100, the resulting value = 1000
 function easeLinear(curTime, valueFrom, valueAdd, duration) {
   return (valueAdd * curTime) / duration + valueFrom;
