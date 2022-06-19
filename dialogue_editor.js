@@ -706,6 +706,9 @@ class DialogueEditor {
       })
     })
   }
+  update() {
+    
+  }
   static node_types = [
     "player-text",
     "npc-text",

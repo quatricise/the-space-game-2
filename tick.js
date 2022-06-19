@@ -32,5 +32,7 @@ function tick(delta) {
 
   ui.map.update()
   editor.update()
+  dialogue_editor.update()
+  location_editor.update()
   ui.local_map.update()
 }

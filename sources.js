@@ -40,7 +40,7 @@ let sources = {
         src: "assets/ship_crown_large/shield.png",
       },
     },
-    bluebird_needle: {
+    "bluebird_needle": {
       fill: {
         src: "assets/bluebird_needle/fill.png",
       },

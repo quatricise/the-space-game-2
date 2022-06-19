@@ -41,9 +41,6 @@ class HitboxEditor {
         this.deselect_all_shapes()
       },
     }
-    this.search_bar.input.onchange = () => {
-
-    }
     this.shape = {
       vertices: [],
       color: 0x9900ff,
@@ -51,6 +48,9 @@ class HitboxEditor {
         this.vertices = []
       },
     }
+    this.state = new State(
+
+    )
   }
   center_canvas() {
     this.app.stage.position.set(cw/2, ch/2)
@@ -86,8 +86,8 @@ class HitboxEditor {
     let tool = this.tools.find(t => t === name)
     if(tool) {
       this.tool = tool
-      Qa('.tool-cont').forEach(el => el.classList.remove('active'))
-      Q('[data-toolname="' + tool + '"').classList.add('active')
+      Array.from(this.element.querySelectorAll('.tool-cont')).forEach(el => el.classList.remove('active'))
+      this.element.querySelector('[data-toolname="' + tool + '"').classList.add('active')
       // console.log(name)
     }
   }

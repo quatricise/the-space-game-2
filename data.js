@@ -163,7 +163,7 @@ data.locations = {
 
 data.ships = {
   crimson_fighter: {
-    model_name: "crimson_fighter",
+    model: "crimson_fighter",
     sources: sources.img["bluebird_needle"],
     hitbox: "bluebird_needle",
     inventory: {

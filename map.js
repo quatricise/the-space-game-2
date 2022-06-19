@@ -45,7 +45,7 @@ class WorldMap {
   }
 
   draw() {
-    if(state.current !== "map_open") return
+    if(game.state.isnt("map_open")) return
     let graphics = this.graphics
     graphics.clear()
 

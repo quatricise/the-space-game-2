@@ -199,6 +199,12 @@ class Collision {
       circle2.pos.x, circle2.pos.y, circle2.radius,
     )
   }
+  static pointCircle(point, circle) {
+    return Intersects.pointCircle(
+      point.x, point.y,
+      circle.x, circle.y, circle.radius
+    )
+  }
   static boxBox(box1, box2) {
     return Intersects.boxBox(
       box1.x, box1.y, box1.dim.x, box1.dim.y, 
@@ -279,6 +285,7 @@ class HitboxTools {
     })
   }
   static updateHitbox(entity) {
+    if(!entity.hitbox) return
     if(entity.hitbox.type === "circle") {
       entity.hitbox.pos.x = entity.pos.x
       entity.hitbox.pos.y = entity.pos.y

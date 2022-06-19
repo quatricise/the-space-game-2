@@ -26,56 +26,38 @@ const location_coords = {
   crown_capital: [600,400]
 }
 
-const state = {
-  current: "passive",
-  previous: "none",
-  options: [
-    "conversation",
-    "battle",
-    "passive",
-    "menu",
-    "map_open",
-    "dragging_node",
-    "dragging_node_connection_point",
-    "editing_text_field",
-    "resizing_node",
-    "panning_dialogue_editor",
-    "editing_hitbox",
-  ],
+class State {
+  constructor(...values) {
+    this.values = values
+    this.current =  values[0]
+    this.previous = values[0]
+  }
   set(value) {
-    this.previous = this.current
-    let state = this.options.find(state => state === value)
-    if(state === undefined) console.log('State not allowed to be set to: ' + value)
-    else
-    this.current = state
-    console.log("state: " + this.current)
-    Q('#state-view').innerText = this.current
-  },
+    let val = this.values.find(v => v === value)
+    if(val) {
+      this.previous = this.current
+      this.current = val
+      // console.log("state: "  + this.current)
+    }
+    else {
+      console.log('invalid value')
+    }
+  }
+  revert() {
+    this.current = this.previous
+  }
   is(...values) {
     let match = false
     values.forEach(val => {
-      if(val === this.current) match = true
+      if(this.current === val) match = true
     })
     return match
-  },
-  any(...values) {
-    let match = false
-    values.forEach(val => {
-      if(val === this.current) match = true
-    })
-    return match
-  },
+  }
   isnt(...values) {
     let match = true
     values.forEach(val => {
-      if(val === this.current) match = false
+      if(this.current === val) match = false
     })
     return match
-  },
-
-  revertState() {
-    this.current = this.previous
-    Q('#state-view').innerText = this.current
-    console.log("state: " + this.current)
   }
 }

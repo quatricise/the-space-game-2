@@ -11,11 +11,15 @@ class Asteroid extends Rigid {
     this.sprite_container = new PIXI.Container()
     SpriteTools.constructSprites(this)
   }
-  addToScene() {
-    layer_debris.addChild(this.sprite_container)
+  addToScene(container) {
+    this.scene = container || layer_debris
+    this.scene.addChild(this.sprite_container)
     this.disabled = false
   }
-
+  removeFromScene() {
+    this.disabled = true
+    this.scene.removeChild(this.sprite_container)
+  }
   move() {
     this.pos.x += this.vel.x * dt
     this.pos.y += this.vel.y * dt
@@ -29,24 +33,14 @@ class Asteroid extends Rigid {
     if(this.rotation >= PI*2) this.rotation = 0
     if(this.rotation < 0) this.rotation = PI*2
   }
-  // updateSprite() {
-  //   //rudimentary solution
-  //   this.sprite_container.position.x = this.pos.x
-  //   this.sprite_container.position.y = this.pos.y
-  //   this.sprite_container.rotation = this.rotation
-
-  //   SpriteTools.updateHighlights(this)
-  // }
   destroy() {
     for (let i = 0; i < this.referenced_in.length; i++) {
       let index = this.referenced_in[i].indexOf(this)
       this.referenced_in[i].splice(index, 1)
     }
+    this.sprite_container.destroy()
+    this.sprites.forEach(sprite => sprite.destroy())
     this.removeFromScene()
-  }
-  removeFromScene() {
-    this.disabled = true
-    app.stage.removeChild(this.sprite_container)
   }
   update() {
     this.move()
@@ -56,9 +50,6 @@ class Asteroid extends Rigid {
 }
 
 class GlobalMethods {
-  constructor() {
-    
-  }
   static updateSprite() {
     this.sprite_container.position.x = this.pos.x
     this.sprite_container.position.y = this.pos.y

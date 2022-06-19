@@ -22,26 +22,14 @@ class FactManager {
       }
     )
   }
+  export() {
+    exportToJsonFile(facts, "facts")
+  }
 }
 let fact_manager = new FactManager()
 
-let facts = [
-  {
-    id: 0,
-    owner: "player",
-    identifier: "has_big_pp",
-    value: true,
-  },
-  {
-    id: 1,
-    owner: "player",
-    identifier: "is_big_t",
-    value: true,
-  },
-  {
-    id: 2,
-    owner: "bob",
-    identifier: "is_sexy",
-    value: true,
-  },
-]
+let facts; 
+readTextFile("data/facts/facts.json", function(text) {
+  let d = JSON.parse(text)
+  facts = d
+})

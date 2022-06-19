@@ -7,6 +7,7 @@
     <title>the space game 2</title>
     <meta http-equiv="Cache-Control" content="no-store"/>
     <meta http-equiv="expires" content="-1" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon.ico">
     <link rel="stylesheet" href="style_general.css">
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="dependencies/svg-loader.min.js" async></script>
@@ -15,6 +16,7 @@
   
   <main>
     <div id="mouse-tooltip" class="hidden"></div>
+    
     <div id="map-ui-container" class="full-screen-container hidden">
       <div class="map-sidebar"></div>
     </div>
@@ -29,8 +31,9 @@
       <div class="game-overlay-tools">
         <div class="hitbox-editor-icon editor-icon" title="Hitbox Editor" onclick="ui.windows.set(editor)"></div>
         <div class="dialogue-editor-icon editor-icon" title="Dialogue Editor" onclick="ui.windows.set(dialogue_editor)"></div>
+        <div class="location-editor-icon editor-icon" title="Location Editor" onclick="ui.windows.set(location_editor)"></div>
         <div class="ship-view-icon game-menu-icon" title="Ship view" onclick="ui.windows.set(ship_view)"></div>
-        <div class="local-map-icon game-menu-icon" title="View local map" onclick="ui.windows.set(local_map)"></div>
+        <div class="local-map-icon game-menu-icon" title="Local map" onclick="ui.windows.set(local_map)"></div>
       </div>
       <div class="game-stats">
         <div>Collision: <span id="collision-count"></span></div>
@@ -38,6 +41,25 @@
         <div>State: <span id="state-view"></span></div>
       </div>
       <div id="game"></div>
+
+      <div id="location-editor" class="full-screen-container hidden">
+        <div class="icon-close-container">
+          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+        </div>
+        <div id="location-editor-toolset" class="toolset">
+          <div class="selected-object-cont" id="location-editor-selected-object">
+            <!-- <div class="selected-object-icon"></div> -->
+            <!-- <div class="selected-object-desc"></div> -->
+          </div>
+        </div>
+        
+        <div class="search-dropdown-window hidden">
+          <div class="dropdown-search-bar">
+            <input type="text" name="" id="dropdown-search-bar-input">
+            <div class="dropdown-list"></div>
+          </div>
+        </div>
+      </div>
       <div id="local-map" class="full-screen-container hidden">
         <div class="icon-close-container">
           <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
@@ -77,8 +99,7 @@
           <div class="search-icon"></div>
           <input title="Search for editable object" type="text" name="" id="hitbox-editor-search-input">
         </div>
-        <div id="hitbox-editor-toolset" class="toolset">
-        </div>
+        <div id="hitbox-editor-toolset" class="toolset"></div>
         <div class="icon-close-container">
           <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
         </div>
@@ -110,7 +131,7 @@
   <script src="sprite_tools.js"></script>
 
   <script src="dialogue_editor.js"></script>
-  <script src="level_editor.js"></script>
+  <script src="location_editor.js"></script>
   <script src="hitbox_editor.js"></script>
   <script src="ship_view.js"></script>
   <script src="ui.js"></script>

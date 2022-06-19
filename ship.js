@@ -1,7 +1,7 @@
 class Ship extends Rigid {
   constructor(pos, vel = Vector.zero(), rotation = 0, rotation_velocity = 0, ship) {
     super(pos, vel, rotation, rotation_velocity, ship.hitbox)
-    this.model_name = ship.model_name
+    this.model = ship.model
 
     this.inventory = _.cloneDeep(ship.inventory)
     this.weapons = _.cloneDeep(ship.systems.weapons)
@@ -51,11 +51,12 @@ class Ship extends Rigid {
   constructHitbox() {
     //after being spawned, it'll recalculate the hitbox data to be in the right position
   }
-  addToScene() {
-    layer_ships.addChild(this.sprite_container)
+  addToScene(scene) {
+    this.scene = scene || layer_ships
+    this.scene.addChild(this.sprite_container)
   }
   removeFromScene() {
-    layer_ships.removeChild(this.sprite_container)
+    this.scene.removeChild(this.sprite_container)
     // !! don't remove the ship from ships[], for continuity reasons
   }
   rotate(direction = [-1 || 1]) {

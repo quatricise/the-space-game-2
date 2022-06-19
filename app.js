@@ -7,6 +7,17 @@ let ships = []
 let characters = [] //array of people, they are like the player and can drive ships
 let interactables = [] //entities in the world which can trigger events
 
+//background grid
+const grid = {
+  cell_size: 512,
+  origin: new Vector(0),
+  texture: PIXI.Texture.from("assets/grid_cell.png")
+}
+// grid.sprite = new PIXI.TilingSprite(grid.texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
+// layer_debris.addChild(grid.sprite)
+
+// grid.sprite = new PIXI.TilingSprite(grid.texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
+
 const loader = PIXI.Loader.shared
 
 let editor_app = new PIXI.Application({ width: cw, height: ch, });
@@ -35,12 +46,29 @@ editor_layers.forEach(layer => {
   editor.app.stage.addChild(layer)
 })
 
+
 class Game {
   constructor() {
     this.element = Q('#game')
     this.graphics = new PIXI.Graphics()
     this.app = app
+    this.origin = origin
+    this.grid_sprite = new PIXI.TilingSprite(grid.texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
+    layer_debris.addChild(this.grid_sprite)
     layer_graphics.addChild(this.graphics)
+    this.state = new State(
+      "explore",
+      "battle",
+      "dialogue",
+      "map_open",
+    )
+    this.add_origin()
+  }
+  add_origin() {
+    let origin = PIXI.Sprite.from("assets/origin.png")
+    origin.anchor.x = 0.5
+    origin.anchor.y = 0.5
+    this.app.stage.addChild(origin)
   }
   show() {
     this.element.classList.remove('hidden')
@@ -66,35 +94,20 @@ let render_layers = [
   layer_graphics,
 ]
 
-let game = new Game()
+const game = new Game()
 
-let ship_view = new ShipView()
+const ship_view = new ShipView()
 
-let level_editor = new LevelEditor()
+const location_editor = new LocationEditor()
 
 render_layers.forEach(layer => {
   game.app.stage.addChild(layer)
 })
 
-//dialogue editor
 const dialogue_editor = new DialogueEditor()
 
-//background grid
-let texture = PIXI.Texture.from("assets/grid_cell.png")
-const grid = {
-  sprite: null,
-  cell_size: 512,
-  origin: new Vector(0),
-}
-grid.sprite = new PIXI.TilingSprite(texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
-layer_debris.addChild(grid.sprite)
 
-let circle = PIXI.Sprite.from("assets/origin.png")
-circle.anchor.x = 0.5
-circle.anchor.y = 0.5
-app.stage.addChild(circle)
-
-
+//primitively adding some objects to the scene
 let debug_ship = new Ship(new Vector(0,0), undefined, undefined, undefined, data.ships.crimson_fighter)
 debug_ship.addToScene()
 
@@ -115,6 +128,8 @@ debug_asteroid_1.addToScene()
 
 interactables.push(new Interactable(new Vector(200, 200)))
 
+/////////////////////////////////////////////
+
 let dt = 0;
 let dtf = 0;
 
@@ -122,9 +137,11 @@ ui.map = new WorldMap()
 ui.local_map = new LocalMap()
 let map = ui.map
 let local_map = ui.local_map
-const camera = new Camera("world_camera")
+const camera = new Camera("world_camera", app.stage)
+game.camera = camera
 
 ui.windows.all.push(editor)
 ui.windows.all.push(game)
 ui.windows.all.push(dialogue_editor)
-ui.windows.active = game
+ui.windows.all.push(ship_view)
+ui.windows.all.push(location_editor)

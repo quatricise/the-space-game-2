@@ -1,7 +1,7 @@
 class Camera  {
   constructor(
-    type = "world_camera", 
-    context = app.stage, 
+    type, 
+    context, 
     context_dim = {x: window.innerWidth, y: window.innerHeight},
     visual_scale_factor = 1, 
     focus = null
@@ -41,10 +41,12 @@ class Camera  {
     this.context.position.x = (-this.pos.x / this.current_zoom + this.context_dim.x/2) * this.context_visual_scale_factor
     this.context.position.y = (-this.pos.y / this.current_zoom + this.context_dim.y/2) * this.context_visual_scale_factor
     this.context.scale.set(1/this.current_zoom * this.context_visual_scale_factor)
+    if(this.type === "world_camera") {
+      
+    game.grid_sprite.position.x = Math.floor(this.pos.x / grid.cell_size) * grid.cell_size - grid.cell_size*2
+    game.grid_sprite.position.y = Math.floor(this.pos.y / grid.cell_size) * grid.cell_size - grid.cell_size
 
-    grid.sprite.position.x = Math.floor(this.pos.x / grid.cell_size) * grid.cell_size - grid.cell_size*2
-    grid.sprite.position.y = Math.floor(this.pos.y / grid.cell_size) * grid.cell_size - grid.cell_size
-
+    }
     this.zoom_interpolate()
   }
   zoom_interpolate() {

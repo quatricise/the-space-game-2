@@ -3,6 +3,9 @@ class LocalMap {
     this.graphics = new PIXI.Graphics()
     this.element = Q('#local-map')
     this.planets = []
+    this.orbits = []
+    this.ymax = null
+    this.ymin = null
     this.sun = null
   }
   show() {
@@ -14,13 +17,35 @@ class LocalMap {
   toggle() {
     this.element.classList.toggle('hidden')
   }
+  add_planet(element) {
+    let planet = {
+      element: element,
+      offset: 0,
+      freq: +element.dataset.freq,
+      pos: new Vector(element.getAttribute("cx"), element.getAttribute("cy"))
+    }
+    this.planets.push(planet)
+    console.log('added planet', planet.freq)
+  }
   update() {
-
+    this.planets.forEach((planet, index) => {
+      let orbit =   this.orbits[index]
+      let length =  orbit.getTotalLength()
+      let point =   orbit.getPointAtLength(length*(planet.offset/100))
+      planet.pos.set(point.x, point.y)
+      planet.offset += planet.freq / 1.5
+      let scale = planet.pos.y / this.ymax
+      planet.element.setAttribute("transform", `translate(${planet.pos.x} ${planet.pos.y}) scale(${scale + 0.3}) `)
+      if(planet.offset > 100) {
+        planet.offset = 0
+      }
+    })
   }
 }
 
 LocalMap.prototype.unload = function() {
   this.planets = []
+  this.orbits = []
   this.sun = null
 }
 LocalMap.prototype.load = function(filename) {
@@ -34,14 +59,54 @@ LocalMap.prototype.load = function(filename) {
       return
     }
     svg.querySelector("title").remove()
+    let viewbox = svg.getAttribute("viewBox")
+    let ymin = 0
+    let ymax = +viewbox.substring(viewbox.lastIndexOf(" "))
+    this.ymin = ymin
+    this.ymax = ymax
     let paths = Array.from(svg.querySelectorAll("path"))
     let circles = svg.querySelectorAll("circle")
+    let newpaths = []
+    function compare_indexes(a, b) {
+      if (a.dataset.index < b.dataset.index) {
+        return -1;
+      }
+      if (a.dataset.index > b.dataset.index) {
+        return 1;
+      }
+      return 0;
+    }
     paths.forEach(path => {
       if(path.style.strokeWidth === "2px" && rgb_to_hex(path.style.stroke).toLocaleUpperCase() === "#FFFFFF") {
-        let index = path.style.opacity.replace("0.", "").replace("1.0", "10").substring(0, 2)
+        let index = path.style.opacity.replace("0.", "")
         index = +index - 1
+        console.log('path index', index)
         path.dataset.index = index
+        path.dataset.type = "orbit"
+        this.orbits.push(path)
+        path.style.opacity = "1.0"
+        path.style.strokeWidth = "1px"
+        newpaths.push(path.cloneNode())
+        this.orbits.sort(compare_indexes)
       }
+    })
+    newpaths.forEach(path => {
+      path.dataset.type = ""
+      path.style.strokeWidth = "10px"
+      path.style.opacity = "0.0"
+      path.onmouseover = () => {
+        path.style.opacity = "0.16"
+      }
+      path.onmouseout = () => {
+        path.style.opacity = "0.0"
+      }
+      path.style.cursor = "pointer"
+      path.style.fill = ""
+    })
+    newpaths.sort(compare_indexes)
+    newpaths.reverse()
+    newpaths.forEach(path => {
+      svg.append(path)
     })
     circles.forEach(circle => {
       if(rgb_to_hex(circle.style.fill).toLocaleUpperCase() === "#FFBC00") {
@@ -49,43 +114,35 @@ LocalMap.prototype.load = function(filename) {
         circle.classList.add('tooltip')
         let parent = circle.parentElement
         circle.remove()
-        parent.append(circle)
-      }
-      if(rgb_to_hex(circle.style.fill).toLocaleUpperCase() === "#FFFFFF") {
-        let index = circle.style.opacity.replace("0.", "").replace("1.0", "10").substring(0, 2)
-        index = +index - 1
 
-        circle.dataset.index = index
-        circle.style.opacity = "1.0"
-        let path = paths.find(path => path.dataset.index === circle.dataset.index)
-        let d = path.getAttribute("d")
-        console.log(d)
-        let s = d.lastIndexOf("s")
-        let S = d.lastIndexOf("S")
-        let last
-        if(s === -1) last = S
-        else
-        if(S === -1) last = s
-        else last = Math.max(s, S)
-        d = d.substring(0, last)
-        {
-          let c = d.lastIndexOf("c")
-          let C = d.lastIndexOf("C")
-          if(c === -1) last = C
-          else
-          if(C === -1) last = c
-          else last = Math.max(c, C)
+        let newcircle = circle.cloneNode()
+        newcircle.setAttribute("r", +newcircle.getAttribute("r") + 5)
+        newcircle.style.opacity = "0.0"
+        circle.onmouseover = () => {
+          newcircle.style.opacity = "0.2"
+        }
+        circle.onmouseout = () => {
+          newcircle.style.opacity = "0.0"
         }
 
-        let point = d.substring(last)
-        point = point.replace("c", "").replace("C", "").replace("Z", "")
-        let coords = point.split(",")
-        console.log(d)
-        // console.log(last)
-        console.log(point)
-        // console.log(coords)
-        // circle.setAttribute("cx", coords[2])
-        // circle.setAttribute("cy", coords[3])
+        parent.append(newcircle, circle)
+      }
+      if(rgb_to_hex(circle.style.fill).toLocaleUpperCase() === "#FFFFFF") {
+        let index = circle.style.opacity.replace("0.", "")
+        index = +index - 1
+        console.log(index)
+        console.log(circle.style.opacity)
+        circle.dataset.index = index
+        circle.style.opacity = "1.0"
+        circle.dataset.type = "planet"
+        let stroke = circle.style.stroke
+        let red = stroke.substring(stroke.indexOf("(") + 1, stroke.indexOf(","))
+        if(!red) red = 255 
+        circle.dataset.freq = red/255
+        circle.style.stroke = ""
+        this.add_planet(circle)
+        circle.setAttribute("cx", "0")
+        circle.setAttribute("cy", "0")
       }
     })
 

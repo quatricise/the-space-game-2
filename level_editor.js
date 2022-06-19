@@ -1,4 +1,4 @@
-class LevelEditor {
+class LocationEditor {
   constructor() {
     this.element = Q('#level-editor')
     this.graphics = new PIXI.Graphics()

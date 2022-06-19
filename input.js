@@ -37,6 +37,7 @@ document.addEventListener("keydown", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
 
   //localize this inside some UI class, which will have overview on which windows are and can be opened
   //+ will have many more features and will probably take care of overlays like ship hull health
@@ -45,9 +46,9 @@ document.addEventListener("keydown", function (e) {
     ui.map.toggleVisibility()
     ui.map.open = !ui.map.open
     if(ui.map.open) {
-      state.set("map_open")
+      game.state.set("map_open")
     }
-    else state.set("passive")
+    else game.state.set("passive")
   }
 
 
@@ -62,6 +63,7 @@ document.addEventListener("keyup", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
 })
 
 function updateKeys(event, eventType = "keydown" || "keyup") {
@@ -81,7 +83,8 @@ document.addEventListener("wheel", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
-  if(state.is("map_open")) {
+  location_editor.handle_input(e)
+  if(game.state.is("map_open")) {
     if(e.deltaY > 0) {
       ui.map.zoom("in")
     }
@@ -90,7 +93,7 @@ document.addEventListener("wheel", function (e) {
       ui.map.zoom("out")
     }
   }
-  if(state.any(["passive", "battle"])) {
+  if(game.state.is("passive", "battle")) {
     if(e.deltaY > 0) {
         camera.zoomInit("in")
       }
@@ -98,7 +101,6 @@ document.addEventListener("wheel", function (e) {
     if(e.deltaY < 0) {
       camera.zoomInit("out")
     }
-    //change engine level - allowing for smooth velocity control
   }
 })
 
@@ -108,6 +110,7 @@ document.addEventListener("mousedown", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
   if(e.button === 1) {
     e.preventDefault()
   }
@@ -115,7 +118,7 @@ document.addEventListener("mousedown", function (e) {
   mouse.click_target = e.target
   mouse.update_keys(e, "down")
 
-  if(state.current === "battle") player.ship.fire()
+  if(game.state.is("battle")) player.ship.fire()
   if(e.target === map.canvas.view) console.log(mouse.map_pos)
   let rect = e.target.getBoundingClientRect();
   let pos = {
@@ -134,6 +137,7 @@ document.addEventListener("click", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
 })
 
 
@@ -142,6 +146,7 @@ document.addEventListener("mousemove", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
   mouse.update_pos(e)
 })
 
@@ -151,5 +156,6 @@ document.addEventListener("mouseup", function (e) {
   ui.handle_input(e)
   editor.handle_input(e)
   dialogue_editor.handle_input(e)
+  location_editor.handle_input(e)
   mouse.update_keys(e, "up")
 })
