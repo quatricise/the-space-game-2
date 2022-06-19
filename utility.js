@@ -307,3 +307,22 @@ class Vector {
 function capitalize(string) {
   return string.charAt(0).toLocaleUpperCase() + string.slice(1)
 }
+
+function rgb_to_hex(rgb) {
+  var a = rgb.split("(")[1].split(")")[0]
+  a = a.split(",")
+  var b = a.map((x) => {              //For each array element
+    x = parseInt(x).toString(16)      //Convert to a base16 string
+    return (x.length==1) ? "0"+x : x  //Add zero if we get only one character
+  })
+  return "#" + b[0] + b[1] + b[2]
+}
+
+String.prototype.cap = function() {
+  return this.charAt(0).toLocaleUpperCase() + this.slice(1)
+}
+String.prototype.rev = function() {
+  let array = this.split('')
+  let string = array.reverse().join('')
+  return string
+}

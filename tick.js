@@ -6,6 +6,7 @@ function tick(delta) {
 
   //update
   cameras.forEach(camera => camera.update())
+  Q('#zoom-level').innerText = camera.current_zoom
   mouse.update_world_pos()
   entities.forEach(entity => {
     entity.update()
@@ -31,4 +32,5 @@ function tick(delta) {
 
   ui.map.update()
   editor.update()
+  ui.local_map.update()
 }

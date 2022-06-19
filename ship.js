@@ -131,10 +131,16 @@ class Ship extends Rigid {
     let vel = new Vector(vector.x, vector.y)
     new Projectile(this.pos, vel)
   }
-  dash() {
+  dash_init() {
     //3 directions - forward, right, left, depending on keypresses, if you're only moving forward
     // then you dash forward, if you're moving forward && left || right, then you dash sideways,
     // if you're moving forward and press both forward, left and right, you dash forward
+    let vec = Vector.fromAngle(this.rotation)
+    let dash_power = 500
+    vec.mult(dash_power)
+    this.vel.add(vec)
+    //okay, to make this smooth, add the vector consecutively several times, first something like
+    // 10% then 20% then 30% then 40%
   }
   dock(object) {
     //this will take control away from the controlling entity and dock it into a station or some place,

@@ -12,6 +12,12 @@ const loader = PIXI.Loader.shared
 let editor_app = new PIXI.Application({ width: cw, height: ch, });
 editor_app.view.classList.add('editor-app')
 
+let app = new PIXI.Application({ width: cw, height: ch, });
+document.body.appendChild(app.view);
+
+let level_app = new PIXI.Application({ width: cw, height: ch, });
+
+
 let editor_layer_debris = new PIXI.Container()
 let editor_layer_ships = new PIXI.Container()
 let editor_layer_graphics = new PIXI.Container()
@@ -47,10 +53,6 @@ class Game {
   }
 }
 
-
-let app = new PIXI.Application({ width: cw, height: ch, });
-document.body.appendChild(app.view);
-
 //render layers //todo, currently not very implemented
 let layer_debris = new PIXI.Container()
 let layer_projectiles = new PIXI.Container()
@@ -65,6 +67,10 @@ let render_layers = [
 ]
 
 let game = new Game()
+
+let ship_view = new ShipView()
+
+let level_editor = new LevelEditor()
 
 render_layers.forEach(layer => {
   game.app.stage.addChild(layer)
@@ -83,7 +89,7 @@ const grid = {
 grid.sprite = new PIXI.TilingSprite(texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
 layer_debris.addChild(grid.sprite)
 
-let circle = PIXI.Sprite.from("assets/circle.png")
+let circle = PIXI.Sprite.from("assets/origin.png")
 circle.anchor.x = 0.5
 circle.anchor.y = 0.5
 app.stage.addChild(circle)
@@ -113,8 +119,10 @@ let dt = 0;
 let dtf = 0;
 
 ui.map = new WorldMap()
-const camera = new Camera("world_camera")
+ui.local_map = new LocalMap()
 let map = ui.map
+let local_map = ui.local_map
+const camera = new Camera("world_camera")
 
 ui.windows.all.push(editor)
 ui.windows.all.push(game)

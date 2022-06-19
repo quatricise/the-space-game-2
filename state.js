@@ -49,6 +49,7 @@ const state = {
     else
     this.current = state
     console.log("state: " + this.current)
+    Q('#state-view').innerText = this.current
   },
   is(...values) {
     let match = false
@@ -74,6 +75,7 @@ const state = {
 
   revertState() {
     this.current = this.previous
+    Q('#state-view').innerText = this.current
     console.log("state: " + this.current)
   }
 }

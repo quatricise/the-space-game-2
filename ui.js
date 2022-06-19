@@ -114,7 +114,7 @@ class GameUI {
         inner_text.remove()
       }
       window.clearTimeout( this.tooltip.timeout )
-      if(delay) {
+      if(delay && typeof delay === "number") {
         this.tooltip.timeout = setTimeout(()=> { 
           tooltip.classList.remove("hidden")
           this.tooltip.update()

@@ -75,10 +75,3 @@ class WorldMap {
     this.parent.classList.toggle("hidden")
   }
 }
-
-class LocalMap {
-  constructor() {
-    
-  }
-
-}

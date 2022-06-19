@@ -165,9 +165,6 @@ data.ships = {
   crimson_fighter: {
     model_name: "crimson_fighter",
     sources: sources.img["bluebird_needle"],
-    // hitbox: new PolygonHitbox([
-    //   PolygonBuilder.Rectangle(60, 80, {x: -30, y: -40}),
-    // ]),
     hitbox: "bluebird_needle",
     inventory: {
       items: [],

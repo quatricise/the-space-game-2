@@ -29,9 +29,7 @@ class DialogueNode {
   update() {
     this.element.style.left = this.pos.x + "px"
     this.element.style.top = this.pos.y + "px"
-    if(this.type === "player-text" || this.type === "npc-text") {
-      this.element.querySelector(".fact-count").innerText = this.facts.length + " facts"
-    }
+    this.element.querySelector(".fact-count").innerText = this.facts.length + " facts"
   }
   drag() {
     this.pos.add(mouse.client_moved)
@@ -76,7 +74,9 @@ class DialogueNode {
     let header = El('div', "dialogue-node-header")
     let widget_drag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
     let widget_remove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    
+    let widget_list = El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
+    let fact_count = El("div", "fact-count")
+
     let wrapper_in  = El('div', "dialogue-node-socket-wrapper in")
     let wrapper_out = El('div', "dialogue-node-socket-wrapper out")
     
@@ -87,9 +87,9 @@ class DialogueNode {
     wrapper_out.append(socket_out)
     wrapper_in.append(socket_in)
     // header.innerText = this.id
-    header.append(widget_remove, widget_drag)
+    header.append(widget_remove, widget_drag, widget_list)
     node.dataset.id = this.id
-    node.append(header, wrapper_in, wrapper_out, )
+    node.append(header, fact_count, wrapper_in, wrapper_out, )
 
     dialogue_editor.element.append(node)
     this.element = node
@@ -204,7 +204,46 @@ class DialogueEditor {
       element: Q('#fact-container'),
       list: Q('#fact-list'),
       search_list: Q('#fact-search-list'),
-      keep_open: false,
+      open: false,
+      hide() {
+        console.log("hide")
+        this.element.classList.add('hidden')
+        this.open = false
+      },
+      show: (event) => {
+        console.log("show")
+        if(event.target.closest(".dialogue-node")) {
+          let rect = event.target.closest(".dialogue-node").getBoundingClientRect()
+          this.fact_editor.element.classList.remove("hidden")
+          this.open = true
+          this.fact_editor.element.style.left = rect.left + rect.width + 10 + "px"
+          this.fact_editor.element.style.top = rect.top + "px"
+          this.display_facts(this.active_node)
+
+        }
+        else if(this.active_node) {
+          let rect = this.active_node.element.getBoundingClientRect()
+          this.fact_editor.element.classList.remove("hidden")
+          this.open = true
+          this.fact_editor.element.style.left = rect.left + rect.width + 10 + "px"
+          this.fact_editor.element.style.top = rect.top + "px"
+          this.display_facts(this.active_node)
+        }
+      },
+      toggle: (event) => {
+        console.log("toggle")
+        this.fact_editor.open = !this.fact_editor.open
+        if(this.fact_editor.open) this.fact_editor.show(event)
+        else this.fact_editor.hide()
+        this.fact_editor.update_icons()
+      },
+      update_icons: () => {
+        console.log("update_icons")
+        Qa(".dialogue-node-widget.list").forEach(icon => {
+          if(this.fact_editor.open) icon.classList.add("active")
+          else icon.classList.remove('active')
+        })
+      }
     }
     this.create_html()
     this.state = {
@@ -417,6 +456,7 @@ class DialogueEditor {
         this.hide_fact_search()
       }
     }
+    else
     if(document.activeElement === Q('#fact-input')) {
       let input = Q('#fact-input')
       if(event.code === "Enter" || event.code === "NumpadEnter") {
@@ -425,6 +465,7 @@ class DialogueEditor {
         fact_manager.create_fact(owner, identifier, value)
       }
     }
+    else
     if(document.activeElement === this.textarea) {
       if((event.code === "Enter" || event.code === "NumpadEnter") && (!keys.shift && !keys.shift_right)) {
         this.edit_confirm()
@@ -433,8 +474,13 @@ class DialogueEditor {
         this.edit_cancel()
       }
     }
-    if(event.code === "Escape") {
-      this.edit_cancel()
+    else {
+      if(event.code === "Escape") {
+        this.edit_cancel()
+      }
+      if(event.code === "KeyD") {
+        this.duplicate_node(this.active_node)
+      }
     }
   }
   handle_keyup(event) {
@@ -480,7 +526,7 @@ class DialogueEditor {
           this.active_node.delete()
         }
         if(target.closest(".fact-container")) {
-          this.fact_editor.element.classList.add("hidden")
+          this.fact_editor.toggle(event)
         }
       }
       if(event.target === this.element) {
@@ -528,9 +574,7 @@ class DialogueEditor {
       }
 
       if(target.closest(".dialogue-node-widget.list")) {
-        this.fact_editor.keep_open = !this.fact_editor.keep_open
-        Qa(".dialogue-node-widget.list").forEach(icon => icon.classList.toggle("active"))
-        this.open_facts_editor(event)
+        this.fact_editor.toggle(event)
       }
       
     }
@@ -574,8 +618,8 @@ class DialogueEditor {
         this.create_node("response-picker")
       }
     }
-    if(this.state.is("dragging") && this.fact_editor.keep_open) {
-      this.open_facts_editor(event)
+    if(this.state.is("dragging") && this.fact_editor.open) {
+      this.fact_editor.show(event)
     }
     if(this.state.isnt("editing")) {
       this.state.set("default")
@@ -594,33 +638,30 @@ class DialogueEditor {
     let target = event.target.closest(".dialogue-node")
     target.classList.add('active')
     this.active_node = this.nodes.find(node => node.id === +target.dataset.id)
-    if(this.fact_editor.keep_open) this.open_facts_editor(event)
+    if(this.fact_editor.open) this.fact_editor.show(event)
   }
   get_node_from_event(event) {
     let target = event.target.closest(".dialogue-node")
     if(target) return this.nodes.find(node => node.id === +target.dataset.id)
     return null
   }
+  duplicate_node(node) {
+    if(!node) alert('no node')
+    let props = [
+      _.cloneDeep(node.type),
+      _.cloneDeep(node.text),
+      _.cloneDeep(node.speaker),
+      node.pos.clone().add(new Vector(0, 25)),
+      undefined,
+      _.cloneDeep(node.facts),
+    ]
+    let newnode = new DialogueNode(...props)
+  }
   open_facts_editor(event) {
-    if(event.target.closest(".dialogue-node")) {
-      let rect = event.target.closest(".dialogue-node").getBoundingClientRect()
-      // console.log(rect)
-      this.fact_editor.element.classList.remove("hidden")
-      this.fact_editor.element.style.left = rect.left + rect.width + 10 + "px"
-      this.fact_editor.element.style.top = rect.top + "px"
-      this.display_facts(this.active_node)
-    }
-    else if(this.active_node) {
-      let rect = this.active_node.element.getBoundingClientRect()
-      // console.log(rect)
-      this.fact_editor.element.classList.remove("hidden")
-      this.fact_editor.element.style.left = rect.left + rect.width + 10 + "px"
-      this.fact_editor.element.style.top = rect.top + "px"
-      this.display_facts(this.active_node)
-    }
+
   }
   reconstruct_html() {
-    console.log("Reconstruct")
+    // console.log("Reconstruct")
     //generate svgs for connections
     this.svg_cont.innerHTML = ""
     this.nodes.forEach(node => {

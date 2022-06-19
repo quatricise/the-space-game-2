@@ -335,6 +335,9 @@
 .dialogue-editor-icon {
   background-image: url(assets/editor/icon_dialogue_editor.png);
 }
+.ship-view-icon {
+  background-image: url(assets/icons/icon_ship_view.png);
+}
 
 
 .hitbox-editor {
@@ -370,9 +373,11 @@
 
 .game-stats {
   position: absolute;
+  font-size: 13px;
   left: 20px;
   top: 20px;
   color: white;
+  user-select: none;
 }
 
 
@@ -568,4 +573,45 @@
   color: white;
   caret-color: white;
   padding: 5px;
+}
+
+#ship-view {
+  background-color: black;
+  z-index: 1;
+}
+
+.ship-svg {
+  position: absolute;
+  max-width: 80vh;
+  max-height: 80vh;
+  pointer-events: none;
+}
+.ship-svg * {
+  pointer-events: all!important;
+}
+
+.game-menu-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-1);
+  border-radius: 5px;
+  cursor: pointer;
+  border: 2px solid var(--dark-3);
+  width: 48px;
+  height: 48px;
+  background-attachment: local;
+  background-size: contain;
+  background-position: center;
+}
+.game-menu-icon:hover {
+  background-color: var(--dark-3);
+}
+
+.local-map-icon {
+  background-image: url(assets/icons/icon_local_map.png);
+}
+
+#local-map {
+  background-color: black;
 }

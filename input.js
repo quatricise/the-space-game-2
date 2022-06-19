@@ -3,6 +3,7 @@ const binds = {
   rotateCCW: "KeyA",
   accel: "KeyW",
   decel: "KeyS",
+  dash: "Space",
   map_open: "KeyM",
   zoom_in: "Digit1",
   zoom_out: "Digit2",
@@ -52,9 +53,8 @@ document.addEventListener("keydown", function (e) {
 
   if(e.code === binds.zoom_in) camera.zoomInit("in")
   if(e.code === binds.zoom_out) camera.zoomInit("out")
-
-  if(e.code === binds.toggle_dialogue_editor) {
-    ui.dialogue_editor.toggle_visibility()
+  if(e.code === binds.dash) {
+    player.ship.dash_init()
   }
 })
 document.addEventListener("keyup", function (e) {
