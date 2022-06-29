@@ -94,8 +94,8 @@ class HitboxEditor {
   select(object) {
     if(!object) return
     this.deselect()
-    app.stage.removeChild(object.sprite_container)
-    editor_layer_ships.addChild(object.sprite_container)
+    object.removeFromScene()
+    object.addToScene(editor_layer_ships)
     this.obj = object
     object.rotation = 0
     object.rotation_velocity = 0

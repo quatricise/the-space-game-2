@@ -1,23 +1,26 @@
-class LocationEditor {
-  constructor() {
-    this.element = Q('#level-editor')
+class Inventory {
+  constructor(params) {
+    this.element = Q('#player-inventory')
+    this.grid = Q('#player-inventory-grid')
     this.graphics = new PIXI.Graphics()
-    this.app = level_app
-  }
-  import() {
-
-  }
-  export() {
-
   }
   show() {
     this.element.classList.remove('hidden')
+    this.display_items()
   }
   hide() {
     this.element.classList.add('hidden')
   }
   toggle() {
+    if(this.element.classList.contains("hidden")) this.display_items()
     this.element.classList.toggle('hidden')
+  }
+  display_items() {
+    this.grid.innerHTML = ""
+    player.inventory.forEach(item => {
+      let cont = El("div", "inventory-item")
+      this.grid.append(cont)
+    })
   }
   handle_input(event) {
     switch(event.type) {
@@ -28,5 +31,23 @@ class LocationEditor {
       case "mouseup"    : {this.handle_mouseup(event); break;}
       case "click"      : {this.handle_click(event); break;}
     }
+  }
+  handle_keydown(event) {
+
+  }
+  handle_keyup(event) {
+
+  }
+  handle_mousemove(event) {
+
+  }
+  handle_mousedown(event) {
+
+  }
+  handle_mouseup(event) {
+
+  }
+  handle_click(event) {
+
   }
 }

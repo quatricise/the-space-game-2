@@ -1,63 +1,141 @@
 class NPC {
-  constructor() {
+  constructor(name) {
+    this.name = name
     this.location = {} //idk, maybe like the current world location, or something
     this.ship = {} //some ship
     this.database = new Map() //their local dictionary of facts
-    characters.push(this)
+    this.target = null
+    this.referenced_in = []
+    this.referenced_in.push(npcs)
+    npcs.push(this)
+    this.boxes = []
+    this.state = new State(
+      "avoid-obstacles",
+      "attack-enemy",
+      "follow-leader",
+      "patrol",
+    )
+    this.colliding = false
+    this.dir = 1
+    this.check_collision = () => {
+      let ship = this.ship
+  
+      let iterations = pathfinding.projection.iterations
+      let timestretch = pathfinding.projection.timestretch
+      let ship_boxes = this.ship.projections
+  
+      let other_boxes = []
+      let candidates = Collision.broadphaseFilter(ship) 
+      candidates.forEach(obj => {
+        let bb = obj.hitbox.bb
+        let series = []
+        for (let i = 0; i < iterations; i++) {
+          let dir = obj.vel.clone().mult(dt).mult(timestretch)
+          bb.x = Math.round(bb.x + dir.x)
+          bb.y = Math.round(bb.y + dir.y)
+          bb.w = Math.round(bb.w)
+          bb.h = Math.round(bb.h)
+          series.push({...bb})
+        }
+        other_boxes.push(series)
+      })
+      let count = 0
+      this.boxes = ship_boxes.concat(...other_boxes)
+      let colliding = []
+      ship_boxes.forEach((sb, index) => {
+        other_boxes.forEach(series => {
+          let box = series[index]
+          if(Collision.boxBox(sb, box)) {
+            count++
+            colliding.push([sb, box])
+          }
+        })
+      })
+      if(count > 0 && this.colliding === false) {
+        this.decide_direction()
+        this.colliding = true
+      }
+      if(count === 0) {
+        this.colliding = false
+      }
+    }
+    this.can_skip = true
+    this.fire = () => {
+      let pos = player.ship.pos.clone()
+      pos.x *= rand(0.95,1.05)
+      pos.y *= rand(0.95,1.05)
+      this.ship.fire(pos)
+    }
+    this.skip = () => {
+      if(!this.can_skip) return
+      let pos = this.target.pos.clone()
+      pos.x += randR(120, 200) * pickRand([-1,1])
+      pos.y += randR(120, 200) * pickRand([-1,1])
+      this.ship.skip_begin(pos)
+      this.can_skip = false
+      this.timers.skip.restart()
+    }
+    this.reset_skip = () => {
+      this.can_skip = true
+    }
+    this.timers = new Timer(
+      ["check_collision", 500, {loop: true, active: true, onfinish: this.check_collision}],
+      ["fire", 2000, {loop: true, active: true, onfinish: this.fire}],
+      ["skip", 3000, {loop: false, active: false, onfinish: this.reset_skip}],
+    )
   }
-  controlShip() {
-
+  assign_ship(ship) {
+    this.ship = ship
+  }
+  control_ship() {
+    let ship = this.ship
+    this.determine_state()
+    this.choose_target()
+    if(this.colliding) {
+      ship.rotate(this.dir)
+      ship.accelerate()
+      return
+    }
+    let target = this.target
+    if(target) {
+      let angle = Math.atan2(ship.pos.y - target.pos.y, ship.pos.x - target.pos.x)
+      angle += PI
+      let leeway = PI/50
+      if(ship.rotation > angle) ship.rotate(-1)
+      else
+      if(ship.rotation < angle) ship.rotate(1)
+    }
+    if(target.pos.distance(ship.pos) > 500) {
+      ship.accelerate()
+    }
+    if(target.pos.distance(ship.pos) > 700) {
+      this.skip()
+    }
+    if(target.pos.distance(ship.pos) < 300) {
+      ship.brake()
+    }
+  }
+  decide_direction() {
+    this.dir = pickRand([-1, 1])
   }
   choose_target() {
-    
+    this.target = player.ship
+    this.ship.target_pos = this.target.pos.clone()
   }
-  check_for_collision() {
-    //filter rigidbodies for candidates for collision
-    //maybe use this, but it might not be enough scope to effectively dodge projectiles
-    let candidates = Collision.broadphaseFilter(this.ship) 
-    //how far??
-    //what is the step size? 
-    //all im gonna do is vector.add to the craft's position based on a multiplication of its velocity
-    //that same multiplication will be used on all candidates to project their positions
-    //box collision is cheap, so i might use a lot of projections, like 20, and maybe 
-    //i can compute the interval based on somehow combining the craft's AABB bounding-box 
-    //with it's velocity to find the optimal step-size - one that is roughly equal to the craft's
-    //real size
-
-    //after i create the projection steps, containing the future positions of all candidates
-    //and temporarily created AABB bounding boxes, i call Collision.boxBox() for each iteration
-    
-    //if a match is found, the craft will attempt several things: 
-
-    //rotate by some effective amount, like 30deg, (so rotate velocity by this amount)
-    //then reproject
-    //if that solution wouldn't solve the problem...
-    //rotate -30 deg
-
-    //based on the NPC character like ambition and risk-taking some options may be preferred
-
-    // 1) slow down to half the speed
-    //then reproject its position AND perform tests against ONLY the colliding objects first
-    //if that fixes the collision, all candidates are tested now too
-
-    // 2) speed up to twice it's speed, or the maximum
-    //reproject again
-
-    // if neither of that works...
-
-    // 3) try to halt to a stop
-    //reproject
-
-    //if that doesn't work, you're fucked
-
-
-
-    // the collision should be efficient enough with using approximate box hitboxes, so that I can
-    // perform a lot of calculations every frame and don't need to call this method only once per some
-    // frames
+  determine_state() {
+    // if colliding, set state to avoid-obstacles
   }
 
   interact() {
     //idk, maybe some dialogue thing
+  }
+  destroy() {
+    for (let i = 0; i < this.referenced_in.length; i++) {
+      this.referenced_in[i].splice(this.referenced_in[i].indexOf(this), 1)
+    }
+  }
+  update() {
+    this.control_ship()
+    this.timers.update()
   }
 }

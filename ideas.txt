@@ -1,0 +1,29 @@
+dialogue ideas
+
+
+//so, a blackboard? 
+
+//content pipeline - write everything in code or like, have text documents loaded via some API?
+
+//then it would be cool to have some simple tool generate syntax like 
+//name of conversation, character speaking, their lines, list of possible responses
+
+//like if idk, Deborah knows that you plan to blow up a storage unit outside Tauos III, 
+// she will talk about that, instead of talking about other stuff like what are you doing here
+
+//valve approach
+//the higher the number of criteria for any given rule -> the more specific it is, 
+// therefore if you have to pick from a series of possible rules, pick the one with the most
+// criteria in it
+
+//characters can send events to each other, containing some information, using some kind of premise
+//fullfilling - one character stops speaking, sends an event to another character, that character is speaking
+
+//or i could have a "conversation" object, which can contain characters, and if a character is present
+//in a conversation (would just be a comm channel, so this is easy to tell), they receive all the information
+//shared there and add it to their own database of facts
+
+
+//it would be cool to have a way for characters to terminate their speech or break out of a long
+//monologue, if for example, you decide you wanna kill them and fire a volley at their ship, 
+

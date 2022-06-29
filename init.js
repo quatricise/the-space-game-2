@@ -1,8 +1,8 @@
 function init() {
-  camera.lockTo(player.ship)
+  camera.lock_to(player.ship)
   app.ticker.add(tick)
+  map.create_icons()
   ui.windows.set(game)
-  // ui.windows.set(dialogue_editor)
   load_ship_svg("bluebird_needle")
   local_map.load("test_system")
 }

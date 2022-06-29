@@ -6,7 +6,7 @@ class Entity {
     this.vel = _.cloneDeep(vel)
     this.rotation = rotation
     this.rotation_velocity = rotation_velocity
-    this.cell_pos = Vector.zero()
+    this.cell_pos = new Vector(0)
 
     this.collided = false
     this.collided_with = null //object reference
@@ -21,9 +21,10 @@ class Entity {
     entities.push(this)
     this.referenced_in.push(entities)
   }
-  // updatePosition() {
-
-  // }
+  update_cell_pos() {
+    this.cell_pos.x = Math.floor(this.pos.x / grid.cell_size)
+    this.cell_pos.y = Math.floor(this.pos.y / grid.cell_size)
+  }
 }
 
 class EntityMethods {

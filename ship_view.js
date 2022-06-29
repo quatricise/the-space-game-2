@@ -37,7 +37,7 @@ function load_ship_svg(filename) {
       //   //add some fancy code that displays a nice title
       //   //along with some scifi underline thingy
       // }
-      circle.dataset.delay = "0"
+      circle.dataset.delay = "1"
       circle.style.strokeOpacity = "0.0"
       circle.style.fillOpacity = "0.3"
       circle.style.cursor = "pointer"

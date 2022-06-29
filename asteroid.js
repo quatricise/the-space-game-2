@@ -1,6 +1,7 @@
 class Asteroid extends Rigid {
   constructor(pos, vel, rotation, rotation_velocity, asteroid) {
     super(pos, vel, rotation, rotation_velocity, asteroid.hitbox)
+    this.dataref = asteroid
     this.sources = asteroid.sources
     this.mass = asteroid.mass
     this.material = asteroid.material

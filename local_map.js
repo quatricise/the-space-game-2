@@ -25,7 +25,7 @@ class LocalMap {
       pos: new Vector(element.getAttribute("cx"), element.getAttribute("cy"))
     }
     this.planets.push(planet)
-    console.log('added planet', planet.freq)
+    // console.log('added planet', planet.freq)
   }
   update() {
     this.planets.forEach((planet, index) => {
@@ -80,7 +80,7 @@ LocalMap.prototype.load = function(filename) {
       if(path.style.strokeWidth === "2px" && rgb_to_hex(path.style.stroke).toLocaleUpperCase() === "#FFFFFF") {
         let index = path.style.opacity.replace("0.", "")
         index = +index - 1
-        console.log('path index', index)
+        // console.log('path index', index)
         path.dataset.index = index
         path.dataset.type = "orbit"
         this.orbits.push(path)
@@ -130,8 +130,8 @@ LocalMap.prototype.load = function(filename) {
       if(rgb_to_hex(circle.style.fill).toLocaleUpperCase() === "#FFFFFF") {
         let index = circle.style.opacity.replace("0.", "")
         index = +index - 1
-        console.log(index)
-        console.log(circle.style.opacity)
+        // console.log(index)
+        // console.log(circle.style.opacity)
         circle.dataset.index = index
         circle.style.opacity = "1.0"
         circle.dataset.type = "planet"

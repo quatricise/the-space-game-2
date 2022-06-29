@@ -12,7 +12,7 @@ ShipSystemWeapons.prototype.upgrade = ShipSystem.upgrade
 
 class Weapon extends Item {
   constructor(location, weapon) {
-    super(location)
+    super(weapon.name, weapon.title, weapon.thumb, weapon.desc, location)
     this.can_fire = false
     this.power = false
     this.charges = weapon.charges

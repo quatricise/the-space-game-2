@@ -1,30 +1,81 @@
 class SpriteTools {
   static constructSprites(obj) {
-    let sources = obj.sources
-    for (let src in sources) {
-      let sprite = PIXI.Sprite.from(sources[src].src);
-
-      if(sources[src].src.includes("highlights")) obj.sprites_special.highlights.push(sprite)
-
-      if(src.includes("animated")) {
-        let anim = AnimatedSprite(sources[src].src, sources[src].length)
-        anim.anchor.x = 0.5
-        anim.anchor.y = 0.5
-        anim.animationSpeed = 0.1
-        anim.play()
-        obj.sprite_container.addChild(anim)
-        obj.sprites_special.animated.push(anim)
-        continue
+    obj.sprite_container = new PIXI.Container()
+    obj.sprites = [] 
+    obj.sprites_special = {
+      highlights: [], 
+      animated: [],
+    }
+    let orig = _.cloneDeep(obj.sources)
+    let folder = orig["folder"]
+    delete orig["folder"]
+    let sources = []
+    orig.auto?.forEach((src)=> {
+      let len = src.replace(/[^0-9\.]+/g, '') || 1
+      if(src.includes("thumbnail")) {
+        return
+      }      
+      if(src.includes("fill")) {
+        sources.push({src: "fill.png", length: len})
+      }      
+      if(src.includes("highlights")) {
+        sources.push(
+          {src: "highlights_0.png", length: len}, 
+          {src: "highlights_90.png", length: len}, 
+          {src: "highlights_180.png", length: len}, 
+          {src: "highlights_270.png", length: len}
+        )
+      }      
+      if(src.includes("linework")) {
+        sources.push({src: "linework.png", length: len})
+      }      
+      if(src.includes("glow")) {
+        sources.push({src: "glow.png", length: len})
+      }      
+      if(src.includes("ghost")) {
+        sources.push({src: "ghost.png", length: len})
+      }      
+      if(src.includes("skip")) {
+        sources.push({src: "skip_0000.png", length: len})
+      }      
+      if(src.includes("flame")) {
+        sources.push({src: "flame_0000.png", length: len})
+      }  
+    })
+    // console.log(sources)
+    sources.forEach(src => {
+      let url = folder + src.src
+      let name = src.src
+      let length = src.length
+      // console.log(url, length)
+      let sprite
+      if(length > 1) {
+        sprite = AnimatedSprite(url, length)
+        sprite.animationSpeed = 0.1
+        sprite.play()
       }
-
+      else {
+        sprite = PIXI.Sprite.from(url);
+      }
       sprite.anchor.x = 0.5
       sprite.anchor.y = 0.5
 
+      if(name.includes("highlights")) obj.sprites_special.highlights.push(sprite)
+      if(name.includes("ghost")) {obj.sprites_special.ghost = sprite; return}
+      if(name.includes("skip")) {obj.sprites_special.skip = sprite; return}
+      
       obj.sprite_container.addChild(sprite)
       obj.sprites.push(sprite)
-    }
+    })
+  }
+  static update_sprite(obj) {
+    obj.sprite_container.position.x = obj.pos.x
+    obj.sprite_container.position.y = obj.pos.y
+    obj.sprite_container.rotation = obj.rotation
+    this.updateHighlights(obj)
   }
   static updateHighlights(obj) {
+    if(!obj.sprites_special.highlights) return
     //update highlights
     let deg = obj.rotation * 180/PI
     for (let i = 0; i < obj.sprites_special.highlights.length; i++) {

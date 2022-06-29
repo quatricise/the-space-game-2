@@ -13,12 +13,14 @@
     <script type="text/javascript" src="dependencies/svg-loader.min.js" async></script>
 </head>
 <body>
-  
   <main>
     <div id="mouse-tooltip" class="hidden"></div>
-    
+    <div id="hints-container" class="full-screen-container"></div>
     <div id="map-ui-container" class="full-screen-container hidden">
-      <div class="map-sidebar"></div>
+      <!-- <div class="map-sidebar"></div> -->
+      <div class="icon-close-container">
+        <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+      </div>
     </div>
     <div id="ship-view" class="full-screen-container hidden">
       <div class="icon-close-container">
@@ -29,10 +31,13 @@
     <div id="level-editor" class="full-screen-container"></div>
     <div class="full-screen-container">
       <div class="game-overlay-tools">
-        <div class="hitbox-editor-icon editor-icon" title="Hitbox Editor" onclick="ui.windows.set(editor)"></div>
+        <div class="hitbox-editor-icon editor-icon" title="Hitbox Editor" onclick="ui.windows.set(hitbox_editor)"></div>
+        <div class="object-editor-icon editor-icon" title="Object Editor" onclick="ui.windows.set(object_editor)"></div>
         <div class="dialogue-editor-icon editor-icon" title="Dialogue Editor" onclick="ui.windows.set(dialogue_editor)"></div>
         <div class="location-editor-icon editor-icon" title="Location Editor" onclick="ui.windows.set(location_editor)"></div>
+        <div class="inventory-icon game-menu-icon" title="Inventory" onclick="ui.windows.set(inventory)"></div>
         <div class="ship-view-icon game-menu-icon" title="Ship view" onclick="ui.windows.set(ship_view)"></div>
+        <div class="world-map-icon game-menu-icon" title="Galaxy map" onclick="ui.windows.set(map)"></div>
         <div class="local-map-icon game-menu-icon" title="Local map" onclick="ui.windows.set(local_map)"></div>
       </div>
       <div class="game-stats">
@@ -40,22 +45,94 @@
         <div>Zoom: <span id="zoom-level"></span></div>
         <div>State: <span id="state-view"></span></div>
       </div>
+      <div id="game-ui" class="full-screen-container">
+        <div id="ship-hull" class="tooltip" data-tooltip="Current hull points: ${player.ship.hull.curr}/8" data-delay="1">
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+          <div class="ship-hull-point"></div>
+        </div>
+      </div>
       <div id="game"></div>
-
-      <div id="location-editor" class="full-screen-container hidden">
+      <div id="object-editor" class="full-screen-container">
         <div class="icon-close-container">
           <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
         </div>
+        <div class="main-cont">
+          <div id="object-editor-sidebar">
+            <div id="object-editor-dropdown">
+              <div class="object-editor-dropdown-search-bar">
+                <div id="object-editor-search-icon"></div>
+                <input type="text" name="" id="object-editor-dropdown-search-bar-input">
+              </div>
+              <div class="dropdown-list"></div>
+            </div>
+            <div class="object-editor-sidebar-buttons">
+              <div id="object-editor-add-obj" title="Add object"></div>
+            </div>
+          </div>
+          <div class="object-section">
+            <div class="object-wrapper">
+              <div id="object-editor-object-name" class="object-name">
+                <h2>Object name</h2>
+              </div>
+              <div id="object-property-list" class="object-property-list"></div>
+              <div class="object-buttons">
+                <div class="add-prop"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="player-inventory" class="full-screen-container">
+        <div class="icon-close-container">
+          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+        </div>
+        <div class="inventory-cont">
+          <header class="inventory-header">
+            <h2>INVENTORY</h2>
+          </header>
+          <div id="player-inventory-grid" class="inventory-grid"></div>
+        </div>
+      </div>
+      <div id="dialogue-screen" class="full-screen-container hidden">
+        <div class="dialogue-container">
+          <div class="header">
+            <div class="title">Comm channel #481354784</div>
+            <div class="controls">
+              <div id="button-end-transmission" class="icon-medium tooltip" data-delay="1"data-tooltip="End transmission"></div>
+            </div>
+          </div>
+          <div class="content">
+            <div class="left-bar"></div>
+            <div class="bubbles"></div>
+            <div class="right-bar"></div>
+          </div>
+        </div>
+      </div>
+      <div id="location-editor" class="full-screen-container hidden">
+        <div class="icon-close-container">
+          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+          <div class="icon-export" title="Export location"></div>
+          <div class="icon-import" title="Import location"></div>
+        </div>
         <div id="location-editor-toolset" class="toolset">
           <div class="selected-object-cont" id="location-editor-selected-object">
-            <!-- <div class="selected-object-icon"></div> -->
-            <!-- <div class="selected-object-desc"></div> -->
           </div>
         </div>
         
         <div class="search-dropdown-window hidden">
           <div class="dropdown-search-bar">
             <input type="text" name="" id="dropdown-search-bar-input">
+            <div class="dropdown-list"></div>
+          </div>
+        </div>
+        <div class="special-dropdown-window hidden">
+          <div class="dropdown-search-bar">
             <div class="dropdown-list"></div>
           </div>
         </div>
@@ -118,6 +195,7 @@
   <script src="data.js"></script>
   <script src="dialogue.js"></script>
   <script src="entity.js"></script>
+  <script src="hint.js"></script>
   <script src="interactable.js"></script>
   <script src="rigid.js"></script>
   <script src="projectile.js"></script>
@@ -126,13 +204,15 @@
   <script src="ship_system_weapons.js"></script>
   <script src="ship.js"></script>
   <script src="player.js"></script>
-  <script src="scene.js"></script>
+  <script src="location.js"></script>
   <script src="asteroid.js"></script>
   <script src="sprite_tools.js"></script>
 
+  <script src="object_editor.js"></script>
   <script src="dialogue_editor.js"></script>
   <script src="location_editor.js"></script>
   <script src="hitbox_editor.js"></script>
+  <script src="inventory.js"></script>
   <script src="ship_view.js"></script>
   <script src="ui.js"></script>
   <script src="camera.js"></script>
@@ -142,6 +222,8 @@
   <script src="map.js"></script>
   <script src="facts.js"></script>
   <script src="tick.js"></script>
+  <script src="npc.js"></script>
+  <script src="game.js"></script>
   <script src="app.js"></script>
   <script src="init.js"></script>
 </body>

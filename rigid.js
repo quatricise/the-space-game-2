@@ -21,12 +21,34 @@ class Rigid extends Entity {
         this.referenced_in.push(rigids)
       })
     }
-    else {
-      this.hitbox = _.cloneDeep(hitbox)
-      this.hitbox_relative = _.cloneDeep(this.hitbox)
+    if(typeof hitbox === "object") {
+      if(hitbox.type === "circle") {
+        this.hitbox = new CircleHitbox(hitbox.radius)
+      }
+      if(hitbox.type === "polygon") {
+        this.hitbox = new PolygonHitbox.default()
+      }
+      // this.hitbox = _.cloneDeep(hitbox)
+      // this.hitbox_relative = _.cloneDeep(this.hitbox)
       rigids.push(this)
       this.referenced_in.push(rigids)
     }
+    this.project_position = () => {
+      this.projections = []
+      let bb = this.hitbox.bb
+      for (let i = 0; i < pathfinding.projection.iterations; i++) {
+        let dir = this.vel.clone().mult(dt).mult(pathfinding.projection.timestretch)
+        bb.x = Math.round(bb.x + dir.x)
+        bb.y = Math.round(bb.y + dir.y)
+        bb.w = Math.round(bb.w)
+        bb.h = Math.round(bb.h)
+        this.projections.push({...bb})
+      }
+    }
+    this.projections = []
+    this.timers = new Timer(
+      ["project", 500, {loop: true, active: true, onfinish: this.project_position}]
+    )
   }
   add_body(body) {
     if(!body) {console.log('please specify body'); return;}

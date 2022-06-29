@@ -33,27 +33,59 @@ let data = {
     asteroids: {
       medium_0: {
         sources: sources.img.asteroids.medium_0,
-        mass: 5, //in kilotons
+        mass: 5, 
         material: "iron",
-        hitbox: new CircleHitbox(45)
+        hitbox: {
+          type: "circle",
+          radius: 45
+        }
       },
       medium_1: {
         sources: sources.img.asteroids.medium_1,
-        mass: 5, //in kilotons
+        mass: 5, 
         material: "iron",
-        hitbox: new CircleHitbox(45)
+        hitbox: {
+          type: "circle",
+          radius: 45
+        }
+      },
+      small_0: {
+        sources: sources.img.asteroids.small_0,
+        mass: 5, 
+        material: "iron",
+        hitbox: {
+          type: "circle",
+          radius: 22
+        }
+      },
+      small_1: {
+        sources: sources.img.asteroids.small_1,
+        mass: 5, 
+        material: "iron",
+        hitbox: {
+          type: "circle",
+          radius: 25
+        }
+      },
+      debris_0: {
+        sources: sources.img.asteroids.debris_0,
+        mass: 5, 
+        material: "iron",
+        hitbox: {
+          type: "circle",
+          radius: 25
+        }
       },
       crimson_station: {
         sources: sources.img.stations.crimson,
-        mass: 300, //in kilotons
+        material: "iron",
+        mass: 300, 
         hitbox: "crimson_station",
       },
       crimson_fighter: {
         sources: sources.img.crimson_fighter,
-        mass: 300, //in kilotons
-        // hitbox: new PolygonHitbox([
-        //   PolygonBuilder.Square(50, {x: 0, y: 0}),
-        // ])
+        material: "iron",
+        mass: 25, 
         hitbox: "crimson_fighter_small"
       },
     },
@@ -120,7 +152,7 @@ let data = {
   },
 
   global: {
-    rotation_smoothing: 0.08 //i put this temporarily inside ship
+    rotation_smoothing: 0.15 //i put this temporarily inside ship
      //todo - figure out if this global or not, it could be very annoying
      // for different ships to have different values, but it might also make it good
      // worth experimenting with - making a a fighter more reactive than a cargo
@@ -130,60 +162,77 @@ let data = {
   },
 }
 
+data.location_coords = {
+  tauri_b: [200,400],
+  crown_capital: [300, 300],
+  hive_capital: [50, -350],
+}
+
+
 data.projectiles = {
   debug_laser: {
-    speed: 100,
+    speed: 320,
     hitbox: new CircleHitbox(8),
-    life_max: 5000, //time till the projectile either explodes or is destroyed
+    life: 5000, //time till the projectile either explodes or is destroyed
   }
 }
 
 data.locations = {
   crown_capital: {
-    pos: new Vector(
-      location_coords.crown_capital[0], 
-      location_coords.crown_capital[1]
-    ),
+    pos: {
+      x: data.location_coords.crown_capital[0], 
+      y: data.location_coords.crown_capital[1]
+    },
     objects: {
       ships: [],
       stations: [],  
     },
   },
   tauri_b: {
-    pos: new Vector(
-      location_coords.tauri_b[0], 
-      location_coords.tauri_b[1]
-    ),
+    pos: {
+      x: data.location_coords.tauri_b[0], 
+      y: data.location_coords.tauri_b[1]
+    },
+    objects: {
+      ships: [],
+      stations: [],  
+    },
+  },
+  hive_capital: {
+    pos: {
+      x: data.location_coords.hive_capital[0], 
+      y: data.location_coords.hive_capital[1]
+    },
     objects: {
       ships: [],
       stations: [],  
     },
   },
 }
+// data.locations["asteroid_belt"] = readTextFile()
 
 data.ships = {
-  crimson_fighter: {
-    model: "crimson_fighter",
+  needle: {
+    model: "bluebird_needle",
     sources: sources.img["bluebird_needle"],
     hitbox: "bluebird_needle",
-    inventory: {
-      items: [],
-      capacity: 50,
-    },
-    rotation_speed_base: 85 * PI/180,
+    rotation_speed_base: 120 * PI/180,
     rotation_smoothing: 0.08,
     hull: {
       level: 8,
-      points: 8,
+      curr: 8,
       level_max: 40,
+      damage() {
+        this.curr--
+      },
       repair() {
-        if(this.points >= this.level) return
-        points++
+        if(this.curr >= this.level) return
+        this.curr++
       },
       upgrade() {
         if(this.level >= this.level_max) return
         this.level += 1
-        this.points += 1
+        this.curr += 1
       },
     },
     supports_systems: {
@@ -193,6 +242,7 @@ data.ships = {
         shields: true,
         stealth: true,
         weapons: true,
+        cargo: true,
     },
     systems: {
       shields: {
@@ -253,7 +303,7 @@ data.ships = {
           power_level_max: 5, //needs to be the same ↑
           power_level: 1,
           upgrade() {
-            if(this.level >= this.level_max) return // new Info("The engine has reached max level") 
+            if(this.level >= this.level_max) return
             this.accel += 2
             this.max_speed += 40
             this.level++
@@ -274,6 +324,7 @@ data.ships = {
         braking: {  //does this === brakes ??? seems kinda redundant
           installed: true,
           power: 10, //not sure what this number represents
+          accel: 4,
         },
         steering: {
           installed: false,
@@ -316,7 +367,6 @@ data.ships = {
         ],
       }
     },
-    
   },
 }
 
@@ -355,3 +405,161 @@ let d = data
 
 let session = {} //idk, some temporary data about things like playtime, performance statistics, idk, open editors, etc..
 let s = session
+
+
+data.ships["crimson"] = {
+  model: "crimson_fighter",
+  sources: sources.img["crimson_fighter"],
+  hitbox: "crimson_fighter_small",
+  rotation_speed_base: 110 * PI/180,
+  rotation_smoothing: 0.02,
+  hull: {
+    level: 8,
+    curr: 8,
+    level_max: 40,
+    damage() {
+      this.curr--
+    },
+    repair() {
+      if(this.curr >= this.level) return
+      this.curr++
+    },
+    upgrade() {
+      if(this.level >= this.level_max) return
+      this.level += 1
+      this.curr += 1
+    },
+  },
+  supports_systems: {
+      brakes: true,
+      engine_steering: true,
+      engine_braking: true,
+      shields: true,
+      stealth: true,
+      weapons: true,
+      cargo: true,
+  },
+  systems: {
+    shields: {
+      type: "bubble",
+      desc: "Generates a permanent shield bubble fully protecting your craft from incoming projectiles. It's only as strong as the power you divert to this system.",
+      level: 1,
+      level_max: 2,
+      recharge: 500, //ms
+      active: false,
+    },
+    shields_type2: {
+      type: "energy blast",
+      desc: "The mechanism generates a short burst of energy around the craft, diverting any incoming projectiles",
+      level: 1,
+      level_max: 2,
+      recharge: 1000, //ms
+      active: false,
+    },
+    shields_type3: {
+      type: "force-field",
+      desc: "prevents your ship from touching neighboring ships by gently pushing you away, this visually manifests as a soft blue glow around the edges of the craft",
+    },
+    shields_prototype: {
+      dispotition_1: "side",
+      dispotition_2: "flank",
+      dispotition_3: "full",
+      type_1: "force-field",
+      type_2: "bubble",
+      type_3: "energy-blast",
+      level: 1,
+      level_max: 5,
+      recharge: 400-1000,
+      active: false,
+    },
+    reactor: {
+      power: 20,
+      power_free: 20,
+      power_distribution: [
+        //array of components that the reactor is powering on the ship
+      ],
+      update() {
+        //idk
+      },
+    },
+    engines: {
+      //todo, since this is getting more complex
+      //make an engine class i guess
+      //or some component class which will have
+      //default methods like upgrade, power, unpower
+      //stuff like that
+      //more things will be instances of component class
+      //like: engine, reactor, shields, etc.
+      main: {
+        accel: 9,
+        max_speed: 180,
+        level: 1,
+        level_max: 5, //needs to be the same ↓
+        power_level_max: 5, //needs to be the same ↑
+        power_level: 1,
+        upgrade() {
+          if(this.level >= this.level_max) return
+          this.accel += 2
+          this.max_speed += 40
+          this.level++
+        },
+        update() {
+          //what if you're not able to partially power the engine,
+          //and you have to make a tradeoff when you upgrade it - 
+          //meaning that now the engine is better, but it'll always consume
+          //more power
+        },
+        addPower() {
+          this.power_level =  Math.max(this.level, this.power_level + 1)
+        },
+        removePower() {
+          this.power_level = Math.min(0, this.power_level - 1)
+        },
+      },
+      braking: {  //does this === brakes ??? seems kinda redundant
+        installed: true,
+        power: 10, //not sure what this number represents
+        accel: 4,
+      },
+      steering: {
+        installed: false,
+        rotation_speed_bonus: 10 * PI/180, //improves rotation speed by this
+        glide_reduction: 0.00,
+        level: 1,
+        level_max: 4,
+        upgrade() {
+          if(this.level >= this.level_max) return
+          this.rotation_speed_bonus += 10 * PI/180
+          this.glide_reduction += 0.02
+          this.level++
+        },
+      }
+    },
+    brakes: {
+      power: 1, //percent of velocity you'll lose every frame * dtf
+      power_max: 4,
+      auto: true,
+      upgrade() {
+        if(this.power >= this.power_max) return
+        this.power += 1
+      },
+      toggleAuto() {
+        this.auto = !this.auto
+      }
+    },
+    dash: {
+      ready: true,
+      active: false,
+      recharge: 0 //will be recalculated based on reactor power
+    },
+    weapons: {
+      level: 1,
+      level_max: 6, //needs to be the same ↓
+      power_level_max: 6, //needs to be the same ↑
+      power_level: 1,
+      weapons: [
+        data.weapons["missile_mk1"]
+      ],
+    }
+  },
+}

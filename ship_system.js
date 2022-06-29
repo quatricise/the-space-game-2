@@ -44,7 +44,6 @@ ShipSystemBrakes.prototype.upgrade = ShipSystem.upgrade
 class ShipSystemReactor extends ShipSystem {
   constructor(system, ship) {
     super(system, ship)
-    //we should also somehow indicate that a system is possible to be installed on a ship
   }
   addPowerTo(system, amount = 1) {
     if(this.power_free <= 0) return
@@ -62,3 +61,11 @@ ShipSystemReactor.prototype.addPower = ShipSystem.addPower
 ShipSystemReactor.prototype.removePower = ShipSystem.removePower
 ShipSystemReactor.prototype.upgrade = ShipSystem.upgrade
 
+class ShipSystemEngine extends ShipSystem {
+  constructor(system, ship) {
+    super(system,ship)
+  }
+  incrementStats() {
+    
+  }
+}

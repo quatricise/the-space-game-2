@@ -6,6 +6,14 @@ class CircleHitbox {
     this.radius = radius
     this.tested = false
   }
+  get bb() {
+    return {
+      x: this.pos.x - this.radius,
+      y: this.pos.y - this.radius,
+      w: this.radius * 2,
+      h: this.radius * 2,
+    }
+  }
 }
 
 class PolygonHitbox {
@@ -15,17 +23,47 @@ class PolygonHitbox {
     this.bodies = bodies
     this.tested = false
   }
+  get bb() {
+    let xs = []
+    let ys = []
+    this.bodies.forEach(body => {
+      body.vertices.forEach(vert => {
+        xs.push(vert.x)
+        ys.push(vert.y)
+      })
+    })
+    let left = Math.min(...xs)
+    let top  = Math.min(...ys)
+    let right = Math.max(...xs) - left
+    let bottom = Math.max(...ys) - top
+    return {
+      x: left,
+      y: top,
+      w: right,
+      h: bottom,
+    }
+  }
+  static default() {
+    let hitbox = new PolygonHitbox(PolygonBuilder.Square(50, {x: -25, y: -25}))
+    return hitbox
+  }
 }
 class BoxHitbox {
   constructor(a, b, color = debug.colors.hitbox_no_collision) {
     this.type = "box"
     this.color = color
     this.pos = new Vector(0,0)
-    this.dim = {
-      x: a,
-      y: b
-    }
+    this.w = a
+    this.h = b
     this.tested = false
+  }
+  get bb() {
+    return {
+      x: this.pos.x - this.w/2,
+      y: this.pos.y - this.h/2,
+      w: this.w,
+      h: this.h
+    }
   }
 }
 
@@ -149,8 +187,47 @@ class Collision {
       candidate.cell_pos.x <= entity.cell_pos.x + 1 &&
       candidate.cell_pos.y >= entity.cell_pos.y - 1 &&
       candidate.cell_pos.y <= entity.cell_pos.y + 1 &&
+      candidate !== entity &&
       candidate.hitbox.tested === false // should make sure that the candidate isn't one of the already fully tested objects
     )
+  }
+  static auto(h1, h2) {
+    let collided = false
+    let checked_bodies = []
+    if(h1.type === "polygon" && h2.type === "polygon") {
+      h1.bodies.forEach(b1=> {
+        if(collided) return
+        if(checked_bodies.find(b => b === b1)) return
+        h2.bodies.forEach(b2 => {
+          if(collided) return
+          if(checked_bodies.find(b => b === b2)) return
+          if(Collision.polygonPolygon(b1, b2)) {
+            collided = true
+          }
+          checked_bodies.push(b2)
+        })
+        checked_bodies.push(b1)
+      })
+      return collided
+    }
+  }
+  static lineCircle(line = [], circle) {
+    return Intersects.lineCircle(line[0].x, line[0].y, line[1].x, line[1].y, circle.pos.x, circle.pos.y, circle.radius)
+  }
+  static linePolygon(line = [], polygon) {
+    let verts = []
+    polygon.vertices.forEach((vertex)=> {
+      verts.push(vertex.x)
+      verts.push(vertex.y)
+    })
+    return Intersects.linePolygon(line[0].x, line[0].y, line[1].x, line[1].y, verts, 1)
+  }
+  static linePolygonHitbox(line = [], hitbox) {
+    let collided = false
+    hitbox.bodies.forEach(body => {
+      if(Collision.linePolygon(line, body)) collided = true
+    })
+    return collided
   }
   static polygonCircle(polygon, circle) {
     let verts = []
@@ -202,13 +279,13 @@ class Collision {
   static pointCircle(point, circle) {
     return Intersects.pointCircle(
       point.x, point.y,
-      circle.x, circle.y, circle.radius
+      circle.pos.x, circle.pos.y, circle.radius
     )
   }
   static boxBox(box1, box2) {
     return Intersects.boxBox(
-      box1.x, box1.y, box1.dim.x, box1.dim.y, 
-      box2.x, box2.y, box2.dim.x, box2.dim.y 
+      box1.x, box1.y, box1.w, box1.h, 
+      box2.x, box2.y, box2.w, box2.h 
     )
   }
   static boxPoint(box, point) {
@@ -254,13 +331,18 @@ class HitboxTools {
       
       ui.windows.active.graphics.lineStyle(2, color, 1);
       ui.windows.active.graphics.drawRect(
-        pos.x - box.dim.x/2, 
-        pos.y - box.dim.y/2, 
-        box.dim.x, 
-        box.dim.y
+        pos.x - box.w/2, 
+        pos.y - box.h/2, 
+        box.w, 
+        box.h
       )
       ui.windows.active.graphics.closePath()
     }
+  }
+  static draw_bounding_box(entity) {
+    let bb = entity.hitbox.bb
+    ui.windows.active.graphics.lineStyle(2, 0x0011dd, 1);
+    ui.windows.active.graphics.drawRect(bb.x, bb.y, bb.w, bb.h)
   }
   static rotatePolygonHitbox(entity) {
     entity.hitbox.bodies.forEach((body, b) => {
@@ -287,18 +369,19 @@ class HitboxTools {
   static updateHitbox(entity) {
     if(!entity.hitbox) return
     if(entity.hitbox.type === "circle") {
-      entity.hitbox.pos.x = entity.pos.x
-      entity.hitbox.pos.y = entity.pos.y
+      // entity.hitbox.pos.x = entity.pos.x
+      // entity.hitbox.pos.y = entity.pos.y
+      entity.hitbox.pos.set_from(entity.pos)
     }
     if(entity.hitbox.type === "box") {
-      entity.hitbox.pos.x = entity.pos.x
-      entity.hitbox.pos.y = entity.pos.y
+      entity.hitbox.pos.set_from(entity.pos)
+      // entity.hitbox.pos.x = entity.pos.x
+      // entity.hitbox.pos.y = entity.pos.y
     }
     if(entity.hitbox.type === "polygon") {
       this.updatePolygonHitbox(entity)
       this.rotatePolygonHitbox(entity)
     }
-
     if(entity.collided) {
       entity.hitbox.color = debug.colors.hitbox_collision
     }
@@ -322,13 +405,10 @@ function testCollision() {
 
     //second phase
     candidates.forEach(candidate => {
-      //rule out self-collision
-      if(candidate === rigid) return
-
       //temporary variable for one iteration of the forEach loop
       let collided = false
-      
       number_of_checks++
+      if(rigid.vwb || candidate.vwb) return
 
       //circle x circle
       if(rigid.hitbox.type === "circle" && candidate.hitbox.type === "circle") {
@@ -364,7 +444,6 @@ function testCollision() {
           circular = rigid
           polygonal = candidate
         }
-        
         polygonal.hitbox.bodies.forEach(body => {
           if(Collision.polygonCircle(body, circular.hitbox)) {
             collided = true
@@ -403,20 +482,35 @@ function testCollision() {
   rigids.forEach(rigid => {rigid.hitbox.tested = false})
   if(debug.hitbox) console.log("number of checks/s: " + number_of_checks)
 
+  //proto laser code
+  lasers.forEach(laser => {
+    if(laser.find(v => v.data.hit === true)) return
+    rigids.forEach(rigid => {
+      if(laser.find(v => v.data.hit === true)) return
+      if(rigid === laser[0].data.owner) return
+      let hit = false
+      if(rigid.hitbox.type === "circle" && Collision.lineCircle(laser, rigid.hitbox)) hit = true
+      if(rigid.hitbox.type === "polygon" && Collision.linePolygonHitbox(laser, rigid.hitbox)) hit = true
+      if(hit) {
+        let distance = laser[0].distance(rigid.pos)
+        let length = laser[0].distance(laser[1])
+        let diff = laser[1].clone().sub(laser[0])
+        diff.mult(distance/length)
+        laser[1] = laser[0].clone().add(diff)
+        
+        laser.forEach(v => v.data.hit = true)
+        if(rigid instanceof Ship) rigid.hull.damage()
+      }
+    })
+  })
   //test player inside interactable objects
   interactables.forEach(interactable => {
     if(interactable.hitbox.type === "box") {
-      let box = {
-        x: interactable.pos.x - interactable.hitbox.dim.x/2,
-        y: interactable.pos.y - interactable.hitbox.dim.y/2,
-        w: interactable.hitbox.dim.x,
-        h: interactable.hitbox.dim.y,
-      }
-      if(Collision.boxPoint(box, player.ship.pos)) {
-        interactable.trigger()
+      if(Collision.boxPoint(interactable.hitbox.bb, player.ship.pos)) {
+        interactable.enter()
       }
       else {
-        interactable.playerInside = false
+        interactable.leave()
       }
     }
   })
@@ -424,5 +518,15 @@ function testCollision() {
 }
 
 function solveCollision() {
-  
+  rigids.forEach(rigid => {
+    if(!rigid.collided) return
+    if(rigid instanceof Ship && rigid.collided_with instanceof Projectile) {
+      if(rigid.collided_with.owner === rigid) return
+      rigid.hull.damage()
+      rigid.collided_with.destroy()
+    }
+    if(rigid instanceof Asteroid && rigid.collided_with instanceof Projectile) {
+      rigid.collided_with.destroy()
+    }
+  })
 }

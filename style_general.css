@@ -9,22 +9,52 @@
   --dark-4: #393c3f;
   --bright-3: #9da6af;
   --bright-4: #888f96;
+  --cursor-default: url(assets/cursor/default.png) 16 13, default;
+  --cursor-pointer: url(assets/cursor/pointer.png) 16 13, pointer;
+  --cursor-help: url(assets/cursor/help.png) 17 13, help;
+  
 }
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   font-family: space;
-  font-weight: 0;
   font-size: 14px;
+  cursor: var(--cursor-default);
 }
 
 * {
   box-sizing: border-box;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--dark-4);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--bright-4);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bright-3);
+}
+
 .hidden {
   display: none!important;
+}
+
+h2 {
+  font-size: 24px;
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -68,8 +98,9 @@ textarea {
   justify-content: center;
   gap: 10px;
   padding: 12px 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: var(--dark-3);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
   z-index: 1000;
   color: white;
   width: max-content;
@@ -108,4 +139,58 @@ textarea {
   right: 12px;
   user-select: none;
   pointer-events: none;
+}
+
+
+.icon-tiny {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 12px;
+  height: 12px;
+  cursor: var(--cursor-pointer);
+}
+.icon-small {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 16px;
+  height: 16px;
+  cursor: var(--cursor-pointer);
+}
+.icon-medium {
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  cursor: var(--cursor-pointer);
+}
+
+.no-select {
+  user-select: none;
+}
+#hints-container {
+  pointer-events: none;
+}
+.hint {
+  display: flex;
+  letter-spacing: 1px;
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  animation-duration: 0.8s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes pulse {
+  0% {
+    color: hsla(0, 0%, 100%, 0.3);
+  }
+  100% {
+    color: hsl(0, 0%, 100%);
+  }
 }

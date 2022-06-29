@@ -7,14 +7,25 @@ class Player {
     this.reputation = {} //todo
     this.currency = 0
     this.character = "Deborah"
+    this.inventory = [
+      //Item {} instances
+      {},
+      {},
+    ]
   }
   update() {
-    this.controlShip()
+    this.control_ship()
+    //migrate ship control into game {}
   }
-  controlShip() {
+  control_ship() {
     if(ui.windows.active !== game) return
     let ship = this.ship
     if(!keys.accel && ship.brakes.auto) ship.brake() 
+    if(keys.shift) {
+      ship.draw_ghost()
+    }
+    else ship.hide_ghost()
+    this.ship.target_pos = mouse.world_pos.clone()
     if(keys.accel) ship.accelerate() 
     if(keys.decel) ship.decelerate() 
     if(keys.rotateCCW || keys.rotateCW) {
@@ -31,3 +42,5 @@ class Player {
     }
   }
 }
+
+//maybe this whole fuckin class is pointless, maybe

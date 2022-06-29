@@ -54,6 +54,10 @@ function SVGEl(
   return element
 }
 
+function getChildIndex(node) {
+  return Array.prototype.indexOf.call(node.parentNode.childNodes, node)
+}
+
 function rand(min, max) {
   return Math.random()*(max-min) + min
 }
@@ -209,15 +213,16 @@ const PI = Math.PI
 
 
 class Vector {
-  constructor(x, y) {
+  constructor(x, y, data = {}) {
     this.x = x
     if(y === undefined) this.y = x
     else this.y = y
+    if(data === true) this.data = {}
+    else this.data = _.cloneDeep(data)
 
     this.length = function () {
       return Math.sqrt(this.x * this.x + this.y * this.y)
     }
-
     this.distance = function (vector) {
       let v = new Vector(
         Math.abs(this.x - vector.x),
@@ -225,33 +230,27 @@ class Vector {
       )
       return v.length()
     }
-
     this.add = function (vector) {
       this.x = this.x + vector.x
       this.y = this.y + vector.y
       return this
     }
-
     this.dot = function(vector) {
-      console.log('dot product not finished')
-    }
 
+    }
     this.sub = function (vector) {
       this.x = this.x - vector.x
       this.y = this.y - vector.y
       return this
     }
-
-    this.clone = function () {
-      return new Vector(this.x, this.y)
+    this.clone = function (discard_data) {
+      return new Vector(this.x, this.y, discard_data || this.data)
     }
-
     this.mult = function (magnitude) {
       this.x = this.x * magnitude
       this.y = this.y * magnitude
       return this
     }
-
     this.normalize = function (length) {
       length = length || 1
       let total = this.length()
@@ -259,11 +258,9 @@ class Vector {
       this.y = (this.y / total) * length
       return this
     }
-
     this.toAngle = function () {
       return Math.atan2(this.y, this.x)
     }
-
     this.result = function () {
       return new Vector(this.x, this.y)
     }
@@ -284,9 +281,11 @@ class Vector {
         this.normalize(length)
       return this
     }
+
     this.lerp = function (target, value) {
       return new Vector(this.x + (target.x - this.x) * value, this.y + (target.y - this.y) * value)
     }
+
     this.inbound = function (bound) {
       return this.x < bound && this.x > -bound && this.y < bound && this.y > -bound
     }
@@ -295,6 +294,26 @@ class Vector {
       if(y === undefined) this.y = x
       else this.y = y
     }
+    this.set_from = function (vec) {
+      this.x = vec.x
+      this.y = vec.y
+    }
+    this.is = function (vector) {
+      return this.x === vector.x && this.y === vector.y
+    }
+    this.isClose = function (margin, vector) {
+      return this.distance(vector) <= margin
+    }
+    this.floor = function () {
+      this.x = Math.floor(this.x)
+      this.y = Math.floor(this.y)
+      return this
+    }
+    this.round = function () {
+      this.x = Math.round(this.x)
+      this.y = Math.round(this.y)
+      return this
+    }
   }
   static zero() {
     return new Vector(0, 0)
@@ -302,6 +321,10 @@ class Vector {
   static fromAngle(rotation) {
     return new Vector(Math.cos(rotation), Math.sin(rotation))
   }
+}
+
+function world_to_client_pos(window, pos) {
+  return pos.clone().sub(window.camera.pos).add(new Vector(cw/2, ch/2))
 }
 
 function capitalize(string) {
@@ -325,4 +348,13 @@ String.prototype.rev = function() {
   let array = this.split('')
   let string = array.reverse().join('')
   return string
+}
+
+String.prototype.bool = function() {
+  if(this.includes("false")) return false
+  if(this.includes("true")) return true
+}
+
+String.prototype.bob = function () {
+  return this.replaceAll("bo","bob").replaceAll("mo","bob").replaceAll("do","bob").replaceAll("ko","bob").replaceAll("no","bob").replaceAll("lo","lobob")
 }

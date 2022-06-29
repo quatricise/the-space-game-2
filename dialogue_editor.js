@@ -297,6 +297,10 @@ class DialogueEditor {
     this.svg_cont = El("div", "svg-container")
     Q('.dialogue-name').innerText = this.name
     this.element.append(this.svg_cont)
+    
+    let import_icon = El('div', "icon-import", [["title", "Import"]])
+    let export_icon = El('div', "icon-export-facts", [["title", "Export facts"]])
+    this.element.querySelector(".icon-close-container").prepend(import_icon, export_icon)
   }
   show() {
     this.element.classList.remove('hidden')
@@ -394,6 +398,7 @@ class DialogueEditor {
     this.close()
     this.state.set('loading')
     let url = "data/dialogue/" + name + ".json"
+    Q(".dialogue-name").innerText = name
     readTextFile(url, (text) => {
       let data = JSON.parse(text);
       data.forEach(d => {
@@ -404,7 +409,7 @@ class DialogueEditor {
         d.out.forEach(out_conn => {
           let node_origin = this.nodes.find(node => node.id === d.id)
           let node_destination = this.nodes.find(node => node.id === out_conn.to)
-          console.log(node_destination)
+          // console.log(node_destination)
           node_origin.create_connection(node_destination)
         })
       })
@@ -462,7 +467,11 @@ class DialogueEditor {
       if(event.code === "Enter" || event.code === "NumpadEnter") {
         let [owner, identifier, value] = input.value.replaceAll(" ", "").split(',')
         value = stringToBool(value)
-        fact_manager.create_fact(owner, identifier, value)
+        let created_fact = fact_manager.create_fact(owner, identifier, value)
+        if(created_fact) {
+          input.value = ""
+          this.display_fact_search()
+        }
       }
     }
     else
@@ -544,7 +553,12 @@ class DialogueEditor {
       if(event.target.closest(".dialogue-node") && (keys.shift || keys.shift_right)) {
         this.state.set("connecting")
       }
-
+      if(target.closest(".icon-export-facts")) {
+        fact_manager.export()
+      }
+      if(target.closest(".icon-import")) {
+        this.import(window.prompt("dialogue filename", "merchant"))
+      }
       if(event.target.closest(".fact-value") && event.target.closest(".fact-list")) {
         let value = event.target.closest(".fact-value")
         let node = this.nodes.find(n => n.id === +value.dataset.nodeid)

@@ -1,23 +1,5 @@
 class GameUI {
   constructor() {
-    //todo this isn't utilized in any way, make it so that there can ever only be one window open, i think that's a good idea
-    this.menus = {
-      start: {
-        open: false,
-      },
-      options: {
-        open: false,
-      },
-      dialogue: {
-        open: false,
-      },
-      inventory: {
-        open: false,
-      },
-      ship: {
-        open: false,
-      },
-    },
     this.windows = {
       all: [
 
@@ -53,6 +35,7 @@ class GameUI {
       },
     },
     this.overlays = {
+      //useful but currently not used
       top_left: {
         pos: {
           x: 20,
@@ -141,6 +124,12 @@ class GameUI {
   }
   handle_click(event) {
 
+  }
+  update() {
+    Q('#ship-hull').innerHTML = ""
+    for (let index = 0; index < player.ship.hull.curr; index++) {
+      Q('#ship-hull').append(El("div", "ship-hull-point"))
+    }
   }
 }
 
