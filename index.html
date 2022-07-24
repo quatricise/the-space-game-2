@@ -21,12 +21,13 @@
       <div class="icon-close-container">
         <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
       </div>
+      <div id="map-toolset" class="toolset"></div>
     </div>
     <div id="ship-view" class="full-screen-container hidden">
+      <!-- here load ship svg using js -->
       <div class="icon-close-container">
         <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
       </div>
-      <!-- here load ship svg using js -->
     </div>
     <div id="level-editor" class="full-screen-container"></div>
     <div class="full-screen-container">
@@ -46,7 +47,7 @@
         <div>State: <span id="state-view"></span></div>
       </div>
       <div id="game-ui" class="full-screen-container">
-        <div id="ship-hull" class="tooltip" data-tooltip="Current hull points: ${player.ship.hull.curr}/8" data-delay="1">
+        <div id="ship-hull" class="tooltip" data-tooltip="Current hull points" data-delay="1">
           <div class="ship-hull-point"></div>
           <div class="ship-hull-point"></div>
           <div class="ship-hull-point"></div>
@@ -115,10 +116,13 @@
         </div>
       </div>
       <div id="location-editor" class="full-screen-container hidden">
+        <div id="location-editor-navbar">
+          <div id="location-editor-name">Fuck</div>
+        </div>
         <div class="icon-close-container">
           <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
-          <div class="icon-export" title="Export location"></div>
           <div class="icon-import" title="Import location"></div>
+          <div class="icon-export" title="Export location"></div>
         </div>
         <div id="location-editor-toolset" class="toolset">
           <div class="selected-object-cont" id="location-editor-selected-object">
@@ -207,6 +211,8 @@
   <script src="location.js"></script>
   <script src="asteroid.js"></script>
   <script src="sprite_tools.js"></script>
+  <script src="weapons.js"></script>
+  <script src="special_objects.js"></script>
 
   <script src="object_editor.js"></script>
   <script src="dialogue_editor.js"></script>

@@ -44,7 +44,9 @@ class PolygonHitbox {
     }
   }
   static default() {
-    let hitbox = new PolygonHitbox(PolygonBuilder.Square(50, {x: -25, y: -25}))
+    let hitbox = new PolygonHitbox([
+      PolygonBuilder.Square(50, {x: -25, y: -25})
+    ])
     return hitbox
   }
 }
@@ -70,7 +72,6 @@ class BoxHitbox {
 class Polygon {
   constructor(vertices) {
     this.vertices = vertices
-    this.edges = this.buildEdges(vertices)
     this.color = debug.colors.hitbox_no_collision
   }
   rotate(rotation) {
@@ -79,28 +80,6 @@ class Polygon {
       vertex.x = newPos.x
       vertex.y = newPos.y
     })
-    this.edges = this.buildEdges()
-  }
-  buildEdges() {
-    return
-    let edges = [];
-    let vertices = this.vertices
-    if (vertices.length < 3) {
-      console.error("Your shape has less than 3 vertices.");
-      return
-    }
-    for (let i = 0; i < vertices.length; i++) {
-        const a = vertices[i];
-        let b = vertices[0];
-        if (i + 1 < vertices.length) {
-            b = vertices[i + 1];
-        }
-        edges.push({
-            x: (b.x - a.x),
-            y: (b.y - a.y),
-        });
-    }
-    this.edges = edges
   }
 }
 
@@ -220,12 +199,25 @@ class Collision {
       verts.push(vertex.x)
       verts.push(vertex.y)
     })
-    return Intersects.linePolygon(line[0].x, line[0].y, line[1].x, line[1].y, verts, 1)
+    let tolerance = 0
+    return Intersects.linePolygon(line[0].x, line[0].y, line[1].x, line[1].y, verts, tolerance)
   }
   static linePolygonHitbox(line = [], hitbox) {
     let collided = false
     hitbox.bodies.forEach(body => {
       if(Collision.linePolygon(line, body)) collided = true
+    })
+    return collided
+  }
+  static polygonHitboxPolygonHitbox(hitbox1, hitbox2) {
+    let collided = false
+    let checked_bodies = []
+      hitbox1.bodies.forEach(body1 => {
+        hitbox2.bodies.forEach(body2 => {
+          if(checked_bodies.find(body => body === body2)) return
+          if(Collision.polygonPolygon(body1, body2)) collided = true
+        })
+        checked_bodies.push(body1)
     })
     return collided
   }
@@ -363,7 +355,6 @@ class HitboxTools {
         vertex.x = entity.pos.x + entity.hitbox_relative.bodies[b].vertices[v].x
         vertex.y = entity.pos.y + entity.hitbox_relative.bodies[b].vertices[v].y
       })
-      body.edges = body.buildEdges()
     })
   }
   static updateHitbox(entity) {
@@ -454,17 +445,10 @@ function testCollision() {
       else
       //polygon x polygon
       if(rigid.hitbox.type === "polygon" && candidate.hitbox.type === "polygon") {
-        let checked_bodies = []
-        rigid.hitbox.bodies.forEach(r_body => {
-          candidate.hitbox.bodies.forEach(c_body => {
-            if(checked_bodies.find(body => body === c_body)) return
-            if(Collision.polygonPolygon(r_body, c_body)) {
-              collided = true
-              total++
-            }
-          })
-          checked_bodies.push(r_body)
-        })
+        if(Collision.polygonHitboxPolygonHitbox(rigid.hitbox, candidate.hitbox)) {
+          collided = true
+          total++
+        }
       }
       //if any test has been successful, mark both as collided
       if(collided) {
@@ -476,9 +460,6 @@ function testCollision() {
     //rule out duplicit collision checks by marking the current object as tested
     rigid.hitbox.tested = true
   })
-
-  
-  //reset the tested property for the next iteration of testCollision()
   rigids.forEach(rigid => {rigid.hitbox.tested = false})
   if(debug.hitbox) console.log("number of checks/s: " + number_of_checks)
 
@@ -499,7 +480,15 @@ function testCollision() {
         laser[1] = laser[0].clone().add(diff)
         
         laser.forEach(v => v.data.hit = true)
-        if(rigid instanceof Ship) rigid.hull.damage()
+        if(rigid instanceof Ship) rigid.hull_damage()
+        if(rigid instanceof Asteroid) {
+          let angle = Math.atan2(laser[1].y - laser[0].y, laser[1].x - laser[0].x)
+          let angle2 = Math.atan2(rigid.pos.y - laser[0].y, rigid.pos.x - laser[0].x)
+          if(angle < angle2) rigid.rotation_velocity += PI * (angle2 - angle)
+          if(angle > angle2) rigid.rotation_velocity -= PI * (angle - angle2)
+
+          rigid.vel.add(Vector.fromAngle(angle).mult(3))
+        }
       }
     })
   })
@@ -518,15 +507,70 @@ function testCollision() {
 }
 
 function solveCollision() {
+  //prototype projectile code
   rigids.forEach(rigid => {
     if(!rigid.collided) return
     if(rigid instanceof Ship && rigid.collided_with instanceof Projectile) {
       if(rigid.collided_with.owner === rigid) return
-      rigid.hull.damage()
+      rigid.hull_damage()
       rigid.collided_with.destroy()
     }
     if(rigid instanceof Asteroid && rigid.collided_with instanceof Projectile) {
       rigid.collided_with.destroy()
     }
+  })
+  //collision damage
+  rigids.forEach(rigid => {
+    if(!rigid.collided) return
+    if(rigid instanceof Ship && (
+      rigid.collided_with instanceof Asteroid || 
+      rigid.collided_with instanceof Ship
+    )) {
+      rigid.hull_damage()
+    }
+  })
+  //physics solver
+  rigids.forEach(rigid => {
+    if(!rigid.collided) return
+    if(rigid instanceof Projectile) return
+    if(rigid.collided_with instanceof Projectile && rigid.collided_with.owner === rigid) return
+    let rigid2 = rigid.collided_with
+
+    let vel = rigid.vel.clone()
+    let vel2 = rigid2.vel.clone()
+    let result = vel.add(vel2)
+
+    rigid.vel
+    .set(result.x, result.y)
+    .mult( 0.5)
+
+    rigid2.vel
+    .set(result.x, result.y)
+    .mult( 0.5)
+
+    //approach 2
+
+    // let mass_total = rigid.mass + rigid2.mass
+    // let step = 1/mass_total
+    // let fac1 = step * rigid.mass
+    // let fac2 = step * rigid2.mass
+
+    // rigid.vel
+    // .set(result.x, result.y)
+    // .mult( fac1)
+
+    // rigid2.vel
+    // .set(result.x, result.y)
+    // .mult( fac2)
+
+    //approach 3
+    // let add1 = rigid2.  vel.clone().mult(fac2)
+    // let add2 = rigid.   vel.clone().mult(fac1)
+
+    // rigid.vel.add(add1)
+    // rigid2.vel.add(add2)
+
+    rigid.collided = false
+    rigid2.collided = false
   })
 }

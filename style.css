@@ -6,7 +6,7 @@
 }
 
 #map-canvas {
-  border: 2px solid white;
+  border: 4px solid var(--dark-4);
   border-radius: 50%;
 }
 .map-sidebar {
@@ -347,6 +347,30 @@
 .tool-icon.edit-hitbox {
   background-image: url(assets/icons/icon_edit_hitbox.png);
 }
+.tool-icon.randomize-rotation {
+  background-image: url(assets/icons/icon_randomize_rotation.png);
+}
+.tool-icon.randomize-rotation.active {
+  background-color: var(--dark-4);
+}
+.tool-icon.add-icon {
+  background-image: url(assets/icons/icon_add_icon.png);
+}
+.tool-icon.add-sprite {
+  background-image: url(assets/icons/icon_add_sprite.png);
+}
+.tool-icon.lock-sprite {
+  background-image: url(assets/icons/icon_lock_sprite.png);
+}
+.tool-icon.lock-sprite.active {
+  background-color: var(--dark-4);
+}
+.tool-icon.lock-icon {
+  background-image: url(assets/icons/icon_lock_icon.png);
+}
+.tool-icon.lock-icon.active {
+  background-color: var(--dark-4);
+}
 
 .hitbox-editor-icon {
   background-image: url(assets/hitbox_editor/icon_hitbox_editor.png);
@@ -481,7 +505,7 @@
   cursor: var(--cursor-pointer);
 }
 
-.dialogue-editor-navbar {
+.dialogue-editor-navbar, #location-editor-navbar {
   display: flex;
   width: 100%;
   height: 100%;
@@ -1091,4 +1115,8 @@
 
 #button-end-transmission {
   background-image: url(assets/hitbox_editor/icon-close.png);
+}
+
+#location-editor-name {
+  color: white;
 }

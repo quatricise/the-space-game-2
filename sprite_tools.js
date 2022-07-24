@@ -29,6 +29,18 @@ class SpriteTools {
       if(src.includes("linework")) {
         sources.push({src: "linework.png", length: len})
       }      
+      if(src.includes("shield_charge")) {
+        sources.push({src: "shield_charge_indicator.png", length: len})
+      }      
+      if(src.includes("dash_indicator")) {
+        sources.push({src: "dash_indicator.png", length: len})
+      }      
+      if(src.includes("laser_charge_progress")) {
+        sources.push({src: "laser_charge_progress_0000.png", length: len})
+      }      
+      if(src.includes("vwb_outline")) {
+        sources.push({src: "vwb_outline.png", length: len})
+      }      
       if(src.includes("glow")) {
         sources.push({src: "glow.png", length: len})
       }      
@@ -42,17 +54,20 @@ class SpriteTools {
         sources.push({src: "flame_0000.png", length: len})
       }  
     })
-    // console.log(sources)
+    
     sources.forEach(src => {
       let url = folder + src.src
       let name = src.src
+      if(name.includes("skip")) url = "assets/skip_animation/skip_0000.png"
       let length = src.length
       // console.log(url, length)
       let sprite
       if(length > 1) {
         sprite = AnimatedSprite(url, length)
-        sprite.animationSpeed = 0.1
-        sprite.play()
+        if(name.includes("skip") || name.includes("flame")) {
+          sprite.animationSpeed = 0.1 
+          sprite.play()
+        }
       }
       else {
         sprite = PIXI.Sprite.from(url);
@@ -63,6 +78,10 @@ class SpriteTools {
       if(name.includes("highlights")) obj.sprites_special.highlights.push(sprite)
       if(name.includes("ghost")) {obj.sprites_special.ghost = sprite; return}
       if(name.includes("skip")) {obj.sprites_special.skip = sprite; return}
+      if(name.includes("shield_charge")) {obj.sprites_special.shield_charge = sprite}
+      if(name.includes("vwb_outline")) {obj.sprites_special.vwb_outline = sprite}
+      if(name.includes("dash_indicator")) {obj.sprites_special.dash_indicator = sprite}
+      if(name.includes("laser_charge_progress")) {obj.sprites_special.laser_charge_progress = sprite}
       
       obj.sprite_container.addChild(sprite)
       obj.sprites.push(sprite)

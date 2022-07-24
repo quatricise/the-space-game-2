@@ -13,14 +13,14 @@ class Game {
       "map_open",
       "loading",
     )
-    this.location = new Location("the_court")
+    this.loc = null
     this.add_origin()
   }
-  travel(location_id) {
-    if(!data.locations[location_id]) return
-    this.location = new Location(location_id)
+  load_location(location_id) {
     this.state.set("loading")
-    this.location.load()
+    this.loc = new Loc(location_id)
+    this.loc.load(location_id)
+    this.state.set("explore")
   }
   add_origin() {
     this.origin = PIXI.Sprite.from("assets/origin.png")
@@ -63,16 +63,23 @@ class Game {
       if(map.open) this.state.set("map_open")
       else         this.state.set("passive")
     }
+    if(event.code === binds.dash) player.ship.dash_init()
+    if(event.code === binds.toggle_autobrake) player.ship.brakes_toggle_auto()
   }
   handle_keyup(event) {
     
   }
   handle_mousedown(event) {
     if(event.button === 0) {
-      if(keys.shift) {
+      if(keys.shift || keys.shift_right) {
         player.ship.skip_begin(mouse.world_pos)
       }
+      else
+      if(keys.ctrl || keys.ctrl_right) {
+        player.ship.pulse_shield_activate()
+      }
       else {
+        player.ship.timers.laser_charge.restart()
         player.ship.fire(mouse.world_pos)
       }
     }
@@ -81,7 +88,9 @@ class Game {
     
   }
   handle_mouseup(event) {
-    
+    if(event.button === 0) {
+      player.ship.timers.laser_charge.reset()
+    }
   }
   handle_click(event) {
     

@@ -1,14 +1,45 @@
-class Location {
+class Loc {
   constructor(identifier) {
     this.name = identifier
+    this.generated = false
     this.objects = []
-    this.facts = {
-      hostile_towards_crown: true,
-      has_angered_weapon_shopkeeper: false,
-    }
+    this.npcs = []
+  }
+  generate() {
+    this.objects.forEach(obj => {
+      if(obj.type === "location_randomizer") x
+      if(obj.type === "random_spawner") y
+    })
   }
   load(id) {
-    let d = data.locations[id]
+    if(!this.generated) this.generate()
+    readTextFile("data/locations/" + id + ".json", (text) => {
+      let d = JSON.parse(text)
+      d.objects.forEach(obj => {
+        if(obj.type === "asteroid") {
+          let asteroid = new Asteroid(
+            new Vector(obj.pos.x, obj.pos.y),
+            new Vector(obj.vel.x, obj.vel.y),
+            obj.rotation,
+            obj.rotation_velocity, 
+            obj.name
+          )
+          asteroid.addToScene()
+          this.objects.push(asteroid)
+        }
+        if(obj.type === "ship") {
+          let asteroid = new Ship(
+            new Vector(obj.pos.x, obj.pos.y),
+            new Vector(obj.vel.x, obj.vel.y),
+            obj.rotation,
+            obj.rotation_velocity, 
+            obj.name
+          )
+          asteroid.addToScene()
+          this.objects.push(asteroid)
+        }
+      })
+    })
   }
   unload() {
     //unload all sprites, music and garbage, only keep a reference to this somewhere

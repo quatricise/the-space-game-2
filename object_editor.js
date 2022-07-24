@@ -11,7 +11,7 @@ class ObjectEditor {
     this.rewrite_input.style.backgroundColor = "var(--dark-4)"
     this.objects = []
     this.active = {}
-    this.edited //html element
+    this.edited //reference to some HTML
     this.nest_level = 0
     this.nest_path = ""
     this.group_count = 0

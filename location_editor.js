@@ -9,11 +9,13 @@ class LocationEditor {
     this.scene.addChild(this.graphics)
     this.grid_sprite = new PIXI.TilingSprite(grid.texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
     this.scene.addChild(this.grid_sprite)
-    this.name = "Location"
+    this.name = "location001"
+    this.loc_pos = new Vector(0)
     this.objects = []
     this.state = new State(
       "default",
       "adding_obj",
+      "adding_special",
       "panning",
       "rotating",
     )
@@ -23,16 +25,19 @@ class LocationEditor {
       "add-special",
       "rotate",
       "edit-hitbox",
+      "randomize-rotation"
     ]
     this.special_objects = [
       "random_spawner", //select a spawn pool, add min and max spawns, add object weights, randomize velocity, rotation
-      "pick_location", //spawn one object, but let the game decide from multiple places where it can put it
+      "location_randomizer", //spawn one object, but let the game decide from multiple places where it can put it
     ]
     this.selected = []
     this.previous_selected = []
     this.select_delay = 55
     this.active = {
       path: ["array", "of", "strings"],
+      name: null,
+      type: "object"
     }
     this.rotation_data = {
       click_origin: new Vector(0),
@@ -55,39 +60,47 @@ class LocationEditor {
     let name = window.prompt("location name", "location001")
     this.objects = []
     readTextFile("data/locations/" + name + ".json", (text) => {
-      let d = JSON.parse(text)
-      d.forEach(obj => {
+      let loc = JSON.parse(text)
+      this.name = loc.name
+      this.loc_pos = new Vector(loc.pos.x, loc.pos.y)
+      loc.objects.forEach(obj => {
         let newobj
         let pos = new Vector(obj.pos.x, obj.pos.y)
         let vel = new Vector(obj.vel.x, obj.vel.y)
         let rotation = obj.rotation
         let rotation_velocity = obj.rotation_velocity
         console.log(`hitboxes aren't saved correctly, only references to json files work so far`)
-        if(obj.type === "ship") newobj = new Ship(pos, vel, rotation, rotation_velocity, obj.dataref)
-        if(obj.type === "asteroid") newobj = new Asteroid(pos, vel, rotation, rotation_velocity, obj.dataref)
+        if(obj.type === "ship") newobj = new Ship(pos, vel, rotation, rotation_velocity, obj.name)
+        if(obj.type === "asteroid") newobj = new Asteroid(pos, vel, rotation, rotation_velocity, obj.name)
 
         if(newobj) {
           this.objects.push(newobj)
           newobj.addToScene(this.scene)
         }
       })
+      Q('#location-editor-name').innerText = this.name
     })
   }
   export() {
-    let d = []
+    let loc = {
+      name: this.name,
+      pos: this.loc_pos.plain()
+    }
+    loc.objects = []
     this.objects.forEach(obj => {
       let newobj = {
         pos: {x: obj.pos.x, y: obj.pos.y},
         vel: {x: obj.vel.x, y: obj.vel.y},
         rotation: obj.rotation,
         rotation_velocity: obj.rotation_velocity,
+        name: obj.name,
         dataref: obj.dataref, //absolutely disgusting
       }
       if(obj instanceof Ship) newobj.type = "ship"
       if(obj instanceof Asteroid) newobj.type = "asteroid"
-      d.push(newobj)
+      loc.objects.push(newobj)
     })
-    exportToJsonFile(d, "location001")
+    exportToJsonFile(loc, "location001")
   }
   new_location() {
     this.objects.forEach(obj => obj.destroy())
@@ -123,7 +136,8 @@ class LocationEditor {
   generate_special() {
     let list = this.element.querySelector(".special-dropdown-window .dropdown-list")
     this.special_objects.forEach(obj => {
-      let el = El("div", "blbblblb", undefined, obj.replaceAll("_", ' ').cap())
+      let el = El("div", "dropdown-item special", undefined, obj.replaceAll("_", ' ').cap())
+      el.dataset.name = obj
       list.append(el)
     })
   }
@@ -139,16 +153,16 @@ class LocationEditor {
     }
     // temporarily disable asteroids
 
-    for(let key in data.entities.asteroids) {
-      d.push(data.entities.asteroids[key])
+    for(let key in data.asteroids) {
+      d.push(data.asteroids[key])
       keys.push(key)
-      paths.push("entities.asteroids" + "." + key)
+      paths.push("asteroids" + "." + key)
     }
     d.forEach((d, index) => {
       console.log(d)
       let img = new Image(); img.src = d.sources.folder + "thumbnail.png"
       img.style.position = "absolute"
-      let cont = El('div', "dropdown-item", [["title", "Add to location"]])
+      let cont = El('div', "dropdown-item object", [["title", "Add to location"]])
       let name = keys[index].replaceAll("_", ' ').cap()
       let desc = El('div', "dropdown-desc", undefined, name) 
       let image_cont = El('div', "dropdown-image")
@@ -164,6 +178,7 @@ class LocationEditor {
   set_tool(name) {
     let tool = this.tools.find(t => t === name)
     if(tool) {
+      this.prev_tool = this.tool
       this.tool = tool
       Array.from(this.element.querySelectorAll('.tool-cont')).forEach(el => el.classList.remove('active'))
       this.element.querySelector('[data-toolname="' + tool + '"').classList.add('active')
@@ -172,7 +187,13 @@ class LocationEditor {
       this.state.set("default")
     }
   }
+  revert_tool() {
+    this.set_tool(this.prev_tool)
+    if(this.tool === "select-object") this.state.set("adding_obj")
+    if(this.tool === "add-special") this.state.set("adding_special")
+  }
   add_object(path) {
+    if(debug.location_editor) console.log(path)
     let loc = data
     let type
     path.forEach(step => {
@@ -181,19 +202,32 @@ class LocationEditor {
       if(step === "ships") type = "ship"
     })
     let obj = loc
-    let pos = new Vector(-this.scene.position.x + mouse.client_pos.x,-this.scene.position.y + mouse.client_pos.y),
+    let object;
+    let pos = mouse.location_editor_pos.clone(),
         vel = new Vector(0,0),
         rot = 0,
         rot_vel = 0
-    let object;
+    if(this.randomize_location) rot = Math.random() * PI*2
     if(type === "asteroid") {
-      object = new Asteroid(pos, vel, rot, rot_vel, obj)
+      object = new Asteroid(pos, vel, rot, rot_vel, path[path.length - 1])
     }
     if(type === "ship") {
-      object = new Ship(pos, vel, rot, rot_vel, obj)
+      object = new Ship(pos, vel, rot, rot_vel, path[path.length - 1])
     }
     if(debug.location_editor) console.log(object)
     object.addToScene(this.scene)
+    this.objects.push(object)
+  }
+  add_special() {
+    if(this.active.type !== "special") return
+    let pos = mouse.location_editor_pos.clone()
+    let object
+    if(this.active.name === "location_randomizer") {
+      object = new LocationRandomizer(pos)
+    }
+    if(this.active.name === "random_spawner") {
+      object = new RandomSpawner(pos, {type: "circle", radius: 50})
+    }
     this.objects.push(object)
   }
   select_obj(obj) {
@@ -222,13 +256,16 @@ class LocationEditor {
     let objs = this.selected
     this.deselect_all()
     objs.forEach(obj => obj.destroy())
+    this.objects = this.objects.filter(obj => 
+      objs.find(o => o === obj) == null
+    )
   }
   duplicate_selected() {
     let duplicates = []
     this.selected.forEach(obj => {
       let newobj
-      if(obj instanceof Ship) newobj = new Ship(obj.pos.clone(), obj.vel.clone(),obj.rotation, obj.rotation_velocity, obj.dataref)
-      if(obj instanceof Asteroid) newobj = new Asteroid(obj.pos.clone(), obj.vel.clone(),obj.rotation, obj.rotation_velocity, obj.dataref)
+      if(obj instanceof Ship) newobj = new Ship(obj.pos.clone(), obj.vel.clone(),obj.rotation, obj.rotation_velocity, obj.name)
+      if(obj instanceof Asteroid) newobj = new Asteroid(obj.pos.clone(), obj.vel.clone(),obj.rotation, obj.rotation_velocity, obj.name)
       newobj.pos.x += 50
       newobj.pos.y += 50
       newobj.addToScene(this.scene)
@@ -320,8 +357,14 @@ class LocationEditor {
           hitbox_editor.select(obj)
         }
       }
-      if(target.closest(".dropdown-item")) {
+      if(target.closest(".tool-icon.randomize-rotation")) {
+        this.randomize_location = !this.randomize_location
+        target.closest(".tool-icon.randomize-rotation").classList.toggle('active')
+        setTimeout(()=>{this.revert_tool()},100)
+      }
+      if(target.closest(".dropdown-item.object")) {
         let path = target.closest(".dropdown-item").dataset.path.split(".")
+        this.active.type = "object"
         this.active.path = path
         this.dropdown.classList.add("hidden")
         this.state.set("adding_obj")
@@ -333,8 +376,16 @@ class LocationEditor {
         this.obj_selector.innerHTML = ""
         this.obj_selector.append(img_cont, desc)
       }
+      if(target.closest(".dropdown-item.special")) {
+        this.active.type = "special"
+        this.active.name = target.closest(".dropdown-item.special").dataset.name
+        this.state.set("adding_special")
+      }
       if(target === this.element && this.state.is("adding_obj")) {
         this.add_object(this.active.path)
+      }
+      if(target === this.element && this.state.is("adding_special")) {
+        this.add_special()
       }
       if(target.closest('.icon-export')) {
         this.export()

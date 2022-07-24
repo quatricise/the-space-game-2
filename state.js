@@ -4,6 +4,7 @@ let debug = {
   mouse: false,
   editor: false,
   dialogue_editor: false,
+  location_editor: false,
   colors: {
     hitbox_no_collision: 0xffff00,
     hitbox_shape_selected: 0x0000ff,
@@ -105,6 +106,10 @@ class Timer {
       }
       this[timer[0]].toggle = function() {
         this.active = !this.active
+      }
+      this[timer[0]].reset = function() {
+        this.curr = 0
+        this.active = false
       }
       this.all.push(this[timer[0]])
     })

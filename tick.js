@@ -1,5 +1,6 @@
 function tick(delta) {
   dt = app.ticker.deltaMS / 1000
+  if(dt > 500) dt = 0
   dtf = delta
 
   ui.windows.active.graphics.clear()
@@ -8,6 +9,7 @@ function tick(delta) {
   cameras.forEach(camera => camera.update())
   Q('#zoom-level').innerText = camera.current_zoom
   mouse.update_world_pos()
+  mouse.update_ship_angle()
   entities.forEach(entity => {
     entity.update()
     entity.update_cell_pos()
@@ -48,7 +50,7 @@ function tick(delta) {
     ui.windows.active.graphics.lineStyle(8, 0x770000, 1)
     ui.windows.active.graphics.moveTo(laser[0].x, laser[0].y)
     ui.windows.active.graphics.lineTo(laser[1].x, laser[1].y)
-    ui.windows.active.graphics.lineStyle(4, 0xdd1111, 1)
+    ui.windows.active.graphics.lineStyle(2, 0xdd1111, 1)
     ui.windows.active.graphics.moveTo(laser[0].x, laser[0].y)
     ui.windows.active.graphics.lineTo(laser[1].x, laser[1].y)
   })

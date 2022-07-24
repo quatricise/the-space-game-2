@@ -1,10 +1,9 @@
 class NPC {
-  constructor(name) {
+  constructor(name, target) {
     this.name = name
     this.location = {} //idk, maybe like the current world location, or something
     this.ship = {} //some ship
     this.database = new Map() //their local dictionary of facts
-    this.target = null
     this.referenced_in = []
     this.referenced_in.push(npcs)
     npcs.push(this)
@@ -15,6 +14,7 @@ class NPC {
       "follow-leader",
       "patrol",
     )
+    this.target = target
     this.colliding = false
     this.dir = 1
     this.check_collision = () => {
@@ -61,7 +61,7 @@ class NPC {
     }
     this.can_skip = true
     this.fire = () => {
-      let pos = player.ship.pos.clone()
+      let pos = this.target.pos.clone()
       pos.x *= rand(0.95,1.05)
       pos.y *= rand(0.95,1.05)
       this.ship.fire(pos)
@@ -89,8 +89,7 @@ class NPC {
   }
   control_ship() {
     let ship = this.ship
-    this.determine_state()
-    this.choose_target()
+    this.aim()
     if(this.colliding) {
       ship.rotate(this.dir)
       ship.accelerate()
@@ -118,16 +117,11 @@ class NPC {
   decide_direction() {
     this.dir = pickRand([-1, 1])
   }
-  choose_target() {
-    this.target = player.ship
+  set_target(target) {
+    this.target = target
+  }
+  aim() {
     this.ship.target_pos = this.target.pos.clone()
-  }
-  determine_state() {
-    // if colliding, set state to avoid-obstacles
-  }
-
-  interact() {
-    //idk, maybe some dialogue thing
   }
   destroy() {
     for (let i = 0; i < this.referenced_in.length; i++) {

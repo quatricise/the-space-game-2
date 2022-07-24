@@ -71,6 +71,10 @@ function pickRand(values = [0,1]) {
   let index = Math.round(Math.random()*(values.length - 1))
   return values[index]
 }
+function randomData(...data) {
+  let i = randR(0, data.length - 1)
+  return data[i]
+}
 function clamp(value, min, max) {
   let val = value
   if(val <= min) val = min
@@ -251,6 +255,11 @@ class Vector {
       this.y = this.y * magnitude
       return this
     }
+    this.invert = function () {
+      this.x *= -1
+      this.y *= -1
+      return this
+    }
     this.normalize = function (length) {
       length = length || 1
       let total = this.length()
@@ -270,11 +279,18 @@ class Vector {
         this.y + (vector.y - this.y) * amount
       )
     }
+    // this.rotate = function (angle) {
+    //   let ang = angle.toFixed(6)
+    //   this.x = this.x * Math.cos(ang) - this.y * Math.sin(ang)
+    //   this.y = this.x * Math.sin(ang) + this.y * Math.cos(ang)
+    //   this.x = this.x.toFixed(6)
+    //   this.y = this.y.toFixed(6)
+    //   return this
+    // }
     this.rotate = function (angle) {
-      return new Vector(
-        this.x * Math.cos(angle) - this.y * Math.sin(angle),
-        this.x * Math.sin(angle) + this.y * Math.cos(angle)
-      )
+      this.x = this.x * Math.cos(angle) - this.y * Math.sin(angle)
+      this.y = this.x * Math.sin(angle) + this.y * Math.cos(angle)
+      return this
     }
     this.clamp = function (length) {
       if (this.length() > length)
@@ -293,6 +309,7 @@ class Vector {
       this.x = x
       if(y === undefined) this.y = x
       else this.y = y
+      return this
     }
     this.set_from = function (vec) {
       this.x = vec.x
@@ -313,6 +330,9 @@ class Vector {
       this.x = Math.round(this.x)
       this.y = Math.round(this.y)
       return this
+    }
+    this.plain = function () {
+      return {x: this.x, y: this.y}
     }
   }
   static zero() {

@@ -24,9 +24,11 @@ class Rigid extends Entity {
     if(typeof hitbox === "object") {
       if(hitbox.type === "circle") {
         this.hitbox = new CircleHitbox(hitbox.radius)
+        this.hitbox_relative = _.cloneDeep(this.hitbox)
       }
       if(hitbox.type === "polygon") {
-        this.hitbox = new PolygonHitbox.default()
+        this.hitbox = PolygonHitbox.default()
+        this.hitbox_relative = _.cloneDeep(this.hitbox)
       }
       // this.hitbox = _.cloneDeep(hitbox)
       // this.hitbox_relative = _.cloneDeep(this.hitbox)
