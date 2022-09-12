@@ -1,0 +1,321 @@
+.dialogue-editor {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(26, 27, 29);
+  user-select: none;
+  z-index: 1;
+}
+
+.dialogue-name {
+  color: white;
+}
+
+.dialogue-node {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 10px 40px 10px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.411);
+  background-color: var(--dark-3);
+  color: white;
+  z-index: 2;
+  font-size: 14px;
+  max-width: 600px;
+  gap: 10px;
+  border: 2px solid rgba(13, 62, 224, 0);
+  user-select: none;
+}
+
+.dialogue-node.active {
+  border: 2px solid green;
+}
+
+.dialogue-node-row {
+  max-width: 500px;
+  min-width: 150px;
+  background-color: var(--dark-2);
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.dialogue-node-transfer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.dialogue-node-transfer {
+  display: flex;
+  gap: 5px;
+}
+
+.dialogue-node-item-container {
+  display: flex;
+  min-width: 50px;
+  width: max-content;
+  gap: 5px;
+}
+
+.dialogue-node-add-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  order: 2;
+}
+
+.dialogue-node-header {
+  min-width: 150px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.dialogue-node-label {
+  padding: 5px 10px;
+  flex-grow: 1;
+}
+
+.dialogue-node-responses {
+  display: flex;
+  flex-direction: column;
+}
+.dialogue-node-widget {
+  display: flex;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 32px;
+  border-radius: 5px;
+}
+.dialogue-node-widget:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.dialogue-node-widget.edit {
+  background-image: url(../assets/editor/icon_widget_edit.png);
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-widget.drag {
+  background-image: url(../assets/editor/icon_widget_drag.png);
+  cursor: all-scroll;
+}
+.dialogue-node-widget.remove {
+  background-image: url(../assets/editor/icon_widget_remove.png);
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-widget.resize {
+  background-image: url(../assets/editor/icon_widget_resize.png);
+  cursor: var(--cursor-pointer);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.dialogue-node-widget.list {
+  background-image: url(../assets/editor/icon_list.png);
+  cursor: var(--cursor-pointer);
+  position: absolute;
+  left: 10px;
+}
+.dialogue-node-widget.list.active {
+  background-color: var(--dark-2);
+}
+.dialogue-node-widget.collapse {
+  background-image: url(../assets/editor/icon_widget_collapse.png);
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-widget.collapse.true {
+  transform: rotate(180deg);
+}
+.dialogue-node-widget.add-response {
+  background-image: url(../assets/editor/icon_widget_add.png);
+  cursor: var(--cursor-pointer);
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+}
+.drag-widget {
+  background-image: url(../assets/editor/icon_widget_drag.png);
+  cursor: all-scroll;
+}
+.drag-widget:hover {
+  background-color: var(--dark-1);
+}
+.dialogue-node-socket {
+  width: 12px;
+  height: 12px;
+  border: 1px solid white;
+  border-radius: 100%;
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-socket.out {
+  background-color: green;
+}
+.dialogue-node-socket.out:hover {
+  background-color: rgb(50, 161, 50);
+}
+.dialogue-node-socket.in {
+  background-color: rgb(98, 7, 126);
+}
+.dialogue-node-socket.in:hover {
+  background-color: rgb(142, 67, 165);
+}
+
+.dialogue-node-socket.detached {
+  position: absolute;
+}
+
+.dialogue-node-connection {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dialogue-node-connection:hover {
+  filter: brightness(1.3);
+}
+
+.dialogue-editor-sidebar {
+  width: 400px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: -400px;
+  color: white;
+  background-color: rgb(47, 49, 53);
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.411);
+  transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+  z-index: 3;
+  padding: 10px;
+}
+
+.dialogue-editor-sidebar.open {
+  transform: translateX(-400px);
+}
+
+.dialogue-editor-sidebar.open .arrow-open {
+  transform: rotate(0deg);
+}
+
+
+.sidebar-header {
+  display: flex;
+  padding: 10px 10px;
+  font-size: 20px;
+}
+
+.arrow-open {
+  background-image: url(../assets/editor/icon_arrow_simple.png);
+  background-position: center;
+  background-size: contain;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: -40px;
+  top: 10px;
+  cursor: var(--cursor-pointer);
+  transform: rotate(180deg);
+  transition: all 0.15s ease-in-out;
+}
+
+.dialogue-node-speaker::before {
+  content: url(../assets/editor/icon_speaker_25w.png);
+  margin-right: 5px;
+}
+
+.dialogue-node-response-wrapper {
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dialogue-node-response-wrapper-header {
+  position: absolute;
+  top: -25px;
+}
+
+.dialogue-node-socket-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  position: absolute;
+}
+
+.dialogue-node-socket-wrapper.in {
+  top: -6px;
+}
+.dialogue-node-socket-wrapper.out {
+  bottom: -6px;
+}
+
+.dialogue-node-item {
+  display: flex;
+  width: 39px;
+  height: 100%;
+  border-radius: 5px;
+  background-color: var(--dark-3);
+  border: 2px solid var(--dark-4);
+}
+.dialogue-node-item:hover {
+  background-color: var(--dark-4);
+  border: 2px solid var(--dark-5);
+}
+
+.dialogue-node-icon, .fact-add-button {
+  min-width: 32px;
+  height: 32px;
+  background-attachment: local;
+  background-size: contain;
+  background-position: center;
+  border-radius: 5px;
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-icon:hover, .fact-add-button:hover {
+  background-color: var(--dark-3);
+}
+
+.dialogue-node-icon.hover-dark-02:hover {
+  background-color: var(--dark-2);
+}
+
+.dialogue-add-output {
+  background-image: url(../assets/editor/icon_plus.png);
+}
+.dialogue-remove-output {
+  background-image: url(../assets/editor/icon_minus.png);
+}
+.dialogue-node-icon.plus {
+  background-image: url(../assets/editor/icon_plus.png);
+}
+.dialogue-node-icon.minus {
+  background-image: url(../assets/editor/icon_minus.png);
+}
+
+/* #sidebar */
+.sidebar-row.text {
+  padding: 10px 10px;
+  background-color: rgb(26, 27, 29);
+}
+.sidebar-row.label {
+  padding: 10px 10px;
+}
+
+.sidebar-container {
+  padding: 10px;
+  margin-top: 50px;
+  min-height: 40px;
+  background-color: rgb(30, 32, 36);
+  position: relative;
+}
+
+.sidebar-container-header {
+  position: absolute;
+  top: -25px;
+}

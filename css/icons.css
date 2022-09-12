@@ -1,0 +1,152 @@
+.tool-cont,
+.editor-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-1);
+  border-radius: 5px;
+  cursor: var(--cursor-pointer);
+  border: 2px solid var(--dark-3);
+}
+
+.tool-cont:hover,
+.editor-icon:hover {
+  border-color: white;
+}
+
+.tool-icon,
+.editor-icon {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  background-attachment: local;
+  background-size: contain;
+  background-position: center;
+}
+.tool-icon.active {
+  background-color: var(--dark-4);
+}
+.tool-cont.active {
+  border: 2px solid white;
+}
+.tool-icon.select {
+  background-image: url(../assets/hitbox_editor/icon-select.png);
+}
+.tool-icon.pen-tool {
+  background-image: url(../assets/hitbox_editor/icon-pen-tool.png);
+}
+.tool-icon.add-shape {
+  background-image: url(../assets/hitbox_editor/icon-add-shape.png);
+}
+.tool-icon.remove-shape {
+  background-image: url(../assets/hitbox_editor/icon-remove-shape.png);
+}
+.tool-icon.center-shape {
+  background-image: url(../assets/hitbox_editor/icon-center-shape.png);
+}
+.tool-icon.select-object {
+  background-image: url(../assets/hitbox_editor/icon-select-object.png);
+}
+.tool-icon.object-center {
+  background-image: url(../assets/hitbox_editor/icon-object-center.png);
+}
+.tool-icon.object-cycle-rotation {
+  background-image: url(../assets/hitbox_editor/icon-object-cycle-rotation.png);
+}
+.tool-icon.add-point {
+  background-image: url(../assets/hitbox_editor/icon-add-point.png);
+}
+.tool-icon.move {
+  background-image: url(../assets/hitbox_editor/icon-select.png);
+}
+.tool-icon.add {
+  background-image: url(../assets/editor/icon_plus.png);
+}
+.tool-icon.select-object {
+  background-image: url(../assets/hitbox_editor/icon-select-object.png);
+}
+.tool-icon.add-special {
+  background-image: url(../assets/editor/icon_plus.png);
+}
+.tool-icon.rotate {
+  background-image: url(../assets/icons/icon-rotate-object.png);
+}
+.tool-icon.edit-hitbox {
+  background-image: url(../assets/icons/icon_edit_hitbox.png);
+}
+.tool-icon.randomize-rotation {
+  background-image: url(../assets/icons/icon_randomize_rotation.png);
+}
+.tool-icon.randomize-rotation.active {
+  background-color: var(--dark-4);
+}
+.tool-icon.add-icon {
+  background-image: url(../assets/icons/icon_add_icon.png);
+}
+.tool-icon.add-sprite {
+  background-image: url(../assets/icons/icon_add_sprite.png);
+}
+.tool-icon.lock-sprite {
+  background-image: url(../assets/icons/icon_lock_sprite.png);
+}
+.tool-icon.lock-sprite.active {
+  background-color: var(--dark-4);
+}
+.tool-icon.lock-icon {
+  background-image: url(../assets/icons/icon_lock_icon.png);
+}
+.tool-icon.lock-icon.active {
+  background-color: var(--dark-4);
+}
+.tool-icon.add_spawn {
+  background-image: url(../assets/icons/icon_add_spawn.png);
+}
+.tool-icon.move_spawns_along {
+  background-image: url(../assets/icons/icon_move_spawns_along.png);
+}
+.tool-icon.define_weapon_slots {
+  background-image: url(../assets/icons/icon_define_weapon_slots.png);
+}
+.tool-icon.return-to-stage {
+  background-image: url(../assets/icons/icon_return_to_stage.png);
+}
+.tool-icon.fog-paint {
+  background-image: url(../assets/icons/icon_fog_paint.png);
+}
+.tool-icon.fog-eraser {
+  background-image: url(../assets/icons/icon_eraser.png);
+}
+.hitbox-editor-icon {
+  background-image: url(../assets/hitbox_editor/icon_hitbox_editor.png);
+}
+.object-editor-icon {
+  background-image: url(../assets/icons/icon_object_editor.png);
+}
+.dialogue-editor-icon {
+  background-image: url(../assets/icons/icon_dialogue_editor.png);
+}
+.location-editor-icon {
+  background-image: url(../assets/icons/icon_location_editor.png);
+}
+.buy-menu-icon {
+  background-image: url(../assets/icons/icon_buy_menu.png);
+}
+.ship-view-icon {
+  background-image: url(../assets/icons/icon_ship_view.png);
+}
+.play-icon {
+  background-image: url(../assets/icons/icon_play.png);
+}
+.pause-icon {
+  background-image: url(../assets/icons/icon_pause.png);
+}
+
+.icon-restart-conversation {
+  background-image: url(../assets/icons/icon_restart_conversation.png);
+}
+.icon-reset-facts {
+  background-image: url(../assets/icons/icon_reset_facts.png);
+}
+.icon-restart-conversation:hover, .icon-reset-facts:hover {
+  background-color: var(--dark-1);
+}

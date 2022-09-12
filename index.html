@@ -4,47 +4,210 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>the space game 2</title>
     <meta http-equiv="Cache-Control" content="no-store"/>
     <meta http-equiv="expires" content="-1" />
+    <title>the space game 2</title>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon.ico">
-    <link rel="stylesheet" href="style_general.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/icons.css">
+    <link rel="stylesheet" href="css/tooltip.css">
+    <link rel="stylesheet" href="css/dialogue_editor.css">
+    <link rel="stylesheet" href="css/dialogue_screen.css">
+    <link rel="stylesheet" href="css/location_editor.css">
+    <link rel="stylesheet" href="css/npc_search.css">
+    <link rel="stylesheet" href="css/buy_menu.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="css/ship_hull.css">
+    <link rel="stylesheet" href="css/fact.css">
+    <link rel="stylesheet" href="css/navbars.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="dependencies/svg-loader.min.js" async></script>
 </head>
 <body>
   <main>
     <div id="mouse-tooltip" class="hidden"></div>
+    <div id="ship-tooltip" class="hidden"></div>
     <div id="hints-container" class="full-screen-container"></div>
     <div id="map-ui-container" class="full-screen-container hidden">
-      <!-- <div class="map-sidebar"></div> -->
       <div class="icon-close-container">
-        <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+        <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
       </div>
       <div id="map-toolset" class="toolset"></div>
     </div>
     <div id="ship-view" class="full-screen-container hidden">
-      <!-- here load ship svg using js -->
-      <div class="icon-close-container">
-        <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+      <div class="ship-view-grid">
+        <div class="ship-view-left">
+          <div class="header">
+            <h2>SHIP SYSTEMS</h2>
+          </div>
+          <div class="ship-stats-container">
+            <div class="ship-stat">
+              <div class="ship-stat-title">Reactor</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 25%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Shields</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 50%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Hull</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 40%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Stealth</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 36%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Weapons</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 15%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Boosters</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 90%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Engine</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 80%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Brakes</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 70%;"></div>
+              </div>
+            </div>
+            <div class="ship-stat">
+              <div class="ship-stat-title">Cargo</div>
+              <div class="ship-stat-filler"></div>
+              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
+                <div class="ship-stat-bar-fill"  style="width: 26%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="ship-system-info-container">
+            <div class="ship-system-info">
+              <div class="header">
+                <h3>Shields</h3>
+              </div>
+              <div class="system-thumbnail">
+                <img src="assets/ship_system/system_icon_shilelds.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ship-view-model" id="ship-view-model">
+          <!-- here load ship svg using js -->
+        </div>
+          <div class="ship-view-right">
+            <div class="header">
+              <h2>CARGO</h2>
+            </div>
+            <div id="ship-cargo">
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+            </div>
+            <div class="header">
+              <h2>WEAPONS</h2>
+            </div>
+            <div id="ship-weapons">
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+              <div class="inventory-item-wrapper">
+                <div class="inventory-item"></div>
+              </div>
+            </div>
+          </div>
+          <div class="icon-close-container">
+            <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
+          </div>
       </div>
     </div>
-    <div id="level-editor" class="full-screen-container"></div>
-    <div class="full-screen-container">
+    <div id="everything" class="full-screen-container">
       <div class="game-overlay-tools">
-        <div class="hitbox-editor-icon editor-icon" title="Hitbox Editor" onclick="ui.windows.set(hitbox_editor)"></div>
-        <div class="object-editor-icon editor-icon" title="Object Editor" onclick="ui.windows.set(object_editor)"></div>
-        <div class="dialogue-editor-icon editor-icon" title="Dialogue Editor" onclick="ui.windows.set(dialogue_editor)"></div>
-        <div class="location-editor-icon editor-icon" title="Location Editor" onclick="ui.windows.set(location_editor)"></div>
-        <div class="inventory-icon game-menu-icon" title="Inventory" onclick="ui.windows.set(inventory)"></div>
-        <div class="ship-view-icon game-menu-icon" title="Ship view" onclick="ui.windows.set(ship_view)"></div>
-        <div class="world-map-icon game-menu-icon" title="Galaxy map" onclick="ui.windows.set(map)"></div>
-        <div class="local-map-icon game-menu-icon" title="Local map" onclick="ui.windows.set(local_map)"></div>
+        <div class="transport-panel">
+          <div class="play-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('play')"></div>
+          <div class="pause-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('edit')"></div>
+        </div>
+        <div class="hitbox-editor-icon editor-icon dev-icon tooltip" data-tooltip="Hitbox Editor" data-delay="0" onclick="program.windows.set(hitbox_editor)"></div>
+        <div class="dialogue-editor-icon editor-icon dev-icon tooltip" data-tooltip="Dialogue Editor" data-delay="0" onclick="program.windows.set(dialogue_editor)"></div>
+        <div class="location-editor-icon editor-icon dev-icon tooltip" data-tooltip="Location Editor" data-delay="0" onclick="program.windows.set(location_editor)"></div>
+        <div class="buy-menu-icon editor-icon dev-icon tooltip" data-tooltip="Buy menu" data-delay="0" onclick="program.windows.set(buy_menu)"></div>
+        <div class="dialogue-screen-icon editor-icon dev-icon tooltip" data-tooltip="Dialogue screen" data-delay="0" onclick="program.windows.set(dialogue_screen)"></div>
+        <div class="inventory-icon game-menu-icon tooltip" data-tooltip="Personal inventory" data-delay="0" onclick="program.windows.set(inventory)"></div>
+        <div class="ship-view-icon game-menu-icon tooltip" data-tooltip="Ship overview" data-delay="0" onclick="program.windows.set(ship_view)"></div>
+        <div class="world-map-icon game-menu-icon tooltip" data-tooltip="Map of the galaxy" data-delay="0" onclick="program.windows.set(map)"></div>
+        <div class="local-map-icon game-menu-icon tooltip" data-tooltip="Map of current location" data-delay="0" onclick="program.windows.set(local_map)"></div>
       </div>
       <div class="game-stats">
         <div>Collision: <span id="collision-count"></span></div>
         <div>Zoom: <span id="zoom-level"></span></div>
-        <div>State: <span id="state-view"></span></div>
+        <div>State: <span id="game-state-view"></span></div>
+        <div>Ship reactor: <span id="ship-reactor-view"></span></div>
+        <div>Currency: <span id="currency-view"></span></div>
+        <div>Stage offset: <span id="stage-offset"></span></div>
+        <div>Game FPS: <span id="fps"></span></div>
       </div>
       <div id="game-ui" class="full-screen-container">
         <div id="ship-hull" class="tooltip" data-tooltip="Current hull points" data-delay="1">
@@ -57,41 +220,75 @@
           <div class="ship-hull-point"></div>
           <div class="ship-hull-point"></div>
         </div>
+        <div class="equipped-weapons-wrapper">
+          <div class="equipped-weapon selected tooltip" data-tooltip="Selected weapon" data-delay="1">
+            <img class="weapon-thumbnail" src="assets/weapons/blackhole.png" alt="">
+          </div>
+          <div class="equipped-weapon">
+            <img class="weapon-thumbnail" src="assets/weapons/fireball.png" alt="">
+          </div>
+          <div class="equipped-weapon">
+            <img class="weapon-thumbnail" src="assets/weapons/missile_helios.png" alt="">
+          </div>
+          <div class="equipped-weapon">
+            <img class="weapon-thumbnail" src="assets/weapons/plasma_cannon_i.png" alt="">
+          </div>
+          <div class="equipped-weapon">
+            <img class="weapon-thumbnail" src="assets/weapons/plasma_cannon_ii.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div id="buy-menu" class="full-screen-container">
+        <div class="buy-menu-container">
+          <div class="header">
+            <div class="currency-container tooltip" 
+                data-tooltip=
+                "The official currency controlled by the Crown. 
+                Not everyone accepts it. Those who don't often face harsh consequences."
+            >
+              <img src="assets/currency.png" alt=""  class="currency">
+              <span>512</span>
+            </div>
+            <div class="title"><h2>BUY / SELL</h2></div>
+            <div class="icon-close buy-menu-icon-close" onclick="program.windows.close()"></div>
+          </div>
+          <div class="buy-menu-menu">
+            <div class="buy-menu-left">
+              <div class="buy-menu-portrait-container">
+                <div class="portrait-and-ship">
+                  <div class="portrait buy-menu-portrait">
+                    <img src="assets/portraits/ada_evil.png" alt="" class="src">
+                  </div>
+                </div>
+              </div>
+              <div class="buy-menu-actor-name">Merchy McSales</div>
+              <div class="buy-inventory-grid" data-drop="inventory-item" data-drop-target="true">
+                <!-- filled by javascript -->
+              </div>
+            </div>
+            <div class="buy-menu-right">
+              <div class="buy-menu-portrait-container">
+                <div class="portrait-and-ship">
+                  <div class="portrait buy-menu-portrait">
+                    <img src="assets/portraits/deborah.png" alt="" class="src">
+                  </div>
+                  <div class="buy-menu-ship-icon tooltip-ship" data-name="the_grand_moth" data-delay="0">
+                    <img src="assets/icons/icon_ship_outline.png" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="buy-menu-actor-name">Ada</div>
+              <div class="buy-inventory-grid" data-drop="inventory-item" data-drop-target="true">
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div id="game"></div>
-      <div id="object-editor" class="full-screen-container">
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
-        </div>
-        <div class="main-cont">
-          <div id="object-editor-sidebar">
-            <div id="object-editor-dropdown">
-              <div class="object-editor-dropdown-search-bar">
-                <div id="object-editor-search-icon"></div>
-                <input type="text" name="" id="object-editor-dropdown-search-bar-input">
-              </div>
-              <div class="dropdown-list"></div>
-            </div>
-            <div class="object-editor-sidebar-buttons">
-              <div id="object-editor-add-obj" title="Add object"></div>
-            </div>
-          </div>
-          <div class="object-section">
-            <div class="object-wrapper">
-              <div id="object-editor-object-name" class="object-name">
-                <h2>Object name</h2>
-              </div>
-              <div id="object-property-list" class="object-property-list"></div>
-              <div class="object-buttons">
-                <div class="add-prop"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div id="player-inventory" class="full-screen-container">
         <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
         </div>
         <div class="inventory-cont">
           <header class="inventory-header">
@@ -100,18 +297,45 @@
           <div id="player-inventory-grid" class="inventory-grid"></div>
         </div>
       </div>
-      <div id="dialogue-screen" class="full-screen-container hidden">
+      <div id="dialogue-screen" class="full-screen-container">
+        <div id="fact-switcher" class="draggable">
+          <div class="header">
+            <h3 style="flex-grow: 1;">Fact switcher</h3>
+            <div class="icon-32 drag-widget" style="justify-self: flex-end;"></div>
+          </div>
+          <div class="fact-switcher-options">
+            <div class="fact-list-label">
+              <span class="tooltip" data-tooltip="Facts that are used throughout this dialogue" data-delay="0">Applicable: </span>
+            </div>
+            <div class="icon-medium icon-restart-conversation tooltip" data-tooltip="Restart conversation."></div>
+            <div class="icon-medium icon-reset-facts tooltip" data-tooltip="Reset facts."></div>
+          </div>
+          <div class="fact-list">
+          </div>
+        </div>
         <div class="dialogue-container">
           <div class="header">
-            <div class="title">Comm channel #481354784</div>
+            <div class="title">Private COMM channel</div>
             <div class="controls">
-              <div id="button-end-transmission" class="icon-medium tooltip" data-delay="1"data-tooltip="End transmission"></div>
+              <div onclick="program.windows.close()" id="button-end-transmission" class="icon-16 tooltip" data-delay="1"data-tooltip="End transmission"></div>
             </div>
           </div>
-          <div class="content">
-            <div class="left-bar"></div>
-            <div class="bubbles"></div>
-            <div class="right-bar"></div>
+          <div class="dialogue">
+            <div class="dialogue-block">
+              <div class="speaker-left"></div>
+              <div class="chat-bubble">
+                So I'd like to welcome you into the clan, dear captain. 
+                Is there anything you wanna ask me before your... rite of passage?
+              </div>
+              <div class="portrait portrait-right">
+                <img src="assets/portraits/deborah.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div id="dialogue-options" class="dialogue-options">
+            <div class="option">When do we start?</div>
+            <div class="option">I'm a bit scared, it won't hurt, will it?</div>
+            <div class="option">No, actually. I'm all good.</div>
           </div>
         </div>
       </div>
@@ -120,9 +344,21 @@
           <div id="location-editor-name">Fuck</div>
         </div>
         <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
           <div class="icon-import" title="Import location"></div>
           <div class="icon-export" title="Export location"></div>
+        </div>
+        <div id="location-editor-context-window" class="draggable">
+          <div class="header">
+            <h4 data-tooltip="Selected object" class="tooltip" data-delay="250">Properties</h4>
+            <div class="filler"></div>
+            <div class="icon-32 drag-widget"></div>
+            <div class="icon-close" onclick="location_editor.context_window_close()"></div>
+          </div>
+          <div class="context-window-content">
+            <div class="thumbnail-container"></div>
+            <div class="object-properties"></div>
+          </div>
         </div>
         <div id="location-editor-toolset" class="toolset">
           <div class="selected-object-cont" id="location-editor-selected-object">
@@ -142,37 +378,21 @@
         </div>
       </div>
       <div id="local-map" class="full-screen-container hidden">
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+        <div class="header">
+          <h2>LOCAL SYSTEM MAP</h2>
         </div>
+        <div class="icon-close-container">
+          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
+        </div>
+
       </div>
       <div id="dialogue-editor" class="dialogue-editor">
         <div class="dialogue-editor-navbar">
           <div class="dialogue-name">Dialogue name</div>
         </div>
-        <div id="fact-container" class="fact-container hidden">
-          <div class="fact-container-header">
-            <div class="dialogue-node-widget remove"></div>
-            <div class="fact-add-button" title="Add new fact"></div>
-            <div class="fact-input-wrapper">
-              <input id="fact-input" class="fact-input" type="text"></input>
-            </div>
-          </div>
-          <div>
-            <div class="fact-search-bar">
-              <div class="fact-search-icon"></div>
-              <input type="text" name="" id="fact-search-input" onfocus="dialogue_editor.display_fact_search()" oninput="dialogue_editor.display_fact_search()">
-            </div>
-            <div id="fact-search-list" class="fact-search-list hidden">
-              
-            </div>
-          </div>
-          <div class="fact-list-label">Active</div>
-          <div id="fact-list" class="fact-list"></div>
-        </div>
         <div class="editor-label" title="" onclick="">Dialogue editor</div>
         <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
         </div>
       </div>
       <div id="hitbox-editor" class="hitbox-editor full-screen-container">
@@ -182,55 +402,145 @@
         </div>
         <div id="hitbox-editor-toolset" class="toolset"></div>
         <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="ui.windows.close()"></div>
+          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
         </div>
       </div>
     </div>
   </main>
-  <script src="dependencies/lodash.js"></script> <!-- 4.17.15 -->
-  <script src="dependencies/pixi.js"></script> <!-- 6.3.0 -->
-  <script src="dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
-  
-  <script src="json_tools.js"></script>
-  <script src="utility.js"></script>
-  <script src="state.js"></script>
-  <script src="sources.js"></script>
-  <script src="collision.js"></script>
-  <script src="data.js"></script>
-  <script src="dialogue.js"></script>
-  <script src="entity.js"></script>
-  <script src="hint.js"></script>
-  <script src="interactable.js"></script>
-  <script src="rigid.js"></script>
-  <script src="projectile.js"></script>
-  <script src="item.js"></script>
-  <script src="ship_system.js"></script>
-  <script src="ship_system_weapons.js"></script>
-  <script src="ship.js"></script>
-  <script src="player.js"></script>
-  <script src="location.js"></script>
-  <script src="asteroid.js"></script>
-  <script src="sprite_tools.js"></script>
-  <script src="weapons.js"></script>
-  <script src="special_objects.js"></script>
 
-  <script src="object_editor.js"></script>
-  <script src="dialogue_editor.js"></script>
-  <script src="location_editor.js"></script>
-  <script src="hitbox_editor.js"></script>
-  <script src="inventory.js"></script>
-  <script src="ship_view.js"></script>
-  <script src="ui.js"></script>
-  <script src="camera.js"></script>
-  <script src="mouse.js"></script>
-  <script src="input.js"></script>
-  <script src="local_map.js"></script>
-  <script src="map.js"></script>
-  <script src="facts.js"></script>
-  <script src="tick.js"></script>
-  <script src="npc.js"></script>
-  <script src="game.js"></script>
-  <script src="app.js"></script>
-  <script src="init.js"></script>
+  <script src="js/dependencies/lodash.js"></script> <!-- 4.17.15 -->
+  <script src="js/dependencies/pixi.js"></script> <!-- 6.3.0 -->
+  <script src="js/dependencies/pixi-filters.js"></script> <!-- v4.1.6 -->
+  <script src="js/dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
+
+  <!-- utility -->
+  <script src="js/utility/constants.js"></script>
+  <script src="js/utility/html_methods.js"></script>
+  <script src="js/utility/vector.js"></script>
+  <script src="js/utility/ease.js"></script>
+  <script src="js/utility/debug.js"></script>
+  <script src="js/utility/colors.js"></script>
+  <script src="js/utility/visible.js"></script>
+  <script src="js/utility/json.js"></script>
+  <script src="js/utility/utility.js"></script>
+  <script src="js/utility/state.js"></script>
+  <script src="js/utility/switch.js"></script>
+  <script src="js/utility/timer.js"></script>
+  <script src="js/game_stats.js"></script>
+  <script src="js/game_window.js"></script>
+  <script src="js/utility/tooltip.js"></script>
+  <script src="js/game_world_window.js"></script>
+
+  <!-- data -->
+  <script src="js/data/sources.js"></script>
+  <script src="js/data/data.js"></script>
+  <script src="js/data/data_pathfinding.js"></script>
+  <script src="js/data/data_global.js"></script>
+  <script src="js/data/data_object_to_layer_map.js"></script>
+  <script src="js/data/data_person.js"></script>
+  <script src="js/data/data_ability.js"></script>
+  <script src="js/data/data_title.js"></script>
+  <script src="js/data/data_weapon.js"></script>
+  <script src="js/data/data_ship.js"></script>
+  <script src="js/data/data_asteroid.js"></script>
+  <script src="js/data/data_debris.js"></script>
+  <script src="js/data/data_station.js"></script>
+  <script src="js/data/data_faction.js"></script>
+  <script src="js/data/data_location.js"></script>
+  <script src="js/data/data_projectile.js"></script>
+  <script src="js/data/data_shield_types.js"></script>
+  <script src="js/data/data_quest.js"></script>
+  <script src="js/data/data_bg.js"></script>
+  
+  <!-- state machine -->
+  <script src="js/state_machine/state_machine.js"></script>
+  <script src="js/state_machine/state_object.js"></script>
+
+  <!-- interaction -->
+  <script src="js/interaction/collision.js"></script>
+  <script src="js/interaction/interaction_event.js"></script>
+  <script src="js/interaction/collision_event.js"></script>
+  <script src="js/interaction/interaction_manager.js"></script>
+  <script src="js/interaction/collision_detector.js"></script>
+  <script src="js/interaction/collision_solver.js"></script>
+  <script src="js/interaction/polygon_builder.js"></script>
+  <script src="js/interaction/polygon.js"></script>
+  
+  <!-- components -->
+  <script src="js/components/component.js"></script>
+  <script src="js/components/transform.js"></script>
+  <script src="js/components/sprite.js"></script>
+  <script src="js/components/hitbox.js"></script>
+  <script src="js/components/controller.js"></script>
+  <script src="js/components/wreck.js"></script>
+  
+  <!-- game objects -->
+  <script src="js/game_objects/game_object.js"></script>
+  <script src="js/game_objects/rigid.js"></script>
+  <script src="js/game_objects/interactable.js"></script>
+  <script src="js/game_objects/projectile.js"></script>
+  <script src="js/game_objects/ship.js"></script>
+  <script src="js/game_objects/bg_object.js"></script>
+  <script src="js/game_objects/asteroid.js"></script>
+  <script src="js/game_objects/debris.js"></script>
+  <script src="js/game_objects/cluster.js"></script>
+  <script src="js/game_objects/special_objects.js"></script>
+  <script src="js/game_objects/camera.js"></script>
+
+  <!-- ship systems -->
+  <script src="js/ship_systems/ship_system_weapons.js"></script>
+
+  <!-- location -->
+  <script src="js/location/location.js"></script>
+  <script src="js/location/location_editor.js"></script>
+  <script src="js/location/local_map.js"></script>
+  <script src="js/location/map.js"></script>
+  <script src="js/location/map_icon.js"></script>
+  <script src="js/location/map_image.js"></script>
+
+  <!-- dialogue -->
+  <script src="js/dialogue/dialogue_screen.js"></script>
+  <script src="js/dialogue/dialogue_node.js"></script>
+  <script src="js/dialogue/dialogue_editor.js"></script>
+  <script src="js/dialogue/fact_manager.js"></script>
+  <script src="js/dialogue/facts.js"></script>
+
+  <!-- overlays -->
+  <script src="js/overlays/hint.js"></script>
+
+  <!-- npc logic -->
+  <script src="js/person.js"></script>
+  <script src="js/npc/npc.js"></script>
+
+  <!-- unsorted -->
+  <script src="js/shields.js"></script>
+  <script src="js/weapons.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/hitbox_editor.js"></script>
+  <script src="js/game_ui.js"></script>
+  <script src="js/program.js"></script>
+
+  <!-- input -->
+  <script src="js/input/mouse.js"></script>
+  <script src="js/input/input.js"></script>
+
+  <!-- session -->
+  <script src="js/session/session.js"></script>
+
+  <!-- fx -->
+  <script src="js/fx/filter_manager.js"></script>
+
+  <!-- inventory -->
+  <script src="js/inventory/inventory_window.js"></script>
+  <script src="js/inventory/inventory.js"></script>
+  <script src="js/inventory/ship_view.js"></script>
+  <script src="js/inventory/item.js"></script>
+  <script src="js/inventory/buy_menu.js"></script>
+
+  <!-- main stuff -->
+  <script src="js/tick.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/init.js"></script>
 </body>
 </html>

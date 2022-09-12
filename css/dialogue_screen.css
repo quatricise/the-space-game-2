@@ -1,0 +1,100 @@
+#dialogue-screen {
+  color: white;
+  user-select: none;
+}
+.dialogue-container {
+  width: 900px;
+  height: 700px;
+  background-color: var(--dark-1-05);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 5px;
+  border: 2px solid var(--dark-2);
+  overflow: hidden;
+}
+
+.dialogue-container .header {
+  min-height: 30px;
+  width: 100%;
+  background-color: var(--dark-2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+}
+.dialogue-container .controls {
+  justify-self: flex-end;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dialogue-container .title {
+  flex-grow: 1;
+}
+
+.content .left-bar {
+  border-right: 1px solid var(--dark-2);
+}
+.content .right-bar {
+  border-left: 1px solid var(--dark-2);
+}
+
+.dialogue-block {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 80px 1fr 80px;
+  gap: 10px;
+  height: max-content;
+  padding: 0 10px;
+}
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: 100%;
+  overflow-y: auto; 
+}
+#button-end-transmission {
+  background-image: url(../assets/hitbox_editor/icon-close.png);
+}
+
+#location-editor-name {
+  color: white;
+}
+
+.chat-bubble {
+  display: flex;
+  color: white;
+  font-size: 16px;
+  font-weight: 100;
+  border-radius: 5px;
+  border: 2px solid var(--dark-3);
+  padding: 10px;
+}
+.chat-bubble.right {
+  justify-content: end;
+}
+
+.dialogue-options {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: max-content;
+  padding: 10px;
+}
+
+.dialogue-options .option {
+  background-color: var(--dark-2);
+  border-radius: 5px;
+  border: 2px solid var(--dark-3);
+  width: 100%;
+  height: max-content;
+  padding: 10px;
+}
+
+.dialogue-options .option:hover {
+  background-color: var(--dark-3);
+  border: 2px solid var(--dark-4);
+  cursor: var(--cursor-pointer);
+}

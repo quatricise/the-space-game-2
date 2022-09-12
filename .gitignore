@@ -4,5 +4,7 @@
 /ref
 /tools
 /fonts
-/data
 /backup_code
+/.vscode
+/js/dependencies
+/ideas

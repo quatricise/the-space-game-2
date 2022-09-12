@@ -1,0 +1,1 @@
+{"name":"location001","pos":{"x":0,"y":0},"objects":[{"pos":{"x":726.1107266435963,"y":-3.2629757785470597},"vel":{"x":0,"y":0},"rotation":0,"rotation_velocity":0,"name":"medium_1","dataref":{"sources":{"folder":"assets/asteroid/medium_1/","auto":["thumbnail","fill","highlights","linework"]},"mass":5,"health":5,"material":"iron","hitbox":"asteroid_medium_1"},"type":"asteroid"}]}

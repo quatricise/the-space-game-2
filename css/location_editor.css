@@ -1,0 +1,72 @@
+.location-editor-app {
+  pointer-events: none;
+}
+
+#location-editor-context-window {
+  width: 300px;
+  height: 450px;
+  background-color: var(--dark-2);
+  position: absolute;
+  padding: 10px 20px;
+  right: 10px;
+}
+
+#location-editor-context-window .header {
+  color: white;
+  display: flex;
+  align-items: center;
+  font-weight: 100;
+  user-select: none;
+}
+
+#location-editor-context-window .property {
+  display: flex;
+  gap: 10px;
+  color: white;
+  padding: 5px 0;
+}
+#location-editor-context-window .key, #location-editor-context-window .value {
+  cursor: var(--cursor-pointer);
+  padding: 5px 0;
+}
+#location-editor-context-window .key {
+  flex-grow: 1;
+  display: flex;
+}
+#location-editor-context-window .value {
+  display: flex;
+  justify-content: end;
+}
+#location-editor-context-window .key:hover ,#location-editor-context-window .value:hover  {
+  background-color: var(--dark-3);
+}
+
+.thumbnail-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  width: 100%;
+  background-color: var(--dark-1);
+  min-height: 10px;
+}
+.context-window-thumbnail {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 5px;
+  background-color: var(--dark-3);
+}
+.context-window-thumbnail:hover {
+  background-color: var(--dark-4);
+}
+.context-window-thumbnail img {
+  max-width: 100%;
+}
+.context-window-content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.object-properties {
+  background-color: var(--dark-1);
+  min-height: 10px;
+}

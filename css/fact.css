@@ -1,0 +1,181 @@
+.fact-manager {
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background-color: var(--dark-4);
+  position: absolute;
+  z-index: 3;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.411);
+  min-width: 500px;
+  padding: 10px;
+  gap: 10px;
+  transition: all 0.15s ease-in-out;
+}
+
+.fact-manager.view-left {
+  height: 100%;  
+  left: 0;
+}
+.fact-manager.view-right {
+  height: 100%;
+  right: 0;
+}
+
+.fact-editor-header {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.fact-item {
+  display: flex;
+  gap: 5px;
+  color: white;
+  padding: 2px;
+}
+
+.fact-item.searched {
+  cursor: var(--cursor-pointer);
+}
+.fact-item.searched:hover {
+  background-color: var(--dark-4);
+}
+
+.fact-list, .fact-search-list {
+  display: flex;
+  flex-direction: column;
+  min-height: 10px;
+  background-color: var(--dark-3);
+}
+
+.fact-count {
+  color: var(--bright-3);
+}
+.fact-value {
+  width: 45px;
+}
+.fact-owner {
+  width: 20%;
+}
+.fact-identifier {
+  width: 100%;
+}
+.fact-owner, .fact-identifier {
+  border-right: 2px solid var(--dark-2);
+}
+.fact-value {
+  cursor: var(--cursor-pointer);
+}
+.fact-identifier:hover, .fact-value:hover, .fact-owner:hover {
+  background-color: var(--dark-4);
+}
+
+.fact-value.false {
+  color: rgb(51, 105, 255);
+}
+
+.fact-value.true {
+  color: rgb(92, 176, 255);
+}
+
+.fact-search-bar {
+  background-color: var(--dark-3);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+}
+
+.fact-search-bar input {
+  background-color: var(--dark-2);
+  height: 24px;
+  color: white;
+  height: 100%;
+  width: 100%;
+  padding: 5px;
+}
+
+.fact-search-icon {
+  background-image: url(../assets/hitbox_editor/icon-search.png);
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 5px;
+  top: 7px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.fact-icon-remove {
+  background-image: url(../assets/editor/icon_widget_remove.png);
+  background-position: center;
+  background-size: contain;
+  height: 18px;
+  width: 18px;
+  cursor: var(--cursor-pointer);
+}
+
+.fact-icon-remove:hover {
+  background-color: var(--dark-4);
+}
+
+.fact-input {
+  height: 100%;
+}
+
+.fact-input-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--dark-3);
+  flex-grow: 1;
+  width: 100%;
+  color: white;
+  caret-color: white;
+  padding: 5px;
+}
+
+
+#fact-switcher {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  width: 600px;
+  height: 500px;
+  padding: 10px;
+  background-color: var(--dark-2);
+}
+
+#fact-switcher .header {
+  display: flex;
+  padding: 5px 0;
+}
+
+#fact-switcher .fact-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.fact-list-label {
+  background-color: var(--dark-2);
+  padding: 10px 0;
+  flex-grow: 1;
+  color: white;
+}
+
+.dialogue-editor .fact-list-label {
+  background-color: transparent;
+}
+
+.fact-switcher-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "transform" : {
+      "position": { "x": 5.366590218805814, "y": 131.1498171449825 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula1.png",
+    "name" : "nebula1",
+    "scale": 0.6561000000000001
+  },
+  {
+    "transform" : {
+      "position": { "x": 17.89099872019865, "y": 391.6688643299614 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula5.png",
+    "name" : "nebula5",
+    "scale": 0.38742048900000015
+  },
+  {
+    "transform" : {
+      "position": { "x": 181.90311156161175, "y": 166.8784324420886 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula3.png",
+    "name" : "nebula3",
+    "scale": 0.47829690000000025
+  },
+  {
+    "transform" : {
+      "position": { "x": 65.54434936064541, "y": -331.25700409464116 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "http://127.0.0.1:5500/assets/map/nebula5.png",
+    "name" : "nebula5",
+    "scale": 0.43046721000000016
+  },
+  {
+    "transform" : {
+      "position": { "x": -205.43789747721942, "y": -461.2855637513174 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula7.png",
+    "name" : "nebula7",
+    "scale": 0.47829690000000014
+  },
+  {
+    "transform" : {
+      "position": { "x": -235.1651893634158, "y": 422.0913655240804 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula9.png",
+    "name" : "nebula9",
+    "scale": 0.47829690000000025
+  },
+  {
+    "transform" : {
+      "position": { "x": -388.50495258166353, "y": 309.5738672286612 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula7.png",
+    "name" : "nebula7",
+    "scale": 0.43046721000000016
+  },
+  {
+    "transform" : {
+      "position": { "x": -111.21971115105742, "y": 492.2503440153672 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "http://127.0.0.1:5500/assets/map/nebula1.png",
+    "name" : "nebula1",
+    "scale": 0.6561000000000001
+  },
+  {
+    "transform" : {
+      "position": { "x": -372.1036880927296, "y": 563.7934668071645 },
+      "velocity": 0,
+      "rotation": 0,
+      "angular_velocity": 0
+    },
+    "src": "assets/map/nebula2.png",
+    "name" : "nebula2",
+    "scale": 0.43046721000000016
+  }
+]
