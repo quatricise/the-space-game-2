@@ -6,8 +6,8 @@ class Vector {
     if(data === true) this.data = {}
     else this.data = _.cloneDeep(data)
   }
-  clone(discard_data = false) {
-    return new Vector(this.x, this.y, discard_data || this.data)
+  clone(discardData = false) {
+    return new Vector(this.x, this.y, discardData || this.data)
   }
   plain() {
     return {x: this.x, y: this.y}
@@ -76,7 +76,7 @@ class Vector {
     this.y = this.x * Math.sin(angle) + this.y * Math.cos(angle)
     return this
   }
-  rotate_around(vector, rotation) {
+  rotateAround(vector, rotation) {
     this.sub(vector)
     .rotate(rotation)
     .add(vector)
@@ -112,7 +112,7 @@ class Vector {
     else this.y = y
     return this
   }
-  set_from(vec) {
+  setFrom(vec) {
     this.x = vec.x
     this.y = vec.y
   }

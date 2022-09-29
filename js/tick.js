@@ -1,20 +1,20 @@
 function tick(deltaFactor) {
-  set_delta(deltaFactor)
+  setDelta(deltaFactor)
   //#region update
   player.update()
   program.update()
-  mouse.update_ship_angle()
-  mouse.update_world_position()
+  mouse.updateShipAngle()
+  mouse.updateWorldPosition()
   program.windows.all.forEach(w => {
     if(w.graphics) {
       w.graphics.clear()
       w.graphics.alpha = 1.0
     }
     if(w instanceof GameWorldWindow) {
-      w.update_game_objects()
-      w.update_stats()
-      w.update_grid_sprite()
-      w.update_fog()
+      w.updateGameObjects()
+      w.updateStats()
+      w.updateGridSprite()
+      w.updateFog()
     }
     w.update()
   })
@@ -25,9 +25,10 @@ function tick(deltaFactor) {
   //#endregion
 }
 
-function set_delta(deltaFactor) {
+function setDelta(deltaFactor) {
   dt = game.app.ticker.deltaMS / 1000
-  if(dt > 500) dt = 0
+  if(dt > 500) 
+    dt = 0
   dtf = deltaFactor
   fps = 1000 / game.app.ticker.deltaMS
 }

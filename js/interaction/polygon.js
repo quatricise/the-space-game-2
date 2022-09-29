@@ -1,7 +1,7 @@
 class Polygon {
   constructor(vertices) {
     this.vertices = vertices
-    this.color = colors.hitbox.no_collision
+    this.color = colors.hitbox.noCollision
   }
   rotate(rotation) {
     this.vertices.forEach(vertex => {

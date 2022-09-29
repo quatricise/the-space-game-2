@@ -8,8 +8,8 @@ class Item {
     this.location = location
     
     items.push(this)
-    this.referenced_in = []
-    this.referenced_in.push(items)
+    this.referencedIn = []
+    this.referencedIn.push(items)
   }
 }
 

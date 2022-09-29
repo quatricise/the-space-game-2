@@ -1,6 +1,9 @@
 class Component {
-  constructor() {
-    
+  constructor(gameObject) {
+    this.gameObject = gameObject
+  }
+  update() {
+    throw "missing Component's update method"
   }
   clone() {
     return _.deepClone(this)

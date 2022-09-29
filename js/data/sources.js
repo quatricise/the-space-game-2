@@ -1,33 +1,33 @@
 let sources = {
   img: {
     ship: {
-      bluebird_needle: {
-        folder: "./assets/bluebird_needle/",
+      bluebirdNeedle: {
+        folder: "./assets/bluebirdNeedle/",
         auto: [
           "thumbnail",
           "glow",
           "flame",
           "ghost",
           "fill",
-          "shield_charge_indicator",
-          "dash_indicator",
+          "shieldChargeIndicator",
+          "dashIndicator",
           "highlights",
           "linework",
           "skip5",
         ],
       },
-      the_grand_moth: {
-        folder: "./assets/the_grand_moth/",
+      theGrandMoth: {
+        folder: "./assets/theGrandMoth/",
         auto: [
           "thumbnail",
           "glow",
-          "vwb_outline",
+          "vwbOutline",
           "flame1",
           "ghost",
           "fill",
-          "shield_charge_indicator",
-          "dash_indicator",
-          "brake_indicator",
+          "shieldChargeIndicator",
+          "dashIndicator",
+          "brakeIndicator",
           "highlights",
           "linework",
           "skip5",
@@ -35,70 +35,70 @@ let sources = {
           "wreck6",
         ],
       },
-      wasp_fighter: {
-        folder: "./assets/wasp_fighter/",
+      waspFighter: {
+        folder: "./assets/waspFighter/",
         auto: [
           "thumbnail",
-          "vwb_outline",
+          "vwbOutline",
           "glow",
           "flame",
           "ghost",
           "fill",
-          "laser_charge_progress5",
-          "shield_charge_indicator",
-          "dash_indicator",
+          "laserChargeProgress5",
+          "shieldChargeIndicator",
+          "dashIndicator",
           "highlights",
           "linework",
           "skip5",
         ],
       },
-      crimson_fighter: {
-        folder: "./assets/crimson_league_elite_fighter_smaller/",
+      crimsonFighter: {
+        folder: "./assets/crimsonLeagueEliteFighterSmaller/",
         auto: ["thumbnail", "glow", "fill", "highlights", "linework"],
       },
-      crimson_fighter_big: {
-        folder: "./assets/crimson_league_elite_fighter/",
+      crimsonFighterBig: {
+        folder: "./assets/crimsonLeagueEliteFighter/",
         auto: ["thumbnail", "glow", "fill", "highlights", "linework"],
       },
     },
     station: {
       crimson: {
-        folder: "./assets/crimson_league_station/",
+        folder: "./assets/crimsonLeagueStation/",
         auto: [
           "thumbnail",
           "fill",
           "highlights",
           "lights",
-          "lights_overlay",
+          "lightsOverlay",
           "linework",
         ],
       },
     },
     asteroid: {
-      medium_0: {
-        folder: "./assets/asteroid/medium_0/",
+      medium0: {
+        folder: "./assets/asteroid/medium0/",
         auto: ["thumbnail", "fill", "highlights", "linework"],
       },
-      medium_1: {
-        folder: "./assets/asteroid/medium_1/",
+      medium1: {
+        folder: "./assets/asteroid/medium1/",
         auto: ["thumbnail", "fill", "highlights", "linework"],
       },
-      small_0: {
-        folder: "./assets/asteroid/small_0/",
+      small0: {
+        folder: "./assets/asteroid/small0/",
         auto: ["thumbnail", "fill", "highlights", "linework"],
       },
-      small_1: {
-        folder: "./assets/asteroid/small_1/",
+      small1: {
+        folder: "./assets/asteroid/small1/",
         auto: ["thumbnail", "fill", "highlights", "linework"],
       },
     },
     debris: {
-      crimson_fighter_wreck: {
-        folder: "./assets/debris/crimson_fighter_wreck/",
+      crimsonFighterWreck: {
+        folder: "./assets/debris/crimsonFighterWreck/",
         auto: ["thumbnail", "linework"],
       },
-      hive_battleship_wreck: {
-        folder: "./assets/debris/hive_battleship_wreck/",
+      hiveBattleshipWreck: {
+        folder: "./assets/debris/hiveBattleshipWreck/",
         auto: ["thumbnail", "linework"],
       },
       debris_0: {
@@ -106,103 +106,103 @@ let sources = {
         auto: ["thumbnail", "fill", "highlights", "linework"],
       },
     },
-    bg_object: {
-      bg_medium_0: {
-        folder: "assets/asteroid/bg_medium_0/",
+    bgObject: {
+      bgMedium0: {
+        folder: "assets/asteroid/bgMedium0/",
         auto: ["linework"],
       },
-      bg_medium_1: {
-        folder: "assets/asteroid/bg_medium_1/",
+      bgMedium1: {
+        folder: "assets/asteroid/bgMedium1/",
         auto: ["linework"],
       },
-      bg_medium_2: {
-        folder: "assets/asteroid/bg_medium_2/",
+      bgMedium2: {
+        folder: "assets/asteroid/bgMedium2/",
         auto: ["linework"],
       },
-      bg_medium_3: {
-        folder: "assets/asteroid/bg_medium_3/",
+      bgMedium3: {
+        folder: "assets/asteroid/bgMedium3/",
         auto: ["linework"],
       },
-      bg_medium_4: {
-        folder: "assets/asteroid/bg_medium_4/",
+      bgMedium4: {
+        folder: "assets/asteroid/bgMedium4/",
         auto: ["linework"],
       },
-      bg_medium_5: {
-        folder: "assets/asteroid/bg_medium_5/",
+      bgMedium5: {
+        folder: "assets/asteroid/bgMedium5/",
         auto: ["linework"],
       },
     },
-    map_icon: {
+    mapIcon: {
       connected: {
-        folder: "assets/map_icon/connected/",
+        folder: "assets/mapIcon/connected/",
         auto: [
           "linework"
         ]
       },
       outback: {
-        folder: "assets/map_icon/outback/",
+        folder: "assets/mapIcon/outback/",
         auto: [
           "linework"
         ]
       },
     },
-    map_image: {
-      nebula_0: {
-        folder: "assets/map_image/nebula_0/",
+    mapImage: {
+      nebula0: {
+        folder: "assets/mapImage/nebula0/",
         auto: [
           "linework"
         ],
       },
-      nebula_1: {
-        folder: "assets/map_image/nebula_1/",
+      nebula1: {
+        folder: "assets/mapImage/nebula1/",
         auto: [
           "linework"
         ],
       },
-      nebula_2: {
-        folder: "assets/map_image/nebula_2/",
+      nebula2: {
+        folder: "assets/mapImage/nebula2/",
         auto: [
           "linework"
         ],
       },
-      nebula_3: {
-        folder: "assets/map_image/nebula_3/",
+      nebula3: {
+        folder: "assets/mapImage/nebula3/",
         auto: [
           "linework"
         ],
       },
-      nebula_4: {
-        folder: "assets/map_image/nebula_4/",
+      nebula4: {
+        folder: "assets/mapImage/nebula4/",
         auto: [
           "linework"
         ],
       },
-      nebula_5: {
-        folder: "assets/map_image/nebula_5/",
+      nebula5: {
+        folder: "assets/mapImage/nebula5/",
         auto: [
           "linework"
         ],
       },
-      nebula_6: {
-        folder: "assets/map_image/nebula_6/",
+      nebula6: {
+        folder: "assets/mapImage/nebula6/",
         auto: [
           "linework"
         ],
       },
-      nebula_7: {
-        folder: "assets/map_image/nebula_7/",
+      nebula7: {
+        folder: "assets/mapImage/nebula7/",
         auto: [
           "linework"
         ],
       },
-      nebula_8: {
-        folder: "assets/map_image/nebula_8/",
+      nebula8: {
+        folder: "assets/mapImage/nebula8/",
         auto: [
           "linework"
         ],
       },
-      nebula_9: {
-        folder: "assets/map_image/nebula_9/",
+      nebula9: {
+        folder: "assets/mapImage/nebula9/",
         auto: [
           "linework"
         ],

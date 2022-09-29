@@ -30,122 +30,122 @@
   border: 2px solid white;
 }
 .tool-icon.select {
-  background-image: url(../assets/hitbox_editor/icon-select.png);
+  background-image: url(../assets/hitboxEditor/iconSelect.png);
 }
 .tool-icon.pen-tool {
-  background-image: url(../assets/hitbox_editor/icon-pen-tool.png);
+  background-image: url(../assets/hitboxEditor/iconPenTool.png);
 }
 .tool-icon.add-shape {
-  background-image: url(../assets/hitbox_editor/icon-add-shape.png);
+  background-image: url(../assets/hitboxEditor/iconAddShape.png);
 }
 .tool-icon.remove-shape {
-  background-image: url(../assets/hitbox_editor/icon-remove-shape.png);
+  background-image: url(../assets/hitboxEditor/iconRemoveShape.png);
 }
 .tool-icon.center-shape {
-  background-image: url(../assets/hitbox_editor/icon-center-shape.png);
+  background-image: url(../assets/hitboxEditor/iconCenterShape.png);
 }
 .tool-icon.select-object {
-  background-image: url(../assets/hitbox_editor/icon-select-object.png);
+  background-image: url(../assets/hitboxEditor/iconSelectObject.png);
 }
 .tool-icon.object-center {
-  background-image: url(../assets/hitbox_editor/icon-object-center.png);
+  background-image: url(../assets/hitboxEditor/iconObjectCenter.png);
 }
 .tool-icon.object-cycle-rotation {
-  background-image: url(../assets/hitbox_editor/icon-object-cycle-rotation.png);
+  background-image: url(../assets/hitboxEditor/iconObjectCycleRotation.png);
 }
 .tool-icon.add-point {
-  background-image: url(../assets/hitbox_editor/icon-add-point.png);
+  background-image: url(../assets/hitboxEditor/iconAddPoint.png);
 }
 .tool-icon.move {
-  background-image: url(../assets/hitbox_editor/icon-select.png);
+  background-image: url(../assets/hitboxEditor/iconSelect.png);
 }
 .tool-icon.add {
-  background-image: url(../assets/editor/icon_plus.png);
+  background-image: url(../assets/editor/iconPlus.png);
 }
 .tool-icon.select-object {
-  background-image: url(../assets/hitbox_editor/icon-select-object.png);
+  background-image: url(../assets/hitboxEditor/iconSelectObject.png);
 }
 .tool-icon.add-special {
-  background-image: url(../assets/editor/icon_plus.png);
+  background-image: url(../assets/editor/iconPlus.png);
 }
 .tool-icon.rotate {
-  background-image: url(../assets/icons/icon-rotate-object.png);
+  background-image: url(../assets/icons/iconRotateObject.png);
 }
 .tool-icon.edit-hitbox {
-  background-image: url(../assets/icons/icon_edit_hitbox.png);
+  background-image: url(../assets/icons/iconEditHitbox.png);
 }
 .tool-icon.randomize-rotation {
-  background-image: url(../assets/icons/icon_randomize_rotation.png);
+  background-image: url(../assets/icons/iconRandomizeRotation.png);
 }
 .tool-icon.randomize-rotation.active {
   background-color: var(--dark-4);
 }
 .tool-icon.add-icon {
-  background-image: url(../assets/icons/icon_add_icon.png);
+  background-image: url(../assets/icons/iconAddIcon.png);
 }
 .tool-icon.add-sprite {
-  background-image: url(../assets/icons/icon_add_sprite.png);
+  background-image: url(../assets/icons/iconAddSprite.png);
 }
 .tool-icon.lock-sprite {
-  background-image: url(../assets/icons/icon_lock_sprite.png);
+  background-image: url(../assets/icons/iconLockSprite.png);
 }
 .tool-icon.lock-sprite.active {
   background-color: var(--dark-4);
 }
 .tool-icon.lock-icon {
-  background-image: url(../assets/icons/icon_lock_icon.png);
+  background-image: url(../assets/icons/iconLockIcon.png);
 }
 .tool-icon.lock-icon.active {
   background-color: var(--dark-4);
 }
-.tool-icon.add_spawn {
-  background-image: url(../assets/icons/icon_add_spawn.png);
+.tool-icon.addSpawn {
+  background-image: url(../assets/icons/iconAddSpawn.png);
 }
-.tool-icon.move_spawns_along {
-  background-image: url(../assets/icons/icon_move_spawns_along.png);
+.tool-icon.moveSpawnsAlong {
+  background-image: url(../assets/icons/iconMoveSpawnsAlong.png);
 }
-.tool-icon.define_weapon_slots {
-  background-image: url(../assets/icons/icon_define_weapon_slots.png);
+.tool-icon.defineWeaponSlots {
+  background-image: url(../assets/icons/iconDefineWeaponSlots.png);
 }
 .tool-icon.return-to-stage {
-  background-image: url(../assets/icons/icon_return_to_stage.png);
+  background-image: url(../assets/icons/iconReturnToStage.png);
 }
 .tool-icon.fog-paint {
-  background-image: url(../assets/icons/icon_fog_paint.png);
+  background-image: url(../assets/icons/iconFogPaint.png);
 }
 .tool-icon.fog-eraser {
-  background-image: url(../assets/icons/icon_eraser.png);
+  background-image: url(../assets/icons/iconEraser.png);
 }
 .hitbox-editor-icon {
-  background-image: url(../assets/hitbox_editor/icon_hitbox_editor.png);
+  background-image: url(../assets/hitboxEditor/iconHitboxEditor.png);
 }
 .object-editor-icon {
-  background-image: url(../assets/icons/icon_object_editor.png);
+  background-image: url(../assets/icons/iconObjectEditor.png);
 }
 .dialogue-editor-icon {
-  background-image: url(../assets/icons/icon_dialogue_editor.png);
+  background-image: url(../assets/icons/iconDialogueEditor.png);
 }
 .location-editor-icon {
-  background-image: url(../assets/icons/icon_location_editor.png);
+  background-image: url(../assets/icons/iconLocationEditor.png);
 }
 .buy-menu-icon {
-  background-image: url(../assets/icons/icon_buy_menu.png);
+  background-image: url(../assets/icons/iconBuyMenu.png);
 }
 .ship-view-icon {
-  background-image: url(../assets/icons/icon_ship_view.png);
+  background-image: url(../assets/icons/iconShipView.png);
 }
 .play-icon {
-  background-image: url(../assets/icons/icon_play.png);
+  background-image: url(../assets/icons/iconPlay.png);
 }
 .pause-icon {
-  background-image: url(../assets/icons/icon_pause.png);
+  background-image: url(../assets/icons/iconPause.png);
 }
 
 .icon-restart-conversation {
-  background-image: url(../assets/icons/icon_restart_conversation.png);
+  background-image: url(../assets/icons/iconRestartConversation.png);
 }
 .icon-reset-facts {
-  background-image: url(../assets/icons/icon_reset_facts.png);
+  background-image: url(../assets/icons/iconResetFacts.png);
 }
 .icon-restart-conversation:hover, .icon-reset-facts:hover {
   background-color: var(--dark-1);

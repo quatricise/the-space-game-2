@@ -84,7 +84,7 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  background-image: url(../assets/hitbox_editor/icon-close.png);
+  background-image: url(../assets/hitboxEditor/iconClose.png);
 }
 
 .icon-close-top-right:hover {
@@ -101,16 +101,16 @@
 }
 
 .icon-import {
-  background-image: url(../assets/icons/icon_import.png);
+  background-image: url(../assets/icons/iconImport.png);
 }
 .icon-export {
-  background-image: url(../assets/icons/icon_export.png);
+  background-image: url(../assets/icons/iconExport.png);
 }
 .icon-export-facts {
-  background-image: url(../assets/icons/icon_export_facts.png);
+  background-image: url(../assets/icons/iconExportFacts.png);
 }
 .icon-export-facts.warning {
-  background-image: url(../assets/icons/icon_export_facts_warning.png);
+  background-image: url(../assets/icons/iconExportFactsWarning.png);
 }
 
 .icon-close-container *:hover {
@@ -136,7 +136,7 @@
 }
 
 .fact-add-button {
-  background-image: url(../assets/editor/icon_plus.png);
+  background-image: url(../assets/editor/iconPlus.png);
 }
 
 .svg-container {
@@ -288,17 +288,17 @@
 }
 
 .local-map-icon {
-  background-image: url(../assets/icons/icon_local_map.png);
+  background-image: url(../assets/icons/iconLocalMap.png);
 }
 .world-map-icon {
-  background-image: url(../assets/icons/icon_world_map.png);
+  background-image: url(../assets/icons/iconWorldMap.png);
 }
 .inventory-icon {
-  background-image: url(../assets/icons/icon_inventory.png);
+  background-image: url(../assets/icons/iconInventory.png);
 }
 
 .dialogue-screen-icon {
-  background-image: url(../assets/icons/icon_dialogue_screen.png);
+  background-image: url(../assets/icons/iconDialogueScreen.png);
 }
 
 #local-map {
@@ -336,7 +336,7 @@
 }
 
 .toggle-arrow {
-  background-image: url(../assets/icons/icon_toggle_arrow.png);
+  background-image: url(../assets/icons/iconToggleArrow.png);
 }
 .toggle-arrow:hover {
   background-color: var(--dark-4);

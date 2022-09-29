@@ -3,8 +3,8 @@ let debug = {
   hitbox: false,
   mouse: false,
   editor: false,
-  dialogue_editor: false,
-  location_editor: false,
+  dialogueEditor: false,
+  locationEditor: false,
 }
 
 let devmode = true

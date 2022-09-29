@@ -1,5 +1,5 @@
 class Controller extends Component {
-  constructor() {
-    
+  constructor(gameObject) {
+    super(gameObject)
   }
 }

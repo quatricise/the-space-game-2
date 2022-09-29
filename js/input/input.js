@@ -4,88 +4,88 @@ const binds = {
   accel: "KeyW",
   decel: "KeyS",
   brake: "KeyV",
-  toggle_autobrake: "KeyB",
+  toggleAutobrake: "KeyB",
   dash: "Space",
-  map_open: "KeyM",
-  zoom_in: "Digit1",
-  zoom_out: "Digit2",
+  mapOpen: "KeyM",
+  zoomIn: "Digit1",
+  zoomOut: "Digit2",
   hitbox: "Digit3",
-  game_stats: "Digit4",
-  dev_icons: "Digit5",
+  gameStats: "Digit4",
+  devIcons: "Digit5",
   cancel: "Escape",
   confirm: "Enter",
   pause: "KeyP",
   shift: "ShiftLeft",
-  shift_right: "ShiftRight",
+  shiftRight: "ShiftRight",
   ctrl: "ControlLeft",
-  ctrl_right: "ControlRight",
+  ctrlRight: "ControlRight",
   alt: "alt",
 }
 const keys = {}
 {
-  let bind_keys = Object.keys(binds)
-  for (let i = 0; i < bind_keys.length; i++) {
+  let bindKeys = Object.keys(binds)
+  for (let i = 0; i < bindKeys.length; i++) {
     Object.defineProperty(
       keys, 
-      bind_keys[i], 
+      bindKeys[i], 
       {value: false, writable: true}
     )
   }
 }
 
-function update_keys(event) {
+function updateKeys(event) {
   if(event.type !== "keyup" && event.type !== "keydown") return
-  let bind_property_names = Object.keys(binds)
+  let bindPropertyNames = Object.keys(binds)
 
-  for (let i = 0; i < bind_property_names.length; i++) {
-    if(event.code === binds[bind_property_names[i]] && event.type === "keyup") {
-      keys[bind_property_names[i]] = false
+  for (let i = 0; i < bindPropertyNames.length; i++) {
+    if(event.code === binds[bindPropertyNames[i]] && event.type === "keyup") {
+      keys[bindPropertyNames[i]] = false
     }
-    if(event.code === binds[bind_property_names[i]] && event.type === "keydown") {
-      keys[bind_property_names[i]] = true
+    if(event.code === binds[bindPropertyNames[i]] && event.type === "keydown") {
+      keys[bindPropertyNames[i]] = true
     }
   }
   if(event.altKey) keys.alt = true
   else keys.alt = false
 }
 
-function attach_listeners() {
+function attachListeners() {
   document.addEventListener("contextmenu", function(e) {
     e.preventDefault()
   })
   document.addEventListener("keydown", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("keyup", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("mousemove", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("pointermove", function(e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("mousedown", function (e) {
     if(e.button === 1) {
       e.preventDefault()
     }
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("mouseup", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("click", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("wheel", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
   document.addEventListener("pointerdown", function (e) {
-    handle_global_input(e)
+    handleGlobalInput(e)
   })
 }
 
-function handle_global_input(e) {
-  update_keys(e)
-  program.handle_input(e)
+function handleGlobalInput(e) {
+  updateKeys(e)
+  program.handleInput(e)
 }

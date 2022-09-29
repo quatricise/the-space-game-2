@@ -11,19 +11,18 @@
     <link rel="stylesheet" href="css/general.css">
     <link rel="stylesheet" href="css/icons.css">
     <link rel="stylesheet" href="css/tooltip.css">
-    <link rel="stylesheet" href="css/dialogue_editor.css">
-    <link rel="stylesheet" href="css/dialogue_screen.css">
-    <link rel="stylesheet" href="css/location_editor.css">
-    <link rel="stylesheet" href="css/npc_search.css">
-    <link rel="stylesheet" href="css/buy_menu.css">
+    <link rel="stylesheet" href="css/dialogueEditor.css">
+    <link rel="stylesheet" href="css/dialogueScreen.css">
+    <link rel="stylesheet" href="css/locationEditor.css">
+    <link rel="stylesheet" href="css/npcSearch.css">
+    <link rel="stylesheet" href="css/buyMenu.css">
     <link rel="stylesheet" href="css/inventory.css">
-    <link rel="stylesheet" href="css/ship_hull.css">
+    <link rel="stylesheet" href="css/shipHull.css">
     <link rel="stylesheet" href="css/fact.css">
     <link rel="stylesheet" href="css/navbars.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="dependencies/svg-loader.min.js" async></script>
 </head>
 <body>
   <main>
@@ -113,7 +112,7 @@
                 <h3>Shields</h3>
               </div>
               <div class="system-thumbnail">
-                <img src="assets/ship_system/system_icon_shilelds.png" alt="">
+                <img src="assets/shipSystem/system_icon_shields.png" alt="">
               </div>
             </div>
           </div>
@@ -190,7 +189,7 @@
           <div class="play-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('play')"></div>
           <div class="pause-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('edit')"></div>
         </div>
-        <div class="hitbox-editor-icon editor-icon dev-icon tooltip" data-tooltip="Hitbox Editor" data-delay="0" onclick="program.windows.set(hitbox_editor)"></div>
+        <div class="hitbox-editor-icon editor-icon dev-icon tooltip" data-tooltip="Hitbox Editor" data-delay="0" onclick="program.windows.set(hitboxEditor)"></div>
         <div class="dialogue-editor-icon editor-icon dev-icon tooltip" data-tooltip="Dialogue Editor" data-delay="0" onclick="program.windows.set(dialogue_editor)"></div>
         <div class="location-editor-icon editor-icon dev-icon tooltip" data-tooltip="Location Editor" data-delay="0" onclick="program.windows.set(location_editor)"></div>
         <div class="buy-menu-icon editor-icon dev-icon tooltip" data-tooltip="Buy menu" data-delay="0" onclick="program.windows.set(buy_menu)"></div>
@@ -228,13 +227,13 @@
             <img class="weapon-thumbnail" src="assets/weapons/fireball.png" alt="">
           </div>
           <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/missile_helios.png" alt="">
+            <img class="weapon-thumbnail" src="assets/weapons/missileHelios.png" alt="">
           </div>
           <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/plasma_cannon_i.png" alt="">
+            <img class="weapon-thumbnail" src="assets/weapons/plasmaCannonI.png" alt="">
           </div>
           <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/plasma_cannon_ii.png" alt="">
+            <img class="weapon-thumbnail" src="assets/weapons/plasmaCannonII.png" alt="">
           </div>
         </div>
       </div>
@@ -257,7 +256,7 @@
               <div class="buy-menu-portrait-container">
                 <div class="portrait-and-ship">
                   <div class="portrait buy-menu-portrait">
-                    <img src="assets/portraits/ada_evil.png" alt="" class="src">
+                    <img src="assets/portraits/adaEvil.png" alt="" class="src">
                   </div>
                 </div>
               </div>
@@ -272,8 +271,8 @@
                   <div class="portrait buy-menu-portrait">
                     <img src="assets/portraits/deborah.png" alt="" class="src">
                   </div>
-                  <div class="buy-menu-ship-icon tooltip-ship" data-name="the_grand_moth" data-delay="0">
-                    <img src="assets/icons/icon_ship_outline.png" alt="">
+                  <div class="buy-menu-ship-icon tooltip-ship" data-name="theGrandMoth" data-delay="0">
+                    <img src="assets/icons/iconShipOutline.png" alt="">
                   </div>
                 </div>
               </div>
@@ -408,6 +407,7 @@
     </div>
   </main>
 
+  <script src="js/dependencies/svg-loader.min.js" async></script>
   <script src="js/dependencies/lodash.js"></script> <!-- 4.17.15 -->
   <script src="js/dependencies/pixi.js"></script> <!-- 6.3.0 -->
   <script src="js/dependencies/pixi-filters.js"></script> <!-- v4.1.6 -->
@@ -415,7 +415,7 @@
 
   <!-- utility -->
   <script src="js/utility/constants.js"></script>
-  <script src="js/utility/html_methods.js"></script>
+  <script src="js/utility/htmlMethods.js"></script>
   <script src="js/utility/vector.js"></script>
   <script src="js/utility/ease.js"></script>
   <script src="js/utility/debug.js"></script>
@@ -426,44 +426,44 @@
   <script src="js/utility/state.js"></script>
   <script src="js/utility/switch.js"></script>
   <script src="js/utility/timer.js"></script>
-  <script src="js/game_stats.js"></script>
-  <script src="js/game_window.js"></script>
+  <script src="js/gameStats.js"></script>
+  <script src="js/gameWindow.js"></script>
   <script src="js/utility/tooltip.js"></script>
-  <script src="js/game_world_window.js"></script>
+  <script src="js/gameWorldWindow.js"></script>
 
   <!-- data -->
   <script src="js/data/sources.js"></script>
   <script src="js/data/data.js"></script>
-  <script src="js/data/data_pathfinding.js"></script>
-  <script src="js/data/data_global.js"></script>
-  <script src="js/data/data_object_to_layer_map.js"></script>
-  <script src="js/data/data_person.js"></script>
-  <script src="js/data/data_ability.js"></script>
-  <script src="js/data/data_title.js"></script>
-  <script src="js/data/data_weapon.js"></script>
-  <script src="js/data/data_ship.js"></script>
-  <script src="js/data/data_asteroid.js"></script>
-  <script src="js/data/data_debris.js"></script>
-  <script src="js/data/data_station.js"></script>
-  <script src="js/data/data_faction.js"></script>
-  <script src="js/data/data_location.js"></script>
-  <script src="js/data/data_projectile.js"></script>
-  <script src="js/data/data_shield_types.js"></script>
-  <script src="js/data/data_quest.js"></script>
-  <script src="js/data/data_bg.js"></script>
+  <script src="js/data/dataPathfinding.js"></script>
+  <script src="js/data/dataGlobal.js"></script>
+  <script src="js/data/dataObjectToLayerMap.js"></script>
+  <script src="js/data/dataPerson.js"></script>
+  <script src="js/data/dataAbility.js"></script>
+  <script src="js/data/dataTitle.js"></script>
+  <script src="js/data/dataWeapon.js"></script>
+  <script src="js/data/dataShip.js"></script>
+  <script src="js/data/dataAsteroid.js"></script>
+  <script src="js/data/dataDebris.js"></script>
+  <script src="js/data/dataStation.js"></script>
+  <script src="js/data/dataFaction.js"></script>
+  <script src="js/data/dataLocation.js"></script>
+  <script src="js/data/dataProjectile.js"></script>
+  <script src="js/data/dataShieldTypes.js"></script>
+  <script src="js/data/dataQuest.js"></script>
+  <script src="js/data/dataBg.js"></script>
   
   <!-- state machine -->
-  <script src="js/state_machine/state_machine.js"></script>
-  <script src="js/state_machine/state_object.js"></script>
+  <script src="js/stateMachine/stateMachine.js"></script>
+  <script src="js/stateMachine/stateObject.js"></script>
 
   <!-- interaction -->
   <script src="js/interaction/collision.js"></script>
-  <script src="js/interaction/interaction_event.js"></script>
-  <script src="js/interaction/collision_event.js"></script>
-  <script src="js/interaction/interaction_manager.js"></script>
-  <script src="js/interaction/collision_detector.js"></script>
-  <script src="js/interaction/collision_solver.js"></script>
-  <script src="js/interaction/polygon_builder.js"></script>
+  <script src="js/interaction/interactionEvent.js"></script>
+  <script src="js/interaction/collisionEvent.js"></script>
+  <script src="js/interaction/interactionManager.js"></script>
+  <script src="js/interaction/collisionDetector.js"></script>
+  <script src="js/interaction/collisionSolver.js"></script>
+  <script src="js/interaction/polygonBuilder.js"></script>
   <script src="js/interaction/polygon.js"></script>
   
   <!-- components -->
@@ -471,38 +471,42 @@
   <script src="js/components/transform.js"></script>
   <script src="js/components/sprite.js"></script>
   <script src="js/components/hitbox.js"></script>
+  <script src="js/components/rigidbody.js"></script>
   <script src="js/components/controller.js"></script>
   <script src="js/components/wreck.js"></script>
   
-  <!-- game objects -->
-  <script src="js/game_objects/game_object.js"></script>
-  <script src="js/game_objects/rigid.js"></script>
-  <script src="js/game_objects/interactable.js"></script>
-  <script src="js/game_objects/projectile.js"></script>
-  <script src="js/game_objects/ship.js"></script>
-  <script src="js/game_objects/bg_object.js"></script>
-  <script src="js/game_objects/asteroid.js"></script>
-  <script src="js/game_objects/debris.js"></script>
-  <script src="js/game_objects/cluster.js"></script>
-  <script src="js/game_objects/special_objects.js"></script>
-  <script src="js/game_objects/camera.js"></script>
-
   <!-- ship systems -->
-  <script src="js/ship_systems/ship_system_weapons.js"></script>
+  <script src="js/components/shipSystems/shipSystem.js"></script>
+  <script src="js/components/shipSystems/engineSystem.js"></script>
+  <script src="js/components/shipSystems/weaponSystem.js"></script>
+
+  <!-- game objects -->
+  <script src="js/gameObjects/gameObject.js"></script>
+  <script src="js/gameObjects/rigid.js"></script>
+  <script src="js/gameObjects/interactable.js"></script>
+  <script src="js/gameObjects/projectile.js"></script>
+  <script src="js/gameObjects/ship.js"></script>
+  <script src="js/gameObjects/bgObject.js"></script>
+  <script src="js/gameObjects/asteroid.js"></script>
+  <script src="js/gameObjects/debris.js"></script>
+  <script src="js/gameObjects/cluster.js"></script>
+  <script src="js/gameObjects/specialObjects.js"></script>
+  <script src="js/gameObjects/camera.js"></script>
 
   <!-- location -->
   <script src="js/location/location.js"></script>
-  <script src="js/location/location_editor.js"></script>
-  <script src="js/location/local_map.js"></script>
-  <script src="js/location/map.js"></script>
-  <script src="js/location/map_icon.js"></script>
-  <script src="js/location/map_image.js"></script>
+  <script src="js/location/locationEditor.js"></script>
+  <!-- map -->
+  <script src="js/map/localMap.js"></script>
+  <script src="js/map/map.js"></script>
+  <script src="js/map/mapIcon.js"></script>
+  <script src="js/map/mapImage.js"></script>
 
   <!-- dialogue -->
-  <script src="js/dialogue/dialogue_screen.js"></script>
-  <script src="js/dialogue/dialogue_node.js"></script>
-  <script src="js/dialogue/dialogue_editor.js"></script>
-  <script src="js/dialogue/fact_manager.js"></script>
+  <script src="js/dialogue/dialogueScreen.js"></script>
+  <script src="js/dialogue/dialogueNode.js"></script>
+  <script src="js/dialogue/dialogueEditor.js"></script>
+  <script src="js/dialogue/factManager.js"></script>
   <script src="js/dialogue/facts.js"></script>
 
   <!-- overlays -->
@@ -513,29 +517,25 @@
   <script src="js/npc/npc.js"></script>
 
   <!-- unsorted -->
-  <script src="js/shields.js"></script>
-  <script src="js/weapons.js"></script>
+  <script src="js/weapon.js"></script>
   <script src="js/player.js"></script>
-  <script src="js/hitbox_editor.js"></script>
-  <script src="js/game_ui.js"></script>
+  <script src="js/hitboxEditor.js"></script>
+  <script src="js/gameUi.js"></script>
   <script src="js/program.js"></script>
 
   <!-- input -->
   <script src="js/input/mouse.js"></script>
   <script src="js/input/input.js"></script>
 
-  <!-- session -->
-  <script src="js/session/session.js"></script>
-
   <!-- fx -->
-  <script src="js/fx/filter_manager.js"></script>
+  <script src="js/fx/filterManager.js"></script>
 
   <!-- inventory -->
-  <script src="js/inventory/inventory_window.js"></script>
+  <script src="js/inventory/inventoryWindow.js"></script>
   <script src="js/inventory/inventory.js"></script>
-  <script src="js/inventory/ship_view.js"></script>
+  <script src="js/inventory/shipView.js"></script>
   <script src="js/inventory/item.js"></script>
-  <script src="js/inventory/buy_menu.js"></script>
+  <script src="js/inventory/buyMenu.js"></script>
 
   <!-- main stuff -->
   <script src="js/tick.js"></script>

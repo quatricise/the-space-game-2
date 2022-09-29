@@ -1,5 +1,5 @@
 class Wreck extends Component {
-  constructor() {
-    super()
+  constructor(gameObject) {
+    super(gameObject)
   }
 }

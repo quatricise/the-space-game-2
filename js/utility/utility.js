@@ -140,9 +140,9 @@ function weightedRandom(values = {apple: 1, orange: 2}) {
   return pick
 }
 
-function world_to_client_pos(game_window, pos) {
-  console.log(game_window)
-  return pos.clone().sub(game_window.camera.transform.position).add(new Vector(cw/2, ch/2))
+function worldToClientPos(gameWindow, pos) {
+  console.log(gameWindow)
+  return pos.clone().sub(gameWindow.camera.transform.position).add(new Vector(cw/2, ch/2))
 }
 
 function f(id) {
@@ -153,7 +153,7 @@ function capitalize(string) {
   return string.charAt(0).toLocaleUpperCase() + string.slice(1)
 }
 
-function rgb_to_hex(rgb) {
+function rgbToHex(rgb) {
   let a = rgb.split("(")[1].split(")")[0]
   a = a.split(",")
   let b = a.map((x) => {              //For each array element

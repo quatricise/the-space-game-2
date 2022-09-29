@@ -1,6 +1,6 @@
 class NPC extends Person {
-  constructor(name, job_title, location) {
-    super(name, job_title. location)
+  constructor(name, jobTitle, location) {
+    super(name, jobTitle. location)
     this.name = name
     this.boxes = []
     this.target = target
@@ -17,14 +17,14 @@ class NPC extends Person {
     this.colliding = false
     this.direction = 1
     //#region instance arrow methods
-    this.check_collision = () => {
+    this.checkCollision = () => {
       let ship = this.ship
   
       let iterations = data.pathfinding.projection.iterations
       let timestretch = data.pathfinding.projection.timestretch
-      let ship_boxes = this.ship.projections
+      let shipBoxes = this.ship.projections
   
-      let other_boxes = []
+      let otherBoxes = []
       let candidates = Collision.broadphaseFilter(ship) 
       candidates.forEach(obj => {
         let bb = obj.hitbox.bb
@@ -37,13 +37,13 @@ class NPC extends Person {
           bb.h = Math.round(bb.h)
           series.push({...bb})
         }
-        other_boxes.push(series)
+        otherBoxes.push(series)
       })
       let count = 0
-      this.boxes = ship_boxes.concat(...other_boxes)
+      this.boxes = shipBoxes.concat(...otherBoxes)
       let colliding = []
-      ship_boxes.forEach((sb, index) => {
-        other_boxes.forEach(series => {
+      shipBoxes.forEach((sb, index) => {
+        otherBoxes.forEach(series => {
           let box = series[index]
           if(Collision.boxBox(sb, box)) {
             count++
@@ -52,14 +52,14 @@ class NPC extends Person {
         })
       })
       if(count > 0 && this.colliding === false) {
-        this.decide_direction()
+        this.decideDirection()
         this.colliding = true
       }
       if(count === 0) {
         this.colliding = false
       }
     }
-    this.can_skip = true
+    this.canSkip = true
     this.fire = () => {
       let pos = this.target.pos.clone()
       pos.x *= rand(0.95,1.05)
@@ -67,28 +67,28 @@ class NPC extends Person {
       this.ship.fire(pos)
     }
     this.skip = () => {
-      if(!this.can_skip) return
+      if(!this.canSkip) return
       let pos = this.target.pos.clone()
       pos.x += randR(120, 200) * pickRand([-1,1])
       pos.y += randR(120, 200) * pickRand([-1,1])
-      this.ship.skip_begin(pos)
-      this.can_skip = false
+      this.ship.skipBegin(pos)
+      this.canSkip = false
       this.timers.skip.restart()
     }
-    this.reset_skip = () => {
-      this.can_skip = true
+    this.resetSkip = () => {
+      this.canSkip = true
     }
     //#endregion
     this.timers = new Timer(
-      ["check_collision", 500, {loop: true, active: true, onfinish: this.check_collision}],
+      ["checkCollision", 500, {loop: true, active: true, onfinish: this.checkCollision}],
       ["fire", 2000, {loop: true, active: true, onfinish: this.fire}],
-      ["skip", 3000, {loop: false, active: false, onfinish: this.reset_skip}],
+      ["skip", 3000, {loop: false, active: false, onfinish: this.resetSkip}],
     )
   }
-  assign_ship(ship) {
+  assignShip(ship) {
     this.ship = ship
   }
-  control_ship() {
+  controlShip() {
     let ship = this.ship
     this.aim()
     if(this.colliding) {
@@ -115,20 +115,20 @@ class NPC extends Person {
       ship.brake()
     }
   }
-  decide_direction() {
+  decideDirection() {
     this.direction = pickRand([-1, 1])
   }
-  set_target(target) {
+  setTarget(target) {
     this.target = target
   }
   aim() {
-    this.ship.target_pos = this.target.pos.clone()
+    this.ship.targetPos = this.target.pos.clone()
   }
   destroy() {
 
   }
   //#region obstacle avoid subroutine
-  detect_obstacle() {
+  detectObstacle() {
     //if obstacle -> skip over it
     //if fail -> turn left || turn right
     //if fail -> turn the other way
@@ -141,6 +141,6 @@ class NPC extends Person {
   }
   //#endregion
   update() {
-    this.control_ship()
+    this.controlShip()
   }
 }

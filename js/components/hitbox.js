@@ -1,16 +1,24 @@
 class Hitbox extends Component {
-  constructor(color) {
-    super()
-    this.transform = new Transform()
-    this.color = color || colors.hitbox.no_collision
+  constructor(gameObject, color) {
+    super(gameObject)
+    this.color = color || colors.hitbox.noCollision
+  }
+  update() {
+    
   }
   //#region static draw methods
   static draw(object, graphics) {
-    if(!visible.hitbox) return
-    if(!object.hitbox) return
+    if(!visible.hitbox) 
+      return
+    if(!object.hitbox) 
+      return
+
     let color = object.hitbox.color
-    if(object instanceof Interactable) color = colors.hitbox.interactable
-    if(object.triggered) color = colors.hitbox.collision
+
+    if(object instanceof Interactable) 
+      color = colors.hitbox.interactable
+    if(object.triggered) 
+      color = colors.hitbox.collision
     if(object.hitbox.type === "circle") {
       graphics.lineStyle(2, color, 1);
       graphics.drawCircle(
@@ -23,7 +31,7 @@ class Hitbox extends Component {
     if(object.hitbox.type === "polygon") {
       let hitbox = object.hitbox
       hitbox.bodies.forEach((body) => {
-        this.draw_polygon(body, graphics)
+        this.drawPolygon(body, graphics)
       }) 
     }
     if(object.hitbox.type === "box") {
@@ -40,9 +48,11 @@ class Hitbox extends Component {
       graphics.closePath()
     }
   }
-  static draw_projections(obj, graphics) {
-    if(!visible.projections) return
-    if(!obj.projections) return
+  static drawProjections(obj, graphics) {
+    if(!visible.projections) 
+      return
+    if(!obj.projections) 
+      return
     obj.projections.forEach(box => {
       graphics.lineStyle(2, colors.hitbox.projection, 1)
       graphics.drawRect(
@@ -53,7 +63,7 @@ class Hitbox extends Component {
       )
     })
   }
-  static draw_polygon(body, graphics) {
+  static drawPolygon(body, graphics) {
     let color = body.color
         graphics.lineStyle(2, color, 1);
         body.vertices.forEach((vertex, index) => {
@@ -66,16 +76,16 @@ class Hitbox extends Component {
         })
       graphics.closePath();
   }
-  static draw_bounding_box(object, graphics) {
-    let bb = object.hitbox.bounding_box
+  static drawBoundingBox(object, graphics) {
+    let bb = object.hitbox.boundingBox
     graphics.lineStyle(2, 0x0011dd, 1);
     graphics.drawRect(bb.x, bb.y, bb.w, bb.h)
   }
   //#endregion
 
   //#region static update methods
-  static update_polygon_hitbox(object) {
-    //reset position to default
+  static updatePolygonHitbox(object) {
+    //resets position to the hitbox definition
     object.hitbox.bodies.forEach((body, b) => {
       body.vertices.forEach((vertex, v) => {
         vertex.x = object.transform.position.x + object.hitbox.definition[b].vertices[v].x
@@ -88,18 +98,12 @@ class Hitbox extends Component {
         vertex.x = object.hitbox.definition[b].vertices[v].x
         vertex.y = object.hitbox.definition[b].vertices[v].y
       })
-      body.rotate(-object.rotation)
+      body.rotate(-object.transform.rotation)
       body.vertices.forEach(vertex=> {
         vertex.x += object.transform.position.x
         vertex.y += object.transform.position.y
       })
     })
-  }
-  static update(object) {
-    if(!object.hitbox) return
-    if(object.hitbox.type === "circle") object.hitbox.transform.position.set_from(object.transform.position)
-    if(object.hitbox.type === "box") object.hitbox.transform.position.set_from(object.transform.position)
-    if(object.hitbox.type === "polygon") this.update_polygon_hitbox(object)
   }
   //#endregion
 }
@@ -110,7 +114,7 @@ class CircleHitbox extends Hitbox {
     this.type = "circle"
     this.radius = radius
   }
-  get bounding_box() {
+  get boundingBox() {
     return new BoundingBox(
       this.transform.position.x - this.radius,
       this.transform.position.y - this.radius,
@@ -127,7 +131,10 @@ class PolygonHitbox extends Hitbox {
     this.bodies = bodies
     this.definition = _.cloneDeep(this.bodies)
   }
-  get bounding_box() {
+  update() {
+    Hitbox.updatePolygonHitbox(this.gameObject)
+  }
+  get boundingBox() {
     let arrayX = []
     let arrayY = []
     this.bodies.forEach(body => {
@@ -161,7 +168,7 @@ class BoxHitbox extends Hitbox {
     this.w = a
     this.h = b
   }
-  get bounding_box() {
+  get boundingBox() {
     return new BoundingBox(
       this.transform.position.x - this.w/2,
       this.transform.position.y - this.h/2,

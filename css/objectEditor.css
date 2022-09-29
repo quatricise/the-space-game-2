@@ -1,0 +1,153 @@
+#object-editor-dropdown {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--dark-2);
+  width: 100%;
+  padding: 10px;
+  z-index: 100;
+  height: 100%;
+}
+#object-editor-dropdown-search-bar-input {
+  height: 30px;
+  padding: 5px;
+  width: 100%;
+}
+.object-editor-dropdown-search-bar {
+  position: relative;
+  background-color: var(--dark-3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+#object-editor-sidebar {
+  height: 100%;
+  width: 400px;
+  background-color: var(--dark-1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  position: relative;
+}
+#object-editor-search-icon {
+  background-image: url(../assets/hitboxEditor/icon-search.png);
+  background-position: center;
+  background-size: contain;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  right: 5px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.object-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  height: 30px;
+  padding: 0 10px;
+  background-color: var(--dark-3);
+  cursor: var(--cursor-pointer);
+}
+
+.object-item:hover {
+  background-color: var(--dark-4);
+}
+
+.object-section {
+  height: 100%;
+  background-color: var(--dark-2);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  padding: 20px;
+}
+
+.object-wrapper {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dark-3);
+  max-width: calc(100% - 200px);
+  width: calc(100% - 200px);
+  height: 100%;
+  border-radius: 5px;
+  padding: 20px;
+  gap: 10px;
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.5);
+}
+
+.object-editor-sidebar-buttons {
+  display: flex;
+  gap: 5px;
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  z-index: 100;
+}
+
+.object-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.object-property-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: scroll;
+}
+
+.object-property {
+  display: flex;
+  gap: 5px;
+  color: white;
+}
+
+.object-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.property-key, .property-value {
+  display: flex;
+  justify-content: center;
+  cursor: var(--cursor-pointer);
+}
+.property-key:hover, .property-value:hover {
+  background-color: var(--dark-4);
+}
+.property-key {
+  color: rgb(125, 181, 255);
+}
+.property-value {
+  color: rgb(255, 172, 62);
+}
+
+.object-property-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+  gap: 4px;
+}
+.object-property-group.subgroup:hover {
+  background-color: var(--dark-4);
+}
+.add-prop, #object-editor-add-obj {
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(../assets/editor/icon_plus.png);
+  border-radius: 5px;
+  cursor: var(--cursor-pointer);
+}

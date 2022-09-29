@@ -4,21 +4,21 @@ class Program {
       all: [],
       history: [],
       active: null,
-      set(window) {
-        if(!window && !this.all.find(w => w === window)) return
-        this.active = window
-        window.active = true
-        this.all.forEach(a => {
-          if(window instanceof DialogueScreen) {
+      set(win) {
+        if(!win && !this.all.find(w => w === win)) return
+        this.active = win
+        win.active = true
+        this.all.forEach(w => {
+          if(win instanceof DialogueScreen) {
             game.state.set("dialogue")
             game.show()
           } 
-          if(window instanceof BuyMenu) {
+          if(win instanceof BuyMenu) {
             game.show()
           }
-          a.hide()
+          w.hide()
         })
-        this.history.push(window)
+        this.history.push(win)
         this.active.show()
       },
       close() {
@@ -33,10 +33,10 @@ class Program {
     }
     this.ui = new GameUI()
   }
-  handle_input(e) {
-    mouse.handle_input(e)
-    this.ui.handle_input(e)
-    this.windows.active.handle_input(e)
+  handleInput(e) {
+    mouse.handleInput(e)
+    this.ui.handleInput(e)
+    this.windows.active.handleInput(e)
   }
   update() {
     this.ui.update()

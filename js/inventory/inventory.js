@@ -2,13 +2,13 @@ class Inventory {
   constructor() {
     this.items = []
   }
-  remove_item() {
+  removeItem() {
 
   }
-  insert_item() {
+  insertItem() {
 
   }
-  find_item() {
+  findItem() {
 
   }
 }

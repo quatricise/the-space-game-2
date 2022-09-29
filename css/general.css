@@ -144,7 +144,7 @@ textarea {
 }
 
 .search-icon {
-  background-image: url(../assets/hitbox_editor/icon-search.png);
+  background-image: url(../assets/hitboxEditor/iconSearch.png);
   background-position: center;
   background-size: contain;
   width: 16px;
@@ -200,7 +200,7 @@ textarea {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url(../assets/hitbox_editor/icon-close.png);
+  background-image: url(../assets/hitboxEditor/iconClose.png);
   order: 2;
 }
 

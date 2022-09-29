@@ -4,52 +4,52 @@ let data = {}
 //   //this was an idea, to load everything from JSON and use
 //   //my object editor for creating the structures, but I'm
 //   //not liking that idea anymore
-//   let data_groups = [
+//   let dataGroups = [
 //     "weapon",
 //     "asteroid",
 //     "location",
-//     "location_coords",
+//     "locationCoords",
 //     "ship",
-//     "save_data",
+//     "saveData",
 //     "projectile",
 //   ]
-//   let data_loaded = 0
+//   let dataLoaded = 0
 
-//   function load_data() {
+//   function loadData() {
 //     this.next()
-//     if(data_loaded === groups.length - 1 ) {
+//     if(dataLoaded === groups.length - 1 ) {
 //       //assign everything to data {}
 //     }
 //   }
-//   load_data.next = function() {
-//     let group = data_groups.shift()
+//   loadData.next = function() {
+//     let group = dataGroups.shift()
 //   }
 // }
 
 // data.npc = {
 //   "Character": {
-//     full_name: "Character Name",
+//     fullName: "Character Name",
 //     age: 25,
 //     reputation: { 
 //       //0-10
 //       crimson: 8,
 //       alliance: 3,
-//       the_crown: 4,
-//       the_hive: 0,
-//       traders_union: 3,
+//       theCrown: 4,
+//       theHive: 0,
+//       tradersUnion: 3,
 //     },
 //     alignment: { 
 //       //how much they respect each faction 0-10
 //       crimson: 8,
 //       alliance: 3,
-//       the_crown: 4,
-//       the_hive: 0,
-//       traders_union: 3,
+//       theCrown: 4,
+//       theHive: 0,
+//       tradersUnion: 3,
 //     },
 //   },
 // }
 // data.player = {
-//   full_name: "Ada",
+//   fullName: "Ada",
 //   age: 38,
 //   lore: `
 //     Mother of three. Space captain.

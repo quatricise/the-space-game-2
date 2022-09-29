@@ -2,68 +2,68 @@ class Game extends GameWorldWindow {
   constructor(title, element) {
     super(title, element)
     this.app.view.style.pointerEvents = "none"
-    this.grid_sprite = new PIXI.TilingSprite(grid.texture, cw + grid.cell_size*2, ch + grid.cell_size*2)
+    this.gridSprite = new PIXI.TilingSprite(grid.texture, cw + grid.cellSize*2, ch + grid.cellSize*2)
     this.state = new State(
       "explore",
       "battle",
       "dialogue",
-      "map_open",
+      "mapOpen",
       "loading",
     )
-    this.create_vignette()
+    this.createVignette()
     this.location = null
     this.locations = []
   }
   //#region input
-  handle_keydown(event) {
+  handleKeydown(event) {
     if(event.code === binds.pause) {
       if(this.app.ticker.started) this.app.ticker.stop()
       else this.app.ticker.start()
     }
-    if(event.code === binds.zoom_in) this.camera.zoomInit("in")
-    if(event.code === binds.zoom_out) this.camera.zoomInit("out")
-    if(event.code === binds.map_open) {
+    if(event.code === binds.zoomIn) this.camera.zoomInit("in")
+    if(event.code === binds.zoomOut) this.camera.zoomInit("out")
+    if(event.code === binds.mapOpen) {
       throw "this is too complicated, needs to be an internal function of Map"
       // program.windows.set(map)
       // map.open = !map.open
-      // if(map.open) this.state.set("map_open")
+      // if(map.open) this.state.set("mapOpen")
       // else         this.state.revert()
     }
-    if(event.code === binds.dash) player.ship.dash_init()
-    if(event.code === binds.toggle_autobrake) player.ship.brakes_toggle_auto()
+    if(event.code === binds.dash) player.ship.dashInit()
+    if(event.code === binds.toggleAutobrake) player.ship.brakesToggleAuto()
   }
-  handle_keyup(event) {
+  handleKeyup(event) {
     
   }
-  handle_mousedown(event) {
+  handleMousedown(event) {
     if(event.button === 0) {
       if(event.target === this.element) {
-        if(keys.shift || keys.shift_right) {
-          player.ship.skip_begin(mouse.world_pos)
+        if(keys.shift || keys.shiftRight) {
+          player.ship.skipBegin(mouse.worldPosition)
         }
         else
-        if(keys.ctrl || keys.ctrl_right) {
-          player.ship.pulse_shield_activate()
+        if(keys.ctrl || keys.ctrlRight) {
+          player.ship.pulseShieldActivate()
         }
         else {
-          player.ship.timers.laser_charge.restart()
-          player.ship.fire(mouse.world_pos)
+          player.ship.timers.laserCharge.restart()
+          player.ship.fire(mouse.worldPosition)
         }
       }
     }
   }
-  handle_mousemove(event) {
+  handleMousemove(event) {
     
   }
-  handle_mouseup(event) {
+  handleMouseup(event) {
     if(event.button === 0) {
-      player.ship.timers.laser_charge.reset()
+      player.ship.timers.laserCharge.reset()
     }
   }
-  handle_click(event) {
+  handleClick(event) {
     
   }
-  handle_wheel(event) {
+  handleWheel(event) {
     if(this.state.is("explore", "battle")) {
       if(event.deltaY < 0) {
           this.camera.zoomInit("in")
@@ -75,22 +75,22 @@ class Game extends GameWorldWindow {
     }
   }
   //#endregion
-  update_secondary_visuals() {
+  updateSecondaryVisuals() {
     this.layers.background.position.set(camera.transform.position.x * 0.5, camera.transform.position.y * 0.5)
     this.layers.background2.position.set(camera.transform.position.x * 0.8, camera.transform.position.y * 0.8)
     this.layers.vignette.position.set(camera.transform.position.x, camera.transform.position.y)
-    this.layers.vignette.scale.set(camera.current_zoom)
+    this.layers.vignette.scale.set(camera.currentZoom)
     this.layers.vignette2.position.set(camera.transform.position.x, camera.transform.position.y)
-    this.layers.vignette2.scale.set(camera.current_zoom)
+    this.layers.vignette2.scale.set(camera.currentZoom)
     this.layers.planet.position.set(camera.transform.position.x * 0.98, camera.transform.position.y * 0.98 + ch/5)
-    this.layers.planet.scale.set(camera.current_zoom)
+    this.layers.planet.scale.set(camera.currentZoom)
   }
   update() {
     let camera = this.camera
     if(keys.brake) 
-      player.ship.toggle_brake_indicator(true)
+      player.ship.toggleBrakeIndicator(true)
     else 
-      player.ship.toggle_brake_indicator(false)
-    this.update_secondary_visuals()
+      player.ship.toggleBrakeIndicator(false)
+    this.updateSecondaryVisuals()
   }
 }
