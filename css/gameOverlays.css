@@ -142,7 +142,7 @@
 .audio-call-heading-icon {
   width: 30px;
   height: 30px;
-  background-image: url(../assets/ui/callWaveform.gif);
+  background-image: url(/assets/ui/callWaveform.gif);
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -733,76 +733,76 @@
 
 .ui-button-minimal-filled {
   border: 18px solid transparent;
-  border-image: url(../assets/ui/UIButtonMinimalFilled.png) round;
+  border-image: url(/assets/ui/UIButtonMinimalFilled.png) round;
   border-image-slice: 20 fill;
   box-sizing: padding-box;
   background-color: transparent;
 }
 
 .ui-button-minimal-filled:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalFilledHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalFilledHover.png);
 }
 
 .ui-button-minimal-alt-filled {
   border: 12px solid transparent;
-  border-image: url(../assets/ui/UIButtonMinimalAltFilled.png) round;
+  border-image: url(/assets/ui/UIButtonMinimalAltFilled.png) round;
   border-image-slice: 35 fill;
   box-sizing: padding-box;
   background-color: transparent;
 }
 .ui-button-minimal-alt-filled:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledHover.png);
 }
 
 .ui-button-minimal-alt-filled.orange {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrange.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledOrange.png);
 }
 .ui-button-minimal-alt-filled.orange:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledOrangeHover.png);
 }
 
 .ui-button-minimal-alt-filled.orange-dark {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeDark.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledOrangeDark.png);
 }
 .ui-button-minimal-alt-filled.orange-dark:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeDarkHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledOrangeDarkHover.png);
 }
 
 .ui-button-minimal-alt-filled.active-color {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledActiveColor.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledActiveColor.png);
 }
 .ui-button-minimal-alt-filled.active-color:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledActiveColorHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledActiveColorHover.png);
 }
 
 .ui-button-minimal-alt-filled.interactable-color {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledInteractableColor.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledInteractableColor.png);
 }
 .ui-button-minimal-alt-filled.interactable-color:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledInteractableColorHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledInteractableColorHover.png);
 }
 .ui-button-minimal-alt-filled.dialogue-gray {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledDialogueGray.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledDialogueGray.png);
 }
 .ui-button-minimal-alt-filled.dialogue-gray:hover {
-  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledDialogueGrayHover.png);
+  border-image-source: url(/assets/ui/UIButtonMinimalAltFilledDialogueGrayHover.png);
 }
 
 .ui-button-fancy-filled {
   border: 28px solid transparent;
-  border-image: url(../assets/ui/UIButtonFancyFilled.png) round;
+  border-image: url(/assets/ui/UIButtonFancyFilled.png) round;
   border-image-slice: 38 fill;
   box-sizing: padding-box;
   background-color: transparent;
 }
 
 .ui-button-fancy-filled:hover {
-  border-image-source: url(../assets/ui/UIButtonFancyFilledHover.png);
+  border-image-source: url(/assets/ui/UIButtonFancyFilledHover.png);
 }
 
 .ui-label-fancy-both-sides {
   border: 20px solid transparent;
-  border-image: url(../assets/ui/UILabelFancyBothSides.png);
+  border-image: url(/assets/ui/UILabelFancyBothSides.png);
   border-image-repeat: stretch;
   border-image-slice: 60 fill;
   box-sizing: padding-box;
