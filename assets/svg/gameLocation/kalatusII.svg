@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <circle cx="256" cy="244.44" r="10" style="fill: #fff2bd"/>
+  <path d="M354.75,243.65c4.06,29.52-40,55.29-98.75,55.29s-102.81-25.77-98.75-55.29C161,216.38,205.1,195.74,256,195.74S351,216.38,354.75,243.65Z" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px;opacity: 0.300000011920929"/>
+  <path d="M327.78,243.65C329.9,264.87,297.81,283,256,283s-73.9-18.14-71.78-39.36c2-20,34.09-35.47,71.78-35.47S325.78,223.62,327.78,243.65Z" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px;opacity: 0.200000002980232"/>
+  <path d="M301.68,243.65c.85,13.36-19.59,24.56-45.68,24.56s-46.53-11.2-45.68-24.56c.82-12.87,21.26-23,45.68-23S300.86,230.78,301.68,243.65Z" style="fill: none;stroke: #fff;stroke-miterlimit: 10;stroke-width: 2px;opacity: 0.100000001490116"/>
+  <circle cx="256" cy="268.21" r="6" style="fill: #fff;stroke: #db0000;stroke-miterlimit: 10;opacity: 0.100000001490116"/>
+  <circle cx="256" cy="283.01" r="6" style="fill: #fff;stroke: #c00000;stroke-miterlimit: 10;opacity: 0.200000002980232"/>
+  <circle cx="256" cy="299" r="6" style="fill: #fff;stroke: #810000;stroke-miterlimit: 10;opacity: 0.300000011920929"/>
+</svg>

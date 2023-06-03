@@ -1,0 +1,61 @@
+{"frames": {
+
+"ship_the_crown0025.png":
+{
+	"frame": {"x":1,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0026.png":
+{
+	"frame": {"x":1,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0027.png":
+{
+	"frame": {"x":353,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0028.png":
+{
+	"frame": {"x":353,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0029.png":
+{
+	"frame": {"x":705,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0030.png":
+{
+	"frame": {"x":705,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "lights_blue-1.png",
+	"format": "RGBA8888",
+	"size": {"w":1056,"h":704},
+	"scale": "1",
+	"related_multi_packs": [ "lights_blue-0.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:2956100ba3a4f3306d2685edde8eb7fb:3589c1caa8c7bd84237748cf2fd458a4:f63b977cef155996a30b025baeb3d1f8$"
+}
+}

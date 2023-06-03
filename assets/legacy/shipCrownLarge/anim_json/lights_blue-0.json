@@ -1,0 +1,216 @@
+{"frames": {
+
+"ship_the_crown0000.png":
+{
+	"frame": {"x":1,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0001.png":
+{
+	"frame": {"x":1,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0002.png":
+{
+	"frame": {"x":1,"y":705,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0003.png":
+{
+	"frame": {"x":1,"y":1057,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0004.png":
+{
+	"frame": {"x":1,"y":1409,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0005.png":
+{
+	"frame": {"x":353,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0006.png":
+{
+	"frame": {"x":705,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0007.png":
+{
+	"frame": {"x":1057,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0008.png":
+{
+	"frame": {"x":1409,"y":1,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0009.png":
+{
+	"frame": {"x":353,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0010.png":
+{
+	"frame": {"x":353,"y":705,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0011.png":
+{
+	"frame": {"x":353,"y":1057,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0012.png":
+{
+	"frame": {"x":353,"y":1409,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0013.png":
+{
+	"frame": {"x":705,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0014.png":
+{
+	"frame": {"x":1057,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0015.png":
+{
+	"frame": {"x":1409,"y":353,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0016.png":
+{
+	"frame": {"x":705,"y":705,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0017.png":
+{
+	"frame": {"x":705,"y":1057,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0018.png":
+{
+	"frame": {"x":705,"y":1409,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0019.png":
+{
+	"frame": {"x":1057,"y":705,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0020.png":
+{
+	"frame": {"x":1409,"y":705,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0021.png":
+{
+	"frame": {"x":1057,"y":1057,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0022.png":
+{
+	"frame": {"x":1057,"y":1409,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0023.png":
+{
+	"frame": {"x":1409,"y":1057,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+},
+"ship_the_crown0024.png":
+{
+	"frame": {"x":1409,"y":1409,"w":350,"h":350},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":350,"h":350},
+	"sourceSize": {"w":350,"h":350}
+}},
+"animations": {
+	"ship_the_crown": ["ship_the_crown0000.png","ship_the_crown0001.png","ship_the_crown0002.png","ship_the_crown0003.png","ship_the_crown0004.png","ship_the_crown0005.png","ship_the_crown0006.png","ship_the_crown0007.png","ship_the_crown0008.png","ship_the_crown0009.png","ship_the_crown0010.png","ship_the_crown0011.png","ship_the_crown0012.png","ship_the_crown0013.png","ship_the_crown0014.png","ship_the_crown0015.png","ship_the_crown0016.png","ship_the_crown0017.png","ship_the_crown0018.png","ship_the_crown0019.png","ship_the_crown0020.png","ship_the_crown0021.png","ship_the_crown0022.png","ship_the_crown0023.png","ship_the_crown0024.png","ship_the_crown0025.png","ship_the_crown0026.png","ship_the_crown0027.png","ship_the_crown0028.png","ship_the_crown0029.png","ship_the_crown0030.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "lights_blue-0.png",
+	"format": "RGBA8888",
+	"size": {"w":1760,"h":1760},
+	"scale": "1",
+	"related_multi_packs": [ "lights_blue-1.json" ],
+	"smartupdate": "$TexturePacker:SmartUpdate:2956100ba3a4f3306d2685edde8eb7fb:3589c1caa8c7bd84237748cf2fd458a4:f63b977cef155996a30b025baeb3d1f8$"
+}
+}
