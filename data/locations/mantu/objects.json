@@ -1,0 +1,3267 @@
+{
+  "name": "Mantu",
+  "position": {
+    "x": 0,
+    "y": 0
+  },
+  "fog": [],
+  "objects": [
+    {
+      "id": "camera001",
+      "transform": {
+        "position": {
+          "x": -989.5379820474301,
+          "y": -648.6515004153053
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -16,
+          "y": -11
+        }
+      },
+      "type": "camera",
+      "name": "camera"
+    },
+    {
+      "id": "al_simon_ship",
+      "transform": {
+        "position": {
+          "x": -1395.014745788841,
+          "y": -1314.8679929274103
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.2972582656809286,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -22,
+          "y": -21
+        }
+      },
+      "type": "ship",
+      "name": "waspFighter",
+      "layer": "ship",
+      "pilot": "alSimon"
+    },
+    {
+      "id": "betty_simon_ship",
+      "transform": {
+        "position": {
+          "x": -1915.3839827671188,
+          "y": -493.5829042808677
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.806672063791642,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -30,
+          "y": -8
+        }
+      },
+      "type": "ship",
+      "name": "waspFighterII",
+      "layer": "ship",
+      "pilot": "bettySimon"
+    },
+    {
+      "id": "entry_beacon",
+      "transform": {
+        "position": {
+          "x": -0.4444444444465132,
+          "y": 0.6666666666646757
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -1,
+          "y": 0
+        }
+      },
+      "type": "ultraportBeacon",
+      "name": "default",
+      "layer": "ship"
+    },
+    {
+      "id": "a84d19d32d7cf711",
+      "transform": {
+        "position": {
+          "x": 529,
+          "y": -504
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.748115186356169,
+        "angularVelocity": -0.10087679194633367,
+        "cellPosition": {
+          "x": 8,
+          "y": -8
+        }
+      },
+      "type": "debris",
+      "name": "debris4",
+      "layer": "debris"
+    },
+    {
+      "id": "d5309236333965e7",
+      "transform": {
+        "position": {
+          "x": -937.333333333334,
+          "y": 571.4444444444451
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.626020369885445,
+        "angularVelocity": -0.023403045902304867,
+        "cellPosition": {
+          "x": -15,
+          "y": 8
+        }
+      },
+      "type": "debris",
+      "name": "debris4",
+      "layer": "debris"
+    },
+    {
+      "id": "bf3f28e641c73f93",
+      "transform": {
+        "position": {
+          "x": 414,
+          "y": -667
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.17939394329060207,
+        "angularVelocity": -0.06313077559076669,
+        "cellPosition": {
+          "x": 6,
+          "y": -11
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "8c27ed04c801087b",
+      "transform": {
+        "position": {
+          "x": -1100.7777777777787,
+          "y": 423.6666666666661
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.8768787823344013,
+        "angularVelocity": 0.2857052288318172,
+        "cellPosition": {
+          "x": -18,
+          "y": 6
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "a3f57fcd63246f2c",
+      "transform": {
+        "position": {
+          "x": -374,
+          "y": -621
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.320006427676771,
+        "angularVelocity": -0.04270568430075228,
+        "cellPosition": {
+          "x": -6,
+          "y": -10
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "60cf9ad395d3d2db",
+      "transform": {
+        "position": {
+          "x": -267,
+          "y": -614
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.42734414576671376,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -5,
+          "y": -10
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "f1a81f8bf30a50b2",
+      "transform": {
+        "position": {
+          "x": 631,
+          "y": -486
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.806808385612048,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 9,
+          "y": -8
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "f36860adf7febd15",
+      "transform": {
+        "position": {
+          "x": -740,
+          "y": -696
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.4059296487665422,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -12,
+          "y": -11
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "fa37da395345de82",
+      "transform": {
+        "position": {
+          "x": 480,
+          "y": 511
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.3280988320011726,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 7,
+          "y": 7
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "e3a140a0eae506ca",
+      "transform": {
+        "position": {
+          "x": 569,
+          "y": 476
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.7946100347359675,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 8,
+          "y": 7
+        }
+      },
+      "type": "asteroid",
+      "name": "medium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "78c68d286e50ddcc",
+      "transform": {
+        "position": {
+          "x": -1089.7777777777787,
+          "y": 672.6666666666682
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.4381350519239105,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -18,
+          "y": 10
+        }
+      },
+      "type": "asteroid",
+      "name": "medium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "32b73e35c7f559c5",
+      "transform": {
+        "position": {
+          "x": 558,
+          "y": -673
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.273186422409133,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 8,
+          "y": -11
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "8d0f874a61253d34",
+      "transform": {
+        "position": {
+          "x": -648.9382716049383,
+          "y": -1593.4197530864235
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.015474151927831,
+        "angularVelocity": 0.011405176234246917,
+        "cellPosition": {
+          "x": -11,
+          "y": -25
+        }
+      },
+      "type": "debris",
+      "name": "crimsonFighterWreck",
+      "layer": "debris"
+    },
+    {
+      "id": "f0200e120e300273",
+      "transform": {
+        "position": {
+          "x": 741,
+          "y": -477
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.3154372314139353,
+        "angularVelocity": -0.13328908901609343,
+        "cellPosition": {
+          "x": 11,
+          "y": -8
+        }
+      },
+      "type": "debris",
+      "name": "debris1",
+      "layer": "debris"
+    },
+    {
+      "id": "696ca4ad9202dcee",
+      "transform": {
+        "position": {
+          "x": -857,
+          "y": -623
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.354677831958381,
+        "angularVelocity": 0.1251111429354655,
+        "cellPosition": {
+          "x": -14,
+          "y": -10
+        }
+      },
+      "type": "debris",
+      "name": "debris1",
+      "layer": "debris"
+    },
+    {
+      "id": "4d7d6278e0c7bc5d",
+      "transform": {
+        "position": {
+          "x": 688,
+          "y": 476
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.592529848826392,
+        "angularVelocity": -0.17708299174350223,
+        "cellPosition": {
+          "x": 10,
+          "y": 7
+        }
+      },
+      "type": "debris",
+      "name": "debris1",
+      "layer": "debris"
+    },
+    {
+      "id": "4dd0b9f4d6f0d13c",
+      "transform": {
+        "position": {
+          "x": 711,
+          "y": 917
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.821445268097343,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 11,
+          "y": 14
+        }
+      },
+      "type": "asteroid",
+      "name": "clayMedium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c4dae43266831e09",
+      "transform": {
+        "position": {
+          "x": 803,
+          "y": 1075
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.280560781660762,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 12,
+          "y": 16
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "482ff93a3f307b10",
+      "transform": {
+        "position": {
+          "x": -1162.7777777777785,
+          "y": 813.666666666669
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.2450907429196523,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -19,
+          "y": 12
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "419639c438d8cd05",
+      "transform": {
+        "position": {
+          "x": -1295,
+          "y": 533
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.473298034745664,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -21,
+          "y": 8
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "43e6a60cd4aa0f9e",
+      "transform": {
+        "position": {
+          "x": -1561,
+          "y": -198
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.967187574749693,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -25,
+          "y": -4
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "31869ec4942e29a3",
+      "transform": {
+        "position": {
+          "x": -1598.3333333333367,
+          "y": -311.4444444444442
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.9022784375933592,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -25,
+          "y": -5
+        }
+      },
+      "type": "asteroid",
+      "name": "large0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "d57fd039664f8bbb",
+      "transform": {
+        "position": {
+          "x": -1705,
+          "y": -187
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.5607794703873816,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -27,
+          "y": -3
+        }
+      },
+      "type": "asteroid",
+      "name": "medium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "a9610f0f42be2417",
+      "transform": {
+        "position": {
+          "x": -852,
+          "y": -739
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.231839498215364,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -12
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "46ead2fcbb3c561e",
+      "transform": {
+        "position": {
+          "x": -1419,
+          "y": -91
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.900296134078483,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -23,
+          "y": -2
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "30706f6d7afa5893",
+      "transform": {
+        "position": {
+          "x": -1350.0131585632273,
+          "y": -243.32701654558088
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.595478645553668,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -22,
+          "y": -4
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "e2c457d6cfc005a0",
+      "transform": {
+        "position": {
+          "x": -946.5735067486323,
+          "y": -874.2703517417732
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.2041686996026115,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -15,
+          "y": -14
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "04f5e32d96f100c9",
+      "transform": {
+        "position": {
+          "x": -1458,
+          "y": -301
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.6350477697114076,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -23,
+          "y": -5
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "b5d1f967563a9301",
+      "transform": {
+        "position": {
+          "x": -1781,
+          "y": -438
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.892786944863933,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -28,
+          "y": -7
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "bfc284c2387d0654",
+      "transform": {
+        "position": {
+          "x": -2071,
+          "y": -657
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.960484233070017,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -33,
+          "y": -11
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "6556eb3a486e392e",
+      "transform": {
+        "position": {
+          "x": -844,
+          "y": -858
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.797370161381065,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -14
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "cf7ae5e0cf6718f6",
+      "transform": {
+        "position": {
+          "x": -2106.1516078710943,
+          "y": -808
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.2996970996391437,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -33,
+          "y": -13
+        }
+      },
+      "type": "asteroid",
+      "name": "large1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "b7a9f936fd86b0a6",
+      "transform": {
+        "position": {
+          "x": -2300,
+          "y": -735
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.394016047748709,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -36,
+          "y": -12
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "ec9e9fd44224684a",
+      "transform": {
+        "position": {
+          "x": -1635,
+          "y": 170
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.356559860890358,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -26,
+          "y": 2
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "14e637639070f513",
+      "transform": {
+        "position": {
+          "x": 1490,
+          "y": -654
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.803605182310914,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 23,
+          "y": -11
+        }
+      },
+      "type": "asteroid",
+      "name": "clayMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "d8d7ac6f64482b3d",
+      "transform": {
+        "position": {
+          "x": 1682.8888888888891,
+          "y": -625.0740740740739
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.3591067969778268,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 26,
+          "y": -10
+        }
+      },
+      "type": "asteroid",
+      "name": "large1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "213f4ba5848dfe18",
+      "transform": {
+        "position": {
+          "x": -911,
+          "y": 439
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.980652280443558,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -15,
+          "y": 6
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "9d1f9124f787e79c",
+      "transform": {
+        "position": {
+          "x": -1442,
+          "y": 339
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.21419633877494842,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -23,
+          "y": 5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "d601e566bc9d1021",
+      "transform": {
+        "position": {
+          "x": -1715.3506016662957,
+          "y": 129.51295124972083
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.08022033488049568,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -27,
+          "y": 2
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "15ce16662f3e3891",
+      "transform": {
+        "position": {
+          "x": -2085,
+          "y": -351
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.9686284708805823,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -33,
+          "y": -6
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "44a503a47bba3433",
+      "transform": {
+        "position": {
+          "x": -2267,
+          "y": 183
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.154540602060531,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -36,
+          "y": 2
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "2e7404eb9929ae53",
+      "transform": {
+        "position": {
+          "x": -2149,
+          "y": 237
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.911097006017726,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -34,
+          "y": 3
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "056416d66b5024ad",
+      "transform": {
+        "position": {
+          "x": -2051,
+          "y": 683
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.69763215669853,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -33,
+          "y": 10
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "569fe112d6635b2e",
+      "transform": {
+        "position": {
+          "x": -2402,
+          "y": 979
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.36717299130310477,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -38,
+          "y": 15
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "d18fc1814c5ae378",
+      "transform": {
+        "position": {
+          "x": -1487,
+          "y": 820
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.323306808139329,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -24,
+          "y": 12
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "2a025d064398afe0",
+      "transform": {
+        "position": {
+          "x": -1321,
+          "y": 1263
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.9780174037176375,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -21,
+          "y": 19
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "28e953794715d86f",
+      "transform": {
+        "position": {
+          "x": 378,
+          "y": 894
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.5379190316883989,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 5,
+          "y": 13
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "fb94476831ef5fa7",
+      "transform": {
+        "position": {
+          "x": 660,
+          "y": 517
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.112630485253088,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 10,
+          "y": 8
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "12d7b4c3f3a866f3",
+      "transform": {
+        "position": {
+          "x": 1073,
+          "y": 815
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.06388360360720582,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 16,
+          "y": 12
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "e38b4eae9bdef7e1",
+      "transform": {
+        "position": {
+          "x": 1205,
+          "y": 396
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.9552436508999085,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 18,
+          "y": 6
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "dd12e6961f047e11",
+      "transform": {
+        "position": {
+          "x": 1488,
+          "y": 495
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.7270351277621945,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 23,
+          "y": 7
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "04741960cd9d8c6a",
+      "transform": {
+        "position": {
+          "x": 1827,
+          "y": 166
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.4772062292287425,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 28,
+          "y": 2
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "1cac6bf72ba7b795",
+      "transform": {
+        "position": {
+          "x": 1765,
+          "y": 868
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.5143717394853966,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 27,
+          "y": 13
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "604892b8562a41a0",
+      "transform": {
+        "position": {
+          "x": 2310,
+          "y": -282
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.082234897794694,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 36,
+          "y": -5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "31c5ded61c5cbfc6",
+      "transform": {
+        "position": {
+          "x": 2405,
+          "y": 92
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.8960575295119475,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 37,
+          "y": 1
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "d53ce53930dd15be",
+      "transform": {
+        "position": {
+          "x": 2125,
+          "y": -280
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.696065260757865,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 33,
+          "y": -5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "1da2a56d33097e44",
+      "transform": {
+        "position": {
+          "x": 1945,
+          "y": -863
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.473622969839037,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 30,
+          "y": -14
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "db60fc5b2453aa4b",
+      "transform": {
+        "position": {
+          "x": 1763,
+          "y": -1223
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.5328995889314365,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 27,
+          "y": -20
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "1e42f5f298742708",
+      "transform": {
+        "position": {
+          "x": -2597,
+          "y": -40
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.0217149448218423,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -41,
+          "y": -1
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "28236721ac122ab5",
+      "transform": {
+        "position": {
+          "x": 530,
+          "y": 1287
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.316395186323598,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 8,
+          "y": 20
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "4084905a2d85eb63",
+      "transform": {
+        "position": {
+          "x": 1279,
+          "y": 1335
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.6736863603664439,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 19,
+          "y": 20
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "94f9da13f7657648",
+      "transform": {
+        "position": {
+          "x": 230,
+          "y": 1964
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.01416845829649,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 3,
+          "y": 30
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "05180a239318b985",
+      "transform": {
+        "position": {
+          "x": -1435.8765432098796,
+          "y": -1157.5802469135797
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.9232067910101796,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -23,
+          "y": -19
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "4178b0ce54193468",
+      "transform": {
+        "position": {
+          "x": -472,
+          "y": -1815
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.2159994827402694,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -8,
+          "y": -29
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "3db25b842771254b",
+      "transform": {
+        "position": {
+          "x": -408,
+          "y": -2330
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.3577237109624414,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -7,
+          "y": -37
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "6ba2792460d4624d",
+      "transform": {
+        "position": {
+          "x": -1770.5679012345681,
+          "y": -1562.358024691358
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.190957356300013,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -28,
+          "y": -25
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "e9d6ab226ccdaca9",
+      "transform": {
+        "position": {
+          "x": -1065,
+          "y": -1586
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.069218722805192,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -17,
+          "y": -25
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "e0bf0d76d643711d",
+      "transform": {
+        "position": {
+          "x": -1292,
+          "y": -1848
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.5053323493600286,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -21,
+          "y": -29
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "f8071156a4840424",
+      "transform": {
+        "position": {
+          "x": -1346,
+          "y": -2265
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.3333314146031015,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -22,
+          "y": -36
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "5ae6d460ad201b20",
+      "transform": {
+        "position": {
+          "x": -169.8271604938268,
+          "y": -1155.7654320987656
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.9067952939584754,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -3,
+          "y": -19
+        }
+      },
+      "type": "decorativeObject",
+      "name": "shipWreckTU",
+      "layer": "background4"
+    },
+    {
+      "id": "5564c2b6156ddf1e",
+      "transform": {
+        "position": {
+          "x": 901,
+          "y": -1611
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.262771482843061,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 14,
+          "y": -26
+        }
+      },
+      "type": "decorativeObject",
+      "name": "shipWreckTU",
+      "layer": "background3"
+    },
+    {
+      "id": "15754ba331ed9fa8",
+      "transform": {
+        "position": {
+          "x": -1532.437585733888,
+          "y": 258.73662551440304
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.2789641893559461,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -24,
+          "y": 4
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeDebrisPlate",
+      "layer": "background3"
+    },
+    {
+      "id": "901e1b2a8ce777f5",
+      "transform": {
+        "position": {
+          "x": 1359.6364883401916,
+          "y": 235.25514403292124
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.199711340776059,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 21,
+          "y": 3
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeDebrisPlate",
+      "layer": "background2"
+    },
+    {
+      "id": "31e5b4dfe778d077",
+      "transform": {
+        "position": {
+          "x": -857,
+          "y": -623
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -10
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "1deac6eb7935c049",
+      "transform": {
+        "position": {
+          "x": -380.66089131388185,
+          "y": -705.0616561247488
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -6,
+          "y": -12
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "193de361e5f628dc",
+      "transform": {
+        "position": {
+          "x": 553,
+          "y": -593
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.838405192716195,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 8,
+          "y": -10
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "5bc0a9fe46b68280",
+      "transform": {
+        "position": {
+          "x": 932,
+          "y": -839
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.2179141156818085,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 14,
+          "y": -14
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "25b5bba6987a27b4",
+      "transform": {
+        "position": {
+          "x": 781,
+          "y": -438
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.2246332801114024,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 12,
+          "y": -7
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "91ff9b7a1eb4d7a2",
+      "transform": {
+        "position": {
+          "x": -534,
+          "y": 348
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.040530125803642,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -9,
+          "y": 5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "2c35a2842edee32f",
+      "transform": {
+        "position": {
+          "x": -207,
+          "y": 482
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.978530958917104,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -4,
+          "y": 7
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "204bd089f1b45f1f",
+      "transform": {
+        "position": {
+          "x": -917,
+          "y": 877
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.1784710592968395,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -15,
+          "y": 13
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "f9b7414f54c346af",
+      "transform": {
+        "position": {
+          "x": -457,
+          "y": 831
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.6281456232240965,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -8,
+          "y": 12
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "e07620fa5b510235",
+      "transform": {
+        "position": {
+          "x": -838.802804306512,
+          "y": 1260.3635633246026
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.2808546354009085,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": 19
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog3",
+      "layer": "fog"
+    },
+    {
+      "id": "2924e7d82380c4a5",
+      "transform": {
+        "position": {
+          "x": -1526,
+          "y": 69
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.5002668742854943,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -24,
+          "y": 1
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "c27a0ce7f1fdac6d",
+      "transform": {
+        "position": {
+          "x": -2200,
+          "y": 320
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.2045242297146315,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -35,
+          "y": 5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "9fd3c1f4a1661bf8",
+      "transform": {
+        "position": {
+          "x": -3148,
+          "y": 724
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.954251068442594,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -50,
+          "y": 11
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "b3a8311691f2562f",
+      "transform": {
+        "position": {
+          "x": 572,
+          "y": -1060
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.4326744874780556,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 8,
+          "y": -17
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "5c658960e73d9a52",
+      "transform": {
+        "position": {
+          "x": 1451,
+          "y": -281
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.0750505006164623,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 22,
+          "y": -5
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "9edaf20592b7d1a5",
+      "transform": {
+        "position": {
+          "x": -1688,
+          "y": -2550
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.177736962002396,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -27,
+          "y": -40
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "bb1f1deab8acdf4e",
+      "transform": {
+        "position": {
+          "x": -2067,
+          "y": -542
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.8859147425718925,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -33,
+          "y": -9
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "ca4fac08f4348c09",
+      "transform": {
+        "position": {
+          "x": -2472,
+          "y": -810
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.259068092797114,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -39,
+          "y": -13
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "06195ad72d16a0f6",
+      "transform": {
+        "position": {
+          "x": -2459,
+          "y": -383
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.15773304649519632,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -39,
+          "y": -6
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "e87946d6905b3cf1",
+      "transform": {
+        "position": {
+          "x": 624,
+          "y": -445
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.9217533974330396,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 9,
+          "y": -7
+        }
+      },
+      "type": "decorativeObject",
+      "name": "mediumFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "384a2a89ba743653",
+      "transform": {
+        "position": {
+          "x": -39,
+          "y": -1888
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.826634335080855,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -1,
+          "y": -30
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "8d028ad6e4900e24",
+      "transform": {
+        "position": {
+          "x": -849,
+          "y": -2345
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.4823370535457046,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -37
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "84fcd3b5dd059970",
+      "transform": {
+        "position": {
+          "x": -966,
+          "y": -2706
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.326595179354897,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -16,
+          "y": -43
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "1d0c3ce00b87c8e3",
+      "transform": {
+        "position": {
+          "x": -206.78839478724623,
+          "y": -2679.98358145689
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.2678764922882074,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -4,
+          "y": -42
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog4",
+      "layer": "fog"
+    },
+    {
+      "id": "4036fbfcbdef8626",
+      "transform": {
+        "position": {
+          "x": 1773,
+          "y": 611
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.245489369322115,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 27,
+          "y": 9
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "e2a6f494930bfdc0",
+      "transform": {
+        "position": {
+          "x": 2266,
+          "y": 469
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.4528417986872548,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 35,
+          "y": 7
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog0",
+      "layer": "fog"
+    },
+    {
+      "id": "8447b90ec2ff712e",
+      "transform": {
+        "position": {
+          "x": 2545,
+          "y": 626
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.2764321990572147,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 39,
+          "y": 9
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "e49cac50dcfb50b9",
+      "transform": {
+        "position": {
+          "x": 2158,
+          "y": 882
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.3765498920813735,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 33,
+          "y": 13
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog1",
+      "layer": "fog"
+    },
+    {
+      "id": "e22e98139d215509",
+      "transform": {
+        "position": {
+          "x": -3299,
+          "y": -502
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.6408514318044509,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -52,
+          "y": -8
+        }
+      },
+      "type": "decorativeObject",
+      "name": "largeFog2",
+      "layer": "fog"
+    },
+    {
+      "id": "704f03bee35525e6",
+      "transform": {
+        "position": {
+          "x": -1833,
+          "y": 13
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.292720552599343,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -29,
+          "y": 0
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "f9e740e6953e804f",
+      "transform": {
+        "position": {
+          "x": -1879.3765041657357,
+          "y": -157.7271058320304
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.166487680019003,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -30,
+          "y": -3
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "54d9edbf1728d0ce",
+      "transform": {
+        "position": {
+          "x": -1244,
+          "y": 697
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.570301391211863,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -20,
+          "y": 10
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "64155e4270a32023",
+      "transform": {
+        "position": {
+          "x": -2220,
+          "y": -539
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.3239922960179795,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -35,
+          "y": -9
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "e18a0210f3137261",
+      "transform": {
+        "position": {
+          "x": -2318,
+          "y": -939
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.647352291762931,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -37,
+          "y": -15
+        }
+      },
+      "type": "asteroid",
+      "name": "copperLarge0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "43b061cdeaf6222a",
+      "transform": {
+        "position": {
+          "x": -2560,
+          "y": -810
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.8083092199579375,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -40,
+          "y": -13
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c251c55bd797cc79",
+      "transform": {
+        "position": {
+          "x": -83,
+          "y": 1012
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.9772139286011327,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -2,
+          "y": 15
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "9c3f27e3d4297611",
+      "transform": {
+        "position": {
+          "x": 98,
+          "y": 849
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.062546123669464,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 1,
+          "y": 13
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "ca8fc67a719f9fee",
+      "transform": {
+        "position": {
+          "x": -219,
+          "y": 1203
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.604335833531173,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -4,
+          "y": 18
+        }
+      },
+      "type": "asteroid",
+      "name": "copperLarge0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "e1d7c335e77bd8b5",
+      "transform": {
+        "position": {
+          "x": 26.042321042550725,
+          "y": 1371.3152152105208
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.8861965972419745,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 0,
+          "y": 21
+        }
+      },
+      "type": "asteroid",
+      "name": "copperLarge0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "daa51a9a0a97384a",
+      "transform": {
+        "position": {
+          "x": 34,
+          "y": 1043
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.0011626348879745997,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 0,
+          "y": 16
+        }
+      },
+      "type": "asteroid",
+      "name": "copperMedium0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "8de37a43ba1e2e86",
+      "transform": {
+        "position": {
+          "x": -1527.8351010470171,
+          "y": 1305.950744370673
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.436705732313967,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -24,
+          "y": 20
+        }
+      },
+      "type": "debris",
+      "name": "hiveBattleshipWreck",
+      "layer": "debris"
+    },
+    {
+      "id": "a43c54b86153e34e",
+      "transform": {
+        "position": {
+          "x": -1830,
+          "y": 1469
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.594628074227,
+        "angularVelocity": -0.06995886778338442,
+        "cellPosition": {
+          "x": -29,
+          "y": 22
+        }
+      },
+      "type": "debris",
+      "name": "debris1",
+      "layer": "debris"
+    },
+    {
+      "id": "1d964904d13eeeaa",
+      "transform": {
+        "position": {
+          "x": -1773,
+          "y": 991
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.9567213306004059,
+        "angularVelocity": 0.022975221937318407,
+        "cellPosition": {
+          "x": -28,
+          "y": 15
+        }
+      },
+      "type": "debris",
+      "name": "debris1",
+      "layer": "debris"
+    },
+    {
+      "id": "17a5124fd449ab08",
+      "transform": {
+        "position": {
+          "x": -1466,
+          "y": 1580
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.491286023739614,
+        "angularVelocity": -0.1982880510912695,
+        "cellPosition": {
+          "x": -23,
+          "y": 24
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "43777a5bb2a3a863",
+      "transform": {
+        "position": {
+          "x": -1763,
+          "y": 1771
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.607163518326408,
+        "angularVelocity": -0.05270089533801858,
+        "cellPosition": {
+          "x": -28,
+          "y": 27
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "cae29b978be6aa57",
+      "transform": {
+        "position": {
+          "x": -2380,
+          "y": 1048
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.101911936042457,
+        "angularVelocity": 0.06177532301861455,
+        "cellPosition": {
+          "x": -38,
+          "y": 16
+        }
+      },
+      "type": "debris",
+      "name": "debris2",
+      "layer": "debris"
+    },
+    {
+      "id": "b41c59c3f8d03076",
+      "transform": {
+        "position": {
+          "x": -2411,
+          "y": -681
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.268232227349569,
+        "angularVelocity": -0.17252048744534942,
+        "cellPosition": {
+          "x": -38,
+          "y": -11
+        }
+      },
+      "type": "debris",
+      "name": "debris4",
+      "layer": "debris"
+    },
+    {
+      "id": "63ff1edce28c23f0",
+      "transform": {
+        "position": {
+          "x": -2535,
+          "y": -973
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.3901263515503118,
+        "angularVelocity": -0.05734094820792457,
+        "cellPosition": {
+          "x": -40,
+          "y": -16
+        }
+      },
+      "type": "debris",
+      "name": "debris3",
+      "layer": "debris"
+    },
+    {
+      "id": "5e12aea67a0fe8ec",
+      "transform": {
+        "position": {
+          "x": -2852,
+          "y": -366
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.4287058275802917,
+        "angularVelocity": -0.3017218107793641,
+        "cellPosition": {
+          "x": -45,
+          "y": -6
+        }
+      },
+      "type": "debris",
+      "name": "debris4",
+      "layer": "debris"
+    },
+    {
+      "id": "d13c851c8399c77f",
+      "transform": {
+        "position": {
+          "x": -3660,
+          "y": 122
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.516504611011252,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -58,
+          "y": 1
+        }
+      },
+      "type": "debris",
+      "name": "debris4",
+      "layer": "debris"
+    },
+    {
+      "id": "15f7569bcc5a99fd",
+      "transform": {
+        "position": {
+          "x": -3461,
+          "y": 839
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.32803203169114,
+        "angularVelocity": 0.3016034450083644,
+        "cellPosition": {
+          "x": -55,
+          "y": 13
+        }
+      },
+      "type": "debris",
+      "name": "debris3",
+      "layer": "debris"
+    },
+    {
+      "id": "c6cb79c55826a2b4",
+      "transform": {
+        "position": {
+          "x": 2689.84019978613,
+          "y": 410.3783400134014
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.655047201052297,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 42,
+          "y": 6
+        }
+      },
+      "type": "debris",
+      "name": "hiveFreighterWreck",
+      "layer": "debris"
+    },
+    {
+      "id": "8d11f240b1401cbb",
+      "transform": {
+        "position": {
+          "x": -949,
+          "y": -1413.693508780843
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.7143074541291182,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -15,
+          "y": -23
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "742313cb07fad153",
+      "transform": {
+        "position": {
+          "x": -865,
+          "y": -1752
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.9527760781559156,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -28
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "2423eb12f58ecf2b",
+      "transform": {
+        "position": {
+          "x": -936.0637706096586,
+          "y": -2130.5748182966013
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.498980762465748,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -15,
+          "y": -34
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "f26536ee44168ca2",
+      "transform": {
+        "position": {
+          "x": -393,
+          "y": -1635
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.877790314705462,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -7,
+          "y": -26
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "a8f805253f5a8cf5",
+      "transform": {
+        "position": {
+          "x": -517,
+          "y": -1930
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.3122939998025274,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -9,
+          "y": -31
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "3f1943597e9dbc5a",
+      "transform": {
+        "position": {
+          "x": -772,
+          "y": -1763
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.949596236389737,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -13,
+          "y": -28
+        }
+      },
+      "type": "asteroid",
+      "name": "small0",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c3fd6723f1cdb5a8",
+      "transform": {
+        "position": {
+          "x": -642,
+          "y": -1842
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.841412324015619,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -11,
+          "y": -29
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c0143103d063401f",
+      "transform": {
+        "position": {
+          "x": -826,
+          "y": -2054
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.039367943710409,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -13,
+          "y": -33
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "02f3a6e71d75b09a",
+      "transform": {
+        "position": {
+          "x": -183,
+          "y": -1807
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 6.038265290118058,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -3,
+          "y": -29
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c1142294b0f4836e",
+      "transform": {
+        "position": {
+          "x": 112,
+          "y": -2020
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 1.334342587467199,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 1,
+          "y": -32
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "df70b58cdafa2a26",
+      "transform": {
+        "position": {
+          "x": 270,
+          "y": -2226
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 3.515659893663166,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": 4,
+          "y": -35
+        }
+      },
+      "type": "asteroid",
+      "name": "small2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "79797c216979518f",
+      "transform": {
+        "position": {
+          "x": -128,
+          "y": -2571
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.341643043847921,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -2,
+          "y": -41
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "53fc88cf60c8c83d",
+      "transform": {
+        "position": {
+          "x": -235,
+          "y": -2083
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.3028687311772407,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -4,
+          "y": -33
+        }
+      },
+      "type": "asteroid",
+      "name": "small1",
+      "layer": "asteroid"
+    },
+    {
+      "id": "c3adc2fe1cc820e2",
+      "transform": {
+        "position": {
+          "x": -1124.5969136704873,
+          "y": -1561.975389114115
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.013704561293602,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -18,
+          "y": -25
+        }
+      },
+      "type": "asteroid",
+      "name": "medium2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "4abf016c02ab7006",
+      "transform": {
+        "position": {
+          "x": -474,
+          "y": -2060
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.3453718614872205,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -8,
+          "y": -33
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    },
+    {
+      "id": "99c6d94b796807f5",
+      "transform": {
+        "position": {
+          "x": -591,
+          "y": -1911
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 5.670567237938679,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -10,
+          "y": -30
+        }
+      },
+      "type": "asteroid",
+      "name": "small2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "2473a0c1b902f7ee",
+      "transform": {
+        "position": {
+          "x": -994,
+          "y": -1812
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 2.3065761986939943,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -16,
+          "y": -29
+        }
+      },
+      "type": "asteroid",
+      "name": "small2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "4e8c13e9328cf9ae",
+      "transform": {
+        "position": {
+          "x": -1212,
+          "y": -1668
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 4.810414536381314,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -19,
+          "y": -27
+        }
+      },
+      "type": "asteroid",
+      "name": "small2",
+      "layer": "asteroid"
+    },
+    {
+      "id": "756cd644ec12e49b",
+      "transform": {
+        "position": {
+          "x": -848.7054299738382,
+          "y": -964.8074878508803
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0.7143074541291182,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -14,
+          "y": -16
+        }
+      },
+      "type": "asteroid",
+      "name": "small3",
+      "layer": "asteroid"
+    }
+  ]
+}

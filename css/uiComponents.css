@@ -1,0 +1,290 @@
+/* slider component */
+
+.ui-slider-component {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.ui-slider-component:active .ui-slider-track-background {
+  border: 3px solid hsl(31, 100%, 28%) !important;
+}
+
+.ui-slider-component:hover .ui-slider-track-background {
+  border: 3px solid hsl(31, 100%, 28%);
+}
+
+.ui-slider-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  background-color: hsl(31, 100%, 28%);
+  z-index: 1;
+  cursor: var(--cursor-pointer);
+  filter: opacity(0);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.ui-slider-handle:hover {
+  transform: scale(1.15);
+}
+
+.ui-slider-handle:active {
+  background-color: white;
+}
+
+.ui-slider-track {
+  position: absolute;
+  left: 0;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.ui-slider-track-background {
+  position: absolute;
+  display: flex;
+  gap: 5px;
+  width: 100%;
+  padding: 4px;
+  height: calc(100% - 34px);
+  border: 3px solid transparent;
+  background-color: var(--dark-2);
+  border-radius: 5px;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.ui-slider-background-cell {
+  flex-grow: 1;
+  height: 100%;
+  border-radius: 2px;
+}
+.ui-slider-background-cell:hover {
+  background-color: var(--color-accent);
+}
+
+.ui-slider-background-cell.active {
+  background-color: hsl(31, 100%, 28%);
+}
+.ui-slider-background-cell.inactive {
+  background-color: var(--dark-4);
+}
+
+/* weapon component */
+
+.ui-weapon-container {
+  position: relative;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 3px 11px 2px 9px;
+}
+
+.ui-weapon-container.active {
+  display: flex;
+}
+
+.ui-weapon-container-charge-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0.1;
+  pointer-events: none;
+}
+.ui-weapon-container-charge-indicator.missile {
+  background-color: var(--color-missile);
+}
+.ui-weapon-container-charge-indicator.laser {
+  background-color: var(--color-laser);
+} 
+.ui-weapon-container-charge-indicator.plasma {
+  background-color: var(--color-plasma);
+} 
+.ui-weapon-container-charge-indicator.solid {
+  background-color: var(--color-solid);
+} 
+
+img.ui-weapon-thumbnail {
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0);
+  z-index: 1;
+}
+
+.ui-weapon-container.charged img.ui-weapon-thumbnail {
+  filter: unset;
+}
+
+/* NEW CODE */
+.weapon-slot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(/assets/ui/weaponSlot.png);
+  width: 45px;
+  height: 44px;
+  z-index: 1;
+  pointer-events: all;
+}
+
+.weapon-slot .weapon-icon {
+  position: absolute;
+  inset: unset;
+  width: 32px;
+  height: 32px;
+}
+
+.weapon-charge-indicator {
+  display: flex;
+  align-items: flex-end;
+  position: absolute;
+  height: 40px;
+  border: 2px solid #924700;
+  border-radius: 2px;
+  width: 10px;
+  padding: 2px;
+}
+.weapon-charge-indicator.left {
+  left: -15px;
+}
+.weapon-charge-indicator.right {
+  right: -15px;
+}
+
+.weapon-charge-progress-bar {
+  width: 100%;
+  background-color: #924700;
+}
+
+.weapon-icon {
+  width: 35px;
+  height: 35px;
+  background-position: center;
+  background-attachment: local;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.ship-graphic .weapon-icon {
+  background-position: center;
+  background-attachment: local;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.weapon-icon.missile {
+  background-image: url(/assets/ui/weaponIcon/missile.png);
+}
+.weapon-icon.laser {
+  background-image: url(/assets/ui/weaponIcon/laser.png);
+}
+.weapon-icon.plasma {
+  background-image: url(/assets/ui/weaponIcon/plasma.png);
+}
+.weapon-icon.solid {
+  background-image: url(/assets/ui/weaponIcon/solid.png);
+}
+
+.weapon-title {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "big-t-comic";
+  flex-grow: 1;
+  letter-spacing: -0.08em;
+  /* color: var(--color-missile); */
+}
+
+.selected-weapon-charge-state {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 2px solid #423c39;
+  background-color: #423c39;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+}
+.selected-weapon-charge-state:hover {
+  border-color: #924700;
+  background-color: #924700;
+}
+
+.selected-weapon-charge-bar {
+  width: 100%;
+  height: 100%;
+  border-radius: 2px;
+  background-color: #423c39;
+}
+.selected-weapon-charge-bar.active.missile {
+  background-color: var(--color-missile);
+}
+.selected-weapon-charge-bar.active.laser {
+  background-color: var(--color-laser);
+} 
+.selected-weapon-charge-bar.active.plasma {
+  background-color: var(--color-plasma);
+} 
+.selected-weapon-charge-bar.active.solid {
+  background-color: var(--color-solid);
+} 
+
+.ship-graphic.theGrandMoth .weapon-slot-0, 
+.ship-graphic.theGrandMoth .weapon-slot-1 {
+  top: 12px;
+}
+.ship-graphic.theGrandMoth .weapon-slot-0 {
+  left: 20px;
+}
+.ship-graphic.theGrandMoth .weapon-slot-1 {
+  right: 20px;
+}
+.ship-graphic.theGrandMoth .weapon-slot-2, 
+.ship-graphic.theGrandMoth .weapon-slot-3 {
+  top: 64px;
+}
+.ship-graphic.theGrandMoth .weapon-slot-2 {
+  left: -2px;
+}
+.ship-graphic.theGrandMoth .weapon-slot-3 {
+  right: -2px;
+}
+
+.ship-graphic.waspFighter .weapon-slot-0 {
+  top: -36px;
+  left: 45px;
+}
+.ship-graphic.waspFighter .weapon-slot-1, 
+.ship-graphic.waspFighter .weapon-slot-2
+{
+  top: 8px;
+}
+.ship-graphic.waspFighter .weapon-slot-1 {
+  left: 16px
+}
+.ship-graphic.waspFighter .weapon-slot-2 {
+  right: 16px
+}
+
+.weapon-slot:hover {
+  background-image: url(/assets/ui/weaponSlotHover.png);
+}
+.weapon-slot.ready .weapon-charge-indicator {
+  border-color: #ed9200;
+}
+.weapon-slot.ready .weapon-charge-progress-bar {
+  background-color: #ed9200;
+}
+.weapon-slot:hover .weapon-charge-indicator {
+  border-color: #ed9200;
+}
+.weapon-slot:hover .weapon-charge-progress-bar {
+  background-color: #ed9200;
+}

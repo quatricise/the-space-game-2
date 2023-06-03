@@ -1,0 +1,8162 @@
+[
+  {
+    "id": 231531561392,
+    "pos": {
+      "x": 2845,
+      "y": -3884.414187086624,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You're in trouble, Goldbird. Turn off your weapons and do what we say.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [],
+    "out": [
+      {
+        "index": 0,
+        "to": 579072006243
+      }
+    ]
+  },
+  {
+    "id": 579072006243,
+    "pos": {
+      "x": 2848,
+      "y": -3570.6333242213914,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 231531561392
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 711196917000
+      },
+      {
+        "index": 1,
+        "to": 240503204536
+      },
+      {
+        "index": 2,
+        "to": 855658413529
+      }
+    ]
+  },
+  {
+    "id": 711196917000,
+    "pos": {
+      "x": 1226,
+      "y": -3776.03473188912,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Goldbird? What is that?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 579072006243
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 765961585550
+      }
+    ]
+  },
+  {
+    "id": 240503204536,
+    "pos": {
+      "x": 2581,
+      "y": -3331.3243411378207,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, what do you want from me?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 579072006243
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 104356605928
+      }
+    ]
+  },
+  {
+    "id": 855658413529,
+    "pos": {
+      "x": 4394,
+      "y": -3325.8823132794023,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Pirates, huh? You'll be lucky if you live after this.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 579072006243
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 668155266939
+      }
+    ]
+  },
+  {
+    "id": 668155266939,
+    "pos": {
+      "x": 4391,
+      "y": -3029.2938614022605,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I don't think you realize you've nowhere to escape, we've got you in our claws.\n\nWhat we want is simple - give us your cargo, and there's a chance we'll let you go.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 855658413529
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 182814139541
+      }
+    ]
+  },
+  {
+    "id": 406673284414,
+    "pos": {
+      "x": 5641,
+      "y": -2396.432264621162,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I thought I was the \"Goldbird\", now you have claws too?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 182814139541
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 141335237337
+      }
+    ]
+  },
+  {
+    "id": 765961585550,
+    "pos": {
+      "x": 1224,
+      "y": -3474.092697848131,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Goldbird, that's what we call ones like you, in your large, gilded craft. You Crown lot really love your wasteful luxuries, don't you?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 711196917000
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 850776890682
+      }
+    ]
+  },
+  {
+    "id": 850776890682,
+    "pos": {
+      "x": 1222,
+      "y": -3117.091077156372,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You got me off track there.\n\nWe've come to take your cargo, but we're feeling merciful today. If everything goes smoothly, we'll let you live.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 765961585550
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 648887522678
+      }
+    ]
+  },
+  {
+    "id": 529692001053,
+    "pos": {
+      "x": 24,
+      "y": -2503.829682602809,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I can take on both of you, let's fight.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 648887522678
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 189113958151
+      }
+    ]
+  },
+  {
+    "id": 505936282756,
+    "pos": {
+      "x": 1573,
+      "y": -2507.9129416196265,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm ready to cooperate, what do you want me to do?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 648887522678
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 95875465250
+      }
+    ]
+  },
+  {
+    "id": 755120607682,
+    "pos": {
+      "x": 1076,
+      "y": -2508.7277066036986,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I can trade my cargo for a bit of information.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 648887522678
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 757935530051
+      }
+    ]
+  },
+  {
+    "id": 141335237337,
+    "pos": {
+      "x": 5640,
+      "y": -2075.017757906746,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Every stupid joke gets you closer to death.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 406673284414
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 666564811558
+      }
+    ]
+  },
+  {
+    "id": 666564811558,
+    "pos": {
+      "x": 5639,
+      "y": -1781.8410322114942,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "C'mon Al, she's funny, the writers must be really smart to come up with dialogue like this. And also very handsome.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 141335237337
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 237410860653
+      }
+    ]
+  },
+  {
+    "id": 182814139541,
+    "pos": {
+      "x": 4390,
+      "y": -2604.9638322732717,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 668155266939
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 406673284414
+      },
+      {
+        "index": 1,
+        "to": 527687688794
+      },
+      {
+        "index": 2,
+        "to": 895979370302
+      }
+    ]
+  },
+  {
+    "id": 527687688794,
+    "pos": {
+      "x": 4424,
+      "y": -2390.913575946406,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Is there a particular ware that you're looking for?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 182814139541
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 938284227701
+      }
+    ]
+  },
+  {
+    "id": 895979370302,
+    "pos": {
+      "x": 4994,
+      "y": -2392.1060232904856,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm not giving you anything.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 182814139541
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 128584828201
+      }
+    ]
+  },
+  {
+    "id": 648887522678,
+    "pos": {
+      "x": 1222,
+      "y": -2704.7705958983206,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 850776890682
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 529692001053
+      },
+      {
+        "index": 1,
+        "to": 755120607682
+      },
+      {
+        "index": 2,
+        "to": 505936282756
+      }
+    ]
+  },
+  {
+    "id": 938284227701,
+    "pos": {
+      "x": 4427,
+      "y": -2106.385202851634,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We're not that fussy, anything that's useful.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 527687688794
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 896428064368
+      }
+    ]
+  },
+  {
+    "id": 896428064368,
+    "pos": {
+      "x": 4223,
+      "y": -1099.055009534397,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 938284227701
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 83346977620
+      },
+      {
+        "index": 1,
+        "to": 408337129303
+      },
+      {
+        "index": 2,
+        "to": 333022043930
+      }
+    ]
+  },
+  {
+    "id": 333022043930,
+    "pos": {
+      "x": 5083,
+      "y": -903.3691305445045,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Desperate, huh?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 896428064368
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 468260721705
+      }
+    ]
+  },
+  {
+    "id": 83346977620,
+    "pos": {
+      "x": 4076,
+      "y": -908.7385064866867,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I happen to have some confiscated electronics shipments in my cargo.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 896428064368
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 659496628377
+      }
+    ]
+  },
+  {
+    "id": 408337129303,
+    "pos": {
+      "x": 4628,
+      "y": -906.7903574718875,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": true,
+      "exaggerate": false
+    },
+    "text": "I don't have many useful things, this is a diplomatic vessel.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 896428064368
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 596814128362
+      }
+    ]
+  },
+  {
+    "id": 104356605928,
+    "pos": {
+      "x": 2578,
+      "y": -2951.8984000084565,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "It's simple, your cargo.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 240503204536
+      },
+      {
+        "to": 95875465250
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 734093827523
+      }
+    ]
+  },
+  {
+    "id": 734093827523,
+    "pos": {
+      "x": 2572,
+      "y": -2633.8317956496485,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 104356605928
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 66234679648
+      },
+      {
+        "index": 1,
+        "to": 115323634309
+      },
+      {
+        "index": 2,
+        "to": 444362688322
+      }
+    ]
+  },
+  {
+    "id": 66234679648,
+    "pos": {
+      "x": 2306,
+      "y": -2473.8104400522716,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You can have it but I need proof you'll let me go.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 734093827523
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 928626946633
+      }
+    ]
+  },
+  {
+    "id": 115323634309,
+    "pos": {
+      "x": 2699,
+      "y": -2473.8104400522716,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm not giving you anything.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 734093827523
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 720547426926
+      }
+    ]
+  },
+  {
+    "id": 444362688322,
+    "pos": {
+      "x": 3283,
+      "y": -2636.028168242685,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You want me to 'do' my cargo?",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "alSimon_told_player_to_do_her_cargo",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 734093827523
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 528049235566
+      }
+    ]
+  },
+  {
+    "id": 596814128362,
+    "pos": {
+      "x": 4626,
+      "y": -568.9268472817366,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We'll show you how diplomacy works in the pirate world...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 408337129303
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 877988552753
+      }
+    ]
+  },
+  {
+    "id": 877988552753,
+    "pos": {
+      "x": 4627,
+      "y": -263.99798751387607,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 596814128362
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 928626946633,
+    "pos": {
+      "x": 2113,
+      "y": -2137.396556823398,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You have our word, pirates never lie. They only steal.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 66234679648
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 626376452916
+      }
+    ]
+  },
+  {
+    "id": 626376452916,
+    "pos": {
+      "x": 2099,
+      "y": -1816.1472669854775,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 928626946633
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 467435376827
+      },
+      {
+        "index": 1,
+        "to": 298035337633
+      }
+    ]
+  },
+  {
+    "id": 467435376827,
+    "pos": {
+      "x": 1983,
+      "y": -1643.0871656856943,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "It's funny you want me to believe that.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 626376452916
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 456411846443
+      }
+    ]
+  },
+  {
+    "id": 456411846443,
+    "pos": {
+      "x": 1934,
+      "y": -1352.9265167998328,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Look, we mean no harm. We're professionals, leaving bloodtrails like this would do us no good.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 467435376827
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 736940770638
+      }
+    ]
+  },
+  {
+    "id": 298035337633,
+    "pos": {
+      "x": 2553,
+      "y": -1646.1960297809,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You're being awfully polite all of a sudden. Are you afraid of me?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 626376452916
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 962868610014
+      }
+    ]
+  },
+  {
+    "id": 736940770638,
+    "pos": {
+      "x": 1902,
+      "y": -1022.3506346762952,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 456411846443
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 487883767091
+      },
+      {
+        "index": 1,
+        "to": 368533206023
+      }
+    ]
+  },
+  {
+    "id": 487883767091,
+    "pos": {
+      "x": 1716,
+      "y": -853.435685503453,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Makes sense. I'll send you the cargo.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 736940770638
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 352074478676
+      }
+    ]
+  },
+  {
+    "id": 368533206023,
+    "pos": {
+      "x": 2046,
+      "y": -850.3872984503469,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Professionals leave no witnesses. I'm not convinced.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 736940770638
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 713581165884
+      }
+    ]
+  },
+  {
+    "id": 962868610014,
+    "pos": {
+      "x": 2553,
+      "y": -1341.5273484507434,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We kind of need the cargo, we can't go back with nothing.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 298035337633
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 13756233065
+      }
+    ]
+  },
+  {
+    "id": 713581165884,
+    "pos": {
+      "x": 2045,
+      "y": -553.933325071448,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "It's against the pirate society code. We're bound to de-escalate and prevent violence at all costs. Our goals are purely economical.\n",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 368533206023
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 856729210719
+      }
+    ]
+  },
+  {
+    "id": 856729210719,
+    "pos": {
+      "x": 2045,
+      "y": -221.29998614496435,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Don't you think every faction would want us dead at this point if we were to operate with such recklessness?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 713581165884
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 161508092416
+      }
+    ]
+  },
+  {
+    "id": 13756233065,
+    "pos": {
+      "x": 2554,
+      "y": -1037.8949551523256,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Shut up Betty...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 962868610014
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 563719192681
+      }
+    ]
+  },
+  {
+    "id": 563719192681,
+    "pos": {
+      "x": 2554,
+      "y": -732.1899857904318,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 13756233065
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 689603595490
+      },
+      {
+        "index": 1,
+        "to": 703636169565
+      }
+    ]
+  },
+  {
+    "id": 689603595490,
+    "pos": {
+      "x": 2555,
+      "y": -585.0370852840279,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Why is that, is someone extorting you?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563719192681
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 901424747050
+      }
+    ]
+  },
+  {
+    "id": 703636169565,
+    "pos": {
+      "x": 3395,
+      "y": -538.4041238559439,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's sad, but I gotta go, thanks for the lovely conversation.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563719192681
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 942578876390
+      }
+    ]
+  },
+  {
+    "id": 901424747050,
+    "pos": {
+      "x": 2550,
+      "y": -289.69499623949014,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Look, just give us something, and we'll let you live, we're asking no more.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 689603595490
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 324785310598
+      }
+    ]
+  },
+  {
+    "id": 324785310598,
+    "pos": {
+      "x": 2551,
+      "y": 24.30027737628552,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 901424747050
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 916599279234
+      },
+      {
+        "index": 1,
+        "to": 846030524064
+      }
+    ]
+  },
+  {
+    "id": 916599279234,
+    "pos": {
+      "x": 2551,
+      "y": 201.50553080300597,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, here's a deal: You tell me who you're working for, and I send you over an electronics shipment I confiscated earlier.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 324785310598
+      },
+      {
+        "to": 667276781890
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 324433206979
+      }
+    ]
+  },
+  {
+    "id": 846030524064,
+    "pos": {
+      "x": 2992,
+      "y": 201.50553080300597,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "There's no way I'm giving you anything.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 324785310598
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 693940278285
+      }
+    ]
+  },
+  {
+    "id": 693940278285,
+    "pos": {
+      "x": 3234,
+      "y": 1772.5181869136104,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That leaves us with no other option...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 846030524064
+      },
+      {
+        "to": 942578876390
+      },
+      {
+        "to": 471968974813
+      },
+      {
+        "to": 700906128679
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 484499269114
+      }
+    ]
+  },
+  {
+    "id": 484499269114,
+    "pos": {
+      "x": 3235,
+      "y": 2060.6062597360014,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 693940278285
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 324433206979,
+    "pos": {
+      "x": 2394,
+      "y": 555.9160376564541,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We'll take it, alright? My boyfriend's an idiot and he'd get us both killed to save his face.\n\nWe're in trouble, in fact. We signed up for this new business offering in the capital [city of some planet].\nIt all looked good, just a simple private mail carrier service. Soon after signing up we learned of the true nature of the job - piracy.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 916599279234
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 772883538151
+      }
+    ]
+  },
+  {
+    "id": 352074478676,
+    "pos": {
+      "x": 1311,
+      "y": 699.3332434416552,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "mysteriousOldShipment",
+          "electronicsShipment",
+          "beaconAccessKey"
+        ]
+      },
+      {
+        "owner": "alSimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 487883767091
+      },
+      {
+        "to": 136651187348
+      },
+      {
+        "to": 489771657754
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 12480222392
+      }
+    ]
+  },
+  {
+    "id": 161508092416,
+    "pos": {
+      "x": 2043,
+      "y": 117.56620023245341,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 856729210719
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 136651187348
+      },
+      {
+        "index": 1,
+        "to": 993380074915
+      }
+    ]
+  },
+  {
+    "id": 993380074915,
+    "pos": {
+      "x": 2050,
+      "y": 267.8279648340613,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I know better than to believe that.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 161508092416
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 700906128679
+      }
+    ]
+  },
+  {
+    "id": 136651187348,
+    "pos": {
+      "x": 1610,
+      "y": 265.7553887705908,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Fair point, I'll send you my cargo. Better to avoid this fight.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 161508092416
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 352074478676
+      }
+    ]
+  },
+  {
+    "id": 942578876390,
+    "pos": {
+      "x": 3395,
+      "y": -206.791953700671,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Seems you don't want to cooperate.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 703636169565
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 693940278285
+      }
+    ]
+  },
+  {
+    "id": 772883538151,
+    "pos": {
+      "x": 2389,
+      "y": 997.3747391756606,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 324433206979
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 639188752844
+      },
+      {
+        "index": 1,
+        "to": 848382210912
+      },
+      {
+        "index": 2,
+        "to": 813866415974
+      }
+    ]
+  },
+  {
+    "id": 639188752844,
+    "pos": {
+      "x": 2146,
+      "y": 1161.123367450351,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Well, you two are idiots.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772883538151
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 471968974813
+      }
+    ]
+  },
+  {
+    "id": 848382210912,
+    "pos": {
+      "x": 2412,
+      "y": 1161.1082481898266,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Maybe I can help you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772883538151
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 182674169479
+      }
+    ]
+  },
+  {
+    "id": 813866415974,
+    "pos": {
+      "x": 2630,
+      "y": 1156.9630960628856,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "This is unfortunate, but that's life. You gotta deal with this yourselves.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772883538151
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 471968974813
+      }
+    ]
+  },
+  {
+    "id": 471968974813,
+    "pos": {
+      "x": 2627,
+      "y": 1504.5662235654536,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You're right.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 639188752844
+      },
+      {
+        "to": 813866415974
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 693940278285
+      }
+    ]
+  },
+  {
+    "id": 182674169479,
+    "pos": {
+      "x": 2409,
+      "y": 1768.3730347866685,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "How?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 848382210912
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 37571667518
+      }
+    ]
+  },
+  {
+    "id": 232768353463,
+    "pos": {
+      "x": 1857,
+      "y": 2416.053054621185,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We have a few positions open for mail carriers ;)",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 37571667518
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 401923772413
+      }
+    ]
+  },
+  {
+    "id": 37571667518,
+    "pos": {
+      "x": 2359,
+      "y": 2057.4973956407957,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 182674169479
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 232768353463
+      },
+      {
+        "index": 1,
+        "to": 714376334512
+      }
+    ]
+  },
+  {
+    "id": 714376334512,
+    "pos": {
+      "x": 2642,
+      "y": 2431.5973750972144,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I have contacts, could get you a new job in Crown's investigations department.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 37571667518
+      },
+      {
+        "to": 401923772413
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 362018280713
+      }
+    ]
+  },
+  {
+    "id": 362018280713,
+    "pos": {
+      "x": 2640,
+      "y": 2733.1571923321644,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Becoming part of the Crown 'lot' probably wasn't on your menu today, but I'm starting to sense it might not sound half bad now.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 714376334512
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 40191707739
+      }
+    ]
+  },
+  {
+    "id": 401923772413,
+    "pos": {
+      "x": 1855,
+      "y": 2701.03226334837,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Just kidding... although",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 232768353463
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 714376334512
+      }
+    ]
+  },
+  {
+    "id": 40191707739,
+    "pos": {
+      "x": 2638,
+      "y": 3087.5676991856108,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We'll consider it...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 362018280713
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 406506215934
+      }
+    ]
+  },
+  {
+    "id": 406506215934,
+    "pos": {
+      "x": 2634,
+      "y": 3378.7646361032093,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Yeah so, we work for [name of smuggler organization]. We joined a few months ago.\n\nThe whole operation is run centrally from [planet]. I can tell you more later, but now we have to cover our backs, you have to understand.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 40191707739
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 3148730629
+      }
+    ]
+  },
+  {
+    "id": 3148730629,
+    "pos": {
+      "x": 2633,
+      "y": 3817.474234382633,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 406506215934
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 485616753450
+      },
+      {
+        "index": 1,
+        "to": 187620497116
+      }
+    ]
+  },
+  {
+    "id": 485616753450,
+    "pos": {
+      "x": 2471,
+      "y": 3976.6655543528123,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I need to know more, that's of little use to me.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 3148730629
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 187620497116,
+    "pos": {
+      "x": 2854,
+      "y": 3966.3399500970827,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, good, I think we can start with that.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 3148730629
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 334152794387
+      }
+    ]
+  },
+  {
+    "id": 334152794387,
+    "pos": {
+      "x": 2853,
+      "y": 4256.500598982948,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll just quickly verify you're not lying to me.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 187620497116
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 247273993264
+      }
+    ]
+  },
+  {
+    "id": 205957544741,
+    "pos": {
+      "x": 2851,
+      "y": 4905.216906849197,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "aiAssistant",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "They didn't lie. There is an organization called [organization name]. I haven't found any Al or Betty in their employee registry, those might be fake names ... or they're lying.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 247273993264
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 227810149569
+      }
+    ]
+  },
+  {
+    "id": 247273993264,
+    "pos": {
+      "x": 2850,
+      "y": 4527.032393932539,
+      "type": "vector"
+    },
+    "type": "whisper",
+    "speaker": "player",
+    "recipient": "aiAssistant",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Search the galactic business registry for [organization name]",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 334152794387
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 205957544741
+      }
+    ]
+  },
+  {
+    "id": 346879208849,
+    "pos": {
+      "x": 2168,
+      "y": 5874.644152517085,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "aiAssistant",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "electronicsShipment"
+        ]
+      },
+      {
+        "owner": "bettySimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 218979741445
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 209283006727
+      }
+    ]
+  },
+  {
+    "id": 227810149569,
+    "pos": {
+      "x": 2853,
+      "y": 5269.884705246368,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "aiAssistant",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 205957544741
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 963386004457
+      },
+      {
+        "index": 1,
+        "to": 218979741445
+      },
+      {
+        "index": 2,
+        "to": 567029776140
+      }
+    ]
+  },
+  {
+    "id": 963386004457,
+    "pos": {
+      "x": 2883,
+      "y": 5494.864796906539,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "So, I did a little search and none of you seem to work at the company.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 227810149569
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 827544110723
+      }
+    ]
+  },
+  {
+    "id": 218979741445,
+    "pos": {
+      "x": 2170,
+      "y": 5483.706127651869,
+      "type": "vector"
+    },
+    "type": "whisper",
+    "speaker": "player",
+    "recipient": "aiAssistant",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll send them the shipment now. They might be getting impatient.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 227810149569
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 346879208849
+      }
+    ]
+  },
+  {
+    "id": 567029776140,
+    "pos": {
+      "x": 3653,
+      "y": 5412.608959996878,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Can I know your real names?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 227810149569
+      },
+      {
+        "to": 935950194179
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 157225775055
+      }
+    ]
+  },
+  {
+    "id": 827544110723,
+    "pos": {
+      "x": 2883,
+      "y": 5797.460902173225,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We didn't tell you our real names, for obvious reasons.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 963386004457
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 499579343878
+      }
+    ]
+  },
+  {
+    "id": 581203040120,
+    "pos": {
+      "x": 3652,
+      "y": 6094.499833791326,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Nice try..\nWell, maybe later... so far this doesn't seem worth the risk.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 157225775055
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 483331324054
+      }
+    ]
+  },
+  {
+    "id": 499579343878,
+    "pos": {
+      "x": 2882,
+      "y": 6092.802991217764,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We cannot disclose them.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 827544110723
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 810852278947
+      }
+    ]
+  },
+  {
+    "id": 810852278947,
+    "pos": {
+      "x": 2883,
+      "y": 6394.362808452715,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 499579343878
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 417543282359
+      },
+      {
+        "index": 1,
+        "to": 382475398802
+      }
+    ]
+  },
+  {
+    "id": 417543282359,
+    "pos": {
+      "x": 2662,
+      "y": 6600.4752626728205,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, fine. \nI'll send you the shipment now and we work out the rest later.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 810852278947
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 179677303250
+      }
+    ]
+  },
+  {
+    "id": 382475398802,
+    "pos": {
+      "x": 3106,
+      "y": 6606.891795172294,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's okay, I'll find out eventually.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 810852278947
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 742367806102
+      }
+    ]
+  },
+  {
+    "id": 179677303250,
+    "pos": {
+      "x": 2668,
+      "y": 7249.556582288462,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "electronicsShipment"
+        ]
+      },
+      {
+        "owner": "bettySimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 417543282359
+      },
+      {
+        "to": 742367806102
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 95374988787
+      }
+    ]
+  },
+  {
+    "id": 742367806102,
+    "pos": {
+      "x": 3104,
+      "y": 6899.410489322969,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "As part of the deal, I'm sending you the shipment. \nYou be off quickly, before somebody notices us here.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 382475398802
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 179677303250
+      }
+    ]
+  },
+  {
+    "id": 633521201534,
+    "pos": {
+      "x": 2695,
+      "y": -1920.8123581907366,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 720547426926
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 95875465250,
+    "pos": {
+      "x": 1572,
+      "y": -2228.589903616099,
+      "type": "vector"
+    },
+    "type": "factSetter",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [
+      {
+        "identifier": "alSimon_told_player_to_do_her_cargo",
+        "value": true
+      }
+    ],
+    "criteria": [],
+    "in": [
+      {
+        "to": 505936282756
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 104356605928
+      }
+    ]
+  },
+  {
+    "id": 352068239256,
+    "pos": {
+      "x": 3282,
+      "y": -2064.3769018099138,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Stop joking around, we'll kill you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 528049235566
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 123597799922
+      }
+    ]
+  },
+  {
+    "id": 528049235566,
+    "pos": {
+      "x": 3282,
+      "y": -2355.5738387275123,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Well, I don't mind putting a little show for you two. Whatever gets me out of this mess...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 444362688322
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 352068239256
+      }
+    ]
+  },
+  {
+    "id": 425097725936,
+    "pos": {
+      "x": 25,
+      "y": -1953.8459802938742,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 189113958151
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 189113958151,
+    "pos": {
+      "x": 25,
+      "y": -2229.5288352564967,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You did this to yourself...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 529692001053
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 425097725936
+      }
+    ]
+  },
+  {
+    "id": 757935530051,
+    "pos": {
+      "x": 1074,
+      "y": -2237.9164959017144,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "After all, everything comes at a price, doesn't it?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 755120607682
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 207745618322
+      }
+    ]
+  },
+  {
+    "id": 207745618322,
+    "pos": {
+      "x": 1074,
+      "y": -1964.3364555236167,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I have a simple question for you - who are you working for?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 757935530051
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 262347641706
+      }
+    ]
+  },
+  {
+    "id": 720547426926,
+    "pos": {
+      "x": 2695,
+      "y": -2203.7189908544533,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, your choice...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 115323634309
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 633521201534
+      }
+    ]
+  },
+  {
+    "id": 262347641706,
+    "pos": {
+      "x": 1074,
+      "y": -1640.459299779317,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We're entrepreneurs. We work for ourselves, like any pirates do.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 207745618322
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 563823762844
+      }
+    ]
+  },
+  {
+    "id": 563823762844,
+    "pos": {
+      "x": 1075,
+      "y": -1317.1298092926227,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 262347641706
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 466439584614
+      },
+      {
+        "index": 1,
+        "to": 489771657754
+      },
+      {
+        "index": 2,
+        "to": 253580185597
+      }
+    ]
+  },
+  {
+    "id": 466439584614,
+    "pos": {
+      "x": 222,
+      "y": -1150.1463393867489,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Oh okay, I guess you're not getting any of my cargo.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563823762844
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 602576444790
+      }
+    ]
+  },
+  {
+    "id": 489771657754,
+    "pos": {
+      "x": 642,
+      "y": -1145.0135774237388,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Thanks for the info, you can have what's in my storage.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563823762844
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 352074478676
+      }
+    ]
+  },
+  {
+    "id": 253580185597,
+    "pos": {
+      "x": 1083,
+      "y": -1146.724498078076,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I don't believe you. Nobody does piracy for their own benefit anymore.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563823762844
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 677450679860
+      }
+    ]
+  },
+  {
+    "id": 600898575807,
+    "pos": {
+      "x": 221,
+      "y": -540.4072582594199,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 602576444790
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 677450679860,
+    "pos": {
+      "x": 1082,
+      "y": -851.0685579200526,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "[to Al] Al! I told you this isn't gonna work.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 253580185597
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 900515959279
+      }
+    ]
+  },
+  {
+    "id": 12480222392,
+    "pos": {
+      "x": 1312,
+      "y": 943.1249730966301,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Pleasure doing business with you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 352074478676
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 95374988787,
+    "pos": {
+      "x": 2670,
+      "y": 7552.129260370373,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Alright, this was a fruitful exchange, wasn't it Al?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 179677303250
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 346455247755
+      }
+    ]
+  },
+  {
+    "id": 346455247755,
+    "pos": {
+      "x": 2669,
+      "y": 7830.908334910813,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Ahh, I'm not so sure about that, it'll bite us in the ass eventually...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 95374988787
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 275870877852
+      }
+    ]
+  },
+  {
+    "id": 275870877852,
+    "pos": {
+      "x": 2668,
+      "y": 8134.195459960305,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 346455247755
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 161323645776
+      },
+      {
+        "index": 1,
+        "to": 204187987621
+      }
+    ]
+  },
+  {
+    "id": 161323645776,
+    "pos": {
+      "x": 2669,
+      "y": 8311.758259741364,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You bet it will, but you got yourselves in this mess. Now it's my game.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 275870877852
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 83637438255
+      }
+    ]
+  },
+  {
+    "id": 204187987621,
+    "pos": {
+      "x": 3121,
+      "y": 8314.942332464547,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I keep my words, you can trust me.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 275870877852
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 229333330574
+      }
+    ]
+  },
+  {
+    "id": 83637438255,
+    "pos": {
+      "x": 2670,
+      "y": 8630.244780422778,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "[to Betty] She's a malevolent bitch, she's gonna turn us in at the first moment once we let her go. This was a mistake, we have to kill her now.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 161323645776
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 749523367529
+      }
+    ]
+  },
+  {
+    "id": 749523367529,
+    "pos": {
+      "x": 2670,
+      "y": 8971.197014070824,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 83637438255
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 229333330574,
+    "pos": {
+      "x": 4194,
+      "y": 8655.512399490928,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, so we have a deal.\n\nWe'll go for now, and we meet here again in a standard week's time, is that good?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 204187987621
+      },
+      {
+        "to": 177370298283
+      },
+      {
+        "to": 174386942799
+      },
+      {
+        "to": 948350979809
+      },
+      {
+        "to": 641909956965
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 328217039832
+      }
+    ]
+  },
+  {
+    "id": 483331324054,
+    "pos": {
+      "x": 3650,
+      "y": 6465.747096551573,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 581203040120
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 49065425102
+      },
+      {
+        "index": 1,
+        "to": 824954858010
+      }
+    ]
+  },
+  {
+    "id": 49065425102,
+    "pos": {
+      "x": 3648,
+      "y": 6610.34444723329,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I insist you tell me, now or we don't have a deal.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 483331324054
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 925720376107
+      }
+    ]
+  },
+  {
+    "id": 824954858010,
+    "pos": {
+      "x": 4269,
+      "y": 6596.40735319168,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm fine with that.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 483331324054
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 55283655700
+      }
+    ]
+  },
+  {
+    "id": 600877815279,
+    "pos": {
+      "x": 3645,
+      "y": 7207.8973542673775,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 925720376107
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 925720376107,
+    "pos": {
+      "x": 3650,
+      "y": 6899.539148596727,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I knew she couldn't be trusted.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 49065425102
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 600877815279
+      }
+    ]
+  },
+  {
+    "id": 475340923988,
+    "pos": {
+      "x": 4186,
+      "y": 9179.996161155383,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Agreed, farewell.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 328217039832
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 328217039832,
+    "pos": {
+      "x": 4192,
+      "y": 9012.751032656046,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 229333330574
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 475340923988
+      },
+      {
+        "index": 1,
+        "to": 123996898902
+      }
+    ]
+  },
+  {
+    "id": 123996898902,
+    "pos": {
+      "x": 4382,
+      "y": 9178.254024400181,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I would prefer it sooner, one week is a long time.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 328217039832
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 57612305439
+      }
+    ]
+  },
+  {
+    "id": 57612305439,
+    "pos": {
+      "x": 4382,
+      "y": 9467.448725763617,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "3 days is the best we can do. We have work.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 123996898902
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 56455396002
+      }
+    ]
+  },
+  {
+    "id": 56455396002,
+    "pos": {
+      "x": 4380,
+      "y": 9765.35411090306,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 57612305439
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 797566288599
+      },
+      {
+        "index": 1,
+        "to": 356731300537
+      }
+    ]
+  },
+  {
+    "id": 797566288599,
+    "pos": {
+      "x": 4378,
+      "y": 9923.888555626389,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, that's fine with me. Farewell.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 56455396002
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 356731300537,
+    "pos": {
+      "x": 4679,
+      "y": 9920.404282115986,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Still too late, how about tomorrow?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 56455396002
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 705502524472
+      }
+    ]
+  },
+  {
+    "id": 705502524472,
+    "pos": {
+      "x": 4680,
+      "y": 10211.341120234621,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Fuck it, alright.\n\nTomorrow, goodbye.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 356731300537
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 209283006727,
+    "pos": {
+      "x": 2170,
+      "y": 6169.583848167331,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Look, here's my part of the deal.\n\nNow I would like a little something back.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 346879208849
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 935950194179
+      }
+    ]
+  },
+  {
+    "id": 935950194179,
+    "pos": {
+      "x": 2169,
+      "y": 6509.300515431609,
+      "type": "vector"
+    },
+    "type": "factSetter",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [
+      {
+        "identifier": "player_sent_electronics_shipment_upfront",
+        "value": true
+      }
+    ],
+    "criteria": [],
+    "in": [
+      {
+        "to": 209283006727
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 567029776140
+      }
+    ]
+  },
+  {
+    "id": 55283655700,
+    "pos": {
+      "x": 4270,
+      "y": 6885.602054555115,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "electronicsShipment"
+        ]
+      },
+      {
+        "owner": "bettySimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 824954858010
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 177370298283
+      }
+    ]
+  },
+  {
+    "id": 177370298283,
+    "pos": {
+      "x": 4267,
+      "y": 7134.123764532982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Here is my part of the deal, as I promised.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 55283655700
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 229333330574
+      }
+    ]
+  },
+  {
+    "id": 103348164215,
+    "pos": {
+      "x": 4115,
+      "y": 6096.757697036124,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You kept your word, I think we can trust you.",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_sent_electronics_shipment_upfront",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 157225775055
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 155061078712
+      }
+    ]
+  },
+  {
+    "id": 157225775055,
+    "pos": {
+      "x": 3654,
+      "y": 5727.081112346172,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 567029776140
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 581203040120
+      },
+      {
+        "index": 1,
+        "to": 103348164215
+      }
+    ]
+  },
+  {
+    "id": 155061078712,
+    "pos": {
+      "x": 4635,
+      "y": 6391,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Yes, our names are Alexia Jones and Ludwig Bohm. We're not sure how we got into this mess, we used to work at an oil rig on [planet I don't know yet], but the job got too tough so we were looking for an escape.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 103348164215
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 258839734540
+      }
+    ]
+  },
+  {
+    "id": 258839734540,
+    "pos": {
+      "x": 4635,
+      "y": 6736,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Somebody put up an advertisement looking for private mail carriers, and we both happen to own a ship, so we thought, why not.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 155061078712
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 395138257101
+      }
+    ]
+  },
+  {
+    "id": 395138257101,
+    "pos": {
+      "x": 4634,
+      "y": 7058,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "When we entered their office, we basically got forced to sign this contract at gunpoint.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 258839734540
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 815083042670
+      }
+    ]
+  },
+  {
+    "id": 815083042670,
+    "pos": {
+      "x": 4633,
+      "y": 7385,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 395138257101
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 702527787150
+      },
+      {
+        "index": 1,
+        "to": 180718370777
+      },
+      {
+        "index": 2,
+        "to": 928322953730
+      }
+    ]
+  },
+  {
+    "id": 928322953730,
+    "pos": {
+      "x": 5130,
+      "y": 7563,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Could I get a copy of the contract",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 815083042670
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 569785482813
+      }
+    ]
+  },
+  {
+    "id": 702527787150,
+    "pos": {
+      "x": 4628,
+      "y": 7565,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Sounds rough.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 815083042670
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 948350979809
+      }
+    ]
+  },
+  {
+    "id": 180718370777,
+    "pos": {
+      "x": 4833,
+      "y": 7564,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll help you get out of this.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 815083042670
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 174386942799
+      }
+    ]
+  },
+  {
+    "id": 174386942799,
+    "pos": {
+      "x": 4836,
+      "y": 7859,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We really appreciate this.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 180718370777
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 229333330574
+      }
+    ]
+  },
+  {
+    "id": 948350979809,
+    "pos": {
+      "x": 4624,
+      "y": 7863,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's life, isn't it.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 702527787150
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 229333330574
+      }
+    ]
+  },
+  {
+    "id": 569785482813,
+    "pos": {
+      "x": 5125,
+      "y": 7845,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "No unfortunately, it's a really nasty file, it'll notify our boss that we've made a copy. \n\nWe'd be dead.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 928322953730
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 80861267821
+      }
+    ]
+  },
+  {
+    "id": 80861267821,
+    "pos": {
+      "x": 5126,
+      "y": 8174,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "If you knew how to setup a quarantine environment on our ship's computer, we'd let you take a look at it.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 569785482813
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 604254340
+      }
+    ]
+  },
+  {
+    "id": 604254340,
+    "pos": {
+      "x": 5070,
+      "y": 8482,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 80861267821
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 429471356032
+      },
+      {
+        "index": 1,
+        "to": 766827311078
+      }
+    ]
+  },
+  {
+    "id": 429471356032,
+    "pos": {
+      "x": 4941,
+      "y": 8624,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "No, unfortunately I don't have that knowledge.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 604254340
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 641909956965
+      }
+    ]
+  },
+  {
+    "id": 766827311078,
+    "pos": {
+      "x": 5329,
+      "y": 8613,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I know how to do that.\n\nWe could try that right now, could you send me over this [code that's inside this folder] ?",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_knows_how_to_setup_quarantine_environment",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 604254340
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 132382714450
+      }
+    ]
+  },
+  {
+    "id": 641909956965,
+    "pos": {
+      "x": 4922,
+      "y": 8923,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's alright...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 429471356032
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 229333330574
+      }
+    ]
+  },
+  {
+    "id": 132382714450,
+    "pos": {
+      "x": 5332,
+      "y": 8962,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You were never supposed to get to this part of dialogue",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 766827311078
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 703221173700
+      }
+    ]
+  },
+  {
+    "id": 703221173700,
+    "pos": {
+      "x": 5330,
+      "y": 9277,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 132382714450
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 123597799922,
+    "pos": {
+      "x": 3283,
+      "y": -1781,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "One last chance to sort this out, are you going to cooperate?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 352068239256
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 958637625070
+      }
+    ]
+  },
+  {
+    "id": 237410860653,
+    "pos": {
+      "x": 5638,
+      "y": -1468,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's true, I can't deny that",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 666564811558
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 59401558559
+      }
+    ]
+  },
+  {
+    "id": 468260721705,
+    "pos": {
+      "x": 5082,
+      "y": -570,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We're just trying to speed up the process.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 333022043930
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 664059692578
+      }
+    ]
+  },
+  {
+    "id": 664059692578,
+    "pos": {
+      "x": 5082,
+      "y": -223,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 468260721705
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 140674305580
+      },
+      {
+        "index": 1,
+        "to": 685297816447
+      },
+      {
+        "index": 2,
+        "to": 840532859933
+      }
+    ]
+  },
+  {
+    "id": 140674305580,
+    "pos": {
+      "x": 5085,
+      "y": -68,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Really?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 664059692578
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 390296821315
+      }
+    ]
+  },
+  {
+    "id": 685297816447,
+    "pos": {
+      "x": 5291,
+      "y": -69,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Sarcastic",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 664059692578
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 390296821315
+      }
+    ]
+  },
+  {
+    "id": 840532859933,
+    "pos": {
+      "x": 5492,
+      "y": -72,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 664059692578
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 390296821315
+      }
+    ]
+  },
+  {
+    "id": 659496628377,
+    "pos": {
+      "x": 4073,
+      "y": -588,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Is that all you have?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 83346977620
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 129473825104
+      }
+    ]
+  },
+  {
+    "id": 129473825104,
+    "pos": {
+      "x": 4077,
+      "y": -275,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 659496628377
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 891716911742
+      },
+      {
+        "index": 1,
+        "to": 879748210613
+      }
+    ]
+  },
+  {
+    "id": 891716911742,
+    "pos": {
+      "x": 3999,
+      "y": -109,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": true,
+      "exaggerate": false
+    },
+    "text": "Yes",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 129473825104
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 890768456578
+      }
+    ]
+  },
+  {
+    "id": 879748210613,
+    "pos": {
+      "x": 4200,
+      "y": -109,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "No, I also have a few weapons, you can have those.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 129473825104
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 122715950400
+      }
+    ]
+  },
+  {
+    "id": 390296821315,
+    "pos": {
+      "x": 5221,
+      "y": 291,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "What is this, a Bethesda game?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 140674305580
+      },
+      {
+        "to": 685297816447
+      },
+      {
+        "to": 840532859933
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 826733446541
+      }
+    ]
+  },
+  {
+    "id": 826733446541,
+    "pos": {
+      "x": 5219,
+      "y": 568,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Fuck you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 390296821315
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 956404566521
+      }
+    ]
+  },
+  {
+    "id": 956404566521,
+    "pos": {
+      "x": 5225,
+      "y": 849,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 826733446541
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 890768456578,
+    "pos": {
+      "x": 3996,
+      "y": 181,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Send us the shipment now. You'll be spared.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 891716911742
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 29504420706
+      }
+    ]
+  },
+  {
+    "id": 29504420706,
+    "pos": {
+      "x": 3919,
+      "y": 477,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, I here's my part of the deal",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 890768456578
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 606607782019
+      }
+    ]
+  },
+  {
+    "id": 606607782019,
+    "pos": {
+      "x": 3918,
+      "y": 795,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "electronicsShipment"
+        ]
+      },
+      {
+        "owner": "alSimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 29504420706
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 467118062280
+      }
+    ]
+  },
+  {
+    "id": 467118062280,
+    "pos": {
+      "x": 3914,
+      "y": 1059,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Pleasure doing business with you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 606607782019
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 122715950400,
+    "pos": {
+      "x": 4370,
+      "y": 179,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We'll take those too, thanks.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 879748210613
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 656095928081
+      }
+    ]
+  },
+  {
+    "id": 656095928081,
+    "pos": {
+      "x": 4371,
+      "y": 478,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Okay, I here's my part of the deal",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 122715950400
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 622068061769
+      }
+    ]
+  },
+  {
+    "id": 622068061769,
+    "pos": {
+      "x": 4372,
+      "y": 788,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          "missileHelios",
+          "plasmaCannonI",
+          "plasmaCannonII"
+        ]
+      },
+      {
+        "owner": "alSimon",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 656095928081
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 59401558559,
+    "pos": {
+      "x": 5614,
+      "y": -1193,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "To be honest, this entire conversation is actually just here to have you fuck up so you have to fight these pirates. \n\nGood luck",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 237410860653
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 977495768817
+      }
+    ]
+  },
+  {
+    "id": 977495768817,
+    "pos": {
+      "x": 5629,
+      "y": -855,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 59401558559
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 128584828201,
+    "pos": {
+      "x": 4992,
+      "y": -2097,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Ohh I think you are, just not the \"traditional way\"...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 895979370302
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 101502668020
+      }
+    ]
+  },
+  {
+    "id": 101502668020,
+    "pos": {
+      "x": 4988,
+      "y": -1793,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 128584828201
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 958637625070,
+    "pos": {
+      "x": 3282,
+      "y": -1473,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "My body is ready.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 123597799922
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 206978371521
+      }
+    ]
+  },
+  {
+    "id": 206978371521,
+    "pos": {
+      "x": 3280,
+      "y": -1183,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Fuck, that's it, we'll take the cargo whether you like it or not.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 958637625070
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 187332804048
+      }
+    ]
+  },
+  {
+    "id": 187332804048,
+    "pos": {
+      "x": 3282,
+      "y": -875,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 206978371521
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 667276781890,
+    "pos": {
+      "x": 1083,
+      "y": -246,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 900515959279
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 222915004447
+      },
+      {
+        "index": 1,
+        "to": 916599279234
+      }
+    ]
+  },
+  {
+    "id": 900515959279,
+    "pos": {
+      "x": 1082,
+      "y": -567,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "bettySimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Well, okay, we do work for somebody.\n\nIt has to be centrally organized.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 677450679860
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 667276781890
+      }
+    ]
+  },
+  {
+    "id": 602576444790,
+    "pos": {
+      "x": 228,
+      "y": -839,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We'll get it on our own terms then...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 466439584614
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 600898575807
+      }
+    ]
+  },
+  {
+    "id": 222915004447,
+    "pos": {
+      "x": 600,
+      "y": -81,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "So stop fucking around, and tell me who it is.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 667276781890
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 269464212530
+      }
+    ]
+  },
+  {
+    "id": 269464212530,
+    "pos": {
+      "x": 597,
+      "y": 199,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Or else you're not getting anything, I'm here to make a trade, not giving out free samples of cargo.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 222915004447
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 484515631640
+      }
+    ]
+  },
+  {
+    "id": 484515631640,
+    "pos": {
+      "x": 597,
+      "y": 526,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm sick of trying to make this work, we'll take what we want.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 269464212530
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 762501146677
+      }
+    ]
+  },
+  {
+    "id": 762501146677,
+    "pos": {
+      "x": 597,
+      "y": 840,
+      "type": "vector"
+    },
+    "type": "aggression",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 484515631640
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 700906128679,
+    "pos": {
+      "x": 2042,
+      "y": 608,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "alSimon",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Fine.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 993380074915
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 693940278285
+      }
+    ]
+  }
+]

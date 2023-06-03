@@ -1,12 +1,157 @@
-#game-ui, #player-inventory {
+#player-inventory {
   pointer-events: none;
 }
-#game-ui *, #player-inventory * {
+#player-inventory * {
   pointer-events: all;
 }
 
 #player-inventory {
-  background-color: black;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dark-1-075);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  user-select: none;
+}
+
+#inventory-tab-cargo,
+#inventory-tab-personal,
+#inventory-tab-log {
+  display: flex;
+  justify-content: stretch;
+  align-items: stretch;
+  width: 100%;
+  height: 100%;
+}
+#inventory-tab-cargo {
+  gap: 20px;
+}
+#inventory-tab-personal {
+  gap: 20px;
+}
+
+#inventory-log-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--dark-1-075);
+}
+
+.dialogue-log-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: var(--dark-3);
+}
+
+.dialogue-log-item:hover {
+  background-color: var(--dark-4);
+}
+.dialogue-log-item:hover button.dialogue-log-open {
+  background-color: var(--dark-6);
+}
+
+button.dialogue-log-open:hover {
+  background-color: var(--color-accent);
+}
+
+.dialogue-log-text-part {
+  display: flex;
+  gap: 20px;
+}
+
+.dialogue-log-time {
+  color: var(--bright-3);
+}
+
+#inventory-personal-item-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  height: 85%;
+  gap: 10px;
+  padding: 20px;
+  flex-grow: 1;
+  background-color: var(--dark-1-075);
+  border: 2px solid var(--dark-4);
+  border-radius: 20px 0 20px 20px;
+  z-index: 1;
+  overflow: auto;
+}
+
+#inventory-personal-player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 300px;
+  border-radius: 20px;
+}
+
+#inventory-personal-player-portrait {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+#inventory-personal-player-name {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.inventory-content {
+  display: flex;
+  padding: 0 20px 20px;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+#inventory-tab-ship {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.inventory-ship-overview {
+  position: relative;
+  width: 40%;
+  border-radius: 20px;
+}
+
+#inventory-ship-right-panel {
+  display: flex;
+  flex-grow: 1;
+  background-color: var(--dark-1-075);
+  border-radius: 20px 0 20px 20px;
+  border: 2px solid var(--dark-4);
+}
+
+#inventory-ship-bottom-detail-panel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: var(--dark-4);
+  background-clip: padding-box;
+  border: 20px solid transparent;
+  height: 200px;
+  padding: 20px;
+  border-radius: 30px;
+}
+
+#inventory-ship-detail-panel-property-title {
+  font-size: 2rem;
 }
 
 .inventory-cont {
@@ -43,24 +188,728 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--dark-3);
   width: 100%;
   height: 100%;
   cursor: var(--cursor-pointer);
-  border-radius: 5px;
+  background-image: url(/assets/ui/UIItem.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.inventory-item.small {
+  width: 64px;
+  height: 64px;
 }
 .inventory-item img {
   max-width: 100%;
   max-height: 100%;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.inventory-item.empty.blank {
+  background-image: none!important;
 }
 .inventory-item.empty {
-  background-color: var(--dark-2);
-  border: 2px solid var(--dark-3);
-}
-.inventory-item:hover {
-  background-color: var(--dark-4);
+  background-image: url(/assets/ui/UIItemEmpty.png);
+  cursor: var(--cursor-default);
 }
 .inventory-item.empty:hover {
+  background-image: url(/assets/ui/UIItemEmptyHover.png);
+}
+.inventory-item:hover {
+  background-image: url(/assets/ui/UIItemHover.png);
+}
+
+.reset-background-for-items .inventory-item {
+  background-image: none!important;
+}
+
+#inventory-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: black;
+  color: #93867f;
+  font-weight: 600;
+  font-size: 1.5rem;
+  font-family: "big-t-comic";
+  z-index: 2;
+  user-select: none;
+}
+
+.station-window-navbar,
+.inventory-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  min-height: 80px;
+  width: 100%;
+}
+
+.station-window-main {
+  display: flex;
+  gap: 20px;
+  max-height: calc(100% - 100px);
+  width: 100%;
+  padding: 0 20px 20px;
+}
+
+#station-window-station-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+  max-height: 100%;
+  flex-grow: 1;
+  margin: 40px 0 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#station-content {
+  border-radius: 10px;
+  padding: 20px;
+  flex-grow: 1;
+  max-height: calc(100% - 260px);
+  background-color: var(--dark-2);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#station-content-inner {
+  max-height: 100%;
+}
+
+.station-wares-category-heading {
+  color: white;
+  margin: 20px 0;
+}
+
+#sell-button-full-width {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  background-color: var(--dark-5);
+  border-radius: 10px;
+  outline: 2px dashed var(--dark-6);
+  outline-offset: -15px;
+  font-size: 2rem;
+  color: var(--bright-3);
+}
+
+#sell-button-full-width:hover {
+  background-color: var(--dark-6);
+  outline: 2px dashed var(--dark-7);
+}
+
+.station-ship-related-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.station-ship-related-buttons button {
+  width: 100%;
+  padding: 20px 20px;
+}
+
+.station-ship-related-buttons button:hover {
+  background-color: var(--dark-7);
+}
+
+#station-window-inventory-side {
+  width: 62%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#station-window-switch-category-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: -2px;
+  height: 40px;
+}
+
+#inventory-switch-category-buttons {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  height: 48px;
+  min-height: 48px;
+  margin-bottom: -2px;
+}
+
+.category-switch-button:nth-of-type(1) {
+  position: relative;
+  right: -40px;
+}
+.category-switch-button:nth-of-type(2) {
+  position: relative;
+  right: -20px;
+}
+
+#station-window-inventory-side-content {
+  display: flex;
+  justify-content: stretch;
+  position: relative;
+  background-color: var(--dark-2);
+  height: 100%;
+  width: 100%;
+}
+
+#station-window-inventory-tab-ship,
+#station-window-inventory-tab-cargo {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  border-radius: 20px 0 20px 20px;
+  border: 2px solid var(--dark-5);
+  overflow: hidden;
+}
+
+#station-window-inventory-tab-cargo {
+  background-color: var(--dark-1);
+}
+#station-window-inventory-tab-ship {
+  padding: 0 20px;
+}
+
+button.category-switch-button {
+  border-radius: 10px 10px 0 0;
+  background-color: var(--dark-4);
+  color: white;
+  border: 2px solid transparent;
+  font-size: 1.2rem;
+  height: 100%;
+  padding: 0 50px;
+  cursor: var(--cursor-pointer);
+  box-shadow: 0 0 10px 0 var(--dark-2);
+}
+
+button.category-switch-button:hover {
+  border: 2px solid white;
+  border-bottom-color: transparent;
+  background-color: var(--dark-5);
+}
+
+button.category-switch-button.active {
   border: 2px solid var(--dark-4);
-  background-color: var(--dark-3);
+  border-bottom-color: transparent;
+  background-color: var(--dark-2);
+  z-index: 2;
+}
+
+#station-window-ship-view-model {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
+}
+
+#station-window-ship-system-detail {
+  position: absolute;
+  width: calc(100% - 40px);
+  min-height: 240px;
+  background-color: var(--dark-4);
+  bottom: 20px;
+  border-radius: 10px;
+}
+
+.vertical-filler {
+  height: 20px;
+}
+
+#cargo-inventory-grid-6-columns {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  width: 100%;
+  height: max-content;
+  max-height: 100%;
+}
+
+#station-window-background-panel {
+  max-width: 1680px;
+  width: 100%;
+}
+
+#station-close-button {
+  position: absolute;
+  top: -27px;
+  right: 144px;
+}
+
+#station-currency-container {
+  position: absolute;
+  top: -26px;
+  left: 139px;
+  display: flex;
+  align-items: center;
+  padding: 6px 0 0 70px;
+  font-size: 1.75rem;
+  letter-spacing: -0.08em;
+  width: 167px;
+  height: 64px;
+  background-image: url(/assets/ui/stationWindowCurrencyContainer.png);
+}
+#station-currency-container:hover {
+  background-image: url(/assets/ui/stationWindowCurrencyContainerHover.png);
+}
+
+.station-window-label {
+  position: absolute;
+  height: 112px;
+}
+
+.station-window-label.station {
+  top: -55px;
+  width: 559px;
+  background-image: url(/assets/ui/stationWindowLabel.png);
+}
+
+.station-window-label.inventory {
+  top: -53px;
+  width: 460px;
+  background-image: url(/assets/ui/inventoryWindowLabelInventory.png);
+}
+
+.station-window-label.quest {
+  top: -56px;
+  width: 579px;
+  background-image: url(/assets/ui/inventoryWindowLabelQuest.png);
+}
+
+.station-switch-icon {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.station-switch-icon.inventory {
+  background-image: url(/assets/ui/stationWindowIconInventory.png);
+}
+.station-switch-icon.station {
+  background-image: url(/assets/ui/stationWindowIconStation.png);
+}
+.station-switch-icon.station.disabled:not(:hover) {
+  background-image: url(/assets/ui/stationWindowIconStationDisabled.png);
+}
+.station-switch-icon.quest {
+  background-image: url(/assets/ui/stationWindowIconQuests.png);
+}
+.station-switch-icon.inventory:hover {
+  background-image: url(/assets/ui/stationWindowIconInventoryHover.png);
+}
+.station-switch-icon.station:hover {
+  background-image: url(/assets/ui/stationWindowIconStationHover.png);
+}
+.station-switch-icon.station.disabled:hover {
+  background-image: url(/assets/ui/stationWindowIconStationDisabledHover.png);
+}
+.station-switch-icon.quest:hover {
+  background-image: url(/assets/ui/stationWindowIconQuestsHover.png);
+}
+.station-switch-icon.inventory.active {
+  background-image: url(/assets/ui/stationWindowIconInventoryHover.png);
+}
+.station-switch-icon.station.active {
+  background-image: url(/assets/ui/stationWindowIconStationHover.png);
+}
+.station-switch-icon.quest.active {
+  background-image: url(/assets/ui/stationWindowIconQuestsHover.png);
+}
+
+.switch-icons {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inventory-switch-icons {
+  left: -36px;
+}
+
+#station-window-shop-heading {
+  position: relative;
+  left: 82px;
+  width: 610px;
+}
+#station-window-shop-heading img {
+  width: 100%;
+}
+
+.station-window-shop-heading-image {
+  width: 610px;
+}
+
+.station-window-shop-part-content-wrapper {
+  margin-top: 10px;
+}
+.station-window-shop-part-content-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.station-window-shop-part-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.station-window-shop-part {
+  position: absolute;
+  top: 120px;
+  left: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inventory-overflow-indicator {
+  position: absolute;
+  align-self: center;
+  width: calc(100% + 20px);
+  height: 30px;
+  background-image: url(/assets/ui/overflowIndicator.png);
+}
+
+.inventory-overflow-indicator.top {
+  top: -25px;
+  transform: scaleY(-1);
+}
+
+.inventory-overflow-indicator.bottom {
+  bottom: -25px;
+}
+
+.station-window-shop-row {
+  position: relative;
+  width: 690px;
+  height: 125px;
+  background-image: url(/assets/ui/stationRowPanel.png);
+  background-position: center;
+  background-size: contain;
+}
+
+.station-row-items {
+  position: absolute;
+  left: 75px;
+  top: -8px;
+  width: calc(100% - 70px);
+  padding: 25px 20px;
+  display: grid;
+  gap: 7px;
+}
+
+.inventory-row-items {
+  width: 100%;
+  display: grid;
+  gap: 7px;
+}
+
+.station-row-items.column-6,
+.inventory-row-items.column-6 {
+  grid-template-columns: repeat(6, 1fr);
+}
+.station-row-items {
+  position: absolute;
+  left: 75px;
+  top: -8px;
+  width: calc(100% - 70px);
+  padding: 25px 20px;
+  display: grid;
+  gap: 7px;
+}
+
+.station-window-shop-row-heading {
+  position: absolute;
+  font-size: 1.2rem;
+  top: 25px;
+  left: 50px;
+  text-transform: capitalize;
+}
+
+.station-window-background-drawings {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.inventory-window-ship-part {
+  position: absolute;
+  top: 120px;
+  right: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 620px;
+  height: 620px;
+}
+
+.ship-weapon-slot-wrapper {
+  position: absolute;
+}
+
+.ship-inventory-weapon-slot {
+  /* position: absolute; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: var(--cursor-pointer);
+  background-image: url(/assets/ui/shipWeaponSlot.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.ship-inventory-weapon-slot:hover {
+  background-image: url(/assets/ui/shipWeaponSlotHover.png);
+}
+
+.ship-weapon-slot-wrapper.first {
+  left: 25px;
+  top: 66px;
+}
+.ship-weapon-slot-wrapper.second {
+  right: 25px;
+  top: 66px;
+}
+.ship-weapon-slot-wrapper.third {
+  left: 25px;
+  bottom: 65px;
+}
+.ship-weapon-slot-wrapper.fourth {
+  right: 25px;
+  bottom: 65px;
+}
+
+.station-window-ship-model img {
+  width: 279px;
+}
+
+.ship-inventory-weapon-slot img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.ship-weapon-slot-helper-graphic {
+  position: absolute;
+  width: 580px;
+}
+
+#station-window-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.station-category-icon {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.station-category-icon.weapons {
+  left: 16px;
+  top: 48px;
+  background-image: url(/assets/ui/stationCategoryIconWeapons.png);
+}
+.station-category-icon.systems {
+  left: 13px;
+  top: 45px;
+  background-image: url(/assets/ui/stationCategoryIconSystems.png);
+}
+.station-category-icon.misc {
+  left: 15px;
+  top: 45px;
+  background-image: url(/assets/ui/stationCategoryIconMisc.png);
+  background-size: auto 30px;
+}
+
+.keyboard-bind-button {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  padding: 13px 0px 11px 45px;
+  font-size: 1rem;
+  background-image: url(/assets/ui/keyboardBindButton.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.ship-weapon-slot-wrapper.first .keyboard-bind-button,
+.ship-weapon-slot-wrapper.second .keyboard-bind-button {
+  top: -46px;
+}
+.ship-weapon-slot-wrapper.third .keyboard-bind-button,
+.ship-weapon-slot-wrapper.fourth .keyboard-bind-button {
+  bottom: -46px;
+}
+
+.keyboard-bind-button:hover {
+  background-image: url(/assets/ui/keyboardBindButtonHover.png);
+}
+.keyboard-bind-button.active {
+  background-image: url(/assets/ui/keyboardBindButtonActive.png);
+}
+
+.station-horizontal-separator {
+  position: relative;
+  left: 40px;
+  background-image: url(/assets/ui/stationHorizontalSeparator.png);
+  width: 100%;
+  height: 24px;
+  margin-bottom: -12px;
+  margin-top: 20px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.station-horizontal-separator.bottom {
+  transform: scaleY(-1);
+  margin-top: -10px;
+}
+
+/* repair part  */
+
+.station-window-repair-part {
+  position: absolute;
+  top: 120px;
+  right: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#station-window-repair-heading {
+  position: relative;
+  left: 20px;
+  width: 618px;
+}
+#station-window-repair-heading img {
+  width: 100%;
+}
+
+.station-window-repair-heading-image {
+  width: 610px;
+}
+
+.station-window-system-overview-background-panel {
+  position: relative;
+  margin-top: 11px;
+  width: 660px;
+}
+.station-window-system-overview-background-panel img {
+  width: 100%;
+}
+
+.station-window-hull-repair-background-panel {
+  position: relative;
+  left: 20px;
+  margin-top: -18px;
+  width: 620px;
+}
+.station-window-hull-repair-background-panel img {
+  width: 100%;
+}
+
+.inventory-window-inventory-part {
+  position: absolute;
+  top: 120px;
+  left: 170px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 620px;
+  height: 620px;
+}
+
+.inventory-grid-filters-background-panel {
+  width: 620px;
+}
+
+.inventory-grid-filters-background-panel img {
+  width: 100%;
+}
+
+.inventory-sell-item-button {
+  position: absolute;
+  bottom: -27px;
+  left: 170px;
+  width: 300px;
+  height: 64px;
+  background-image: url(/assets/ui/sellItemButton.png);
+}
+.inventory-sell-item-button:hover,
+.inventory-sell-item-button.active {
+  background-image: url(/assets/ui/sellItemButtonHover.png);
+}
+
+.inventory-buy-item-button {
+  position: absolute;
+  bottom: -27px;
+  left: 200px;
+  width: 300px;
+  height: 64px;
+  background-image: url(/assets/ui/buyItemButton.png);
+}
+.inventory-buy-item-button:hover,
+.inventory-buy-item-button.active {
+  background-image: url(/assets/ui/buyItemButtonHover.png);
+}
+
+#inventory-quest-tab-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+#inventory-quest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inventory-buy-drop-area {
+  position: absolute;
+  bottom: 62px;
+  left: 201px;
+  width: 605px;
+  height: 120px;
+  background-image: url(/assets/ui/buyItemDropArea.png);
+}
+.inventory-buy-drop-area:hover {
+  background-image: url(/assets/ui/buyItemDropAreaHover.png);
 }

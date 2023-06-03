@@ -1,0 +1,12 @@
+{
+  "audioEmitters": [
+    {
+      "category": "SFX",
+      "audioName": "ultraportAmbience",
+      "parentObjectId": "entry_beacon",
+      "options": {
+        "volumeFadeDistance": 600
+      }
+    }
+  ]
+}

@@ -1,95 +1,141 @@
 let data = {}
 
-// {
-//   //this was an idea, to load everything from JSON and use
-//   //my object editor for creating the structures, but I'm
-//   //not liking that idea anymore
-//   let dataGroups = [
-//     "weapon",
-//     "asteroid",
-//     "location",
-//     "locationCoords",
-//     "ship",
-//     "saveData",
-//     "projectile",
-//   ]
-//   let dataLoaded = 0
-
-//   function loadData() {
-//     this.next()
-//     if(dataLoaded === groups.length - 1 ) {
-//       //assign everything to data {}
-//     }
-//   }
-//   loadData.next = function() {
-//     let group = dataGroups.shift()
-//   }
-// }
-
-// data.npc = {
-//   "Character": {
-//     fullName: "Character Name",
-//     age: 25,
-//     reputation: { 
-//       //0-10
-//       crimson: 8,
-//       alliance: 3,
-//       theCrown: 4,
-//       theHive: 0,
-//       tradersUnion: 3,
-//     },
-//     alignment: { 
-//       //how much they respect each faction 0-10
-//       crimson: 8,
-//       alliance: 3,
-//       theCrown: 4,
-//       theHive: 0,
-//       tradersUnion: 3,
-//     },
-//   },
-// }
-// data.player = {
-//   fullName: "Ada",
-//   age: 38,
-//   lore: `
-//     Mother of three. Space captain.
-//     Works as a special agent in the crown's military.
-//     She received her rank as Marchioness as reward for heroic actions in a battle in some other galaxy.
-//     She uses a heavily modified Crown fighter, nicknamed the Goldbird.
-
-//     Her family is stuck on an outback planet plagued by political upheaval, and economic instability. 
-//     She is currently stuck in combat duty, unable to fly back or help them.
-
-//     She's baptised, christian for most of her life, but slightly
-//     falling out of it.
-//   `,
-  
-//   inventory: [
-//     //for things which aren't stored in the ship's cargo storage
-//     {
-//       name: "Holotape #4864",
-//       description: "An old holotape taken at home, approximately 14 years ago."
-//     },
-//   ],
-//   currency: 20, //starting currency
-//   ships: [], // all ships you have access to, can direct or pilot yourself
-//   currentShip: {} // object reference
-// },
-
-data.boosters = {
-  boosters: {
-    type: "continuous",
+data.weaponTypes = {
+  missile: {
+    codeColor: "#dba03b"
   },
-  boosters: {
+  plasma: {
+    codeColor: "#3cb329"
+  },
+  solidProjectile: {
+    codeColor: "#9e9e9e"
+  },
+  laser: {
+    codeColor: "#da291f"
+  },
+  deathbeam: {
+    codeColor: "#857eb8"
+  },
+}
+
+data.shieldTypes = [
+  "bubble",
+  "pulse",
+  "force",
+  "hardLight",
+]
+
+data.shieldTemplates = [
+  {
+    type: "forceField",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      strength: 60,
+      effectiveDistance: 60
+    }
+  },
+  {
+    type: "hardLight",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      disposition: "flank",
+      distance: 250,
+    }
+  },
+  {
     type: "pulse",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      distance: 250,
+      pulseStrength: 400,
+      arcLength: PI/2, 
+      rechargeTimeMS: 1500,
+    }
+  },
+]
+
+data.starTypes = {
+  redDwarf: {
+    displayName: "Red Dwarf",
+    hexColor: "#A81411",
+    description: "A small star at the end of its lifetime, it emits barely enough light to support life on it's surrounding planets."
+  },
+  mainSequenceGType: {
+    displayName: "Main sequence G-Type star",
+    hexColor: "#FFF2BD",
+    description: "A regular sized star, similar to Earth's sun. It's one of the most common star types."
+  },
+  mainSequenceBType: {
+    displayName: "Main sequence B-Type star",
+    hexColor: "#48A0FF",
+    description: "Rather small star, emitting very luminous blue light."
+  },
+  neutronStar: {
+    displayName: "Neutron Star",
+    hexColor: "#99E0FF",
+    description: "Tiny in size, but extremely dense, made up almost exclusively of tightly packed neutrons. It emits light blue color."
+  },
+}
+
+data.ability = [
+  "transferItems",
+  "transferCurrency",
+  "travel", //can exit current vehicle && travel to different orbits or systems
+  "controlShip",
+  "talk",
+  "command", //can be followed by others on a battlefield
+]
+
+data.jobTitle = {
+  "player": {
+    ability: [ "transferItems", "transferCurrency", "travel", "controlShip", "talk", "command" ]
+  },
+  "captain": {
+    ability: [ "transferItems", "transferCurrency", "travel", "controlShip", "talk", "command" ]
+  },
+  "crewman": {
+    ability: [ "travel", "talk", ]
+  },
+  "merchant": {
+    ability: [ "transferItems", "transferCurrency", "travel", "controlShip" ]
+  },
+  "communicator": {
+    ability: [ "transferCurrency", "talk", "command" ]
+  },
+  "king": {
+    ability: [ "transferItems", "transferCurrency", "travel", "controlShip", "talk", "command" ]
+  },
+  "princess": {
+    ability: [ "transferItems", "transferCurrency", "travel", "controlShip", "talk", "command" ]
+  },
+}
+
+data.faction = {
+  crimsonLeague: {
+    ships: [],
+    personnel: [],
+    territories: [
+      //...list of locations
+    ],
+  },
+}
+
+
+data.pathfinding = {
+  projection: {
+    iterations: 14,
+    timestretch: 12, //used to compute values further in time, each iteration takes this many frames, therefore allowing you to compute many seconds ahead
   }
 }
 
-data.weapontypes = [
-  "missile", 
-  "plasma",
-  "solid-projectile",
-  "laser",
-  "deathbeam",
-]
-Object.freeze(data.weapontypes)
+data.maxObjectVelocity = 1200
+data.inertia = 0.998 //multiplies velocity of all objects on per-frame basis, with a few exceptions; I might remove this feature
+data.detectCollisionWithinThisFastDistanceOfPlayer = 2000
+data.updateObjectsWithinThisFastDistanceOfPlayer = 2000
+data.npcLineOfSightDistance = 2200

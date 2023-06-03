@@ -6,6 +6,6 @@ class Component {
     throw "missing Component's update method"
   }
   clone() {
-    return _.deepClone(this)
+    return _.cloneDeep(this)
   }
 }

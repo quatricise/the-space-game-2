@@ -1,0 +1,991 @@
+{
+  "cameraBounds": {
+    "minX": -100000,
+    "minY": -230,
+    "maxX": 100000, 
+    "maxY": 100000
+  },
+  "pointsOfInterest": [
+    {
+      "devNote": "Points of interest are things that Ada can remark on and may get an answer from an NPC if they're around. \n If completed: true, the interaction will not come up again",
+      "triggerObjectId": "asteroid_overgrown_large0",
+      "triggerObjectType": "asteroid",
+      "triggerObjectName": "overgrownLarge0",
+      "speaker": "aiAssistant",
+      "completed": false,
+      "note": "This asteroid feels very out of place here. I've never seen one of these drift into Crown-controlled space. Perhaps somebody has been transporting it and they ran out of fuel. I'm taking note of this."
+    }
+  ],
+  "lightSources": [
+    
+  ],
+  "markers": [
+    {
+      "markerId": "intro_depot_station_marker",
+      "targetObjectId": "intro_depot_station",
+      "options": {
+        "conditional": true
+      },
+      "markerData": {
+        "markerIcon": "station"
+      }
+    },
+    {
+      "markerId": "ultraport_beacon_marker",
+      "targetObjectId": "ultraport_beacon",
+      "options": {
+        "conditional": true
+      },
+      "markerData": {
+        "markerIcon": "ultraportBeacon"
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "interactionId": "king_audio_call",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true
+      },
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": [
+          "createFacts",
+          "showHint",
+          "triggerAudioCall",
+          "addUIHandler"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy": [
+          "createInteraction",
+          "showQuestPanel",
+          "removeUIHandler"
+        ],
+        "interactionDelay": 4500,
+        "newInteractionId": "undock_hint",
+        "audioCallName": "intro-king_and_ada",
+        "audioCallCaller": "king",
+        "audioCallMessage": "Good morning Ada, we need to speak, please accept the call.",
+        "facts": [
+          {
+            "identifier": "player_declined_king_intro_call",
+            "value": false
+          }
+        ],
+        "questData": {
+          "name": "The Lost Princess",
+          "devNote": "No quest has actually been started, it's just to make it looks like it did."
+        },
+        "UIHandlerData": {
+          "eventType": "mousedown",
+          "elementSelector": "#decline-call-button",
+          "onTrigger": "createInteraction",
+          "interactionId": "decline_intro_call"
+        },
+        "hintData": {
+          "hintText": "",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "click",
+                "elementSelector": "#leave-call-button"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "king_audio_call_second",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["showHint", "triggerAudioCall"],
+        "doOnLeave":    ["hideHint"],
+        "doOnDestroy":  ["createInteraction", "showQuestPanel"],
+        "interactionDelay": 4500,
+        "newInteractionId": "undock_hint",
+        "audioCallName": "intro-king_and_ada",
+        "audioCallCaller": "king",
+        "audioCallMessage": "That was very disrespectful. I need you to answer this.",
+        "questData": {
+          "name": "theLostPrincess"
+        },
+        "hintData": {
+          "hintText": "",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "click",
+                "elementSelector": "#leave-call-button"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "decline_intro_call",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": ["setFacts", "createInteraction", "showHint"],
+        "doOnLeave": [],
+        "doOnDestroy": [],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 0,
+        "newInteractionId": "king_audio_call_second",
+        "hintData": {
+          "hintText": "",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "click",
+                "elementSelector": "#leave-call-button"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "facts": [
+          {
+            "identifier": "player_declined_king_intro_call",
+            "value": true
+          }
+        ]
+      }
+    },
+    {
+      "isUnused": true,
+      "devNote": "This interaction just completes the call and continues the tutorial.",
+      "interactionId": "complete_intro_call",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": [],
+        "doOnLeave": [],
+        "doOnDestroy": [
+          "createInteraction",
+          "showQuestPanel"
+        ],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 0
+      }
+    },
+    {
+      "interactionId": "undock_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": true
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy": [
+          "createInteraction",
+          "createFacts"
+        ],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []
+        },
+        "interactionDelay": 9000,
+        "newInteractionId": "ship_movement_hint",
+        "facts": [
+          {
+            "identifier": "should_show_station_overlays",
+            "value": true
+          }
+        ],
+        "hintData": {
+          "hintText": "You are docked in an orbital station, which means you cannot move. Press [G] to undock.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dockShip",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "ship_movement_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint", "createHintGraphic"],
+        "doOnLeave":    [],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2800,
+        "newInteractionId": "brakes_hint",
+        "hintGraphicData":{
+          "name": "shipMovement",
+          "parentGameObject": "player_ship"
+        },
+        "hintData": {
+          "hintText": "Your ship's main movement is controlled by WASD.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "accel",
+                "elementSelector": ""
+              },
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "decel",
+                "elementSelector": ""
+              },
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "rotateCCW",
+                "elementSelector": ""
+              },
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "rotateCW",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "brakes_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter":  ["showHint"],
+        "doOnLeave":  ["hideHint"],
+        "doOnDestroy":["createInteraction"],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2800,
+        "newInteractionId": "pulse_shields_hint",
+        "hintData": {
+          "hintText": "Your ship has brakes which can be toggled by pressing [B]. Turning off brakes makes travelling over large distances more pleasant.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "toggleAutobrake",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "pulse_shields_hint",
+      "triggerObjectId": "player_ship",
+      "options": {"conditional": true, "useHostHitbox": false},
+      "interactionData": {
+        "doOnEnter":  ["showHint"],
+        "doOnDestroy":["createInteraction"],
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2000,
+        "newInteractionId": "marker_depot_station_hint",
+        "hintData": {
+          "hintText": "Your ship is also equipped with directional PULSE SHIELDS, they're activated by pressing [F]. Shields are useful for reflecting projectiles and small debris.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "activateShields",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "marker_depot_station_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint",
+          "createMarker"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy":[
+          "setUIElementVisibility",
+          "createInteraction"
+        ],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "uiElementId": "ui-right-side-panel",
+        "uiElementVisibility": "show",
+        "uiElementAnimation": "fade",
+        "interactionDelay": 2000,
+        "newMarkerId": "intro_depot_station_marker",
+        "newInteractionId": "ui_right_panel_hint",
+        "hintData": {
+          "hintText": "A new marker has been added to the bottom of your screen. It points to a station where you can purchase some things.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "ui_right_panel_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter":  ["showHint"],
+        "doOnLeave":  ["hideHint"],
+        "doOnDestroy":["createInteraction"],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2000,
+        "newInteractionId": "ui_left_panel_hint",
+        "hintData": {
+          "hintText": "There are a few UI elements you should be familiar with. The right-side panel contains the minimap, galaxy map and inventory.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "ui_left_panel_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint", "setUIElementVisibility"],
+        "doOnLeave":    ["hideHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2000,
+        "newInteractionId": "ui_panels_hint_final",
+        "uiElementId": "ui-left-side-panel",
+        "uiElementVisibility": "show",
+        "uiElementAnimation": "fade",
+        "hintData": {
+          "hintText": "The left-side panel displays information about your ship, such as equipped weapons, status effects or ship health. You only have one weapon at the moment.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1000,
+            "b": 1000
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "ui_panels_hint_final",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "conditional": true,
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter": ["showHint"],
+        "doOnLeave": ["hideHint"],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "interactionDelay": 1000,
+        "hintData": {
+          "hintText": "This is all you need for now, head for the station.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1100,
+            "b": 1100
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "asteroid_wall_hint1",
+      "triggerObjectId": "asteroid_wall_center_asteroid",
+      "options": {
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy": [
+          "createInteraction"
+        ],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "newInteractionId": "asteroid_wall_hint2",
+        "hintData": {
+          "hintText": "This asteroid wall is a hazard to your fragile ship. Bumping into an asteroid damages your hull. Press [H] to continue.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": null,
+          "filename": "interactableAsteroidWall",
+          "definition": null
+        }
+      }
+    },
+    {
+      "interactionId": "asteroid_wall_hint2",
+      "triggerObjectId": "asteroid_wall_center_asteroid",
+      "options": {
+        "useHostHitbox": false,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy": [
+          "createInteraction"
+        ],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "interactionDelay": 1500,
+        "newInteractionId": "asteroid_wall_hint3",
+        "hintData": {
+          "hintText": "Your ship has the ability to slow-teleport through matter. It's called 'skipping'. \n Activate it by holding [SHIFT] and left clicking somewhere.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "shift",
+                "elementSelector": ""
+              },
+              {
+                "method": "UIevent",
+                "eventType": "mousedown",
+                "elementSelector": "#game"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": null,
+          "filename": "interactableAsteroidWall",
+          "definition": null
+        }
+      }
+    },
+    {
+      "interactionId": "asteroid_wall_hint3",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": false,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint",
+          "createHintGraphic"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "doOnDestroy": [
+          "createInteraction"
+        ],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "interactionDelay": 1500,
+        "newInteractionId": "asteroid_wall_hint4",
+        "hintGraphicData": {
+          "name": "skipRecharge",
+          "parentGameObject": "player_ship"
+        },
+        "hintData": {
+          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated. Press [H] to dismiss hint.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": null,
+          "filename": "interactableAsteroidWall",
+          "definition": null
+        }
+      }
+    },
+    {
+      "interactionId": "asteroid_wall_hint4",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": false,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": [
+          "showHint"
+        ],
+        "doOnLeave": [
+          "hideHint"
+        ],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "interactionDelay": 1500,
+        "hintData": {
+          "hintText": "Great, now let's get to the station to buy some weapons, you'll need them. Press [H] to dismiss hint.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": null,
+          "filename": "interactableAsteroidWall",
+          "definition": null
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint",
+      "triggerObjectId": "intro_depot_station",
+      "options": {
+        "useHostHitbox": false
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint"],
+        "doOnLeave":    ["hideHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" : {
+          "allowAll": false,
+          "allowedIds": ["player_ship"],
+          "allowedTypes": []
+        },
+        "newInteractionId": "intro_depot_station_hint2",
+        "hintData": {
+          "hintText": "Press [G] to dock into this station. This will give you access to the station's interface.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "mousedown",
+                "eventBind": "",
+                "elementSelector": "#station-close-button"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1100,
+            "b": 1100
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint2",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
+        "interactionDelay": 1200,
+        "newInteractionId": "intro_depot_station_hint3",
+        "hintData": {
+          "hintText": "Now that you bought some weapons, it's time to learn how they work.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint3",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint", "createTooltip"],
+        "doOnDestroy":  ["createInteraction", "destroyTooltip"],
+        "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
+        "interactionDelay": 1200,
+        "newInteractionId": "intro_depot_station_hint4",
+        "hintData": {
+          "hintText": "",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "tooltipData": {
+          "type":             "popup",
+          "parentElementId":  "ship-hull-and-weapon-panel",
+          "title":            "Selected weapon",
+          "text":             "At any point, only one weapon can be selected, you can see it here. Scrolling cycles through your weapons.",
+          "attachment" :      "right",
+          "options":          {}
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint4",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "doOnEnter":    ["showHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
+        "interactionDelay": 1200,
+        "newInteractionId": "intro_depot_station_hint5",
+        "hintData": {
+          "hintText": "Fire a weapon by selecting it and clicking somewhere if when it's ready to fire. \n\n Weapons recharge even when they're not selected.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint5",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
+        "interactionDelay": 1200,
+        "newInteractionId": "intro_depot_station_hint6",
+        "hintData": {
+          "hintText": "The most reliable way to select weapons is to use the hotkeys [Digit1] through [Digit4].",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "intro_depot_station_hint6",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": true,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter":    ["showHint"],
+        "doOnDestroy":  [],
+        "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
+        "interactionDelay": 1200,
+        "hintData": {
+          "hintText": "You can practice firing on asteroids here, just make sure you do not target any ships, there are heavy penalties for friendly-fire.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "mousedown",
+                "elementSelector": "#game"
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "beacon_hint",
+      "triggerObjectId": "player_ship",
+      "options": {
+        "useHostHitbox": false,
+        "conditional": true
+      },
+      "interactionData": {
+        "doOnEnter": ["showHint"],
+        "doOnDestroy": ["createMarker"],
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2500,
+        "hintData": {
+          "hintText": "Now it's time to inspect the Ultraport beacon. Follow the marker to get there.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        },
+        "hitbox" : {
+          "type": "box",
+          "filename": null,
+          "definition": {
+            "a": 1100,
+            "b": 1100
+          }
+        }
+      }
+    }
+  ]
+}

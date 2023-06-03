@@ -2,6 +2,8 @@ class Cluster extends GameObject {
   constructor(transform) {
     super(transform)
     this.objects = []
+    this.type = "cluster"
+    this.name = "Cluster"
   }
   add(...objects) {
     this.objects.push(...objects)

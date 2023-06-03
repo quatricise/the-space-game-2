@@ -7,8 +7,10 @@ class Switch {
     this.value === this.modes[0] ? this.value = this.modes[1] : this.value = this.modes[0]
   }
   set(val) {
-    if(val === this.modes[0] || val === this.modes[1]) this.value = val
-    else console.log('invalid value')
+    if(val === this.modes[0] || val === this.modes[1]) 
+      this.value = val
+    else 
+      console.log('invalid value')
   }
   is(val) {
     if(this.value === val) return true

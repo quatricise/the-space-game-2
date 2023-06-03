@@ -5,7 +5,7 @@ class Polygon {
   }
   rotate(rotation) {
     this.vertices.forEach(vertex => {
-      let newPos = vectorRotate(vertex.x , vertex.y, rotation)
+      let newPos = Vector.rotatePlain(vertex, rotation)
       vertex.x = newPos.x
       vertex.y = newPos.y
     })

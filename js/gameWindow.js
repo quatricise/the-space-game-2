@@ -2,30 +2,29 @@ class GameWindow {
   constructor(title, element) {
     this.title = title
     this.element = element
+    this.windowType = "solid"
     this.graphics = new PIXI.Graphics()
+    this.uiComponents = []
     this.active = false
+    this.visible = false
   }
   show() {
+    this.visible = true
     this.element.classList.remove('hidden')
   }
   hide() {
+    this.visible = false
     this.element.classList.add('hidden')
   }
   toggle() {
     this.element.classList.toggle('hidden')
   }
   handleInput(event) {
-    switch(event.type) {
-      case "keydown"      : { this.handleKeydown(event); break}
-      case "keyup"        : { this.handleKeyup(event); break}
-      case "mousedown"    : { this.handleMousedown(event); break}
-      case "mousemove"    : { this.handleMousemove(event); break}
-      case "mouseup"      : { this.handleMouseup(event); break}
-      case "click"        : { this.handleClick(event); break}
-      case "wheel"        : { this.handleWheel(event); break}
-      case "pointerdown"  : { this.handlePointerdown(event); break}
-      case "pointermove"  : { this.handlePointermove(event); break}
-    }
+    this["handle" + event.type.capitalize()](event)
+    this.handleSecondaryInput(event)
+  }
+  handleSecondaryInput(event) {
+
   }
   handleKeydown(event) {
 
@@ -52,6 +51,9 @@ class GameWindow {
 
   }
   handlePointermove(event) {
+
+  }
+  handlePointerup(event) {
 
   }
   update() {

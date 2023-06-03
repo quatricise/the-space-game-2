@@ -1,0 +1,76 @@
+{
+  "type": "polygonHitbox",
+  "color": 16776960,
+  "bodies": [
+    {
+      "vertices": [
+        {
+          "x": -3.5,
+          "y": -97,
+          "type": "vector"
+        },
+        {
+          "x": 33,
+          "y": -57,
+          "type": "vector"
+        },
+        {
+          "x": 32,
+          "y": 58,
+          "type": "vector"
+        },
+        {
+          "x": -5,
+          "y": 95.5,
+          "type": "vector"
+        },
+        {
+          "x": -76,
+          "y": 73,
+          "type": "vector"
+        },
+        {
+          "x": -94,
+          "y": 24,
+          "type": "vector"
+        },
+        {
+          "x": -94,
+          "y": -27,
+          "type": "vector"
+        },
+        {
+          "x": -73,
+          "y": -76,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    },
+    {
+      "vertices": [
+        {
+          "x": 104.5,
+          "y": -9,
+          "type": "vector"
+        },
+        {
+          "x": -2,
+          "y": -38.75,
+          "type": "vector"
+        },
+        {
+          "x": -3.25,
+          "y": 41.25,
+          "type": "vector"
+        },
+        {
+          "x": 103.5,
+          "y": 10,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    }
+  ]
+}

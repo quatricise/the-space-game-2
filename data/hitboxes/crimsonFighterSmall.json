@@ -1,1 +1,1 @@
-{"type":"polygon","color":16776960,"bodies":[{"vertices":[{"x":-24,"y":-26},{"x":28,"y":-37},{"x":28,"y":36},{"x":-24,"y":28}],"color":16776960}],"tested":false}
+{"type":"polygonHitbox","color":16776960,"bodies":[{"vertices":[{"x":-24,"y":-26},{"x":28,"y":-37},{"x":28,"y":36},{"x":-24,"y":28}],"color":16776960}],"tested":false}

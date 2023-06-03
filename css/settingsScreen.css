@@ -1,0 +1,35 @@
+#settings-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--dark-1);
+  background-image: url(/assets/ui/settings/settingsBackground.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.settings-label {
+  position: absolute;
+  left: calc(50% - 200px);
+  top: -36px;
+  background-image: url(/assets/ui/settings/settingsLabel.png);
+  width: 400px;
+  height: 80px;
+}
+
+.settings-background-panel {
+  width: calc(100vw - 100px);
+}
+
+.settings-content {
+  position: relative;
+}
+
+#settings-close-button {
+  position: absolute;
+  top: -27px;
+  right: 155px;
+}

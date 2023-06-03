@@ -2,545 +2,942 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-store"/>
-    <meta http-equiv="expires" content="-1" />
-    <title>the space game 2</title>
+    <meta http-equiv="X-UA-Compatible"  content="IE=edge">
+    <meta name="viewport"               content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control"    content="no-store"/>
+    <meta http-equiv="expires"          content="-1"/>
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon.ico">
-    <link rel="stylesheet" href="css/general.css">
+    
+    <title>Star Liberation</title>
+
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/colors.css">
+    <link rel="stylesheet" href="css/cursor.css">
+    <link rel="stylesheet" href="css/fact.css">
     <link rel="stylesheet" href="css/icons.css">
-    <link rel="stylesheet" href="css/tooltip.css">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/unsorted.css">
+    <link rel="stylesheet" href="css/uiComponents.css">
+    <link rel="stylesheet" href="css/hitboxEditor.css">
     <link rel="stylesheet" href="css/dialogueEditor.css">
     <link rel="stylesheet" href="css/dialogueScreen.css">
     <link rel="stylesheet" href="css/locationEditor.css">
-    <link rel="stylesheet" href="css/npcSearch.css">
-    <link rel="stylesheet" href="css/buyMenu.css">
+    <link rel="stylesheet" href="css/searchPopup.css">
     <link rel="stylesheet" href="css/inventory.css">
-    <link rel="stylesheet" href="css/shipHull.css">
-    <link rel="stylesheet" href="css/fact.css">
-    <link rel="stylesheet" href="css/navbars.css">
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/animation.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/gameOverlays.css">
+    <link rel="stylesheet" href="css/startScreen.css">
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/saveSelectScreen.css">
+    <link rel="stylesheet" href="css/settingsScreen.css">
+    <link rel="stylesheet" href="css/gameoverScreen.css">
+    <link rel="stylesheet" href="css/loadingScreen.css">
+    <link rel="stylesheet" href="css/pauseScreen.css">
+    <link rel="stylesheet" href="css/receivedItemModal.css">
+    <link rel="stylesheet" href="css/cutscene.css">
+    <link rel="stylesheet" href="css/questDesigner.css">
 </head>
 <body>
-  <main>
-    <div id="mouse-tooltip" class="hidden"></div>
-    <div id="ship-tooltip" class="hidden"></div>
-    <div id="hints-container" class="full-screen-container"></div>
-    <div id="map-ui-container" class="full-screen-container hidden">
-      <div class="icon-close-container">
-        <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-      </div>
-      <div id="map-toolset" class="toolset"></div>
-    </div>
-    <div id="ship-view" class="full-screen-container hidden">
-      <div class="ship-view-grid">
-        <div class="ship-view-left">
-          <div class="header">
-            <h2>SHIP SYSTEMS</h2>
-          </div>
-          <div class="ship-stats-container">
-            <div class="ship-stat">
-              <div class="ship-stat-title">Reactor</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 25%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Shields</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 50%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Hull</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 40%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Stealth</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 36%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Weapons</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 15%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Boosters</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 90%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Engine</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 80%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Brakes</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 70%;"></div>
-              </div>
-            </div>
-            <div class="ship-stat">
-              <div class="ship-stat-title">Cargo</div>
-              <div class="ship-stat-filler"></div>
-              <div class="ship-stat-bar tooltip" data-tooltip="Current state of affairs." data-delay="0">
-                <div class="ship-stat-bar-fill"  style="width: 26%;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="ship-system-info-container">
-            <div class="ship-system-info">
-              <div class="header">
-                <h3>Shields</h3>
-              </div>
-              <div class="system-thumbnail">
-                <img src="assets/shipSystem/system_icon_shields.png" alt="">
-              </div>
-            </div>
-          </div>
-        </div>
+<img class="large-paper-texture" src="assets/paper_texture.jpg" alt="">
+<main>
 
-        <div class="ship-view-model" id="ship-view-model">
-          <!-- here load ship svg using js -->
-        </div>
-          <div class="ship-view-right">
-            <div class="header">
-              <h2>CARGO</h2>
-            </div>
-            <div id="ship-cargo">
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-            </div>
-            <div class="header">
-              <h2>WEAPONS</h2>
-            </div>
-            <div id="ship-weapons">
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-              <div class="inventory-item-wrapper">
-                <div class="inventory-item"></div>
-              </div>
-            </div>
-          </div>
-          <div class="icon-close-container">
-            <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-          </div>
+  <div id="start-screen" class="full-screen-container hidden">
+    <div id="start-screen-overlay-picture"></div>
+    <div class="game-logo">
+      <img src="assets/ui/startMenu/logo.png" alt="">
+    </div>
+    <div class="buttons">
+      <div id="start-button"     class="main-menu-button ui-graphic" onclick="gameManager.setWindow(saveSelectScreen)"  data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+        <img style="opacity: 0;" src="assets/ui/startMenu/startButton.png" alt="">
+        <div class="start-button-text">START</div>
+      </div>
+      <div id="options-button" class="main-menu-button ui-graphic" onclick="gameManager.setWindow(settingsScreen)"    data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+        <img style="opacity: 0;" src="assets/ui/startMenu/optionsButton.png" alt="">
+        <div class="start-button-text">SETTINGS</div>
+      </div>
+      <div id="credits-button" class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.setWindow(startScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" data-tooltip="me" data-tooltipattachment="left">
+        <img style="opacity: 0;" src="assets/ui/startMenu/creditsButton.png" alt="">
+        <div class="start-button-text">CREDITS</div>
       </div>
     </div>
-    <div id="everything" class="full-screen-container">
-      <div class="game-overlay-tools">
-        <div class="transport-panel">
-          <div class="play-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('play')"></div>
-          <div class="pause-icon transport-icon icon-32 dev-icon" onclick="game.mode.set('edit')"></div>
-        </div>
-        <div class="hitbox-editor-icon editor-icon dev-icon tooltip" data-tooltip="Hitbox Editor" data-delay="0" onclick="program.windows.set(hitboxEditor)"></div>
-        <div class="dialogue-editor-icon editor-icon dev-icon tooltip" data-tooltip="Dialogue Editor" data-delay="0" onclick="program.windows.set(dialogue_editor)"></div>
-        <div class="location-editor-icon editor-icon dev-icon tooltip" data-tooltip="Location Editor" data-delay="0" onclick="program.windows.set(location_editor)"></div>
-        <div class="buy-menu-icon editor-icon dev-icon tooltip" data-tooltip="Buy menu" data-delay="0" onclick="program.windows.set(buy_menu)"></div>
-        <div class="dialogue-screen-icon editor-icon dev-icon tooltip" data-tooltip="Dialogue screen" data-delay="0" onclick="program.windows.set(dialogue_screen)"></div>
-        <div class="inventory-icon game-menu-icon tooltip" data-tooltip="Personal inventory" data-delay="0" onclick="program.windows.set(inventory)"></div>
-        <div class="ship-view-icon game-menu-icon tooltip" data-tooltip="Ship overview" data-delay="0" onclick="program.windows.set(ship_view)"></div>
-        <div class="world-map-icon game-menu-icon tooltip" data-tooltip="Map of the galaxy" data-delay="0" onclick="program.windows.set(map)"></div>
-        <div class="local-map-icon game-menu-icon tooltip" data-tooltip="Map of current location" data-delay="0" onclick="program.windows.set(local_map)"></div>
-      </div>
-      <div class="game-stats">
-        <div>Collision: <span id="collision-count"></span></div>
-        <div>Zoom: <span id="zoom-level"></span></div>
-        <div>State: <span id="game-state-view"></span></div>
-        <div>Ship reactor: <span id="ship-reactor-view"></span></div>
-        <div>Currency: <span id="currency-view"></span></div>
-        <div>Stage offset: <span id="stage-offset"></span></div>
-        <div>Game FPS: <span id="fps"></span></div>
-      </div>
-      <div id="game-ui" class="full-screen-container">
-        <div id="ship-hull" class="tooltip" data-tooltip="Current hull points" data-delay="1">
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-          <div class="ship-hull-point"></div>
-        </div>
-        <div class="equipped-weapons-wrapper">
-          <div class="equipped-weapon selected tooltip" data-tooltip="Selected weapon" data-delay="1">
-            <img class="weapon-thumbnail" src="assets/weapons/blackhole.png" alt="">
-          </div>
-          <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/fireball.png" alt="">
-          </div>
-          <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/missileHelios.png" alt="">
-          </div>
-          <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/plasmaCannonI.png" alt="">
-          </div>
-          <div class="equipped-weapon">
-            <img class="weapon-thumbnail" src="assets/weapons/plasmaCannonII.png" alt="">
-          </div>
-        </div>
-      </div>
-      <div id="buy-menu" class="full-screen-container">
-        <div class="buy-menu-container">
-          <div class="header">
-            <div class="currency-container tooltip" 
-                data-tooltip=
-                "The official currency controlled by the Crown. 
-                Not everyone accepts it. Those who don't often face harsh consequences."
-            >
-              <img src="assets/currency.png" alt=""  class="currency">
-              <span>512</span>
-            </div>
-            <div class="title"><h2>BUY / SELL</h2></div>
-            <div class="icon-close buy-menu-icon-close" onclick="program.windows.close()"></div>
-          </div>
-          <div class="buy-menu-menu">
-            <div class="buy-menu-left">
-              <div class="buy-menu-portrait-container">
-                <div class="portrait-and-ship">
-                  <div class="portrait buy-menu-portrait">
-                    <img src="assets/portraits/adaEvil.png" alt="" class="src">
-                  </div>
-                </div>
-              </div>
-              <div class="buy-menu-actor-name">Merchy McSales</div>
-              <div class="buy-inventory-grid" data-drop="inventory-item" data-drop-target="true">
-                <!-- filled by javascript -->
-              </div>
-            </div>
-            <div class="buy-menu-right">
-              <div class="buy-menu-portrait-container">
-                <div class="portrait-and-ship">
-                  <div class="portrait buy-menu-portrait">
-                    <img src="assets/portraits/deborah.png" alt="" class="src">
-                  </div>
-                  <div class="buy-menu-ship-icon tooltip-ship" data-name="theGrandMoth" data-delay="0">
-                    <img src="assets/icons/iconShipOutline.png" alt="">
-                  </div>
-                </div>
-              </div>
-              <div class="buy-menu-actor-name">Ada</div>
-              <div class="buy-inventory-grid" data-drop="inventory-item" data-drop-target="true">
+  </div>
 
-              </div>
-            </div>
+  <div id="save-select-screen" class="full-screen-container hidden">
+    <div class="save-select-screen-main-panel">
+      <img src="assets/ui/saveSelectScreenBackgroundPanel.png" alt="">
+      <div class="save-screen-top-bar">
+        <img src="assets/ui/saveSelectScreenLabel.png" style="width: 480px; " alt="">
+      </div>
+      <div class="save-cards">
+        <div class="save-card" onclick="gameManager.loadStartingLocation()" data-playsfx="" data-sounds="cardShimmer buttonClick" data-playonevents="mouseover mousedown">
+          <img class="save-card-cover-image" src="assets/locationThumbnails/crownCapital.png">
+          <img src="assets/ui/saveCardBack.png" alt="" class="save-card-graphic back">
+          <div alt="" class="save-card-graphic front"></div>
+          <div class="save-card-text">
+            <div class="save-card-title">Save 1</div>
+            <div class="save-card-info">Time played: 10h</div>
+            <div class="save-card-achievements">Achievements: 39 / 69</div>
           </div>
+        </div>
+        <div class="save-card empty" onclick="gameManager.newGame()" data-playsfx="" data-sounds="cardShimmer buttonClick" data-playonevents="mouseover mousedown">
+          <img src="assets/ui/saveCardBackNewSave.png" alt="" class="save-card-graphic back">
+          <div alt="" class="save-card-graphic front-new-save"></div>
         </div>
       </div>
-      <div id="game"></div>
-      <div id="player-inventory" class="full-screen-container">
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-        </div>
-        <div class="inventory-cont">
-          <header class="inventory-header">
-            <h2>INVENTORY</h2>
-          </header>
-          <div id="player-inventory-grid" class="inventory-grid"></div>
-        </div>
-      </div>
-      <div id="dialogue-screen" class="full-screen-container">
-        <div id="fact-switcher" class="draggable">
-          <div class="header">
-            <h3 style="flex-grow: 1;">Fact switcher</h3>
-            <div class="icon-32 drag-widget" style="justify-self: flex-end;"></div>
-          </div>
-          <div class="fact-switcher-options">
-            <div class="fact-list-label">
-              <span class="tooltip" data-tooltip="Facts that are used throughout this dialogue" data-delay="0">Applicable: </span>
-            </div>
-            <div class="icon-medium icon-restart-conversation tooltip" data-tooltip="Restart conversation."></div>
-            <div class="icon-medium icon-reset-facts tooltip" data-tooltip="Reset facts."></div>
-          </div>
-          <div class="fact-list">
-          </div>
-        </div>
-        <div class="dialogue-container">
-          <div class="header">
-            <div class="title">Private COMM channel</div>
-            <div class="controls">
-              <div onclick="program.windows.close()" id="button-end-transmission" class="icon-16 tooltip" data-delay="1"data-tooltip="End transmission"></div>
-            </div>
-          </div>
-          <div class="dialogue">
-            <div class="dialogue-block">
-              <div class="speaker-left"></div>
-              <div class="chat-bubble">
-                So I'd like to welcome you into the clan, dear captain. 
-                Is there anything you wanna ask me before your... rite of passage?
-              </div>
-              <div class="portrait portrait-right">
-                <img src="assets/portraits/deborah.png" alt="">
-              </div>
-            </div>
-          </div>
-          <div id="dialogue-options" class="dialogue-options">
-            <div class="option">When do we start?</div>
-            <div class="option">I'm a bit scared, it won't hurt, will it?</div>
-            <div class="option">No, actually. I'm all good.</div>
-          </div>
-        </div>
-      </div>
-      <div id="location-editor" class="full-screen-container hidden">
-        <div id="location-editor-navbar">
-          <div id="location-editor-name">Fuck</div>
-        </div>
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-          <div class="icon-import" title="Import location"></div>
-          <div class="icon-export" title="Export location"></div>
-        </div>
-        <div id="location-editor-context-window" class="draggable">
-          <div class="header">
-            <h4 data-tooltip="Selected object" class="tooltip" data-delay="250">Properties</h4>
-            <div class="filler"></div>
-            <div class="icon-32 drag-widget"></div>
-            <div class="icon-close" onclick="location_editor.context_window_close()"></div>
-          </div>
-          <div class="context-window-content">
-            <div class="thumbnail-container"></div>
-            <div class="object-properties"></div>
-          </div>
-        </div>
-        <div id="location-editor-toolset" class="toolset">
-          <div class="selected-object-cont" id="location-editor-selected-object">
-          </div>
-        </div>
-        
-        <div class="search-dropdown-window hidden">
-          <div class="dropdown-search-bar">
-            <input type="text" name="" id="dropdown-search-bar-input">
-            <div class="dropdown-list"></div>
-          </div>
-        </div>
-        <div class="special-dropdown-window hidden">
-          <div class="dropdown-search-bar">
-            <div class="dropdown-list"></div>
-          </div>
-        </div>
-      </div>
-      <div id="local-map" class="full-screen-container hidden">
-        <div class="header">
-          <h2>LOCAL SYSTEM MAP</h2>
-        </div>
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-        </div>
+      <button id="back-to-start" class="ui-button-minimal-alt-filled" onclick="gameManager.setWindow(startScreen);" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+        BACK TO START
+      </button>
+    </div>
+  </div>
 
+  <div id="settings-screen" class="hidden">
+    <div class="settings-content">
+      <img src="assets/ui/settings/settingsBackgroundPanel.png" class="settings-background-panel">
+      <div class="settings-label ui-graphic"></div>
+      <div id="settings-close-button" class="close-button-angled" onclick="gameManager.closeWindow()"></div>
+    </div>
+  </div>
+
+  <div id="gameover-screen" class="hidden">
+    <div id="gameover-screen-content" class="gameover-background-panel">
+      <div class="gameover-screen-title">YOU DIED</div>
+      <img class="gameover-background-panel-image" src="assets/ui/gameoverScreenBackgroundPanel.png" alt="">
+      <div class="gameover-quote"></div>
+      <div class="gameover-button-container">
+        <div id="gameover-button-reload-from-checkpoint"  class="ui-graphic ui-button-minimal-alt-filled active-color       gameover-button" onclick="location.reload()">TRY AGAIN [ENTER]</div>
+        <div id="gameover-button-return-to-start"         class="ui-graphic ui-button-minimal-alt-filled interactable-color gameover-button" onclick="gameManager.setWindow(startScreen)">RETURN TO START</div>
       </div>
-      <div id="dialogue-editor" class="dialogue-editor">
-        <div class="dialogue-editor-navbar">
-          <div class="dialogue-name">Dialogue name</div>
-        </div>
-        <div class="editor-label" title="" onclick="">Dialogue editor</div>
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
-        </div>
+    </div>
+  </div>
+
+  <div id="pause-screen" class="hidden">
+    <div id="pause-screen-content">
+      <img src="assets/ui/pauseScreenHeader.png" id="pause-screen-header">
+      <img src="assets/ui/pauseScreenBackgroundPanel.png" class="pause-screen-background-panel" alt="">
+      <div class="pause-screen-bottom-buttons">
+        <button class="pause-option ui-button-minimal-alt-filled" onclick="gameManager.togglePause()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+          RESUME
+        </button>
+        <button class="pause-option ui-button-minimal-alt-filled" onclick="gameManager.saveAndQuit()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+          SAVE AND QUIT
+        </button>
+        <button class="pause-option ui-button-minimal-alt-filled" onclick="gameManager.setWindow(settingsScreen)"     data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+          SETTINGS
+        </button>
       </div>
-      <div id="hitbox-editor" class="hitbox-editor full-screen-container">
-        <div class="search-bar hidden" id="hitbox-editor-search-bar">
-          <div class="search-icon"></div>
-          <input title="Search for editable object" type="text" name="" id="hitbox-editor-search-input">
-        </div>
-        <div id="hitbox-editor-toolset" class="toolset"></div>
-        <div class="icon-close-container">
-          <div class="icon-close" title="Close" onclick="program.windows.close()"></div>
+      <div id="pause-screen-achievements-panel">
+        <img class="pause-screen-achievements-image" src="assets/ui/achievementsPanel.png" alt="">
+      </div>
+      <div id="pause-screen-volume-sliders-panel">
+        <img class="pause-screen-volume-slider-background-image" src="assets/ui/volumeSlidersPanel.png" alt="">
+        <div class="pause-sliders">
+          <div class="pause-option-block sfx">
+            <div class="pause-option-block-title">
+              SFX&nbsp;volume
+            </div>
+            <div id="pause-screen-slider-container-sfx"></div>
+          </div>
+          <div class="pause-option-block music" >
+            <div class="pause-option-block-title">
+              Music&nbsp;volume
+            </div>
+            <div id="pause-screen-slider-container-music"></div>
+          </div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
 
-  <script src="js/dependencies/svg-loader.min.js" async></script>
-  <script src="js/dependencies/lodash.js"></script> <!-- 4.17.15 -->
-  <script src="js/dependencies/pixi.js"></script> <!-- 6.3.0 -->
-  <script src="js/dependencies/pixi-filters.js"></script> <!-- v4.1.6 -->
-  <script src="js/dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
+  <div id="loading-screen" class="hidden">
+    <img id="loading-screen-background" src="assets/loadingScreen/kaeso.png">
+    <div id="loading-screen-panel" class="ui-graphic"></div>
+  </div>
 
-  <!-- utility -->
-  <script src="js/utility/constants.js"></script>
-  <script src="js/utility/htmlMethods.js"></script>
-  <script src="js/utility/vector.js"></script>
-  <script src="js/utility/ease.js"></script>
-  <script src="js/utility/debug.js"></script>
-  <script src="js/utility/colors.js"></script>
-  <script src="js/utility/visible.js"></script>
-  <script src="js/utility/json.js"></script>
-  <script src="js/utility/utility.js"></script>
-  <script src="js/utility/state.js"></script>
-  <script src="js/utility/switch.js"></script>
-  <script src="js/utility/timer.js"></script>
-  <script src="js/gameStats.js"></script>
-  <script src="js/gameWindow.js"></script>
-  <script src="js/utility/tooltip.js"></script>
-  <script src="js/gameWorldWindow.js"></script>
+  <div id="credit-screen" class="hidden">
+    
+  </div>
 
-  <!-- data -->
-  <script src="js/data/sources.js"></script>
-  <script src="js/data/data.js"></script>
-  <script src="js/data/dataPathfinding.js"></script>
-  <script src="js/data/dataGlobal.js"></script>
-  <script src="js/data/dataObjectToLayerMap.js"></script>
-  <script src="js/data/dataPerson.js"></script>
-  <script src="js/data/dataAbility.js"></script>
-  <script src="js/data/dataTitle.js"></script>
-  <script src="js/data/dataWeapon.js"></script>
-  <script src="js/data/dataShip.js"></script>
-  <script src="js/data/dataAsteroid.js"></script>
-  <script src="js/data/dataDebris.js"></script>
-  <script src="js/data/dataStation.js"></script>
-  <script src="js/data/dataFaction.js"></script>
-  <script src="js/data/dataLocation.js"></script>
-  <script src="js/data/dataProjectile.js"></script>
-  <script src="js/data/dataShieldTypes.js"></script>
-  <script src="js/data/dataQuest.js"></script>
-  <script src="js/data/dataBg.js"></script>
-  
-  <!-- state machine -->
-  <script src="js/stateMachine/stateMachine.js"></script>
-  <script src="js/stateMachine/stateObject.js"></script>
+  <div id="world-map" class="full-screen-container hidden">
+    <div class="close-button-angled" id="world-map-close-button" onclick="gameManager.closeWindow()"></div>
+    <div id="map-toolset" class="toolset"></div>
+    <div id="map-crop-shape">
+      <div class="map-crop-shape-fill top-left"></div>
+      <div class="map-crop-shape-fill top-right"></div>
+      <div class="map-crop-shape-fill bottom-left"></div>
+      <div class="map-crop-shape-fill bottom-right"></div>
+    </div>
+    <div id="map-window-label" class="ui-graphic"></div>
+    <div id="ultraport-info"    class="ui-graphic tooltip-popup" data-tooltip="You can travel normally." data-tooltipdescription="Click on any solar system on the map to see it in detail. You can travel to individual planets within that system.." data-tooltipattachment="bottom" data-setmaxwidthtotriggerelement="true"></div>
+    <div id="ultraport-warning" class="ui-graphic tooltip-popup hidden" data-tooltip="You cannot travel right now." data-tooltipdescription="Your ship is in a combat situation and the ultraport connectivity is disrupted. It takes 10 seconds to calibrate your ship’s navigation to connect to the destination beacon. Any change in course will extend the time needed." data-tooltipattachment="bottom" data-setmaxwidthtotriggerelement="true"></div>
+    <div id="map-legend-button">
+      <div id="map-legend-panel">
+        <img src="assets/ui/map/mapLegendPanel.png" alt="">
+      </div>
+    </div>
+    <div id="quest-selector-button">
+      <div id="quest-selector-panel">
+        <img src="assets/ui/map/questSelectorPanel.png" alt="">
+        <img src="assets/ui/map/questSelectorLabel.png" alt="" id="quest-selector-label">
+        <div id="quest-selector-list">
+          <div class="quest-selector-quest-row">The Lost Bob</div>
+          <div class="quest-selector-quest-row">The Lost Blob</div>
+          <div class="quest-selector-quest-row">The Lost Bobob</div>
+          <div class="quest-selector-quest-row">The Lost Beb</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- interaction -->
-  <script src="js/interaction/collision.js"></script>
-  <script src="js/interaction/interactionEvent.js"></script>
-  <script src="js/interaction/collisionEvent.js"></script>
-  <script src="js/interaction/interactionManager.js"></script>
-  <script src="js/interaction/collisionDetector.js"></script>
-  <script src="js/interaction/collisionSolver.js"></script>
-  <script src="js/interaction/polygonBuilder.js"></script>
-  <script src="js/interaction/polygon.js"></script>
-  
-  <!-- components -->
-  <script src="js/components/component.js"></script>
-  <script src="js/components/transform.js"></script>
-  <script src="js/components/sprite.js"></script>
-  <script src="js/components/hitbox.js"></script>
-  <script src="js/components/rigidbody.js"></script>
-  <script src="js/components/controller.js"></script>
-  <script src="js/components/wreck.js"></script>
-  
-  <!-- ship systems -->
-  <script src="js/components/shipSystems/shipSystem.js"></script>
-  <script src="js/components/shipSystems/engineSystem.js"></script>
-  <script src="js/components/shipSystems/weaponSystem.js"></script>
+  <div id="star-system-detail" class="full-screen-container hidden">
+    <div id="star-system-detail-content">
+      <div id="star-system-main-panel">
+        <div id="star-system-detail-close-button" class="ui-graphic" onclick="gameManager.closeWindow()"></div>
+        <div id="star-system-background-panel">
+          <div class="star-system-panel-graphic top-left"></div>
+          <div class="star-system-panel-graphic top-center"></div>
+          <div class="star-system-panel-graphic top-right"></div>
+          <div class="star-system-panel-graphic bottom-left"></div>
+          <div class="star-system-panel-graphic bottom-center"></div>
+          <div class="star-system-panel-graphic bottom-right"></div>
+        </div>
+        <div id="star-system-header" class="tooltip-popup" data-tooltip="Name of the selected solar system" data-tooltipdescription="Planets are listed below." data-tooltipattachment="top" data-attachmentoffset="({left: 0, bottom: 28})">
+          <div id="star-system-header-icon"></div>
+          <div id="star-system-title"></div>
+        </div>
+        <div id="star-system-planet-list">
+          <img src="assets/ui/map/planetList.png" alt="">
+        </div>
+        <div id="star-system-location-detail-panel">
+          <img src="assets/ui/map/locationDetailPanel.png" alt="" id="star-system-location-detail-image">
+          <div id="star-system-planet-info">
+            <div id="star-system-location-title">
+              <div id="star-system-location-title-icon"></div>
+              <div id="star-system-location-title-text">Planet name</div>
+            </div>
+            <div id="star-system-location-description">Description of the planet</div>
+          </div>
+          <div id="location-detail-travel-button" onclick="gameManager.loadLocation('mantu')">
+            <img src="assets/item/empty.png" alt="" draggable="false" id="travel-button-fill-image">
+          </div>
+          <div id="location-detail-thumbnail">
+            <img src="assets/ui/map/locationThumbnailFrame.png" alt="" draggable="false" id="location-detail-frame">
+            <img src="" alt="" draggable="false" id="location-detail-planet-image">
+          </div>
+          <div id="location-detail-quest-list">
+            <img src="assets/ui/map/locationQuestList.png" alt="">
+          </div>
+        </div>
+        <div id="star-system-graphic-model">
+          <img src="assets/ui/map/sun.png"    draggable="false" alt="" class="star-system-star">
+          <img src="assets/ui/map/orbit6.png" draggable="false" alt="" class="star-system-orbit">
+          <img src="assets/ui/map/orbit5.png" draggable="false" alt="" class="star-system-orbit">
+          <img src="assets/ui/map/orbit4.png" draggable="false" alt="" class="star-system-orbit">
+          <img src="assets/ui/map/orbit3.png" draggable="false" alt="" class="star-system-orbit">
+          <img src="assets/ui/map/orbit2.png" draggable="false" alt="" class="star-system-orbit">
+          <img src="assets/ui/map/orbit1.png" draggable="false" alt="" class="star-system-orbit">
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- game objects -->
-  <script src="js/gameObjects/gameObject.js"></script>
-  <script src="js/gameObjects/rigid.js"></script>
-  <script src="js/gameObjects/interactable.js"></script>
-  <script src="js/gameObjects/projectile.js"></script>
-  <script src="js/gameObjects/ship.js"></script>
-  <script src="js/gameObjects/bgObject.js"></script>
-  <script src="js/gameObjects/asteroid.js"></script>
-  <script src="js/gameObjects/debris.js"></script>
-  <script src="js/gameObjects/cluster.js"></script>
-  <script src="js/gameObjects/specialObjects.js"></script>
-  <script src="js/gameObjects/camera.js"></script>
+  <div id="received-item-modal" class="full-screen-container hidden">
+    <div class="modal-container ui-button-minimal-alt-filled">
+      <h2>You received items</h2>
+      <div class="item-container">
+        <div class="item-thumbnail">
+          <img src="assets/weapon/blackhole.png" alt="">
+        </div>
+        <div class="item-thumbnail">
+          <img src="assets/weapon/fireball.png" alt="">
+        </div>
+        <div class="item-thumbnail">
+          <img src="assets/weapon/missileHelios.png" alt="">
+        </div>
+      </div>
+      <button id="received-item-modal-close-button" class="ui-button-minimal-alt-filled active-color" onclick="gameManager.closeWindow()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+        I CONCUR
+      </button>
+    </div>
+  </div>
 
-  <!-- location -->
-  <script src="js/location/location.js"></script>
-  <script src="js/location/locationEditor.js"></script>
-  <!-- map -->
-  <script src="js/map/localMap.js"></script>
-  <script src="js/map/map.js"></script>
-  <script src="js/map/mapIcon.js"></script>
-  <script src="js/map/mapImage.js"></script>
+  <div id="cutscene-window" class="full-screen-container hidden">
+    <!-- cutscene images go directly here -->
+    <div class="cutscene-hint hidden">
+      <img class="cutscene-skip-options full" src="assets/ui/cutsceneSkipOptionsFull.png" alt="">
+      <img class="cutscene-skip-options mouse" src="assets/ui/cutsceneSkipOptionsMouse.png" alt="">
+    </div>
+  </div>
 
-  <!-- dialogue -->
-  <script src="js/dialogue/dialogueScreen.js"></script>
-  <script src="js/dialogue/dialogueNode.js"></script>
-  <script src="js/dialogue/dialogueEditor.js"></script>
-  <script src="js/dialogue/factManager.js"></script>
-  <script src="js/dialogue/facts.js"></script>
+  <div id="game-ui" class="hidden">
+    <div id="red-overlay"></div>
+    <div id="quest-panel" style="filter: opacity(0);">
+      <div id="quest-panel-new-quest-started">NEW QUEST STARTED</div>
+      <div id="quest-panel-quest-name"></div>
+      <img src="assets/ui/newQuestStarted.png" alt="">
+    </div>
+    <div id="thank-you-panel" class="hidden">
+      <div id="thank-you-panel-contents">
+        <img src="assets/ui/thankYouPanel.png" alt="">
+        <div id="thank-you-panel-buttons">
+          <div id="back-to-the-game-button" class="ui-button-minimal-alt-filled" onclick="Q('#thank-you-panel').classList.add('hidden')">BACK TO THE GAME</div>
+          <div id="show-credits-button" class="ui-button-minimal-alt-filled" onclick="alert('Your social credits have expired, go to jail 🇨🇳')">CREDITS</div>
+        </div>
+      </div>
+    </div>
+    <div id="local-map" class="hidden">
+      <div id="local-map-background-panel">
+        <div id="local-map-label" class="ui-graphic"></div>
+        <div class="close-button-angled" id="local-map-close-button" onclick="game.toggleLocalMap()"></div>
+        <img src="assets/ui/localMapBackgroundPanel.png" alt="">
+      </div>
+    </div>
+    <div id="ui-left-side-panel" class="left-side-panel hidden">
+      <div id="brakes-off-warning" class="hidden">
+        <img src="assets/ui/brakesOffWarning.png" alt="">
+      </div>
+      <div id="ship-graphic" class="ship-graphic">
+        <div class="weapon-slot weapon-slot-1"></div>
+        <div class="weapon-slot weapon-slot-2"></div>
+        <div class="weapon-slot weapon-slot-3"></div>
+        <div id="ship-skip-charge-icon"></div>
+      </div>
+      <div id="ship-hull-and-weapon-panel" class="ship-hull-and-weapon-panel tooltip-popup" data-tooltip="Ship health" data-tooltipattachment="right" data-tooltipdescription="Cannot be repaired mid-battle." data-setmaxheighttotriggerelement="true">
+        <div id="ui-weapon-component-parent"></div>
+        <div id="ship-hull-wrapper"></div>
+      </div>
+    </div>
+    <div id="ui-right-side-panel" class="right-side-panel hidden">
+      <div class="location-info">
+        <div class="location-info-row">
+          <div>Kalatus I</div>
+          <div class="icon-20w star-system-icon"></div>
+        </div>
+        <div class="location-info-row">
+          <div>Kaeso</div>
+          <div class="icon-20w planet-icon"></div>
+        </div>
+      </div>
+      <div id="minimap" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" onclick="game.toggleLocalMap()">
+        <div class="ui-graphic minimap-overlay-texture tooltip-popup" data-tooltipattachment="left" data-tooltip="Minimap" data-delay="250" data-tooltipdescription="Scroll to adjust zoom level. &#10; Click to enlarge." data-setmaxheighttotriggerelement="true"></div>
+      </div>
+      <div id="right-side-navigation-buttons" class="ui-button-minimal-filled">
+        <div class="inventory-button tooltip-popup"   
+        data-tooltipattachment="left" data-tooltip="Inventory&nbsp;[I]"  data-setmaxheighttotriggerelement="false" data-parentelementid="right-side-navigation-buttons"
+        data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"
+        onclick="gameManager.setWindow(inventory)"
+        ></div>
+        <div class="map-button tooltip-popup"         
+        data-tooltipattachment="left" data-tooltip="Galaxy&nbsp;map&nbsp;[M]" data-setmaxheighttotriggerelement="false" data-parentelementid="right-side-navigation-buttons"
+        data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"
+        onclick="gameManager.setWindow(map)"
+        ></div>
+        <div class="pause-button tooltip-popup"       
+        data-tooltipattachment="left" data-tooltip="Pause&nbsp;game&nbsp;[P]" data-setmaxheighttotriggerelement="false" data-parentelementid="right-side-navigation-buttons"
+        data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"
+        onclick="gameManager.pauseGame()"
+        ></div>
+      </div>
+    </div>
+    <div id="interaction-container">
+      <div id="audio-call-panel" class="ui-graphic audio-call-popup hidden" data-playsfx="" data-sounds="buttonNoAction" data-playonevents="mouseover" data-volumes="0.15">
+        <div class="audio-call-heading">Call heading.</div>
+        <div class="audio-call-message">Call message</div>
+        <img class="caller-portrait"></img>
+        <div class="audio-call-buttons">
+          <div id="accept-call-button" class="audio-call-button call-option accept"   data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" onmousedown="AudioManager.stopLoopedAudio('SFX', 'tightbeamCall')">
+            ACCEPT
+          </div>
+          <div id="decline-call-button" class="audio-call-button call-option decline"  data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" onmousedown="AudioManager.stopLoopedAudio('SFX', 'tightbeamCall')" onclick="gameUI.closeAudioCallPanel()" data-tooltip="Please don't click this" data-tooltipdescription="It breaks the game..." data-tooltipattachment="top">
+            DECLINE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="game-stats" class="game-stats hidden">
+      <div>Collision:     <span id="collision-count"></span></div>
+      <div>Zoom:          <span id="zoom-level"></span></div>
+      <div>State:         <span id="game-state-view"></span></div>
+      <div>Ship reactor:  <span id="ship-reactor-view"></span></div>
+      <div>Currency:      <span id="currency-view"></span></div>
+      <div>Stage offset:  <span id="stage-offset"></span></div>
+      <div>Game FPS:      <span id="fps"></span></div>
+    </div>
+    <div class="game-overlay-tools2" id="dev-icon-container">
+      <div class="location-editor-icon  editor-icon dev-icon tooltip-popup" data-tooltip="Location&nbsp;Editor" data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(locationEditor)"></div>
+      <div class="hitbox-editor-icon    editor-icon dev-icon tooltip-popup" data-tooltip="Hitbox&nbsp;Editor"   data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(hitboxEditor)"></div>
+      <div class="dialogue-editor-icon  editor-icon dev-icon tooltip-popup" data-tooltip="Dialogue&nbsp;Editor" data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(dialogueEditor)"></div>
+      <div class="quest-designer-icon   editor-icon dev-icon tooltip-popup" data-tooltip="Quest&nbsp;Designer"  data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(questDesigner)"></div>
+      <div class="dialogue-screen-icon  editor-icon dev-icon tooltip-popup" data-tooltip="Dialogue&nbsp;Screen" data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(dialogueScreen)"></div>
+      <div class="cutscene-window-icon  editor-icon dev-icon tooltip-popup" data-tooltip="Cutscene&nbsp;Window" data-tooltipattachment="bottom" data-parentelementid="dev-icon-container" data-setmaxwidthtotriggerelement="true" data-delay="200" onclick="gameManager.setWindow(cutsceneWindow)"></div>
+    </div>
+  </div>
 
-  <!-- overlays -->
-  <script src="js/overlays/hint.js"></script>
+  <div id="inventory-window" class="full-screen-container hidden">
+    <img class="station-window-background-drawings" src="assets/ui/stationWindowBackgroundDrawingsFill.png" alt="">
+    <img class="station-window-background-drawings" src="assets/ui/stationWindowBackgroundDrawings.png" alt="">
+    <div id="station-window-content">
+      <div class="switch-icons inventory-switch-icons">
+        <div id="inventory-switch-inventory"  data-tab="inventory" onclick="inventory.viewInventoryTab(this.dataset.tab)" class="ui-graphic station-switch-icon inventory active"                                                                                                   data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"></div>
+        <div id="inventory-switch-quest"      data-tab="quest"     onclick="inventory.viewInventoryTab(this.dataset.tab)" class="ui-graphic station-switch-icon quest"                                                                                                              data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"></div>
+        <div id="inventory-switch-station"    data-tab="station"   onclick="inventory.viewInventoryTab(this.dataset.tab)" class="ui-graphic station-switch-icon station" data-tooltip="Unavailable" data-tooltipdescription="Dock into a station to gain access to its interface."  data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"></div>
+      </div>
+      <div class="station-window-label station    ui-graphic"></div>
+      <div class="station-window-label inventory  ui-graphic"></div>
+      <div class="station-window-label quest      ui-graphic"></div>
+      <div id="station-currency-container" class="ui-graphic tooltip-popup" data-tooltip="Your bank balance" data-tooltipdescription="The galaxy uses Crown's official currency called 'The Crown'." data-tooltipattachment="bottom">
+        0
+      </div>
+      <div id="station-close-button" class="close-button-angled" onclick="gameManager.closeWindow()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown"></div>
+      <div id="inventory-inventory-tab" class="hidden" data-tab="inventory">
+        <div class="inventory-sell-item-button ui-graphic" data-drop="inventory-item" data-ondrop="sell"></div>
+        <div class="inventory-window-inventory-part">
+          <div class="inventory-grid-filters-background-panel">
+            <img src="assets/ui/inventoryGridFiltersBackgroundPanel.png" alt="">
+          </div>
+          <div id="player-inventory-grid" class="inventory-row-items column-6" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="30">
+            <div class="inventory-item empty tooltip" data-draggable="true" data-tooltiptype="item" data-itemname="datadrive">
+              <img src="assets/item/datadrive.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+            <div class="inventory-item empty">
+              <img src="assets/item/emptySmall.png" alt="">
+            </div>
+          </div>
+        </div>
+        <div class="inventory-window-ship-part">
+          <div class="ship-weapon-slot-wrapper first">
+            <div class="keyboard-bind-button tooltip" data-tooltip="Click to set a keyboard bind" data-tooltipdescription="This key will select the weapon, not fire." data-delay="400" data-bind="selectWeapon0" data-key="Digit1">Digit1</div>
+            <div class="ship-inventory-weapon-slot reset-background-for-items" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="1" data-ondrop="equip-weapon">
+              <div class="inventory-item empty blank">
+                <img src="assets/item/empty.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="ship-weapon-slot-wrapper second">
+            <div class="keyboard-bind-button tooltip" data-tooltip="Click to set a keyboard bind" data-tooltipdescription="This key will select the weapon, not fire." data-delay="400" data-bind="selectWeapon1" data-key="Digit2">Digit2</div>
+            <div class="ship-inventory-weapon-slot reset-background-for-items" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="1" data-ondrop="equip-weapon">
+              <div class="inventory-item empty blank">
+                <img src="assets/item/empty.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="ship-weapon-slot-wrapper third">
+            <div class="keyboard-bind-button tooltip" data-tooltip="Click to set a keyboard bind" data-tooltipdescription="This key will select the weapon, not fire." data-delay="400" data-bind="selectWeapon2" data-key="Digit3">Digit3</div>
+            <div class="ship-inventory-weapon-slot reset-background-for-items" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="1" data-ondrop="equip-weapon">
+              <div class="inventory-item empty blank">
+                <img src="assets/item/empty.png" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="ship-weapon-slot-wrapper fourth">
+            <div class="keyboard-bind-button tooltip" data-tooltip="Click to set a keyboard bind" data-tooltipdescription="This key will select the weapon, not fire." data-delay="400" data-bind="selectWeapon3" data-key="Digit4">Digit4</div>
+            <div class="ship-inventory-weapon-slot reset-background-for-items" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="1" data-ondrop="equip-weapon">
+              <div class="inventory-item empty blank">
+                <img src="assets/item/empty.png" alt="">
+              </div>
+            </div>
+          </div>
+          <img class="ship-weapon-slot-helper-graphic" src="assets/ui/shipWeaponSlotsHelperGraphic.png" alt="">
+          <div class="station-window-ship-model">
+            <img src="assets/ui/stationWindowShipModel.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div id="inventory-station-tab" data-tab="station">
+        <div class="inventory-buy-drop-area ui-graphic" data-drop="inventory-item" data-ondrop="buy"></div>
+        <div class="station-window-shop-part">
+          <div id="station-window-shop-heading">
+            <img class="station-window-shop-heading-image" src="assets/ui/stationWindowShopHeading.png" alt="">
+          </div>
+          <div class="station-window-shop-part-content-wrapper">
+            <div class="station-window-shop-part-content">
+              <div class="ui-graphic station-window-shop-row">
+                <div class="station-category-icon weapons tooltip" data-tooltip="Weapons"></div>
+                <div id="station-row-items-weapons" class="station-row-items column-6" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="6"></div>
+              </div>
+              <div class="ui-graphic station-window-shop-row">
+                <div class="station-category-icon systems tooltip" data-tooltip="Ship systems"></div>
+                <div id="station-row-items-systems" class="station-row-items column-6" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="6"></div>
+              </div>
+              <div class="ui-graphic station-window-shop-row">
+                <div class="station-category-icon misc tooltip" data-tooltip="Miscellanenous"></div>
+                <div id="station-row-items-misc" class="station-row-items column-6" data-drop="inventory-item" data-inventorytype="fixed-size" data-inventoryitemcount="6"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="station-window-repair-part">
+          <div id="station-window-repair-heading">
+            <img class="station-window-repair-heading-image" src="assets/ui/stationWindowRepairHeading.png" alt="">
+          </div>
+          <div class="station-window-system-overview-background-panel tooltip" data-tooltip="Not finished">
+            <img src="assets/ui/shipSystemOverviewPanelBackground.png" alt="">
+          </div>
+          <div class="station-window-hull-repair-background-panel tooltip" data-tooltip="Not finished">
+            <img src="assets/ui/hullRepairPanel.png" alt="">
+          </div>
+        </div>
+      </div>
+      <div id="inventory-quest-tab" data-tab="quest">
+        <div id="inventory-quest-tab-content">
+          <div id="inventory-quest-list">NOT FINISHED</div>
+        </div>
+      </div>
+      <img id="station-window-background-panel" src="assets/ui/stationWindowBackgroundPanel.png" alt="">
+    </div>
+  </div>
 
-  <!-- npc logic -->
-  <script src="js/person.js"></script>
-  <script src="js/npc/npc.js"></script>
+  <div id="game" class="hidden"></div>
 
-  <!-- unsorted -->
-  <script src="js/weapon.js"></script>
-  <script src="js/player.js"></script>
-  <script src="js/hitboxEditor.js"></script>
-  <script src="js/gameUi.js"></script>
-  <script src="js/program.js"></script>
+  <div id="location-editor" class="full-screen-container hidden">
+    <div id="location-editor-navbar">
+    </div>
+    <div id="location-editor-layer-options">
+      <div id="location-editor-layer-selector">
+        <img src="assets/icons/iconLayers.png" id="location-editor-icon-layers" alt="">
+        <div id="location-editor-layer-selector-text">auto</div>
+        <div id="location-editor-layer-dropdown" class="hidden">
 
-  <!-- input -->
-  <script src="js/input/mouse.js"></script>
-  <script src="js/input/input.js"></script>
+        </div>
+      </div>
+      <div id="limit-selection-to-active-layer">
+        Limit selection to active layer
+      </div>
+      <div id="unlock-fog-sprites">
+        Unlock fog sprites
+      </div>
+    </div>
+    <div class="icon-close-container">
+      <div class="icon-close" title="Close" onclick="gameManager.closeWindow()"></div>
+      <div class="icon-import" title="Import location"></div>
+      <div class="icon-export" title="Export location"></div>
+    </div>
+    <div id="location-editor-context-window" class="draggable">
+      <div class="header">
+        <h4 data-tooltip="Selected object" class="tooltip" data-delay="250">Properties</h4>
+        <div class="filler"></div>
+        <div class="icon-32 drag-widget"></div>
+        <div class="icon-close" onclick="locationEditor.contextWindowClose()"></div>
+      </div>
+      <div class="context-window-content">
+        <div class="thumbnail-container"></div>
+        <div class="object-properties"></div>
+      </div>
+      <div id="context-window-overrides-panel">
+        <div id="context-window-overrides-title">Overrides</div>
+        <div id="context-window-overrides-list">
+          <div id="add-override-button" title="Add new override">
+            <img src="assets/icons/iconPlus.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="location-editor-toolset" class="toolset">
+      <div id="location-editor-name">Location name</div>
+      <div class="selected-object-cont" id="location-editor-selected-object">
+      </div>
+    </div>
+    
+    <div class="search-dropdown-window hidden">
+      <div id="search-dropdown-category-switch">
+        <div id="search-dropdown-category-switch-regular"     class="button active">regular</div>
+        <div id="search-dropdown-category-switch-background"  class="button">background</div>
+      </div>
+      <div class="dropdown-search-bar">
+        <input type="text" name="" id="dropdown-search-bar-input" placeholder="gameObject type, gameObject name">
+      </div>
+      <div class="dropdown-list-regular"></div>
+      <div class="dropdown-list-background hidden"></div>
+    </div>
+    <div class="special-dropdown-window hidden">
+      <div class="dropdown-search-bar">
+        <div class="dropdown-list"></div>
+      </div>
+    </div>
+  </div>
 
-  <!-- fx -->
-  <script src="js/fx/filterManager.js"></script>
+  <div id="dialogue-editor" class="dialogue-editor hidden">
+    <div id="dialogue-editor-box-selection"></div>
+    <div class="dialogue-editor-options">
+      <div class="dialogue-editor-option" data-option="compactView">Compact view</div>
+    </div>
+    <div class="dialogue-editor-navbar">
+      <div class="dialogue-name">Dialogue name</div>
+    </div>
+    <div class="editor-label">
+      <img class="editor-label-icon" src="assets/icons/iconDialogueEditor.png" alt="">
+      <span>Dialogue editor</span>
+    </div>
+    <div class="icon-close-container">
+      <div class="icon-close" title="Close" onclick="gameManager.closeWindow()"></div>
+    </div>
+  </div>
 
-  <!-- inventory -->
-  <script src="js/inventory/inventoryWindow.js"></script>
-  <script src="js/inventory/inventory.js"></script>
-  <script src="js/inventory/shipView.js"></script>
-  <script src="js/inventory/item.js"></script>
-  <script src="js/inventory/buyMenu.js"></script>
+  <div id="dialogue-screen" class="hidden">
+    <div class="dialogue-screen-background-panel">
+      <div class="dialogue-screen-header">
+        <img src="assets/ui/chat/windowLabel.png" alt="">
+        <div class="dialogue-screen-header-buttons">
+          <div class="logs-button ui-graphic tooltip"      onclick=""                          id="open-logs-button"      data-delay="200" data-tooltip="Open call logs"    data-playsfx="" data-sounds="buttonHover speakerLeaveDialogue" data-playonevents="mouseover mousedown"></div>
+          <div class="contacts-button ui-graphic tooltip"  onclick=""                          id="open-contacts-button"  data-delay="200" data-tooltip="Open contacts"     data-playsfx="" data-sounds="buttonHover speakerLeaveDialogue" data-playonevents="mouseover mousedown"></div>
+          <div class="close-button tooltip"                onclick="gameManager.closeWindow()" id="leave-call-button"     data-delay="200" data-tooltip="End transmission"  data-tooltipdescription="You might insult somebody if you leave during a conversation." data-playsfx="" data-sounds="buttonHover speakerLeaveDialogue" data-playonevents="mouseover mousedown"></div>  
+        </div>
+      </div>
+    </div>
+    <div id="dialogue-screen-portrait-container-left" class="portrait-container left">
+      <div class="chat-portrait-big">
+        <img src="assets/portraits/king.png" alt="">
+      </div>
+    </div>
+    <div id="dialogue-screen-portrait-container-right" class="portrait-container right">
+      <div class="chat-portrait-big">
+        <img src="assets/portraits/player.png" alt="">
+      </div>
+    </div>
+    <div id="fact-switcher" class="draggable hidden">
+      <div class="header">
+        <h3 style="flex-grow: 1;">Fact switcher</h3>
+        <div class="icon-32 drag-widget" style="justify-self: flex-end;"></div>
+      </div>
+      <div class="fact-switcher-options">
+        <div class="fact-list-label">
+          <span class="tooltip" data-tooltip="Facts that are used throughout this dialogue" data-delay="0">Applicable: </span>
+        </div>
+        <div class="icon-medium icon-restart-conversation tooltip" data-tooltip="Restart conversation."></div>
+        <div class="icon-medium icon-reset-facts tooltip" data-tooltip="Reset facts."></div>
+      </div>
+      <div class="fact-list">
+      </div>
+    </div>
+    <div class="dialogue-container">
+      <div id="dialogue-content"></div>
+      <div id="dialogue-options" class="dialogue-options inactive"></div>
+    </div>
+  </div>
 
-  <!-- main stuff -->
-  <script src="js/tick.js"></script>
-  <script src="js/game.js"></script>
-  <script src="js/main.js"></script>
-  <script src="js/init.js"></script>
+  <div id="hitbox-editor" class="full-screen-container hidden">
+    <div class="search-bar hidden" id="hitbox-editor-search-bar">
+      <div class="search-icon"></div>
+      <input title="Search for editable object" type="text" name="" id="hitbox-editor-search-input">
+    </div>
+    <div id="hitbox-editor-toolset" class="toolset">
+      <div id="hitbox-editor-edit-wreck-toolbar" class="hidden">
+        <div class="toolbar-icon"></div>
+        <div class="toolbar-icon"></div>
+        <div class="toolbar-icon"></div>
+        <div class="toolbar-icon"></div>
+      </div>
+    </div>
+    <div class="icon-close-container">
+      <div class="icon-close" title="Close" onclick="gameManager.closeWindow()"></div>
+    </div>
+  </div>
+
+  <div id="quest-designer" class="full-screen-container hidden">
+    <div class="icon-close-container">
+      <div class="icon-close" title="Close" onclick="gameManager.closeWindow()"></div>
+    </div>
+    <div class="quest-designer-window-label">Quest designer</div>
+  </div>
+</main>
+
+<script src="js/dependencies/svg-loader.min.js" async></script>
+<script src="js/dependencies/lodash.js"></script>         <!-- 4.17.15 -->
+<script src="js/dependencies/pixi.js"></script>           <!-- 6.3.0 -->
+<script src="js/dependencies/pixi-filters.js"></script>   <!-- v4.1.6 -->
+<script src="js/dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
+<script src="js/dependencies/vanilla-tilt.js"></script>   <!-- 6.3.0 -->
+
+<!-- load fonts -->
+<script src="js/loadFonts.js"></script>
+
+<!-- utility -->
+<script src="js/utility/constants.js"></script>
+<script src="js/utility/range.js"></script>
+<script src="js/utility/mathUtils.js"></script>
+<script src="js/utility/random.js"></script>
+<script src="js/utility/extensions.js"></script>
+<script src="js/utility/htmlMethods.js"></script>
+<script src="js/utility/rotation.js"></script>
+<script src="js/utility/vector.js"></script>
+<script src="js/utility/line.js"></script>
+<script src="js/utility/ease.js"></script>
+<script src="js/utility/debug.js"></script>
+<script src="js/utility/colors.js"></script>
+<script src="js/utility/visible.js"></script>
+<script src="js/utility/json.js"></script>
+<script src="js/utility/utility.js"></script>
+<script src="js/utility/state.js"></script>
+<script src="js/utility/switch.js"></script>
+<script src="js/utility/timer.js"></script>
+<script src="js/utility/tooltip.js"></script>
+<script src="js/utility/popupTooltip.js"></script>
+
+<!-- basic game structural elements -->
+<script src="js/gameStats.js"></script>
+<script src="js/gameWindow.js"></script>
+<script src="js/gameWorldWindow.js"></script>
+<script src="js/gameObject.js"></script>
+
+<!-- data -->
+<script src="js/data/sources.js"></script>
+<script src="js/data/data.js"></script>
+<script src="js/data/dataObjectToLayerMap.js"></script>
+<script src="js/data/dataItem.js"></script>
+<script src="js/data/dataQuest.js"></script>
+<script src="js/data/dataPerson.js"></script>
+<script src="js/data/dataWeapon.js"></script>
+<script src="js/data/dataShip.js"></script>
+<script src="js/data/dataAsteroid.js"></script>
+<script src="js/data/dataCamera.js"></script>
+<script src="js/data/dataDebris.js"></script>
+<script src="js/data/dataStation.js"></script>
+<script src="js/data/dataSatellite.js"></script>
+<script src="js/data/dataStarSystem.js"></script>
+<script src="js/data/dataMapImage.js"></script>
+<script src="js/data/dataMapIcon.js"></script>
+<script src="js/data/dataProjectile.js"></script>
+<script src="js/data/dataUltraportBeacon.js"></script>
+<script src="js/data/dataHintGraphic.js"></script>
+<script src="js/data/dataExplosion.js"></script>
+<script src="js/data/dataParticle.js"></script>
+<script src="js/data/dataGameOverlay.js"></script>
+<script src="js/data/dataDecorativeObject.js"></script>
+<script src="js/data/dataStatusEffect.js"></script>
+<script src="js/data/dataUIHintSequence.js"></script>
+<script src="js/data/dataQuotes.js"></script>
+<script src="js/data/preferences.js"></script>
+
+<!-- state machine -->
+<script src="js/stateMachine/stateMachine.js"></script>
+<script src="js/stateMachine/stateObject.js"></script>
+
+<!-- cutscenes -->
+<script src="js/cutscene/cutscene.js"></script>
+<script src="js/cutscene/imageSprite.js"></script>
+<script src="js/cutscene/cutsceneWindow.js"></script>
+<script src="js/cutscene/scenes.js"></script>
+
+<!-- interaction -->
+<script src="js/interaction/interaction.js"></script>
+<script src="js/interaction/collision.js"></script>
+<script src="js/interaction/interactionEvent.js"></script>
+<script src="js/interaction/interactionManager.js"></script>
+<script src="js/interaction/polygonBuilder.js"></script>
+<script src="js/interaction/polygon.js"></script>
+<script src="js/interaction/interactable.js"></script>
+
+<!-- components -->
+<script src="js/components/component.js"></script>
+<script src="js/components/transform.js"></script>
+<script src="js/components/sprite.js"></script>
+<script src="js/components/hitbox.js"></script>
+<script src="js/components/rigidbody.js"></script>
+<script src="js/components/reactor.js"></script>
+<script src="js/components/wreck.js"></script>
+
+<!-- ship systems -->
+<script src="js/components/shipSystems/shipSystem.js"></script>
+<script src="js/components/shipSystems/hullSystem.js"></script>
+<script src="js/components/shipSystems/stealthSystem.js"></script>
+<script src="js/components/shipSystems/engineSystem.js"></script>
+<script src="js/components/shipSystems/skipSystem.js"></script>
+<script src="js/components/shipSystems/boostersSystem.js"></script>
+<script src="js/components/shipSystems/brakeSystem.js"></script>
+<script src="js/components/shipSystems/cargoSystem.js"></script>
+<script src="js/components/shipSystems/shieldSystem.js"></script>
+<script src="js/components/shipSystems/weaponSystem.js"></script>
+<script src="js/components/shipSystems/weapon.js"></script>
+<script src="js/components/shipSystems/coater.js"></script>
+
+<!-- ui components -->
+<script src="js/ui/UIComponent.js"></script>
+<script src="js/ui/UISliderComponent.js"></script>
+<script src="js/ui/UIWeaponComponent.js"></script>
+<script src="js/ui/UILootingPopupComponent.js"></script>
+
+<!-- game objects -->
+<script src="js/gameObjects/projectile.js"></script>
+<script src="js/gameObjects/station.js"></script>
+<script src="js/gameObjects/satellite.js"></script>
+<script src="js/gameObjects/ship.js"></script>
+<script src="js/gameObjects/decorativeObject.js"></script>
+<script src="js/gameObjects/decoration.js"></script>
+<script src="js/gameObjects/asteroid.js"></script>
+<script src="js/gameObjects/debris.js"></script>
+<script src="js/gameObjects/cluster.js"></script>
+<script src="js/gameObjects/specialObjects.js"></script>
+<script src="js/gameObjects/gameOverlay.js"></script>
+<script src="js/gameObjects/continuousGraphic.js"></script>
+<script src="js/gameObjects/ultraportBeacon.js"></script>
+<script src="js/gameObjects/hintGraphic.js"></script>
+<script src="js/gameObjects/hint.js"></script>
+<script src="js/gameObjects/explosion.js"></script>
+<script src="js/gameObjects/fragment.js"></script>
+<script src="js/gameObjects/camera.js"></script>
+<script src="js/gameObjects/fogGenerator.js"></script>
+<script src="js/gameObjects/audioEmitter.js"></script>
+<script src="js/gameObjects/lightSource.js"></script>
+<script src="js/gameObjects/particle.js"></script>
+
+<!-- map -->
+<script src="js/map/starSystemDetail.js"></script>
+<script src="js/map/worldMap.js"></script>
+<script src="js/map/mapIcon.js"></script>
+<script src="js/map/mapImage.js"></script>
+<script src="js/map/mapLabel.js"></script>
+<script src="js/map/worldMarker.js"></script>
+
+<!-- quest -->
+<script src="js/quest/questNode.js"></script>
+<script src="js/quest/questDesigner.js"></script>
+
+<!-- status effects -->
+<script src="js/statusEffect.js"></script>
+
+<!-- dialogue -->
+<script src="js/dialogue/dialogueScreen.js"></script>
+<script src="js/dialogue/dialogueNode.js"></script>
+<script src="js/dialogue/dialogueEditor.js"></script>
+<script src="js/dialogue/factEditor.js"></script>
+<script src="js/dialogue/fact.js"></script>
+<script src="js/dialogue/criterion.js"></script>
+<script src="js/dialogue/requirement.js"></script>
+
+<!-- npc logic -->
+<script src="js/gameObjects/person.js"></script>
+<script src="js/gameObjects/npc.js"></script>
+<script src="js/gameObjects/player.js"></script>
+
+<!-- quest -->
+<script src="js/quest.js"></script>
+
+<!-- unsorted -->
+<script src="js/hitboxEditor.js"></script>
+<script src="js/locationEditor.js"></script>
+<script src="js/gameUI.js"></script>
+<script src="js/SVGManager.js"></script>
+<script src="js/logger.js"></script>
+<script src="js/spritePreprocessor.js"></script>
+<script src="js/creditScreen.js"></script>
+<script src="js/loadingScreen.js"></script>
+
+<!-- input -->
+<script src="js/input/binds.js"></script>
+<script src="js/input/mouse.js"></script>
+<script src="js/input/input.js"></script>
+
+<!-- fx -->
+<script src="js/fx/filterManager.js"></script>
+
+<!-- inventory -->
+<script src="js/inventory/inventory.js"></script>
+<script src="js/inventory/inventoryWindow.js"></script>
+<script src="js/inventory/item.js"></script>
+<script src="js/inventory/receivedItemModal.js"></script>
+
+<!-- sound -->
+<script src="js/sound/audioManager.js"></script>
+<script src="js/sound/audioClip.js"></script>
+
+<!-- main stuff -->
+<script src="js/grids.js"></script>
+<script src="js/tick.js"></script>
+<script src="js/game.js"></script>
+<script src="js/gameoverScreen.js"></script>
+<script src="js/settingsScreen.js"></script>
+<script src="js/pauseScreen.js"></script>
+<script src="js/startScreen.js"></script>
+<script src="js/saveSelectScreen.js"></script>
+<script src="js/gameManager.js"></script>
+<script src="js/main.js"></script>
+<script src="js/init.js"></script>
+
+<script src="js/mergeScripts.js"></script>
+
+<!-- this app.js is a bundled javascript file without dependencies in it -->
+<!-- <script src="app.js"></script> -->
 </body>
 </html>

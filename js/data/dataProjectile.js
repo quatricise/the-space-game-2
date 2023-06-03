@@ -1,68 +1,102 @@
 data.projectile = {
-  debugLaser: {
-    speed: 320,
-    impactDamage: 1,
-    sprite: "debugLaser",
-    hitbox: {
-      type: "circle",
-      radius: 8,
-    },
-    mass: 0.5,
-    life: 5000, //time till the projectile either explodes or is destroyed
-  },
   missileHelios: {
-    sprite: "missileHelios",
-    speed: 250,
+    speed: 500,
+    mass: 6,
     impactDamage: 3,
+    life: 30000,
+    effects: [
+      {
+        type: "fire",
+        chance: 0.5,
+      }
+    ],
     hitbox: {
-      type: "circle",
-      radius: 9,
+      type: "polygonHitbox",
+      filename: "projectileMissileHelios",
+      definition: null
     },
-    mass: 0.5,
-    life: 10000, 
+    projectileData: {
+      onHit: "explode",
+      explosionSize: 500,
+    }
   },
-  plasmaCannonI: {
-    sprite: "plasmaCannonI",
-    speed: 440,
+  debris: {
+    speed: 550,
+    mass: 8,
     impactDamage: 1,
+    life: 30000,
     hitbox: {
       type: "circle",
-      radius: 9,
+      filename: null,
+      definition: {
+        radius: 16,
+      }
     },
-    mass: 0.1,
-    life: 10000, 
+    projectileData: {
+      onHit: "dieAndCreateParticles",
+      particleName: "debris",
+    }
   },
-  plasmaCannonII: {
-    sprite: "plasmaCannonII",
-    speed: 440,
-    impactDamage: 2,
+  waspLaserFront: {
+
+  },
+  plasmaShotI: {
+    speed: 680,
+    mass: 2.5,
+    impactDamage: 1,
+    life: 10000,
     hitbox: {
       type: "circle",
-      radius: 9,
-    },
-    mass: 0.1,
-    life: 10000, 
+      filename: null,
+      definition: {
+        radius: 9,
+      }
+    },    
+    projectileData: {
+      onHit: "plasmaExplode",
+    }
   },
   fireball: {
-    sprite: "fireball",
-    speed: 280,
+    speed: 440,
+    mass: 5,
     impactDamage: 2,
+    life: 12000, 
     hitbox: {
       type: "circle",
-      radius: 9,
-    },
+      filename: null,
+      definition: {
+        radius: 9,
+      }
+    },    
     mass: 1,
-    life: 12000, 
   },
   blackhole: {
-    sprite: "blackhole",
-    speed: 200,
+    speed: 320,
+    mass: 1000000,
     impactDamage: 3,
     hitbox: {
       type: "circle",
-      radius: 7,
-    },
-    mass: 1,
+      filename: null,
+      definition: {
+        radius: 7,
+      }
+    },    
     life: 12000, 
   },
+  trapMissile: {
+    speed: 820,
+    mass: 2,
+    impactDamage: 0,
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 8,
+      }
+    },    
+    life: 10000,
+    projectileData: {
+      onHit: "trapTarget",
+    }
+  }
 }

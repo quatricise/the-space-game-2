@@ -1,0 +1,150 @@
+{
+  /* 
+  NOTE:
+  A heavily updated interaction model that should be flexible enough to allow interaction branching and dismissal.
+  It should also allow interactions to be triggered from any part of the game, not just through the game world, but also menus, inventories and quest interfaces.
+  Interactions can be exited via several exit cases, the condition for the exit case can be anything, such as dismissing a hint, or buying an item.
+  */
+  
+  "commandTemplate": {
+    "command": "hideHint",
+    "data": {
+      /* any command-specific data */
+    }
+  },
+  "commandExample": {
+    "command": "showHint",
+    "data": {
+      "id": "hint",
+      "text": "Hint text, can be roughly 400 characters long",
+      "type": "static",
+      "attachment": "bottom"
+    }
+  },
+
+  "interactions": [
+    {
+      "interactionId": "interaction_id",
+      /*
+      GENERAL DATA
+      "parentId"                  - gameObject id that is used as parent for an Interactable
+      "trigger"                   - only used if an Interactable is created
+      "hitbox"                    - only used if an Interactable is created
+      "doOnEnter", "doOnLeave"    - only used if an Interactable is created
+      "options:createOnLoad"      - interaction is created immediately upon loading the game location
+      "options:useHostHitbox"     - parent's hitbox will be used for the Interactable
+      "options:repeatable"        - the interaction can be retriggered upon destruction; in practice this means that is isn't removed from the pool of available interactions; a command toggleOption with repeatable parameter may be used to toggle this option, possibly ending a chain of repeatable interactions
+      */
+      "parentId":        "gameobject_id",
+      "trigger":         {"allowAll": false,      "allowedIds": ["player_ship"],  "allowedTypes": []},
+      "hitbox":          {"type": "box",          "filename": null,               "definition": {"a": 5000, "b": 5000}},
+      "options":         {"useHostHitbox": false, "createOnLoad": true,           "repeatable": true},
+      "interactionData": {
+        "doOnCreate": [
+          /* 
+          commands located here are executed regardless upon the creation of the interaction
+          */
+        ],
+        "doOnDestroy": [
+          /* 
+          commands located here are executed regardless of the exit case chosen
+          */
+        ],
+        "doOnEnter": [
+          /* 
+          commands are executed when any targeted object enters the Interactable
+          */
+        ],
+        "doOnLeave": [
+          /* 
+          commands are executed when any targeted object leaves the Interactable
+          */
+        ],
+        "exitCases": {
+          "case1": {
+            "commands": [],
+            "condition": {
+              "logicOperation": "AND",
+              "methods": [
+                {
+                  "method": "UIevent",
+                  "eventType": "mousedown",
+                  "eventBind": "",
+                  "elementSelector": "#some-element-selector"
+                },
+                {
+                  "method":     "gameEvent",
+                  "eventType":  "destroyObject",
+                  "objectId":   "some_gameobject_id",
+                  "objectType": "asteroid"
+                },
+                {
+                  "method":     "gameEvent",
+                  "eventType":  "buyItem",
+                  "itemName":   "missileHelios",
+                  "itemType":   "weapon"
+                }
+              ]
+            }
+          },
+          "case2": {
+            "commands": [
+              {
+                "command": "createInteraction",
+                "data": {
+                  "interactionId": "interaction_id",
+                  "delay": 1000
+                }
+              },
+              {
+                "command": "createInteraction",
+                "data": {
+                  "interactionId": "interaction_id_2",
+                  "delay": 0
+                }
+              }
+            ],
+            "condition": {
+              "logicOperation": "OR",
+              "methods": [
+                {
+                  "method": "UIevent",
+                  "eventType": "mousedown",
+                  "eventBind": "",
+                  "elementSelector": "#some-element-selector"
+                },
+                {
+                  "method": "UIevent",
+                  "eventType": "keydown",
+                  "eventBind": "activateShields",
+                  "elementSelector": ""
+                }
+              ]
+            }
+          },
+          /* the name dismiss signifies that this case terminates the interaction without creating anything new */
+          "dismiss": {
+            "commands": [],
+            "condition": {
+              "logicOperation": "OR",
+              "methods": [
+                {
+                  "method": "UIevent",
+                  "eventType": "mousedown",
+                  "eventBind": "",
+                  "elementSelector": "#some-element-selector"
+                },
+                {
+                  "method": "UIevent",
+                  "eventType": "keydown",
+                  "eventBind": "activateShields",
+                  "elementSelector": ""
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  ]
+}

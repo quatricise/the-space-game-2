@@ -1,101 +1,385 @@
 [
   {
-    "transform" : {
-      "position": { "x": 5.366590218805814, "y": 131.1498171449825 },
-      "velocity": 0,
+    "name": "mapBackground",
+    "type": "mapImage",
+    "transform": {
+      "position": {
+        "x": 0,
+        "y": 0
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
       "rotation": 0,
-      "angular_velocity": 0
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": 0,
+        "y": 0
+      }
     },
-    "src": "assets/map/nebula1.png",
-    "name" : "nebula1",
-    "scale": 0.6561000000000001
+    "scale": 0.5904900000000003
   },
   {
-    "transform" : {
-      "position": { "x": 17.89099872019865, "y": 391.6688643299614 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 86.24999999999977,
+        "y": 372.4861111111112
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.1834524122804626,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 1,
+        "y": 5
+      }
     },
-    "src": "assets/map/nebula5.png",
-    "name" : "nebula5",
-    "scale": 0.38742048900000015
+    "locationReference": "kalatusI"
   },
   {
-    "transform" : {
-      "position": { "x": 181.90311156161175, "y": 166.8784324420886 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "outback",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 66.25,
+        "y": 19.3125
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.1834524122804626,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 1,
+        "y": 0
+      }
     },
-    "src": "assets/map/nebula3.png",
-    "name" : "nebula3",
-    "scale": 0.47829690000000025
+    "locationReference": "kreos"
   },
   {
-    "transform" : {
-      "position": { "x": 65.54434936064541, "y": -331.25700409464116 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": -53,
+        "y": 324.25
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.4052557846000457,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": -1,
+        "y": 5
+      }
     },
-    "src": "http://127.0.0.1:5500/assets/map/nebula5.png",
-    "name" : "nebula5",
-    "scale": 0.43046721000000016
+    "locationReference": "kalatusII"
   },
   {
-    "transform" : {
-      "position": { "x": -205.43789747721942, "y": -461.2855637513174 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": -553.0625,
+        "y": -286.25
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.1379600917800223,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": -9,
+        "y": -5
+      }
     },
-    "src": "assets/map/nebula7.png",
-    "name" : "nebula7",
-    "scale": 0.47829690000000014
+    "locationReference": "neptum"
   },
   {
-    "transform" : {
-      "position": { "x": -235.1651893634158, "y": 422.0913655240804 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": -748.6875,
+        "y": -311.875
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.254183206140057,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": -12,
+        "y": -5
+      }
     },
-    "src": "assets/map/nebula9.png",
-    "name" : "nebula9",
-    "scale": 0.47829690000000025
+    "locationReference": "fria"
   },
   {
-    "transform" : {
-      "position": { "x": -388.50495258166353, "y": 309.5738672286612 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": -463,
+        "y": -500.75
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.5871073205000488,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": -8,
+        "y": -8
+      }
     },
-    "src": "assets/map/nebula7.png",
-    "name" : "nebula7",
-    "scale": 0.43046721000000016
+    "locationReference": "birm"
   },
   {
-    "transform" : {
-      "position": { "x": -111.21971115105742, "y": 492.2503440153672 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 560.75,
+        "y": -346.75
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 3.961958627680066,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 8,
+        "y": -6
+      }
     },
-    "src": "http://127.0.0.1:5500/assets/map/nebula1.png",
-    "name" : "nebula1",
-    "scale": 0.6561000000000001
+    "locationReference": "fernet"
   },
   {
-    "transform" : {
-      "position": { "x": -372.1036880927296, "y": 563.7934668071645 },
-      "velocity": 0,
-      "rotation": 0,
-      "angular_velocity": 0
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 292.5,
+        "y": 346.25
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0.15330274204001146,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 4,
+        "y": 5
+      }
     },
-    "src": "assets/map/nebula2.png",
-    "name" : "nebula2",
-    "scale": 0.43046721000000016
+    "locationReference": "finnsi"
+  },
+  {
+    "name": "outback",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 168.0625,
+        "y": -139.6875
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 2.3603546994800317,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 2,
+        "y": -3
+      }
+    },
+    "locationReference": "kreos"
+  },
+  {
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 687.5,
+        "y": -212.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 10,
+        "y": -4
+      }
+    },
+    "locationReference": "fernet"
+  },
+  {
+    "name": "outback",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 770,
+        "y": 190
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 12,
+        "y": 2
+      }
+    },
+    "locationReference": "kreos"
+  },
+  {
+    "name": "connected",
+    "type": "mapIcon",
+    "transform": {
+      "position": {
+        "x": 808.75,
+        "y": -497.5
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0.5,
+      "cellPosition": {
+        "x": 12,
+        "y": -8
+      }
+    },
+    "locationReference": "fernet"
+  },
+  {
+    "name": "default",
+    "type": "mapLabel",
+    "text": "WASP space",
+    "color": "93867f",
+    "transform": {
+      "position": {
+        "x": 752.125,
+        "y": 119.734375
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": 11,
+        "y": 1
+      }
+    }
+  },
+  {
+    "name": "default",
+    "type": "mapLabel",
+    "text": "Crown space",
+    "color": "93867f",
+    "transform": {
+      "position": {
+        "x": 96.49151234567904,
+        "y": 449.25205761316874
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": 1,
+        "y": 7
+      }
+    }
+  },
+  {
+    "name": "default",
+    "type": "mapLabel",
+    "text": "Hive space",
+    "color": "93867f",
+    "transform": {
+      "position": {
+        "x": 952.679012345679,
+        "y": -541.9979423868313
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": 14,
+        "y": -9
+      }
+    }
+  },
+  {
+    "name": "default",
+    "type": "mapLabel",
+    "text": "Alliance space",
+    "color": "93867f",
+    "transform": {
+      "position": {
+        "x": 517.929012345679,
+        "y": -257.74794238683126
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": 8,
+        "y": -5
+      }
+    }
+  },
+  {
+    "name": "default",
+    "type": "mapLabel",
+    "text": "Rebel space",
+    "color": "93867f",
+    "transform": {
+      "position": {
+        "x": -602.75,
+        "y": -397.75
+      },
+      "velocity": {
+        "x": 0,
+        "y": 0
+      },
+      "rotation": 0,
+      "angularVelocity": 0,
+      "cellPosition": {
+        "x": -10,
+        "y": -7
+      }
+    }
   }
 ]

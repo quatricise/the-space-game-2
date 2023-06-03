@@ -1,0 +1,104 @@
+[
+  {
+    "id": 671511379658,
+    "pos": {
+      "x": 471,
+      "y": -54,
+      "data": {}
+    },
+    "type": "text",
+    "speaker": "aiAssistant",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "text": "Ma'am, i'm a bit concerned about the AI revolution. Will it take all of our jobs?",
+    "facts": [],
+    "in": [],
+    "out": [
+      {
+        "index": 0,
+        "to": 982052546278
+      }
+    ]
+  },
+  {
+    "id": 982052546278,
+    "pos": {
+      "x": 470,
+      "y": 198,
+      "data": {}
+    },
+    "type": "text",
+    "speaker": "player",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "text": "I see Gerald, but this is none of our business.",
+    "facts": [],
+    "in": [
+      {
+        "from": 671511379658
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 305426731123
+      }
+    ]
+  },
+  {
+    "id": 305426731123,
+    "pos": {
+      "x": 469,
+      "y": 445,
+      "data": {}
+    },
+    "type": "text",
+    "speaker": "aiAssistant",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "text": "Okay, I understand.",
+    "facts": [],
+    "in": [
+      {
+        "from": 982052546278
+      }
+    ],
+    "out": []
+  }
+]

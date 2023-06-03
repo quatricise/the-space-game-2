@@ -1,0 +1,36 @@
+{
+  "type": "polygonHitbox",
+  "color": 16776960,
+  "bodies": [
+    {
+      "vertices": [
+        {
+          "x": -15,
+          "y": 41,
+          "type": "vector"
+        },
+        {
+          "x": -24,
+          "y": 2,
+          "type": "vector"
+        },
+        {
+          "x": -20,
+          "y": -33,
+          "type": "vector"
+        },
+        {
+          "x": 18.25,
+          "y": -30.75,
+          "type": "vector"
+        },
+        {
+          "x": 15,
+          "y": 37,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    }
+  ]
+}

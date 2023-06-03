@@ -1,0 +1,75 @@
+[
+  {
+    "id": 961311234693,
+    "pos": {
+      "x": 583,
+      "y": 235,
+      "type": "vector"
+    },
+    "type": "whisper",
+    "speaker": "player",
+    "recipient": "aiAssistant",
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Hey, can you debug this for me?",
+    "in": [],
+    "out": [
+      {
+        "index": 0,
+        "to": 498248312408
+      }
+    ]
+  },
+  {
+    "id": 498248312408,
+    "pos": {
+      "x": 578,
+      "y": 561,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "in": [
+      {
+        "to": 961311234693
+      }
+    ],
+    "out": []
+  }
+]

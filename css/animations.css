@@ -1,0 +1,75 @@
+@keyframes pulse {
+  0% {
+    color: hsla(0, 0%, 100%, 0.75);
+  }
+  100% {
+    color: hsl(0, 0%, 100%);
+  }
+}
+@keyframes pulse-opacity {
+  0% {
+    filter: opacity(0.6)
+  }
+  100% {
+    filter: opacity(1.0)
+  }
+}
+@keyframes pulse-opacity-full {
+  0% {
+    filter: opacity(0.0)
+  }
+  100% {
+    filter: opacity(1.0)
+  }
+}
+
+.pulse-2s {
+  animation-duration: 2s;
+  animation-name: pulse-opacity;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+.pulse-1s {
+  animation-duration: 1s;
+  animation-name: pulse-opacity;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes rotate-random {
+  0% {
+    rotate: 90deg;
+  }
+  10% {
+    rotate: 40deg;
+  }
+  20% {
+    rotate: 117deg;
+  }
+  30% {
+    rotate: 180deg;
+  }
+  40% {
+    rotate: 280deg;
+  }
+  50% {
+    rotate: 20deg;
+  }
+  60% {
+    rotate: 69deg;
+  }
+  70% {
+    rotate: 330deg;
+  }
+  80% {
+    rotate: 150deg;
+  }
+  90% {
+    rotate: 80deg;
+  }
+  100% {
+    rotate: 15deg;
+  }
+}

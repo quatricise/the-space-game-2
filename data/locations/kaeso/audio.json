@@ -1,0 +1,22 @@
+{
+  "audioEmitters": [
+    {
+      "category": "SFX",
+      "audioName": "stationAmbience",
+      "parentObjectId": "docking_station_large",
+      "options": {
+        "volumeFadeDistance": 2500,
+        "maxVolume": 0.3
+      }
+    },
+    {
+      "category": "SFX",
+      "audioName": "ultraportAmbience",
+      "parentObjectId": "ultraport_beacon",
+      "options": {
+        "volumeFadeDistance": 800,
+        "maxVolume": 0.7
+      }
+    }
+  ]
+}

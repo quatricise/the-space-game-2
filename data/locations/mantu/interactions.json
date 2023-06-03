@@ -1,0 +1,244 @@
+{
+  "cameraBounds": {
+    "minX": -100000,
+    "minY": -100000,
+    "maxX":  100000, 
+    "maxY":  100000
+  },
+  "lightSources": [
+    
+  ],
+  "backgroundFilter": {
+    "tint": "ff5c3b",
+    "brightness": 1.55,
+    "intensity": 100
+  },
+  "markers": [],
+  "interactions": [
+    {
+      "interactionId": "map_usage_hint",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["showHint"],
+        "doOnDestroy":  ["createInteraction"],
+        "interactionDelay": 4000,
+        "newInteractionId": "map_usage_hint2",
+        "hintData": {
+          "hintText": "You have entered a new system. \n When you travel via Ultraport you always emerge nearby another beacon.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "map_usage_hint2",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox":  true, "conditional":true},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["showHint"],
+        "doOnDestroy": ["createInteraction"],
+        "interactionDelay": 4000,
+        "newInteractionId": "ship_proximity_alert",
+        "hintData": {
+          "hintText": "It's possible to travel even without a proximity to a beacon, just open the map. Be warned that it's more difficult to escape during combat situations.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "ship_proximity_alert",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox":  true, "conditional":true},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["showHint"],
+        "doOnDestroy": ["createInteraction"],
+        "interactionDelay": 4000,
+        "newInteractionId": "ship_proximity_alert",
+        "hintData": {
+          "hintText": "There seem to be two ships on the radar, maybe it's worth approaching them.",
+          "hintType": "static",
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {
+                "method": "UIevent",
+                "eventType": "keydown",
+                "eventBind": "dismissHint",
+                "elementSelector": ""
+              }
+            ],
+            "onComplete": "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "al_and_betty_audio_call",
+      "triggerObjectId": "al_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 2000,
+        "doOnEnter":  ["triggerAudioCall", "addUIHandler", "showHint"],
+        "doOnLeave":  ["destroyInteractable"],
+        "doOnDestroy":["removeUIHandler"],
+        "UIHandlerData": {
+          "eventType": "mousedown",
+          "elementSelector": "#game",
+          "onTrigger": "createInteraction",
+          "interactionId": "al_and_betty_turn_hostile"
+        },
+        "hintData": {
+          "hintText": "", 
+          "hintType": "static", 
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [{"method": "UIevent", "eventType": "click", "elementSelector": "#leave-call-button"}],
+            "onComplete":   "destroyInteractable"
+          }
+        },
+        "audioCallName": "al_and_betty_2",
+        "audioCallCaller": "alSimon",
+        "audioCallMessage": "This is an ambush. Answer the call and you may live. You have 5 seconds.",
+        "hitbox": {"type": "box", "filename": null, "definition":{"a": 1300, "b": 1300}}
+      }
+    },
+    {
+      "interactionId": "al_and_betty_turn_hostile",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": false, "conditional": true},
+      "interactionData": {
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 0,
+        "doOnEnter":  ["setNPCState", "showHint"],
+        "doOnDestroy":["createInteraction"], 
+        "npcStateData": {
+          "NPCs": ["alSimon", "bettySimon"],
+          "stateName": "attackEnemy"
+        },
+        "hintData": {
+          "hintText": "", 
+          "hintType": "static", 
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {"method": "gameEvent", "eventType": "destroyGameObject", "gameObjectId": "al_simon_ship"},
+              {"method": "gameEvent", "eventType": "destroyGameObject", "gameObjectId": "betty_simon_ship"}
+            ],
+            "onComplete":  "destroyInteractable"
+          }
+        },
+        "newInteractionId": "show_thank_you_panel",
+        "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1300, "b": 1300}}
+      }
+    },
+    {
+      "interactionId": "show_thank_you_panel",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": false, "conditional": true},
+      "interactionData": {
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 4500,
+        "doOnEnter":  ["showThankYouPanel", "destroyInteractable"],
+        "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1300, "b": 1300}}
+      }
+    },
+    {
+      "interactionId": "al_activate_stealth",
+      "triggerObjectId": "al_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["activateShipSystem"],
+        "doOnLeave": ["destroyInteractable"],
+        "shipSystemName": "stealth",
+        "hitbox": {"type": "box", "filename": null, "definition": {"a": 2500, "b": 2500}}
+      }
+    },
+    {
+      "interactionId": "al_fire_missile",
+      "triggerObjectId": "al_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["fireWeapon","destroyInteractable"],
+        "doOnDestroy":  ["createInteraction"],
+        "interactionDelay": 1500,
+        "newInteractionId": "al_deactivate_stealth",
+        "firedWeaponName": "trapMissile",
+        "shipSystemName": "stealth",
+        "hitbox": {"type": "box", "filename": null, "definition": {"a": 1800, "b": 1800}}
+      }
+    },
+    {
+      "interactionId": "al_deactivate_stealth",
+      "triggerObjectId": "al_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":  ["deactivateShipSystem","destroyInteractable"],
+        "doOnLeave":  ["destroyInteractable"],
+        "doOnDestroy":["createInteraction"],
+        "interactionDelay": 1500,
+        "newInteractionId": "betty_deactivate_stealth",
+        "firedWeaponName": "trapMissile",
+        "shipSystemName": "stealth",
+        "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1800, "b": 1800}}
+      }
+    },
+    {
+      "interactionId": "betty_deactivate_stealth",
+      "triggerObjectId": "betty_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "doOnEnter":  ["deactivateShipSystem", "destroyInteractable"],
+        "doOnLeave":  ["destroyInteractable"],
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 1500,
+        "newInteractionId": "betty_deactivate_stealth",
+        "firedWeaponName": "trapMissile",
+        "shipSystemName": "stealth",
+        "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1800, "b": 1800}}
+      }
+    },
+    {
+      "interactionId": "betty_activate_stealth",
+      "triggerObjectId": "betty_simon_ship",
+      "options": {"useHostHitbox": false},
+      "interactionData": {
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":  ["activateShipSystem"],
+        "doOnLeave":  ["destroyInteractable"],
+        "shipSystemName": "stealth",
+        "hitbox": {"type": "box", "filename": null, "definition": {"a": 2500, "b": 2500}}
+      }
+    }
+  ]
+}

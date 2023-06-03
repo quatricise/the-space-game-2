@@ -1,0 +1,2779 @@
+[
+  {
+    "id": 36654449858,
+    "pos": {
+      "x": 2621,
+      "y": -3349.3,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Good morning Ada.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [],
+    "out": [
+      {
+        "index": 0,
+        "to": 749142841481
+      }
+    ]
+  },
+  {
+    "id": 325433763639,
+    "pos": {
+      "x": 2613,
+      "y": -1217.4,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 471985196992
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 433719656247
+      },
+      {
+        "index": 1,
+        "to": 368216560230
+      },
+      {
+        "index": 2,
+        "to": 307291209642
+      }
+    ]
+  },
+  {
+    "id": 433719656247,
+    "pos": {
+      "x": 1624,
+      "y": -1272.1,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll find her, don't worry.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 325433763639
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 959854282892
+      }
+    ]
+  },
+  {
+    "id": 368216560230,
+    "pos": {
+      "x": 2449,
+      "y": -987.3000000000002,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "She should've been kept outside the royal palace, it was too dangerous for her.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 325433763639
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 583694659205
+      }
+    ]
+  },
+  {
+    "id": 307291209642,
+    "pos": {
+      "x": 3555,
+      "y": -1040.6999999999998,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's terrible news, but I'm sure alerting the entire galaxy about this would help us find her.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 325433763639
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 999822489505
+      }
+    ]
+  },
+  {
+    "id": 999822489505,
+    "pos": {
+      "x": 3552,
+      "y": -742.6999999999998,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I disagree.\n\nShe's one of the symbols of our state. Her presence here is the outward sign of power, however fragile that power may be in reality. A monarchy without an heir is like a ticking timebomb, I could have an 'accident' and who's going to take over the throne then? She's my only daughter.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 307291209642
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 824828439654
+      }
+    ]
+  },
+  {
+    "id": 607142528728,
+    "pos": {
+      "x": 1145,
+      "y": -809.1999999999998,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I never questioned your dedication. \n As I hope you'd understand, this is top priority for me now, so could you please delegate your other responsibilities to your subordinates?",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_declined_king_intro_call",
+            "expectedValue": false
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 959854282892
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 772764140428
+      }
+    ]
+  },
+  {
+    "id": 583694659205,
+    "pos": {
+      "x": 2447,
+      "y": -677.8000000000002,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "According to the safety commitee, the palace was a perfectly safe ground. However, we may have missed something.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 368216560230
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 808979736143
+      }
+    ]
+  },
+  {
+    "id": 808979736143,
+    "pos": {
+      "x": 2443,
+      "y": -371,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 583694659205
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 994540715591
+      },
+      {
+        "index": 1,
+        "to": 114956399860
+      }
+    ]
+  },
+  {
+    "id": 994540715591,
+    "pos": {
+      "x": 2193,
+      "y": -241.19999999999982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm sure your people did their best.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 808979736143
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 418256931137
+      }
+    ]
+  },
+  {
+    "id": 114956399860,
+    "pos": {
+      "x": 2557,
+      "y": -244.5,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Well obviously...",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 808979736143
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 417475442413
+      }
+    ]
+  },
+  {
+    "id": 271563132593,
+    "pos": {
+      "x": 945,
+      "y": 1022.6999999999998,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 614026179784
+      },
+      {
+        "to": 692199143636
+      },
+      {
+        "to": 50223218681
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 563340389753
+      },
+      {
+        "index": 1,
+        "to": 677806438253
+      },
+      {
+        "index": 2,
+        "to": 647658314998
+      }
+    ]
+  },
+  {
+    "id": 563340389753,
+    "pos": {
+      "x": 601,
+      "y": 1192.6000000000004,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "So, is there any info to start me with on this investigation? Anything you've found?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 271563132593
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 842942442194
+      }
+    ]
+  },
+  {
+    "id": 677806438253,
+    "pos": {
+      "x": 1091,
+      "y": 1196.1000000000004,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Understand, I'll go looking for her.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 271563132593
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 799296720888
+      }
+    ]
+  },
+  {
+    "id": 799296720888,
+    "pos": {
+      "x": 1090,
+      "y": 1472.1000000000004,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I like your enthusiasm, but before you go, let me fill you in on some of the details.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 677806438253
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 173718288122
+      }
+    ]
+  },
+  {
+    "id": 842942442194,
+    "pos": {
+      "x": 597,
+      "y": 1491.2000000000007,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm glad you're asking.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 563340389753
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 173718288122
+      }
+    ]
+  },
+  {
+    "id": 418256931137,
+    "pos": {
+      "x": 2194,
+      "y": 59.100000000000364,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "They're the best people I have anyways, I would have never picked up anyone but the best for the protection of my daughter. But now we must face up to the reality. Please get on with the investigation as soon as possible.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 994540715591
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 248217791279
+      }
+    ]
+  },
+  {
+    "id": 417475442413,
+    "pos": {
+      "x": 2653,
+      "y": 62.899999999999636,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I agree, but we must not get sucked up into the blaming game. What's important is what we do now.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 114956399860
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 248217791279
+      }
+    ]
+  },
+  {
+    "id": 824828439654,
+    "pos": {
+      "x": 3550,
+      "y": -373.1999999999998,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 999822489505
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 733246036451
+      },
+      {
+        "index": 1,
+        "to": 580570206813
+      },
+      {
+        "index": 2,
+        "to": 263140600778
+      }
+    ]
+  },
+  {
+    "id": 733246036451,
+    "pos": {
+      "x": 3543,
+      "y": -226.9000000000001,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "So is this a matter of pride?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 824828439654
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 557474978656
+      }
+    ]
+  },
+  {
+    "id": 348670499631,
+    "pos": {
+      "x": 2162,
+      "y": 2675,
+      "type": "vector"
+    },
+    "type": "transfer",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "king",
+        "items": [
+          "princessWristband",
+          "princessHandkerchief",
+          "datadrive",
+          "beaconAccessKey"
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 502361428209
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 124107227665
+      }
+    ]
+  },
+  {
+    "id": 950101717487,
+    "pos": {
+      "x": 2621,
+      "y": -1836.8999999999996,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "After a brief discussion, we decided you'll be the one leading the search. There's nobody else we can trust more with this.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 347501782001
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 471985196992
+      }
+    ]
+  },
+  {
+    "id": 772764140428,
+    "pos": {
+      "x": 1135,
+      "y": -375.8000000000002,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 607142528728
+      },
+      {
+        "to": 967422309817
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 714815143100
+      },
+      {
+        "index": 1,
+        "to": 850224455456
+      },
+      {
+        "index": 2,
+        "to": 740214594389
+      }
+    ]
+  },
+  {
+    "id": 714815143100,
+    "pos": {
+      "x": 516,
+      "y": -245,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Does that mean every case? Many of my colleagues are already overworked.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772764140428
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 871429548817
+      }
+    ]
+  },
+  {
+    "id": 850224455456,
+    "pos": {
+      "x": 1004,
+      "y": -227.69999999999982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's understandable, I'll let them know I have a new, let's call it.. 'assignment'.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772764140428
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 196747462484
+      }
+    ]
+  },
+  {
+    "id": 314851979005,
+    "pos": {
+      "x": 516,
+      "y": 337.6999999999998,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "You do have a point. That would be unmanageable and we cannot afford to drop those cases, they're too important in their own right.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 871429548817
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 614026179784
+      }
+    ]
+  },
+  {
+    "id": 580570206813,
+    "pos": {
+      "x": 3815,
+      "y": -208.19999999999982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I understand now.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 824828439654
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 737317936224
+      }
+    ]
+  },
+  {
+    "id": 557474978656,
+    "pos": {
+      "x": 3356,
+      "y": 59.80000000000018,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Pride, love, and concern for my people. As the head of state, all of those must be in balance. I thought I explained myself well there.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 733246036451
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 7100566285
+      }
+    ]
+  },
+  {
+    "id": 263140600778,
+    "pos": {
+      "x": 4291,
+      "y": -222.5,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "What if we never find her and a word gets out about this?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 824828439654
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 860947736330
+      }
+    ]
+  },
+  {
+    "id": 860947736330,
+    "pos": {
+      "x": 4291,
+      "y": 83.30000000000018,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We cannot admit it now. It would destabilize our negotiating position on all levels. And, if something were to happen to me, who's going to take over the throne?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 263140600778
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 705391839489
+      }
+    ]
+  },
+  {
+    "id": 737317936224,
+    "pos": {
+      "x": 3816,
+      "y": 81.19999999999982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'm glad you do, statecraft is a complicated matter that few understand very well. Deception is a key part of it.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 580570206813
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 7100566285
+      }
+    ]
+  },
+  {
+    "id": 7100566285,
+    "pos": {
+      "x": 2924,
+      "y": 688.3000000000002,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 557474978656
+      },
+      {
+        "to": 737317936224
+      },
+      {
+        "to": 705391839489
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 77595455571
+      }
+    ]
+  },
+  {
+    "id": 77595455571,
+    "pos": {
+      "x": 2921,
+      "y": 833.5,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I understand now. So, about the investigation, can you brief me about what happened?",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 7100566285
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 76127229050
+      }
+    ]
+  },
+  {
+    "id": 705391839489,
+    "pos": {
+      "x": 4294,
+      "y": 410.60000000000036,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "For the sake of our collective safety, we must keep this to ourselves.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 860947736330
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 7100566285
+      }
+    ]
+  },
+  {
+    "id": 173718288122,
+    "pos": {
+      "x": 2168,
+      "y": 1908.3000000000002,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "We noticed her disappearance about 5:30 local time. A Crown cruiser was seen leaving the port, unauthorized. Only two lifeforms onboard. That must have been one hell of a skilled kidnapper.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 76127229050
+      },
+      {
+        "to": 248217791279
+      },
+      {
+        "to": 734786646491
+      },
+      {
+        "to": 799296720888
+      },
+      {
+        "to": 842942442194
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 502361428209
+      }
+    ]
+  },
+  {
+    "id": 502361428209,
+    "pos": {
+      "x": 2164,
+      "y": 2277.8999999999996,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll send a drone over with some things we found in her room, along with the engine signature of the Crown cruiser ship.\n\nI'll send the signature on a physical drive, I cannot be sure our conversation isn't being intercepted.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 173718288122
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 348670499631
+      }
+    ]
+  },
+  {
+    "id": 614026179784,
+    "pos": {
+      "x": 517,
+      "y": 652.8000000000002,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll let you organize your time however you wish, I believe you're smart enough to understand the severity of my daughter's disappearance.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 314851979005
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 271563132593
+      }
+    ]
+  },
+  {
+    "id": 196747462484,
+    "pos": {
+      "x": 1001,
+      "y": 56.19999999999982,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I hope you don't plan to use that sarcasm when informing them, could raise suspicions. \nI'll need you to invent something believable.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 850224455456
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 50223218681
+      }
+    ]
+  },
+  {
+    "id": 372893053239,
+    "pos": {
+      "x": 2159,
+      "y": 3378.3,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Farewell, Ada.. It's considered to bring the opposite, but I wish you good luck, I think you'll need it.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 124107227665
+      }
+    ],
+    "out": []
+  },
+  {
+    "id": 471985196992,
+    "pos": {
+      "x": 2617,
+      "y": -1528.5,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I hope it's clear this information is highly sensitive. It's a state secret, so nobody is allowed to know until we, hopefully, find her.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 950101717487
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 325433763639
+      }
+    ]
+  },
+  {
+    "id": 124107227665,
+    "pos": {
+      "x": 2161,
+      "y": 2952.1000000000004,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Now, about that ship she flew away in, we don't exactly know where it went. That information is stored inside the transport beacon in this orbit.\nYou should be able to find the fly-path of the escapee ship by accessing the beacon interface.\n\nI'll send you a Beacon Access Key, you'll have to travel there and insert it inside the beacon, it should tell you roughly where it travelled.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 348670499631
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 372893053239
+      }
+    ]
+  },
+  {
+    "id": 76127229050,
+    "pos": {
+      "x": 2920,
+      "y": 1156.8999999999996,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Of course.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 77595455571
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 173718288122
+      }
+    ]
+  },
+  {
+    "id": 248217791279,
+    "pos": {
+      "x": 2195,
+      "y": 431.39999999999964,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'll provide you with more information.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 418256931137
+      },
+      {
+        "to": 417475442413
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 173718288122
+      }
+    ]
+  },
+  {
+    "id": 231688297484,
+    "pos": {
+      "x": 2032,
+      "y": -2994,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Firstly, one does not reject a call from their superior without a good reason. So I would like to know what the reason is.",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_declined_king_intro_call",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      },
+      {
+        "requirements": [
+          {
+            "type": "condition",
+            "entryObject": "player",
+            "accessorChain": [
+              "ship",
+              "hull",
+              "current"
+            ],
+            "condition": {
+              "type": "smaller",
+              "testValue": 15
+            }
+          }
+        ],
+        "element": {},
+        "index": 1
+      }
+    ],
+    "in": [
+      {
+        "to": 749142841481
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 871975778999
+      }
+    ]
+  },
+  {
+    "id": 749142841481,
+    "pos": {
+      "x": 2621,
+      "y": -3082,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 36654449858
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 231688297484
+      },
+      {
+        "index": 1,
+        "to": 347501782001
+      }
+    ]
+  },
+  {
+    "id": 347501782001,
+    "pos": {
+      "x": 2620,
+      "y": -2147,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "There were some events that transpired this morning which you should know about. My daughter Livie disappeared from the palace...",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_declined_king_intro_call",
+            "expectedValue": false
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 749142841481
+      },
+      {
+        "to": 704078820959
+      },
+      {
+        "to": 511469368908
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 950101717487
+      }
+    ]
+  },
+  {
+    "id": 871975778999,
+    "pos": {
+      "x": 1925,
+      "y": -2629,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 231688297484
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 478250437346
+      },
+      {
+        "index": 1,
+        "to": 256182075031
+      }
+    ]
+  },
+  {
+    "id": 478250437346,
+    "pos": {
+      "x": 1770,
+      "y": -2434,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That was a mistake, I apologize.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 871975778999
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 704078820959
+      }
+    ]
+  },
+  {
+    "id": 256182075031,
+    "pos": {
+      "x": 2067,
+      "y": -2436,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I was just testing out how the game mechanic works.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 871975778999
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 511469368908
+      }
+    ]
+  },
+  {
+    "id": 704078820959,
+    "pos": {
+      "x": 1769,
+      "y": -2156,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's okay, I understand. But be careful about these mistakes in the future, others might not be so understanding. You could get attacked for making the smallest error.\n\nNow to the point.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 478250437346
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 347501782001
+      }
+    ]
+  },
+  {
+    "id": 511469368908,
+    "pos": {
+      "x": 2075,
+      "y": -1789,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Rookie mistake, but understandable. Declining calls like that may get you in trouble, so be careful.\n\nNow, let me get to the matters at hand.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 256182075031
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 347501782001
+      }
+    ]
+  },
+  {
+    "id": 959854282892,
+    "pos": {
+      "x": 1613,
+      "y": -997,
+      "type": "vector"
+    },
+    "type": "responsePicker",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 433719656247
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 607142528728
+      },
+      {
+        "index": 1,
+        "to": 967422309817
+      }
+    ]
+  },
+  {
+    "id": 967422309817,
+    "pos": {
+      "x": 1584,
+      "y": -808,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "That's the Ada I know.\n\nI would be glad if you delegated your remaining responsibilities to others in your department, this is what I want you to work on now.",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "player_declined_king_intro_call",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 959854282892
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 772764140428
+      }
+    ]
+  },
+  {
+    "id": 740214594389,
+    "pos": {
+      "x": 1552,
+      "y": -194,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Sure, I'll do that.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 772764140428
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 692199143636
+      }
+    ]
+  },
+  {
+    "id": 692199143636,
+    "pos": {
+      "x": 1551,
+      "y": 97,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Thank you, I appreciate this.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 740214594389
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 271563132593
+      }
+    ]
+  },
+  {
+    "id": 647658314998,
+    "pos": {
+      "x": 1551,
+      "y": 1198,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Don't worry, I'll be subtle about it.",
+    "factsToSet": [],
+    "criteria": [
+      {
+        "requirements": [
+          {
+            "type": "fact",
+            "entryObject": "emptyObject",
+            "accessorChain": [
+              ""
+            ],
+            "condition": {
+              "type": "exists"
+            },
+            "identifier": "king_said_dont_use_sarcasm",
+            "expectedValue": true
+          }
+        ],
+        "element": {},
+        "index": 0
+      }
+    ],
+    "in": [
+      {
+        "to": 271563132593
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 15647708092
+      }
+    ]
+  },
+  {
+    "id": 15647708092,
+    "pos": {
+      "x": 1553,
+      "y": 1471,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "I'd expect no less of you.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 647658314998
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 734786646491
+      }
+    ]
+  },
+  {
+    "id": 734786646491,
+    "pos": {
+      "x": 1552,
+      "y": 1746,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "king",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "So let me give you a brief rundown of what happened this morning.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 15647708092
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 173718288122
+      }
+    ]
+  },
+  {
+    "id": 871429548817,
+    "pos": {
+      "x": 516,
+      "y": 47,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "player",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "...besides, briefing them on every single case I'm working on would take ages.",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [
+      {
+        "to": 714815143100
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 314851979005
+      }
+    ]
+  },
+  {
+    "id": 50223218681,
+    "pos": {
+      "x": 1001,
+      "y": 363,
+      "type": "vector"
+    },
+    "type": "factSetter",
+    "speaker": "dummyCaptain",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [
+      {
+        "identifier": "king_said_dont_use_sarcasm",
+        "value": true
+      }
+    ],
+    "criteria": [],
+    "in": [
+      {
+        "to": 196747462484
+      }
+    ],
+    "out": [
+      {
+        "index": 0,
+        "to": 271563132593
+      }
+    ]
+  }
+]

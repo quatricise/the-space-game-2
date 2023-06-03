@@ -1,0 +1,3 @@
+const preferences = {
+  allProjectilesDoSingularPointOfDamage: true
+}

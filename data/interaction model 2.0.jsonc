@@ -1,0 +1,60 @@
+{
+  "interactions": [
+    {
+      "devNote": "Interactions will be composed of commands and have a potentially infinite set of both dismiss and complete methods. Different commands can be executed on either 'dismiss' or 'complete' of the interaction. Commands inside doOnDestroy get called regardless whether the interaction was dismissed or completed. Each interaction can only have one instance of each of these: [hint, hintGraphic, popupTooltip].",
+      "interactionId": "some_interaction",
+      "parentId":      "some_gameobject_id",
+      "options":       {"useHostHitbox": false, "createOnLoad": true, "repeatable": true},
+      "trigger":       {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+      "hitbox":        {"type": "box", "filename": null, "definition": {"a": 5000, "b": 5000}
+      },
+      "interactionData": {
+        "doOnEnter": [
+          {
+            "command": "showHint",
+            "hintData": {
+              "text": "Hint text",
+              "type": "static",
+              "attachment": "bottom"
+            }
+          }
+        ],
+        "doOnLeave": [
+          {
+            "command": "hideHint"
+          }
+        ],
+        "doOnDismiss": [],
+        "doOnComplete": [
+          {
+            "command": "createInteraction",
+            "newInteractionId": "some_other_interaction"
+          }
+        ],
+        "doOnDestroy": [],
+        "dismiss": {
+          "logicOperation": "AND",
+          "methods": [
+            {
+              "method": "UIevent",
+              "eventType": "keydown",
+              "eventBind": "decel",
+              "elementSelector": ""
+            }
+          ]
+        },
+        "complete": {
+          "logicOperation": "AND",
+          "methods": [
+            {
+              "method": "UIevent",
+              "eventType": "keydown",
+              "eventBind": "accel",
+              "elementSelector": ""
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

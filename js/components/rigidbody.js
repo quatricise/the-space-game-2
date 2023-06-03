@@ -1,6 +1,8 @@
 class RigidBody extends Component {
-  constructor(gameObject, mass) {
+  constructor(gameObject) {
     super(gameObject)
-    this.mass = mass || 1
+  }
+  update() {
+    
   }
 }

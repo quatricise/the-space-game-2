@@ -1,0 +1,27 @@
+{
+  "name": "empty",
+  "pos": { "x": 0, "y": 0 },
+  "objects": [
+    {
+      "id": "camera001",
+      "transform": {
+        "position": {
+          "x": -1106.96296296296,
+          "y": 905.4814814814808
+        },
+        "velocity": {
+          "x": 0,
+          "y": 0
+        },
+        "rotation": 0,
+        "angularVelocity": 0,
+        "cellPosition": {
+          "x": -3,
+          "y": 1
+        }
+      },
+      "type": "camera"
+    }
+  ],
+  "fog": []
+}

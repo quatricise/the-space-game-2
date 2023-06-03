@@ -57,17 +57,4 @@ class PolygonBuilder {
   static Custom(vertices = [{x:0, y:0}], offset = {x: 0, y: 0}, rotationDeg = 0) {
 
   }
-  static rotateVertices(vertices, rotation) {
-    vertices.forEach((vertex) => {
-      let newPos = vectorRotate(vertex.x, vertex.y, rotation)
-      vertex.x = newPos.x
-      vertex.y = newPos.y //this works
-    })
-  }
-  static offsetVertices(vertices, offset) {
-    vertices.forEach((vertex) => {   
-      vertex.x += offset.x
-      vertex.y += offset.y
-    })
-  }
 }

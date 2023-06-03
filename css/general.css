@@ -1,31 +1,29 @@
-:root {
-  --dark-1: #131314;
-  --dark-1-05: hsla(240, 3%, 8%, 0.5);
-  --dark-2: #1b1d1f;
-  --dark-3: #2b2d30;
-  --dark-4: #393c3f;
-  --dark-5: #4c5155;
-  --dark-6: #62696e;
-  --bright-3: #9da6af;
-  --bright-4: #888f96;
-  --color-shield: #1e54e7;
-  --cursor-default: url(../assets/cursor/default.png) 16 13, default;
-  --cursor-pointer: url(../assets/cursor/pointer.png) 16 13, pointer;
-  --cursor-help: url(../assets/cursor/help.png) 17 13, help;
-}
-
 body {
   margin: 0;
   padding: 0;
+  background-color: black;
   overflow: hidden;
   font-family: space;
   font-size: 14px;
   cursor: var(--cursor-default);
 }
 
+main {
+  width: 100vw;
+  height: 100vh;
+}
+
 img {
   -webkit-user-drag: none;
   user-select: none;
+  border: none;
+  outline: none;
+}
+img:not([src]) {
+  display: none;
+}
+img[src=""] {
+  display: none;
 }
 
 * {
@@ -41,7 +39,7 @@ img {
 ::-webkit-scrollbar-track {
   background: var(--dark-4);
   border-radius: 2px;
-  margin: 10px;
+  /* margin: 10px; */
 }
 
 /* Handle */
@@ -123,9 +121,9 @@ textarea {
 .search-bar {
   position: absolute;
   top: 20px;
+  right: 60px;
   border-radius: 100px;
   background-color: var(--dark-3);
-  max-width: 300px;
   min-width: max-content;
   display: flex;
   justify-content: center;
@@ -138,6 +136,7 @@ textarea {
   background-color: var(--dark-1);
   border-radius: 2px;
   height: 24px;
+  width: 400px;
   caret-color: white;
   padding: 5px;
   color: white;
@@ -212,39 +211,6 @@ textarea {
 .no-select {
   user-select: none;
 }
-#hints-container {
-  pointer-events: none;
-  z-index: 1;
-}
-
-.hint {
-  display: flex;
-  letter-spacing: 1px;
-  position: absolute;
-  color: white;
-  font-size: 20px;
-  animation-duration: 0.8s;
-  animation-name: pulse;
-  animation-timing-function: ease-in-out;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-}
-
-.currency-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: var(--dark-1);
-}
-
-.currency {
-  width: 32px;
-  height: auto;
-}
 
 .context-menu {
   position: absolute;
@@ -272,4 +238,102 @@ textarea {
 .context-menu-title {
   padding: 0 0 10px;
   font-size: 16px;
+}
+
+
+.modal-button {
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 5px;
+  outline: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border: 2px solid var(--color-accent);
+  cursor: var(--cursor-pointer);
+}
+
+.modal-button:hover {
+  border-color: white!important;
+}
+
+.modal-button.warning {
+  background-color: var(--color-warning);
+  border: 2px solid var(--color-warning);
+}
+
+button {
+  font-family: inherit;
+  cursor: unset;
+}
+
+button.generic {
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-color: var(--dark-4);
+  padding: 10px 30px;
+  height: max-content;
+  color: white;
+  cursor: var(--cursor-pointer);
+  font-weight: 500;
+  letter-spacing: 0.02rem;
+  font-family: inherit;
+}
+
+button.generic:hover {
+  background-color: var(--dark-5);
+  border: 2px solid white;
+}
+
+.flip-horizontal {
+  transform: scaleX(-1);
+}
+
+.icon-disabled {
+  filter: saturate(0) contrast(0.5) opacity(0.5);
+}
+
+.highlighted {
+  border: 2px solid white;
+}
+
+.game-window-top-bar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  top: 80px;
+  padding: 0 80px;
+}
+.game-window-top-bar-centered {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  top: 80px;
+  padding: 0 80px;
+}
+
+.close-button {
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(/assets/ui/closeButton.png);
+}
+.close-button:hover {
+  background-image: url(/assets/ui/closeButtonHover.png);
+}
+.close-button-angled {
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(/assets/ui/closeButtonAngled.png);
+}
+.close-button-angled:hover {
+  background-image: url(/assets/ui/closeButtonAngledHover.png);
 }

@@ -1,0 +1,130 @@
+#pause-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100vw;
+  height: 100vh;
+  color: #93867f;
+  z-index: 1;
+  user-select: none;
+  font-family: "big-t-comic";
+  font-weight: 600;
+  letter-spacing: -0.08em;
+}
+
+#pause-screen-content {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#pause-screen-header {
+  position: absolute;
+  top: -30px;
+  width: 450px;
+}
+
+.pause-screen-bottom-buttons {
+  position: absolute;
+  bottom: -28px;
+  display: flex;
+  gap: 20px;
+  cursor: var(--cursor-pointer);
+}
+
+#pause-screen-achievements-panel {
+  position: absolute;
+  top: 80px;
+  width: 620px;
+}
+
+#pause-screen-volume-sliders-panel {
+  position: absolute;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 620px;
+}
+
+.pause-screen-volume-slider-background-image {
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.pause-screen-achievements-image {
+  top: 0;
+  width: 100%;
+}
+
+.pause-screen-background-panel {
+  width: 900px;
+}
+
+.game-paused-info {
+  font-size: 2rem;
+}
+.game-paused-info::before {
+  content: url(../assets/icons/iconPause48w.png);
+  position: relative;
+  top: 12px;
+}
+
+.pause-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 27px 2px;
+  font-size: 1.12rem;
+  letter-spacing: -0.08em;
+  color: #93867f;
+  font-weight: 600;
+}
+
+.pause-option.accent {
+  background-color: var(--color-accent);
+}
+.pause-option.accent:hover {
+  background-color: var(--color-accent);
+}
+.pause-sliders {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+.pause-option-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0 40px;
+  z-index: 1;
+}
+
+.pause-option-block.sfx {
+  
+}
+.pause-option-block.music {
+
+}
+
+.pause-option-block-title {
+  font-size: 1rem;
+  /* margin-top: 10px; */
+}
+
+#pause-screen-slider-container-sfx {
+  width: 300px;
+}
+#pause-screen-slider-container-music {
+  width: 300px;
+}

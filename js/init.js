@@ -1,39 +1,32 @@
+/* sets of commands I can easily switch between to make it easier to do stuff */
+const initMacros = {
+  openDialogueEditor() {
+    gameManager.setWindow(dialogueEditor)
+  },
+  loadGame() {
+    gameManager.loadStartingLocation()
+  },
+  startIntroDialogue() {
+    gameManager.setWindow(game)
+    gameManager.setWindow(dialogueScreen)
+    dialogueScreen.load("intro-king_and_ada")
+  },
+  openMap() {
+    gameManager.setWindow(game)
+    gameManager.setWindow(map)
+  },
+};
+
 (function init() {
-  map.createIcons()
-  game.loadGameWorld("empty")
-  game.mode.set("play")
-
-  let ship = GameObject.create(
-    "ship", 
-    "theGrandMoth", 
-    {transform: new Transform()}, 
-    {world: game}
-  )
-  ship.addPower(ship.brakes)
-  ship.addPower(ship.brakes)
-  ship.addPower(ship.brakes)
-  ship.addPower(ship.engines.main)
-  player = new Player()
-  player.ship = ship
-
-  game.camera.lockTo(player.ship)
-  
-  GameObject.create("interactable", "Station XO-1 Store Interface", 
-    {
-      transform: new Transform(),
-      hitbox: new CircleHitbox(300),
-      doOnEnter: ["showHint"],
-      doOnLeave: ["hideHint"],
-      hintText: "Press [E] to open store",
-      parent: game.gameObjects.asteroid[0]
-    },
-    {world: game}
-  )
-  
-  program.windows.set(game)
-  console.log(program.windows.active)
-  shipView.loadSVG("needle")
-  localMap.load("testSystem")
   attachListeners()
-  game.app.ticker.add(tick)
+  Fact.loadFacts()
+  loadFonts(() => map.load())
+  gameManager.preloadImageAssets()
+  AudioManager.prime()
+  AudioManager.loadSounds()
+  Item.registerItemsFromWeapons()
+  gameManager.setWindow(startScreen)
+  Q("#ship-graphic").classList.add(gameManager.playerData.shipName)
+  Q("#ship-skip-charge-icon").classList.add(gameManager.playerData.shipName)
+  gameUI.toggleDevIcons()
 })();

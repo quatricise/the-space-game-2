@@ -1,0 +1,130 @@
+#save-select-screen {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  font-family: "big-t-comic";
+  font-weight: 600;
+  letter-spacing: -0.08em;
+  color: white;
+  z-index: 1000;
+  user-select: none;
+}
+
+.save-select-screen-main-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-screen-top-bar {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: -34px;
+  width: 100vw;
+  padding: 0 80px;
+}
+
+#save-select-screen button {
+  color: #93867f;
+}
+
+button#back-to-start {
+  position: absolute;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 5px 20px 1px;
+  position: absolute;
+  bottom: -20px;
+}
+
+.save-screen-label {
+  padding-top: 4px;
+  width: 500px;
+  font-family: "big-t-comic";
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: center;
+  color: #93867f;
+}
+
+.save-cards {
+  position: absolute;
+  width: calc(100% - 160px);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+}
+
+.save-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+  cursor: var(--cursor-pointer);
+}
+
+.save-card.empty {
+  filter: opacity(0.5);
+}
+
+.save-card-text {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 2px;
+  color: #93867f;
+  z-index: 2;
+}
+
+.save-card-cover-image {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 202px;
+  object-fit: cover;
+  padding: 16px;
+}
+
+.save-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.1em;
+}
+
+.save-card-graphic {
+  width: 100%;
+  height: auto;
+}
+.save-card-graphic.front,
+.save-card-graphic.front-new-save {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  z-index: 1;
+}
+.save-card-graphic.front {
+  background-image: url("../assets/ui/saveCardFront.png" );
+}
+.save-card:hover .save-card-graphic.front {
+  background-image: url("../assets/ui/saveCardFrontHover.png" );
+}
+.save-card-graphic.front-new-save {
+  background-image: url("../assets/ui/saveCardFrontNewSave.png" );
+}
+.save-card:hover .save-card-graphic.front-new-save {
+  background-image: url("../assets/ui/saveCardFrontNewSaveHover.png" );
+}

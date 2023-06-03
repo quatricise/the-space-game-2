@@ -1,0 +1,23 @@
+#loading-screen {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#loading-screen-panel {
+  width: 600px;
+  height: 600px;
+  background-image: url(/assets/ui/loadingScreenPanel.png);
+  z-index: 1;
+}
+
+#loading-screen-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.45) contrast(1.06);
+}

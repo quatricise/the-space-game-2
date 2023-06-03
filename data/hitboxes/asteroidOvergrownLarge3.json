@@ -1,0 +1,121 @@
+{
+  "type": "polygonHitbox",
+  "color": 16776960,
+  "bodies": [
+    {
+      "vertices": [
+        {
+          "x": -102,
+          "y": -156,
+          "type": "vector"
+        },
+        {
+          "x": -102,
+          "y": -177,
+          "type": "vector"
+        },
+        {
+          "x": -91,
+          "y": -175,
+          "type": "vector"
+        },
+        {
+          "x": -89,
+          "y": -157,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    },
+    {
+      "vertices": [
+        {
+          "x": -62,
+          "y": -99,
+          "type": "vector"
+        },
+        {
+          "x": -64,
+          "y": -144,
+          "type": "vector"
+        },
+        {
+          "x": -27,
+          "y": -146,
+          "type": "vector"
+        },
+        {
+          "x": -15,
+          "y": -89,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    },
+    {
+      "vertices": [
+        {
+          "x": -89,
+          "y": -3,
+          "type": "vector"
+        },
+        {
+          "x": -119,
+          "y": -28,
+          "type": "vector"
+        },
+        {
+          "x": -96,
+          "y": -75,
+          "type": "vector"
+        },
+        {
+          "x": -43,
+          "y": -69,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    },
+    {
+      "vertices": [
+        {
+          "x": -11,
+          "y": -104,
+          "type": "vector"
+        },
+        {
+          "x": 56.75,
+          "y": -84.5,
+          "type": "vector"
+        },
+        {
+          "x": 119.25,
+          "y": -14.25,
+          "type": "vector"
+        },
+        {
+          "x": 45,
+          "y": 153,
+          "type": "vector"
+        },
+        {
+          "x": -9,
+          "y": 174,
+          "type": "vector"
+        },
+        {
+          "x": -90.5,
+          "y": 88.5,
+          "type": "vector"
+        },
+        {
+          "x": -102.5,
+          "y": 21.25,
+          "type": "vector"
+        }
+      ],
+      "color": 16776960
+    }
+  ]
+}

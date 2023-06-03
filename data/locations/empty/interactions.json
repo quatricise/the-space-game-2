@@ -1,0 +1,11 @@
+{
+  "cameraBounds": {
+    "minX": -100000,
+    "minY": -100000,
+    "maxX": 100000, 
+    "maxY": 100000
+  },
+  "lightSources": [],
+  "markers": [],
+  "interactions": []
+}

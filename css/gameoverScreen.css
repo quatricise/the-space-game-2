@@ -1,0 +1,69 @@
+#gameover-screen {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  font-family: "big-t-comic";
+  font-weight: 600;
+  color: #93867f;
+  background-color: var(--color-darkred-0-04);
+  backdrop-filter: saturate(0.5);
+}
+
+.gameover-background-panel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 1200px;
+  max-width: calc(100% - 120px);
+}
+
+.gameover-background-panel-image {
+  width: 100%;
+}
+
+.gameover-button-container {
+  position: absolute;
+  bottom: -25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.gameover-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px 5px;
+}
+
+.quote-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  padding: 100px 200px 50px;
+  pointer-events: none;
+}
+.quote-author {
+  align-self: flex-end;
+  color: #93867f;
+}
+
+.quote-text {
+  line-height: 1.4em;
+}
+
+.gameover-screen-title {
+  position: absolute;
+  top: 75px;
+  font-size: 3.5rem;
+  letter-spacing: -0.1em;
+  color: #93867f;
+}

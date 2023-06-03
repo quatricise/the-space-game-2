@@ -1,27 +1,32 @@
 function tick(deltaFactor) {
   setDelta(deltaFactor)
   //#region update
-  player.update()
-  program.update()
+  AudioManager.update()
   mouse.updateShipAngle()
   mouse.updateWorldPosition()
-  program.windows.all.forEach(w => {
-    if(w.graphics) {
-      w.graphics.clear()
-      w.graphics.alpha = 1.0
+  filterManager.update()
+  gameManager.update()
+  gameManager.windows.forEach(win => {
+    if(win.graphics) {
+      win.graphics.clear()
+      win.graphics.alpha = 1.0
     }
-    if(w instanceof GameWorldWindow) {
-      w.updateGameObjects()
-      w.updateStats()
-      w.updateGridSprite()
-      w.updateFog()
+    if(win instanceof GameWorldWindow && gameManager.activeWindow === win) {
+      win.updateGameObjects()
+      win.updateGridSprite()
+      win.updateFog()
     }
-    w.update()
+    win.update()
   })
   //#endregion
 
   //#region interact
-  CollisionDetector.detect(game)
+  collisionChecksPerFrame = 0
+  broadphaseCallsPerFrame = 0
+  if(gameManager.activeWindow === game)
+    Collision.detect(game)
+  if(locationEditor.useCollision)
+    Collision.detect(locationEditor)
   //#endregion
 }
 
@@ -32,3 +37,6 @@ function setDelta(deltaFactor) {
   dtf = deltaFactor
   fps = 1000 / game.app.ticker.deltaMS
 }
+
+let collisionChecksPerFrame = 0
+let broadphaseCallsPerFrame = 0

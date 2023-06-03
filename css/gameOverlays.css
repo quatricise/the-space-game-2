@@ -1,0 +1,953 @@
+#game-ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  user-select: none;
+  color: white;
+}
+
+.game-overlay-tools {
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  width: min-content;
+  gap: 5px;
+}
+
+.game-overlay-tools2 {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex;
+  gap: 5px;
+  pointer-events: all;
+}
+
+.game-overlay-tools.settings {
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.game-stats {
+  position: absolute;
+  font-size: 13px;
+  text-align: right;
+  right: 20px;
+  top: 80px;
+  color: white;
+  user-select: none;
+  pointer-events: none;
+}
+
+#interaction-container {
+  position: fixed;
+  bottom: 20px;
+  left: calc(50% - 197px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hint {
+  position: relative;
+  bottom: 0;
+  display: flex;
+  max-width: 394px;
+  height: 182px;
+  align-items: center;
+  padding: 40px 30px 40px 70px;
+  border-radius: 5px;
+  line-height: 140%;
+  color: #93867f!important;
+  font-family: "big-t-comic";
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.10em;
+
+  animation-duration: 1.75s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+
+  background-image: url(/assets/ui/hintContainer.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  pointer-events: all!important;
+  user-select: none;
+}
+
+.hint:hover {
+  background-image: url(/assets/ui/hintContainerHover.png);
+}
+
+.ingame-message {
+  display: flex;
+  max-width: 394px;
+  text-align: center;
+  line-height: 140%;
+  color: #93867f;
+  font-family: "big-t-comic";
+  font-size: 1rem;
+  background-color: var(--dark-1);
+  animation-duration: 1.75s;
+  animation-name: pulse;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  user-select: none;
+  pointer-events: none!important;
+  background-image: url(/assets/ui/messagesContainer.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.currency-container,
+.in-game-currency-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #93867f;
+  user-select: none;
+}
+
+.currency-container {
+  background-color: var(--dark-1);
+}
+
+.in-game-currency-container:hover {
+  background-color: var(--dark-1-05);
+}
+
+.currency {
+  width: 32px;
+  height: auto;
+}
+
+.audio-call-heading-icon {
+  width: 30px;
+  height: 30px;
+  background-image: url(../assets/ui/callWaveform.gif);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.audio-call-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid var(--dark-4);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.05));
+  backdrop-filter: blur(10px);
+  background-clip: padding-box;
+  animation-name: audio-call-pulse;
+  animation-duration: 0.75s;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  overflow: hidden;
+}
+
+.audio-call-content:hover {
+  border: 2px solid var(--dark-5);
+  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1));
+}
+
+@keyframes audio-call-pulse {
+  0% 
+  {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  100% 
+  {
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.caller-information {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 0 0 5px;
+  width: 100%;
+}
+
+.caller-message {
+  flex-grow: 1;
+  font-size: 1rem;
+  animation-name: audio-call-message-pulse;
+  animation-duration: 2s;
+  animation-direction: forwards;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+}
+
+@keyframes audio-call-message-pulse {
+  0% 
+  {
+    color: rgba(255, 255, 255, 1);
+  }
+  70% 
+  {
+    color: rgba(255, 255, 255, 1);
+  }
+  73% 
+  {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  76% 
+  {
+    color: rgba(255, 255, 255, 1);
+  }
+  79% 
+  {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  82% 
+  {
+    color: rgba(255, 255, 255, 1);
+  }
+  100% 
+  {
+    color: rgba(255, 255, 255, 1);
+  }
+}
+
+#mouse-tooltip {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 20px 10px;
+  font-family: "big-t-comic";
+  z-index: 1000;
+  width: max-content;
+  max-width: 300px;
+  color: #93867f;
+  user-select: none;
+  pointer-events: none;
+}
+
+.tooltip-frame {
+  position: absolute;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  left: -10px;
+  top: -10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  z-index: -1;
+}
+.tooltip-frame-part {
+  background-image: url(/assets/ui/tooltipFrame.png);
+}
+.tooltip-frame-part.first {
+  background-position: 0% 0%;
+}
+.tooltip-frame-part.second {
+  background-position: 100% 0%;
+}
+.tooltip-frame-part.third {
+  background-position: 0% 100%;
+}
+.tooltip-frame-part.fourth {
+  background-position: 100% 100%;
+}
+
+#ship-tooltip {
+  flex-direction: column;
+}
+
+.tooltip-inner-text {
+  font-size: 0.8rem;
+  letter-spacing: -0.08em;
+  line-height: 1.5em;
+}
+
+.tooltip-inner-heading {
+  font-size: 0.85rem;
+  letter-spacing: -0.08em;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-transform: uppercase;
+}
+
+.cannot-sell-icon {
+  width: 40px;
+  height: 40px;
+  background-image: url(/assets/ui/unsellableIcon.png);
+}
+
+.tooltip-item-cannot-sell-warning {
+  margin-top: 5px;
+  color: #ba4c45;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  gap: 10px;
+}
+
+.tooltip-item-item-category {
+  margin-top: 5px;
+  color: #ba4c45;
+  font-weight: 600;
+}
+
+.tooltip-sell-cost,
+.tooltip-buy-cost {
+  margin-top: 4px;
+  margin-left: -4px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-active);
+}
+.tooltip-sell-cost::before,
+.tooltip-buy-cost::before {
+  position: relative;
+  top: -6px;
+  background-size: 20px 20px;
+  content: url(/assets/currencyTiny.png);
+  width: 20px;
+  height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+}
+
+.tooltip-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: hsla(0, 0%, 0%, 0.25);
+  inset: 0;
+  z-index: 99999;
+}
+
+#weapon-panel {
+  color: white;
+  height: 100%;
+  display: flex;
+  width: 100%;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+#information-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.looting-popup-container {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 20px;
+  border-radius: 10px;
+  color: #93867f;
+  background-color: var(--dark-2-05);
+  backdrop-filter: blur(10px);
+  font-family: "big-t-comic";
+  font-size: 1rem;
+  z-index: 10;
+  pointer-events: all;
+}
+
+.looting-popup-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.08em;
+}
+
+.looting-popup-item-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 5px;
+}
+
+.looting-popup-indicator {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+  color: #B85914;
+  background-color: var(--dark-2);
+  border: 2px solid #B85914;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.popup-tooltip {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+  max-width: 500px;
+  font-family: "big-t-comic";
+  color: #93867f;
+  padding: 7px 10px 2px;
+  z-index: 100000;
+  pointer-events: none;
+}
+.popup-tooltip-title {
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.12em;
+}
+.popup-tooltip-text {
+  font-weight: 400;
+  font-size: 0.9rem;
+  letter-spacing: -0.12em;
+  line-height: 115%;
+}
+.popup-tooltip-arrow {
+  position: absolute;
+  border: 10px solid;
+  border-color: transparent;
+}
+.popup-tooltip-arrow.left {
+  border-color: transparent transparent transparent var(--dark-2);
+}
+.popup-tooltip-arrow.right {
+  border-color: transparent var(--dark-2) transparent transparent;
+}
+.popup-tooltip-arrow.bottom {
+  border-color: transparent transparent var(--dark-2) transparent;
+}
+.popup-tooltip-arrow.top {
+  border-color: var(--dark-2) transparent transparent transparent;
+}
+
+#minimap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 166px;
+  height: 165px;
+  pointer-events: all;
+}
+
+.minimap-overlay-texture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(/assets/ui/minimap.png);
+}
+
+.minimap-overlay-texture:hover {
+  background-image: url(/assets/ui/minimapHover.png);
+}
+
+.left-side-panel {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-direction: column;
+  bottom: 20px;
+  left: 20px;
+}
+
+.right-side-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: all;
+}
+
+.audio-call-popup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(/assets/ui/audioCallPopup.png);
+  width: 394px;
+  height: 186px;
+  pointer-events: all;
+}
+.audio-call-popup:hover {
+  background-image: url(/assets/ui/audioCallPopupHover.png);
+}
+.audio-call-heading {
+  position: absolute;
+  top: 25px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #ed9200;
+  font-size: 0.92rem;
+  font-weight: 600;
+  font-family: "big-t-comic";
+  letter-spacing: -0.15em;
+}
+
+.audio-call-buttons {
+  position: absolute;
+  bottom: 12px;
+  right: 42px;
+  display: flex;
+  width: 207px;
+  height: 38px;
+  background-image: url(/assets/ui/audioCallButtons.png);
+}
+
+.audio-call-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 0 0 0;
+  font-family: "big-t-comic";
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: -0.12em;
+  color: #93867f;
+  width: 50%;
+}
+
+.audio-call-button:hover {
+  color: #ed9200;
+}
+
+.audio-call-buttons:hover {
+  background-image: url(/assets/ui/audioCallButtonsHover.png);
+}
+
+.audio-call-message {
+  position: absolute;
+  left: 150px;
+  color: #ed9200;
+  font-size: 0.85rem;
+  font-family: "big-t-comic";
+  letter-spacing: -0.12em;
+  hyphens: auto;
+  font-weight: 600;
+  max-width: 200px;
+}
+
+.caller-portrait {
+  position: absolute;
+  bottom: 4px;
+  left: 20px;
+  width:  130px;
+  height: 130px;
+  object-fit: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.ship-graphic {
+  position: relative;
+  transform: translateY(-5px) scale(1.1);
+}
+.ship-graphic.theGrandMoth {
+  background-image: url(/assets/ui/shipGraphic/theGrandMoth.png);
+  width: 139px;
+  height: 147px;
+}
+.ship-graphic.waspFighter {
+  background-image: url(/assets/ui/shipGraphic/waspFighter.png);
+  width: 137px;
+  height: 146px;
+}
+
+#ship-skip-charge-icon {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(/assets/ui/skipCharge/skipChargeGraphic0006.png);
+}
+
+#ship-skip-charge-icon.theGrandMoth {
+  bottom: 10px;
+  left: calc(50% - 22px);
+}
+#ship-skip-charge-icon.waspFighter {
+  bottom: 16px;
+  left: calc(50% - 23px);
+}
+
+.ship-hull-and-weapon-panel {
+  position: relative;
+  background-image: url(/assets/ui/shipHullAndWeaponPanel.png);
+  width: 192px;
+  height: 80px;
+  pointer-events: all;
+}
+
+.ship-hull-and-weapon-panel:hover {
+  background-image: url(/assets/ui/shipHullAndWeaponPanelHover.png);
+}
+
+.ship-hull-and-weapon-panel.warning {
+  background-image: url(/assets/ui/shipHullAndWeaponPanelWarning.png);
+}
+
+.ship-hull-and-weapon-panel.warning .ship-hull-point:not(.empty) {
+  background-color: #b23820;
+  animation-name: blink;
+  animation-timing-function: ease-in-out;
+  animation-duration: 2s;
+  animation-play-state: running;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes blink {
+  0% 
+  {
+    background-color: #b23820;
+  }
+  100% 
+  {
+    background-color: #6d1f10;
+  }
+}
+
+#ship-hull-wrapper {
+  display: flex;
+  position: absolute;
+  gap: 3px;
+  bottom: 8px;
+  left: 48px;
+}
+
+.ship-hull-point {
+  width: 6px;
+  height: 26px;
+  border-radius: 2px;
+  background-color: #93867f;
+}
+
+.ship-hull-point.empty {
+  background-color: #363331;
+}
+
+.status-effect-panel {
+
+}
+.status-effect-icon {
+  width: 40px;
+  height: 40px;
+}
+.status-effect-icon.fire {
+  background-image: url(/assets/ui/statusEffect/fire.png);
+}
+.status-effect-icon.frost {
+  background-image: url(/assets/ui/statusEffect/frost.png);
+}
+#right-side-navigation-buttons {
+  position: relative;
+  display: flex;
+  gap: 6px;
+}
+.pause-button,
+.inventory-button,
+.map-button {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-size: contain;
+}
+.pause-button {
+  background-image: url(/assets/ui/pauseButton.png);
+}
+.map-button {
+  background-image: url(/assets/ui/mapButton.png);
+}
+.inventory-button {
+  background-image: url(/assets/ui/inventoryButton.png);
+}
+.pause-button:hover {
+  background-image: url(/assets/ui/pauseButtonHover.png);
+}
+.map-button:hover {
+  background-image: url(/assets/ui/mapButtonHover.png);
+}
+.inventory-button:hover {
+  background-image: url(/assets/ui/inventoryButtonHover.png);
+}
+
+.location-info {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.85rem;
+  font-family: "big-t-comic";
+  font-weight: 600;
+  color: #93867f;
+  letter-spacing: -0.1em;
+}
+.location-info-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* this is used on all the handdrawn buttons that need to neatly fit into a box */
+.ui-graphic {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.ui-button-minimal-filled {
+  border: 18px solid transparent;
+  border-image: url(../assets/ui/UIButtonMinimalFilled.png) round;
+  border-image-slice: 20 fill;
+  box-sizing: padding-box;
+  background-color: transparent;
+}
+
+.ui-button-minimal-filled:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalFilledHover.png);
+}
+
+.ui-button-minimal-alt-filled {
+  border: 12px solid transparent;
+  border-image: url(../assets/ui/UIButtonMinimalAltFilled.png) round;
+  border-image-slice: 35 fill;
+  box-sizing: padding-box;
+  background-color: transparent;
+}
+.ui-button-minimal-alt-filled:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledHover.png);
+}
+
+.ui-button-minimal-alt-filled.orange {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrange.png);
+}
+.ui-button-minimal-alt-filled.orange:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeHover.png);
+}
+
+.ui-button-minimal-alt-filled.orange-dark {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeDark.png);
+}
+.ui-button-minimal-alt-filled.orange-dark:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledOrangeDarkHover.png);
+}
+
+.ui-button-minimal-alt-filled.active-color {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledActiveColor.png);
+}
+.ui-button-minimal-alt-filled.active-color:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledActiveColorHover.png);
+}
+
+.ui-button-minimal-alt-filled.interactable-color {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledInteractableColor.png);
+}
+.ui-button-minimal-alt-filled.interactable-color:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledInteractableColorHover.png);
+}
+.ui-button-minimal-alt-filled.dialogue-gray {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledDialogueGray.png);
+}
+.ui-button-minimal-alt-filled.dialogue-gray:hover {
+  border-image-source: url(../assets/ui/UIButtonMinimalAltFilledDialogueGrayHover.png);
+}
+
+.ui-button-fancy-filled {
+  border: 28px solid transparent;
+  border-image: url(../assets/ui/UIButtonFancyFilled.png) round;
+  border-image-slice: 38 fill;
+  box-sizing: padding-box;
+  background-color: transparent;
+}
+
+.ui-button-fancy-filled:hover {
+  border-image-source: url(../assets/ui/UIButtonFancyFilledHover.png);
+}
+
+.ui-label-fancy-both-sides {
+  border: 20px solid transparent;
+  border-image: url(../assets/ui/UILabelFancyBothSides.png);
+  border-image-repeat: stretch;
+  border-image-slice: 60 fill;
+  box-sizing: padding-box;
+  background-color: transparent;
+}
+
+.shadow-dark {
+  box-shadow: 0 0 30px 2px #1a1818;
+}
+
+#quest-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  pointer-events: none;
+  font-family: "big-t-comic";
+  color: #93867f;
+}
+
+#quest-panel-new-quest-started {
+  position: absolute;
+  top: calc(50% - 30px);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-rendering: geometricPrecision;
+  letter-spacing: -0.09em;
+}
+#quest-panel-quest-name {
+  position: absolute;
+  text-transform: uppercase;
+  top: calc(50% + 5px);
+  font-size: 2.2rem;
+  font-weight: 100;
+  letter-spacing: -0.06em;
+}
+
+#thank-you-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  pointer-events: all;
+  z-index: 10;
+  background-color: #1a181880;
+}
+
+#thank-you-panel-contents {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+}
+
+#thank-you-panel-buttons {
+  position: absolute;
+  bottom: -25px;
+  display: flex;
+  gap: 20px;
+}
+
+#back-to-the-game-button {
+  padding: 10px 30px 7px;
+  width: max-content;
+  color: #93867f;
+  font-family: "big-t-comic";
+  font-weight: 600;
+}
+
+#show-credits-button {
+  padding: 10px 30px 7px;
+  width: max-content;
+  color: #93867f;
+  font-family: "big-t-comic";
+  font-weight: 600;
+}
+
+#local-map {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  pointer-events: none;
+  z-index: 2;
+}
+#local-map #local-map-background-panel {
+  pointer-events: all;
+}
+#local-map-background-panel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: max-content;
+  height: max-content;
+}
+#local-map-background-panel img {
+  position: relative;
+  width: 1200px;
+  z-index: 1;
+}
+
+#minimap-canvas.big {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#local-map-close-button {
+  position: absolute;
+  right: 40px;
+  top: -30px;
+  z-index: 2;
+}
+
+#local-map-label {
+  position: absolute;
+  top: -25px;
+  background-image: url(/assets/ui/localMapLabel.png);
+  width: 210px;
+  height: 56px;
+  z-index: 2;
+}
+
+#brakes-off-warning {
+  width: 180px;
+  align-self: start;
+  margin-left: 3px;
+  margin-bottom: 10px;
+}
+#brakes-off-warning img {
+  width: 100%;
+}

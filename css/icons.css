@@ -12,6 +12,7 @@
 .tool-cont:hover,
 .editor-icon:hover {
   border-color: white;
+  background-color: var(--dark-4);
 }
 
 .tool-icon,
@@ -62,9 +63,6 @@
 .tool-icon.add {
   background-image: url(../assets/editor/iconPlus.png);
 }
-.tool-icon.select-object {
-  background-image: url(../assets/hitboxEditor/iconSelectObject.png);
-}
 .tool-icon.add-special {
   background-image: url(../assets/editor/iconPlus.png);
 }
@@ -86,6 +84,12 @@
 .tool-icon.add-sprite {
   background-image: url(../assets/icons/iconAddSprite.png);
 }
+.tool-icon.add-star-system {
+  background-image: url(../assets/icons/iconAddStarSystem.png);
+}
+.tool-icon.add-star-system-outback {
+  background-image: url(../assets/icons/iconAddStarSystemOutback.png);
+}
 .tool-icon.lock-sprite {
   background-image: url(../assets/icons/iconLockSprite.png);
 }
@@ -94,6 +98,9 @@
 }
 .tool-icon.lock-icon {
   background-image: url(../assets/icons/iconLockIcon.png);
+}
+.tool-icon.toggle-window-mode {
+  background-image: url(../assets/icons/iconToggleWindowMode.png);
 }
 .tool-icon.lock-icon.active {
   background-color: var(--dark-4);
@@ -104,8 +111,14 @@
 .tool-icon.moveSpawnsAlong {
   background-image: url(../assets/icons/iconMoveSpawnsAlong.png);
 }
-.tool-icon.defineWeaponSlots {
+.tool-icon.define-weapon-slots {
   background-image: url(../assets/icons/iconDefineWeaponSlots.png);
+}
+.tool-icon.define-docking-points {
+  background-image: url(../assets/icons/iconDefineDockingPoints.png);
+}
+.tool-icon.edit-wreck {
+  background-image: url(../assets/hitboxEditor/iconEditWreck.png);
 }
 .tool-icon.return-to-stage {
   background-image: url(../assets/icons/iconReturnToStage.png);
@@ -116,6 +129,19 @@
 .tool-icon.fog-eraser {
   background-image: url(../assets/icons/iconEraser.png);
 }
+.tool-icon.toggle-collision {
+  background-image: url(../assets/icons/iconToggleCollision.png);
+}
+.tool-icon.toggle-spray-mode {
+  background-image: url(../assets/icons/iconToggleSprayMode.png);
+}
+.tool-icon.use-multi-selection {
+  background-image: url(../assets/icons/iconUseMultiSelection.png);
+}
+.tool-icon.circle-select {
+  background-image: url(../assets/icons/iconCircleSelect.png);
+}
+
 .hitbox-editor-icon {
   background-image: url(../assets/hitboxEditor/iconHitboxEditor.png);
 }
@@ -131,14 +157,29 @@
 .buy-menu-icon {
   background-image: url(../assets/icons/iconBuyMenu.png);
 }
+.quest-designer-icon {
+  background-image: url(../assets/icons/iconQuestDesigner.png);
+}
 .ship-view-icon {
   background-image: url(../assets/icons/iconShipView.png);
+}
+.station-context-window-icon {
+  background-image: url(../assets/icons/iconStationContextWindow.png);
+}
+.station-window-icon {
+  background-image: url(../assets/icons/iconStationWindow.png);
+}
+.cutscene-window-icon {
+  background-image: url(../assets/icons/iconCutsceneWindow.png);
 }
 .play-icon {
   background-image: url(../assets/icons/iconPlay.png);
 }
 .pause-icon {
   background-image: url(../assets/icons/iconPause.png);
+}
+.trashcan-icon {
+  background-image: url(../assets/icons/trashcan.png);
 }
 
 .icon-restart-conversation {
@@ -149,4 +190,26 @@
 }
 .icon-restart-conversation:hover, .icon-reset-facts:hover {
   background-color: var(--dark-1);
+}
+
+.icon-20w {
+  width: 20px;
+  height: 20px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.icon-40w {
+  width: 40px;
+  height: 40px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.star-system-icon {
+  background-image: url(/assets/icons/starSystemIconNew.png);
+}
+.planet-icon {
+  background-image: url(/assets/icons/planetIcon.png);
 }

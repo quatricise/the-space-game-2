@@ -1,319 +1,75 @@
-// data.ship = {}
-// data.ship["needle"] = {
-//   displayName: "Goldbird",
-//   model: "needle",
-//   hitbox: "bluebirdNeedle",
-//   rotationSpeedBase: 110 * PI/180,
-//   glideReduction: 0.03,
-//   baseMass: 18,
-//   weaponSlots: [
-//     { x: 51.5, y: -47.5 },
-//     { x: 51.5, y: 47.5 },
-//     { x: -4.5, y: -76.5 },
-//     { x: -4.5, y: 74.5 },
-//   ],
-//   hull: {
-//     level: 10,
-//     levelMax: 20,
-//     curr: 10,
-//   },
-//   systems: {
-//       boosters: true,
-//       brakes: true,
-//       engineSteering: true,
-//       engineBraking: true,
-//       shields: true,
-//       stealth: true,
-//       weapons: true,
-//       cargo: true,
-//   },
-//   cargo: {
-//     capacity: 10,
-//     items: []
-//   },
-//   reactor: {
-//     power: 20,
-//     powerFree: 20,
-//     powerMax: 40,
-//     powerDistribution: [],
-//   },
-//   shields: {
-//     type: "pulse",
-//     level: 1,
-//     levelMax: 5,
-//     power: 0,
-//   },
-//   boosters: {
-//     type: "continuous",
-//     level: 1,
-//     levelMax: 5,
-//     power: 0,
-//     onupgrade: {
-//       accel: 0.5,
-//     },
-//   },
-//   engines: {
-//     main: {
-//       accel: 7,
-//       maxSpeed: 400,
-//       level: 1,
-//       levelMax: 5, //needs to be the same ↓
-//       power: 0,
-//       onupgrade: {
-//         accel: 1,
-//         maxSpeed: 20
-//       }
-//     }, 
-//     steering: {
-//       rotationSpeedBonus: 10 * PI/180, //improves rotation speed by this
-//       glideReduction: 0.00,
-//       level: 1,
-//       levelMax: 4,
-//       power: 0,
-//       onupgrade: {
-//         glideReduction: 0.02,
-//         rotationSpeedBonus: 10 * PI/180
-//       },
-//     }
-//   },
-//   brakes: {
-//     level: 1,
-//     levelMax: 4,
-//     power: 0,  
-//     auto: true,
-//   },
-//   dash: {
-//     ready: true,
-//     active: false,
-//     recharge: 0, //will be recalculated based on reactor power
-//     power: 1,
-//   },
-//   weapons: {
-//     slots: 4,  
-//     power: 0,
-//     weapons: [],
-//   }
-// }
-
-// data.ship["crimson"] = {
-//   displayName: "Crimson Fighter Class I",
-//   model: "crimsonFighter",
-//   hitbox: "crimsonFighterSmall",
-//   rotationSpeedBase: 110 * PI/180,
-//   glideReduction: 0.02,
-//   baseMass: 10,
-//   weaponSlots: [
-//     { x: 51.5, y: -47.5 },
-//     { x: 51.5, y: 47.5 },
-//   ],
-//   hull: {
-//     level: 5,
-//     levelMax: 20,
-//     curr: 5,
-//   },
-//   cargo: {
-//     capacity: 5,
-//     items: []
-//   },
-//   systems: {
-//     boosters: true,
-//     brakes: true,
-//     engineSteering: true,
-//     engineBraking: true,
-//     shields: true,
-//     stealth: true,
-//     weapons: true,
-//     cargo: true,
-//   },
-//   reactor: {
-//     power: 20,
-//     powerFree: 20,
-//     powerMax: 40,
-//     powerDistribution: [],
-//   },
-//     shields: {
-//       type: "pulse",
-//       level: 1,
-//       levelMax: 5,
-//       power: 0,
-//     },
-//     boosters: {
-//       type: "continuous",
-//       level: 1,
-//       levelMax: 5,
-//       power: 0,
-//       onupgrade: {
-//         accel: 0.5,
-//       },
-//     },
-//     engines: {
-//       main: {
-//         accel: 9,
-//         maxSpeed: 180,
-//         level: 1,
-//         levelMax: 5, //needs to be the same ↓
-//         power: 0,
-//         onupgrade: {
-//           accel: 1,
-//           maxSpeed: 20
-//         }
-//       },    
-//       steering: {        
-//         rotationSpeedBonus: 10 * PI/180, //improves rotation speed by this
-//         glideReduction: 0.00,
-//         level: 1,
-//         levelMax: 4,
-//         power: 0,
-//         onupgrade: {
-//           glideReduction: 0.02,
-//           rotationSpeedBonus: 10 * PI/180
-//         },
-//       }
-//     },
-//     brakes: {
-//       level: 1,
-//       levelMax: 4,
-//       power: 0,  
-//       auto: true,
-//     },
-//     dash: {
-//       ready: true,
-//       active: false,
-//       recharge: 0, //will be recalculated based on reactor power
-//       power: 1,
-//     },
-//     weapons: {
-//       slots: 4,  
-//       power: 0,
-//       weapons: [],
-//     }
-// }
-
-// data.ship["waspFighter"] = {
-//   displayName: "Wasp Fighter",
-//   model: "waspFighter",
-//   hitbox: "waspFighter",
-//   rotationSpeedBase: 120 * PI/180,
-//   glideReduction: 0.028,
-//   baseMass: 15,
-//   weaponSlots: [
-//     { x: 51.5, y: -47.5 },
-//     { x: 51.5, y: 47.5 },
-//   ],
-//   hull: {
-//     level: 7,
-//     levelMax: 20,
-//     curr: 7,
-//   },
-//   cargo: {
-//     capacity: 5,
-//     items: []
-//   },
-//   systems: {
-//     boosters: true,
-//     brakes: true,
-//     engineSteering: true,
-//     engineBraking: true,
-//     shields: true,
-//     stealth: true,
-//     weapons: true,
-//     cargo: true,
-//   },
-//   reactor: {
-//     power: 20,
-//     powerFree: 20,
-//     powerMax: 40,
-//     powerDistribution: [],
-//   },
-//   shields: {
-//     type: "pulse",
-//     level: 1,
-//     levelMax: 5,
-//     power: 0,
-//   },
-//   boosters: {
-//     type: "continuous",
-//     level: 1,
-//     levelMax: 5,
-//     power: 0,
-//     onupgrade: {
-//       accel: 0.5,
-//     },
-//   },
-//   engines: {
-//     main: {
-//       accel: 8,
-//       maxSpeed: 520,
-//       level: 1,
-//       levelMax: 5, //needs to be the same ↓
-//       power: 0,
-//       onupgrade: {
-//         accel: 1,
-//         maxSpeed: 20
-//       }
-//     },    
-//     steering: {        
-//       rotationSpeedBonus: 10 * PI/180, //improves rotation speed by this
-//       glideReduction: 0.00,
-//       level: 1,
-//       levelMax: 4,
-//       power: 0,
-//       onupgrade: {
-//         glideReduction: 0.02,
-//         rotationSpeedBonus: 10 * PI/180
-//       },
-//     }
-//   },
-//   brakes: {
-//     level: 1,
-//     levelMax: 4,
-//     power: 0,  
-//     auto: true,
-//   },
-//   dash: {
-//     ready: true,
-//     active: false,
-//     recharge: 0, //will be recalculated based on reactor power
-//     power: 1,
-//   },
-//   weapons: {
-//     slots: 4,  
-//     power: 0,
-//     weapons: [],
-//   }
-// }
+data.ship = {}
 
 data.ship["theGrandMoth"] = {
   displayName: "The Grand Moth",
-  model: "theGrandMoth",
-  hitbox: "theGrandMoth",
-  rotationSpeedBase: 100 * PI/180,
-  glideReduction: 0.085,
-  baseMass: 20,
-  weaponSlots: [
-    { x: 51.5, y: -47.5 },
-    { x: 51.5, y: 47.5 },
-    { x: -4.5, y: -76.5 },
-    { x: -4.5, y: 74.5 },
-  ],
-  systems: {
-    boosters: true,
-    brakes: true,
-    engineSteering: true,
-    engineBraking: true,
-    shields: true,
-    stealth: true,
-    weapons: true,
-    cargo: true,
+  designation: "cruiser",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "theGrandMoth",
+    definition: null,
   },
-  hull: {
-    level: 12,
-    levelMax: 20,
-    curr: 12,
+  weaponSlots: [
+    { x: 55, y: -45 },
+    { x: 55, y: 45 },
+    { x: 0, y: -75 },
+    { x: 0, y: 75 },
+  ],
+  mass: 55,
+  systems: [
+    "boosters",
+    "brakes",
+    "cargo",
+    "engine",
+    "shields",
+    "stealth",
+    "weapons",
+    "coater",
+  ],
+  boosters: {
+    type: "continuous",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    rechargeTime: 500,
+    strength: 750,
+    onupgrade: {
+      acceleration: 0.5,
+    },
+  },
+  brakes: {
+    level: 3,
+    levelMax: 4,
+    power: 0,
+    strength: 100,
+    auto: true,
   },
   cargo: {
-    capacity: 5,
-    items: []
+    capacity: 50,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (95 * PI) / 180,
+    glideReduction: 0.08,
+    acceleration: 8,
+    maxSpeed: 400,
+    skipRechargeTime: 2800,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    onupgrade: {
+      angularVelocity: (10 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 15,
+    levelMax: 20,
+    current: 15,
+    impactResistance: 100,
   },
   reactor: {
     power: 20,
@@ -326,53 +82,330 @@ data.ship["theGrandMoth"] = {
     level: 1,
     levelMax: 5,
     power: 0,
+    shieldData: {
+      distance: 250,
+      pulseStrength: 1000,
+      arcLength: PI/2, 
+      rechargeTimeMS: 1800,
+    }
   },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
+  },
+  coater: {
+    layersMax: 2
+  },
+  weapons: {
+    slots: 4,
+    power: 0,
+    weapons: [
+      "missileHelios",
+      // "plasmaCannonI",
+      // "trapMissile",
+      // "debrisGun",
+    ],
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "theGrandMoth",
+  },
+}
+data.ship["waspFighter"] = {
+  displayName: "Wasp Fighter I",
+  designation: "fighter",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "waspFighter",
+    definition: null,
+  },
+  weaponSlots: [
+    { x: 80, y:  0 },
+    { x: 38, y: -32 },
+    { x: 38, y:  32 },
+  ],
+  mass: 35,
+  systems: [
+    "boosters",
+    "brakes",
+    "cargo",
+    "engine",
+    "shields",
+    "stealth",
+    "weapons",
+  ],
   boosters: {
     type: "continuous",
     level: 1,
     levelMax: 5,
     power: 0,
+    powerMax: 5,
+    strength: 400,
     onupgrade: {
-      accel: 0.5,
+      strength: 0.5,
     },
-  },
-  engineSteering: {
-    rotationSpeedBonus: 10 * PI/180, //improves rotation speed by this
-    glideReduction: 0.01,
-    level: 1,
-    levelMax: 4,
-    power: 0,
-    onupgrade: {
-      glideReduction: 0.01,
-      rotationSpeedBonus: 10 * PI/180
-    },
-  },
-  engineMain: {
-    accel: 8,
-    maxSpeed: 420,
-    level: 1,
-    levelMax: 5,
-    power: 0,
-    onupgrade: {
-      accel: 1,
-      maxSpeed: 20
-    }
   },
   brakes: {
     level: 3,
     levelMax: 4,
-    power: 0,  
+    power: 0,
+    strength: 75,
     auto: true,
   },
-  dash: {
-    ready: true,
-    active: false,
-    recharge: 0, //will be recalculated based on reactor power
-    power: 1,
+  cargo: {
+    capacity: 20,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (90 * PI) / 180,
+    glideReduction: 0.03,
+    acceleration: 8,
+    maxSpeed: 650,
+    skipRechargeTime: 3500,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    onupgrade: {
+      angularVelocity: (6 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 8,
+    levelMax: 20,
+    current: 12,
+    impactResistance: 80,
+  },
+  reactor: {
+    power: 20,
+    powerFree: 20,
+    powerMax: 40,
+    powerDistribution: [],
+  },
+  shields: {
+    type: "hardLight",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      disposition: "front",
+      distance: 250,
+    }
+  },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
   },
   weapons: {
-    slots: 4,  
+    slots: 3,
     power: 0,
-    weapons: [],
+    weapons: [
+      "waspLaserFront",
+      "trapMissile",
+      "plasmaCannonI",
+    ],
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "waspFighter"
+  }
+}
+data.ship["waspFighterII"] = {
+  displayName: "Wasp Fighter II",
+  designation: "fighter",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "waspFighterII",
+    definition: null,
+  },
+  weaponSlots: [
+    { x: 25, y: -54 },
+    { x: 25, y:  54 },
+  ],
+  mass: 35,
+  systems: [
+    "boosters",
+    "brakes",
+    "cargo",
+    "engine",
+    "shields",
+    "stealth",
+    "weapons",
+  ],
+  boosters: {
+    type: "continuous",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    strength: 400,
+    onupgrade: {
+      strength: 0.5,
+    },
+  },
+  brakes: {
+    level: 3,
+    levelMax: 4,
+    power: 0,
+    strength: 75,
+    auto: true,
+  },
+  cargo: {
+    capacity: 20,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (90 * PI) / 180,
+    glideReduction: 0.03,
+    acceleration: 8,
+    maxSpeed: 650,
+    skipRechargeTime: 3500,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+
+    onupgrade: {
+      angularVelocity: (6 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 10,
+    levelMax: 20,
+    current: 12,
+    impactResistance: 150,
+  },
+  reactor: {
+    power: 20,
+    powerFree: 20,
+    powerMax: 40,
+    powerDistribution: [],
+  },
+  shields: {
+    type: "hardLight",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      disposition: "front",
+      distance: 250,
+    }
+  },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
+  },
+  weapons: {
+    slots: 4,
+    power: 0,
+    weapons: [
+      "plasmaCannonI",
+      "plasmaCannonI",
+    ],
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "waspFighter"
+  }
+}
+data.ship["starBee"] = {
+  displayName: "Star Bee",
+  designation: "scout",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "starBee",
+    definition: null,
+  },
+  weaponSlots: [
+    { x: 32, y: 23 },
+    { x: 32, y: -23 },
+  ],
+  mass: 35,
+  systems: [
+    "cargo",
+    "engine",
+    "brakes",
+  ],
+  boosters: {
+    type: "continuous",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    strength: 400,
+    onupgrade: {
+      strength: 0.5,
+    },
+  },
+  brakes: {
+    level: 3,
+    levelMax: 4,
+    power: 0,
+    strength: 75,
+    auto: true,
+  },
+  cargo: {
+    capacity: 20,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (90 * PI) / 180,
+    glideReduction: 0.03,
+    acceleration: 8,
+    maxSpeed: 360,
+    skipRechargeTime: 3500,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    onupgrade: {
+      angularVelocity: (6 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 6,
+    levelMax: 20,
+    current: 12,
+    impactResistance: 60,
+  },
+  reactor: {
+    power: 20,
+    powerFree: 20,
+    powerMax: 40,
+    powerDistribution: [],
+  },
+  shields: {
+    type: "hardLight",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      disposition: "front",
+      distance: 250,
+    }
+  },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
+  },
+  weapons: {
+    slots: 2,
+    weapons: [
+      "plasmaCannonI",
+      "plasmaCannonI",
+    ]
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "waspFighter"
   }
 }

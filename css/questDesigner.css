@@ -1,0 +1,93 @@
+#quest-designer {
+  background-color: var(--dark-2);
+}
+.quest-designer-window-label {
+  position: absolute;
+  top: 20px;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+  background-color: var(--dark-4);
+}
+
+.interaction-set-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  background-color: var(--dark-5);
+}
+
+.quest-node {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 5px;
+  min-width: 180px;
+  min-height: 90px;
+  color: white;
+  padding: 5px;
+  background-color: var(--dark-3);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.quest-node-header {
+  display: flex;
+}
+
+.quest-node-title {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--bright-3);
+}
+
+.quest-node-widget {
+  display: flex;
+  height: 32px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 32px;
+  border-radius: 5px;
+  user-select: none;
+}
+.quest-node-widget:hover {
+  background-color: var(--dark-2);
+}
+.quest-node-widget.edit {
+  background-image: url(../assets/editor/iconWidgetEdit.png);
+  cursor: var(--cursor-pointer);
+}
+.quest-node-widget.drag {
+  background-image: url(../assets/editor/iconWidgetDrag.png);
+  cursor: all-scroll;
+}
+.quest-node-widget.remove {
+  background-image: url(../assets/editor/iconWidgetRemove.png);
+  cursor: var(--cursor-pointer);
+}
+
+
+.quest-node-socket-wrapper {
+  position: absolute;
+  left: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.quest-node-socket-wrapper.in {
+  top: -6px;
+}
+.quest-node-socket-wrapper.out {
+  bottom: -6px;
+}
+
+.quest-node-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}

@@ -9,6 +9,7 @@ function El(
   cssClass = "words separated by spaces", 
   attributes = [] /* = [["key", "value"]] */,
   innerText = "",
+  dataset = [],
 ) {
   let element = document.createElement(elementTagName)
   let cssClasses = cssClass.split(' ')
@@ -17,6 +18,9 @@ function El(
   })
   cssClasses.forEach(cls => {
     element.classList.add(cls)
+  })
+  dataset.forEach(attribute => {
+    element.dataset[attribute[0]] = attribute[1] 
   })
   element.innerText = innerText
   return element
@@ -55,4 +59,7 @@ function SVGEl(
 
 function getChildIndex(node) {
   return Array.prototype.indexOf.call(node.parentNode.childNodes, node)
+}
+function getChildIndexForElement(node) {
+  return Array.prototype.indexOf.call(node.parentElement.childNodes, node)
 }

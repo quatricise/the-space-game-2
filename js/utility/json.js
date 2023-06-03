@@ -1,23 +1,25 @@
-function exportToJsonFile(data, filename) {
-  let dataStr = JSON.stringify(data);
+function exportToJSONFile(data, filename) {
+  let dataStr = JSON.stringify(data, null, 2);
   let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-  let exportFileDefaultName = filename || 'data.json';
-  if(filename) exportFileDefaultName += ".json"
+  let defaultName = filename || 'data.json';
 
-  let linkElement = document.createElement('a');
+  if(filename) defaultName += ".json"
+
+  let 
+  linkElement = document.createElement('a');
   linkElement.setAttribute('href', dataUri);
-  linkElement.setAttribute('download', exportFileDefaultName);
+  linkElement.setAttribute('download', defaultName);
   linkElement.click();
 }
 
-function readTextFile(file, callback) {
-  var rawFile = new XMLHttpRequest();
-  rawFile.overrideMimeType("application/json");
-  rawFile.open("GET", file, true);
-  rawFile.onreadystatechange = function() {
-      if (rawFile.readyState === 4 && rawFile.status == "200") {
-        callback(rawFile.responseText);
-      }
+function readJSONFile(file, callback) {
+  var request = new XMLHttpRequest();
+  request.overrideMimeType("application/json");
+  request.open("GET", file, true);
+  request.onreadystatechange = function() {
+    if(request.readyState === 4 && request.status == "200") {
+      callback(request.responseText);
+    }
   }
-  rawFile.send(null);
+  request.send(null);
 }

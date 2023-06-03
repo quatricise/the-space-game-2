@@ -1,8 +1,0 @@
-@keyframes pulse {
-  0% {
-    color: hsla(0, 0%, 100%, 0.5);
-  }
-  100% {
-    color: hsl(0, 0%, 100%);
-  }
-}
