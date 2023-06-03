@@ -66,7 +66,7 @@ class Cutscene {
       hold = this.currentElement.animation?.duration 
     else 
       hold = this.currentElement.hold ?? Cutscene.defaultHold
-    hold = clamp(hold, 0, Cutscene.defaultHold)
+    // hold = clamp(hold, 0, Cutscene.defaultHold)
     
     setTimeout(() => {
       this.nextElement()
@@ -113,9 +113,9 @@ class Cutscene {
 
   static folder = "assets/cutscene/"
   static fileExtension = ".png"
-  static defaultHold = 120 //default amount of time that an element sits before the next one starts animating
+  static defaultHold = 200 //default amount of time that an element sits before the next one starts animating
   static pageFadeTime = 1200
-  static timeStretch = 1.2
+  static timeStretch = 1
   static defaultAnimation = {
     duration: 900, 
     easing: "cubic-bezier(0.6, 0, 0.4, 1.0)",

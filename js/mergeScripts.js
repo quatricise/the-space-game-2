@@ -1,6 +1,6 @@
 /* merge scripts in a janky way */
 setTimeout(() => {
-  return
+  // return
   let data = []
   let count = document.scripts.length - 1 // - 1 is to prevent this very code getting in the bundle
   let excludedNames = ["dependencies/"]

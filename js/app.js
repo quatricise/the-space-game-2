@@ -9,7 +9,6 @@ async function loadFonts(callback) {
     document.fonts.add(fontFace)
   }
   callback()
-  // console.log("fonts loaded")
 }
 const PI =      +Math.PI.toFixed(12)
 const TAU =     +Math.PI.toFixed(12)*2
@@ -6404,7 +6403,7 @@ class Cutscene {
       hold = this.currentElement.animation?.duration 
     else 
       hold = this.currentElement.hold ?? Cutscene.defaultHold
-    hold = clamp(hold, 0, Cutscene.defaultHold)
+    // hold = clamp(hold, 0, Cutscene.defaultHold)
     
     setTimeout(() => {
       this.nextElement()
@@ -6451,9 +6450,9 @@ class Cutscene {
 
   static folder = "assets/cutscene/"
   static fileExtension = ".png"
-  static defaultHold = 120 //default amount of time that an element sits before the next one starts animating
+  static defaultHold = 200 //default amount of time that an element sits before the next one starts animating
   static pageFadeTime = 1200
-  static timeStretch = 1.2
+  static timeStretch = 1
   static defaultAnimation = {
     duration: 900, 
     easing: "cubic-bezier(0.6, 0, 0.4, 1.0)",
@@ -21033,8 +21032,9 @@ const initMacros = {
 
 /* merge scripts in a janky way */
 setTimeout(() => {
+  // return
   let data = []
-  let count = document.scripts.length - 1 //this is to prevent this code getting in the file
+  let count = document.scripts.length - 1 // - 1 is to prevent this very code getting in the bundle
   let excludedNames = ["dependencies/"]
   let current = 0
   Array.from(document.scripts).forEach((script, index) => {
