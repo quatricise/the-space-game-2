@@ -212,7 +212,7 @@
 .location-editor-layer-button.locked::before {
   position: absolute;
   left: 3px;
-  content: url(/assets/icons/iconPadlockSmall.png);
+  content: url(../assets/icons/iconPadlockSmall.png);
   margin-right: 5px;
 }
 

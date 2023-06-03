@@ -127,7 +127,7 @@ img.ui-weapon-thumbnail {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: url(/assets/ui/weaponSlot.png);
+  background-image: url(../assets/ui/weaponSlot.png);
   width: 45px;
   height: 44px;
   z-index: 1;
@@ -180,16 +180,16 @@ img.ui-weapon-thumbnail {
 }
 
 .weapon-icon.missile {
-  background-image: url(/assets/ui/weaponIcon/missile.png);
+  background-image: url(../assets/ui/weaponIcon/missile.png);
 }
 .weapon-icon.laser {
-  background-image: url(/assets/ui/weaponIcon/laser.png);
+  background-image: url(../assets/ui/weaponIcon/laser.png);
 }
 .weapon-icon.plasma {
-  background-image: url(/assets/ui/weaponIcon/plasma.png);
+  background-image: url(../assets/ui/weaponIcon/plasma.png);
 }
 .weapon-icon.solid {
-  background-image: url(/assets/ui/weaponIcon/solid.png);
+  background-image: url(../assets/ui/weaponIcon/solid.png);
 }
 
 .weapon-title {
@@ -274,7 +274,7 @@ img.ui-weapon-thumbnail {
 }
 
 .weapon-slot:hover {
-  background-image: url(/assets/ui/weaponSlotHover.png);
+  background-image: url(../assets/ui/weaponSlotHover.png);
 }
 .weapon-slot.ready .weapon-charge-indicator {
   border-color: #ed9200;

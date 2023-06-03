@@ -191,7 +191,7 @@ button.dialogue-log-open:hover {
   width: 100%;
   height: 100%;
   cursor: var(--cursor-pointer);
-  background-image: url(/assets/ui/UIItem.png);
+  background-image: url(../assets/ui/UIItem.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -212,14 +212,14 @@ button.dialogue-log-open:hover {
   background-image: none!important;
 }
 .inventory-item.empty {
-  background-image: url(/assets/ui/UIItemEmpty.png);
+  background-image: url(../assets/ui/UIItemEmpty.png);
   cursor: var(--cursor-default);
 }
 .inventory-item.empty:hover {
-  background-image: url(/assets/ui/UIItemEmptyHover.png);
+  background-image: url(../assets/ui/UIItemEmptyHover.png);
 }
 .inventory-item:hover {
-  background-image: url(/assets/ui/UIItemHover.png);
+  background-image: url(../assets/ui/UIItemHover.png);
 }
 
 .reset-background-for-items .inventory-item {
@@ -464,10 +464,10 @@ button.category-switch-button.active {
   letter-spacing: -0.08em;
   width: 167px;
   height: 64px;
-  background-image: url(/assets/ui/stationWindowCurrencyContainer.png);
+  background-image: url(../assets/ui/stationWindowCurrencyContainer.png);
 }
 #station-currency-container:hover {
-  background-image: url(/assets/ui/stationWindowCurrencyContainerHover.png);
+  background-image: url(../assets/ui/stationWindowCurrencyContainerHover.png);
 }
 
 .station-window-label {
@@ -478,19 +478,19 @@ button.category-switch-button.active {
 .station-window-label.station {
   top: -55px;
   width: 559px;
-  background-image: url(/assets/ui/stationWindowLabel.png);
+  background-image: url(../assets/ui/stationWindowLabel.png);
 }
 
 .station-window-label.inventory {
   top: -53px;
   width: 460px;
-  background-image: url(/assets/ui/inventoryWindowLabelInventory.png);
+  background-image: url(../assets/ui/inventoryWindowLabelInventory.png);
 }
 
 .station-window-label.quest {
   top: -56px;
   width: 579px;
-  background-image: url(/assets/ui/inventoryWindowLabelQuest.png);
+  background-image: url(../assets/ui/inventoryWindowLabelQuest.png);
 }
 
 .station-switch-icon {
@@ -499,37 +499,37 @@ button.category-switch-button.active {
   height: 80px;
 }
 .station-switch-icon.inventory {
-  background-image: url(/assets/ui/stationWindowIconInventory.png);
+  background-image: url(../assets/ui/stationWindowIconInventory.png);
 }
 .station-switch-icon.station {
-  background-image: url(/assets/ui/stationWindowIconStation.png);
+  background-image: url(../assets/ui/stationWindowIconStation.png);
 }
 .station-switch-icon.station.disabled:not(:hover) {
-  background-image: url(/assets/ui/stationWindowIconStationDisabled.png);
+  background-image: url(../assets/ui/stationWindowIconStationDisabled.png);
 }
 .station-switch-icon.quest {
-  background-image: url(/assets/ui/stationWindowIconQuests.png);
+  background-image: url(../assets/ui/stationWindowIconQuests.png);
 }
 .station-switch-icon.inventory:hover {
-  background-image: url(/assets/ui/stationWindowIconInventoryHover.png);
+  background-image: url(../assets/ui/stationWindowIconInventoryHover.png);
 }
 .station-switch-icon.station:hover {
-  background-image: url(/assets/ui/stationWindowIconStationHover.png);
+  background-image: url(../assets/ui/stationWindowIconStationHover.png);
 }
 .station-switch-icon.station.disabled:hover {
-  background-image: url(/assets/ui/stationWindowIconStationDisabledHover.png);
+  background-image: url(../assets/ui/stationWindowIconStationDisabledHover.png);
 }
 .station-switch-icon.quest:hover {
-  background-image: url(/assets/ui/stationWindowIconQuestsHover.png);
+  background-image: url(../assets/ui/stationWindowIconQuestsHover.png);
 }
 .station-switch-icon.inventory.active {
-  background-image: url(/assets/ui/stationWindowIconInventoryHover.png);
+  background-image: url(../assets/ui/stationWindowIconInventoryHover.png);
 }
 .station-switch-icon.station.active {
-  background-image: url(/assets/ui/stationWindowIconStationHover.png);
+  background-image: url(../assets/ui/stationWindowIconStationHover.png);
 }
 .station-switch-icon.quest.active {
-  background-image: url(/assets/ui/stationWindowIconQuestsHover.png);
+  background-image: url(../assets/ui/stationWindowIconQuestsHover.png);
 }
 
 .switch-icons {
@@ -586,7 +586,7 @@ button.category-switch-button.active {
   align-self: center;
   width: calc(100% + 20px);
   height: 30px;
-  background-image: url(/assets/ui/overflowIndicator.png);
+  background-image: url(../assets/ui/overflowIndicator.png);
 }
 
 .inventory-overflow-indicator.top {
@@ -602,7 +602,7 @@ button.category-switch-button.active {
   position: relative;
   width: 690px;
   height: 125px;
-  background-image: url(/assets/ui/stationRowPanel.png);
+  background-image: url(../assets/ui/stationRowPanel.png);
   background-position: center;
   background-size: contain;
 }
@@ -677,13 +677,13 @@ button.category-switch-button.active {
   justify-content: center;
   align-items: center;
   cursor: var(--cursor-pointer);
-  background-image: url(/assets/ui/shipWeaponSlot.png);
+  background-image: url(../assets/ui/shipWeaponSlot.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .ship-inventory-weapon-slot:hover {
-  background-image: url(/assets/ui/shipWeaponSlotHover.png);
+  background-image: url(../assets/ui/shipWeaponSlotHover.png);
 }
 
 .ship-weapon-slot-wrapper.first {
@@ -735,17 +735,17 @@ button.category-switch-button.active {
 .station-category-icon.weapons {
   left: 16px;
   top: 48px;
-  background-image: url(/assets/ui/stationCategoryIconWeapons.png);
+  background-image: url(../assets/ui/stationCategoryIconWeapons.png);
 }
 .station-category-icon.systems {
   left: 13px;
   top: 45px;
-  background-image: url(/assets/ui/stationCategoryIconSystems.png);
+  background-image: url(../assets/ui/stationCategoryIconSystems.png);
 }
 .station-category-icon.misc {
   left: 15px;
   top: 45px;
-  background-image: url(/assets/ui/stationCategoryIconMisc.png);
+  background-image: url(../assets/ui/stationCategoryIconMisc.png);
   background-size: auto 30px;
 }
 
@@ -756,7 +756,7 @@ button.category-switch-button.active {
   height: 40px;
   padding: 13px 0px 11px 45px;
   font-size: 1rem;
-  background-image: url(/assets/ui/keyboardBindButton.png);
+  background-image: url(../assets/ui/keyboardBindButton.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -772,16 +772,16 @@ button.category-switch-button.active {
 }
 
 .keyboard-bind-button:hover {
-  background-image: url(/assets/ui/keyboardBindButtonHover.png);
+  background-image: url(../assets/ui/keyboardBindButtonHover.png);
 }
 .keyboard-bind-button.active {
-  background-image: url(/assets/ui/keyboardBindButtonActive.png);
+  background-image: url(../assets/ui/keyboardBindButtonActive.png);
 }
 
 .station-horizontal-separator {
   position: relative;
   left: 40px;
-  background-image: url(/assets/ui/stationHorizontalSeparator.png);
+  background-image: url(../assets/ui/stationHorizontalSeparator.png);
   width: 100%;
   height: 24px;
   margin-bottom: -12px;
@@ -864,11 +864,11 @@ button.category-switch-button.active {
   left: 170px;
   width: 300px;
   height: 64px;
-  background-image: url(/assets/ui/sellItemButton.png);
+  background-image: url(../assets/ui/sellItemButton.png);
 }
 .inventory-sell-item-button:hover,
 .inventory-sell-item-button.active {
-  background-image: url(/assets/ui/sellItemButtonHover.png);
+  background-image: url(../assets/ui/sellItemButtonHover.png);
 }
 
 .inventory-buy-item-button {
@@ -877,11 +877,11 @@ button.category-switch-button.active {
   left: 200px;
   width: 300px;
   height: 64px;
-  background-image: url(/assets/ui/buyItemButton.png);
+  background-image: url(../assets/ui/buyItemButton.png);
 }
 .inventory-buy-item-button:hover,
 .inventory-buy-item-button.active {
-  background-image: url(/assets/ui/buyItemButtonHover.png);
+  background-image: url(../assets/ui/buyItemButtonHover.png);
 }
 
 #inventory-quest-tab-content {
@@ -908,8 +908,8 @@ button.category-switch-button.active {
   left: 201px;
   width: 605px;
   height: 120px;
-  background-image: url(/assets/ui/buyItemDropArea.png);
+  background-image: url(../assets/ui/buyItemDropArea.png);
 }
 .inventory-buy-drop-area:hover {
-  background-image: url(/assets/ui/buyItemDropAreaHover.png);
+  background-image: url(../assets/ui/buyItemDropAreaHover.png);
 }

@@ -10,7 +10,7 @@
 #loading-screen-panel {
   width: 600px;
   height: 600px;
-  background-image: url(/assets/ui/loadingScreenPanel.png);
+  background-image: url(../assets/ui/loadingScreenPanel.png);
   z-index: 1;
 }
 

@@ -15,7 +15,7 @@
   position: absolute;
   height: 50%;
   width: 50%;
-  background-image: url(/assets/ui/map/mapCropShape.png);
+  background-image: url(../assets/ui/map/mapCropShape.png);
   background-size: unset;
 }
 
@@ -43,7 +43,7 @@
 #map-window-label {
   position: absolute;
   top: 50px;
-  background-image: url(/assets/ui/map/mapWindowLabel.png);
+  background-image: url(../assets/ui/map/mapWindowLabel.png);
   width: 480px;
   height: 80px;
   z-index: 1;
@@ -58,10 +58,10 @@
   height: 80px;
 }
 #ultraport-info {
-  background-image: url(/assets/ui/map/mapUltraportDefault.png);
+  background-image: url(../assets/ui/map/mapUltraportDefault.png);
 }
 #ultraport-warning {
-  background-image: url(/assets/ui/map/mapUltraportWarning.png);
+  background-image: url(../assets/ui/map/mapUltraportWarning.png);
 }
 
 #world-map-close-button {
@@ -111,7 +111,7 @@
   width: 100%;
 }
 .star-system-panel-graphic {
-  background-image: url(/assets/ui/map/starSystemDetailPanel.png);
+  background-image: url(../assets/ui/map/starSystemDetailPanel.png);
   background-size: unset;
 }
 .star-system-panel-graphic.top-center {
@@ -146,11 +146,11 @@
   right: 100px;
   width: 150px;
   height: 85px;
-  background-image: url(/assets/ui/map/starSystemCloseIcon.png);
+  background-image: url(../assets/ui/map/starSystemCloseIcon.png);
   z-index: 1;
 }
 #star-system-detail-close-button:hover {
-  background-image: url(/assets/ui/map/starSystemCloseIconHover.png);
+  background-image: url(../assets/ui/map/starSystemCloseIconHover.png);
 }
 
 #map-legend-button {
@@ -159,17 +159,17 @@
   left: 180px;
   width: 63px;
   height: 63px;
-  background-image: url(/assets/ui/map/mapLegendButton.png);
+  background-image: url(../assets/ui/map/mapLegendButton.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
   z-index: 1;
 }
 #map-legend-button:hover {
-  background-image: url(/assets/ui/map/mapLegendButtonHover.png);
+  background-image: url(../assets/ui/map/mapLegendButtonHover.png);
 }
 #map-legend-button.active {
-  background-image: url(/assets/ui/map/mapLegendButtonHover.png);
+  background-image: url(../assets/ui/map/mapLegendButtonHover.png);
 }
 #map-legend-button:hover #map-legend-panel {
   display: flex;
@@ -194,7 +194,7 @@
   left: 260px;
   width: 450px;
   height: 65px;
-  background-image: url(/assets/ui/map/questSelectorButton.png);
+  background-image: url(../assets/ui/map/questSelectorButton.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -243,7 +243,7 @@
   padding: 5px 0 0 120px;
   width: 100%;
   height: 44px;
-  background-image: url(/assets/ui/map/questSelectorQuestRow.png);
+  background-image: url(../assets/ui/map/questSelectorQuestRow.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -254,7 +254,7 @@
 }
 
 .quest-selector-quest-row:hover {
-  background-image: url(/assets/ui/map/questSelectorQuestRowHover.png);
+  background-image: url(../assets/ui/map/questSelectorQuestRowHover.png);
   color: var(--color-active);
 }
 
@@ -279,7 +279,7 @@
 #star-system-header-icon {
   position: relative;
   top: -5px;
-  background-image: url(/assets/ui/map/starSystemIcon.png);
+  background-image: url(../assets/ui/map/starSystemIcon.png);
   width: 40px;
   height: 40px;
   background-position: center;
@@ -327,7 +327,7 @@
   top: -2px;
   left: -2px;
   width: 42px;
-  background-image: url(/assets/ui/map/planetIcon.png);
+  background-image: url(../assets/ui/map/planetIcon.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -366,14 +366,14 @@
   top: 37px;
   right: 6%;
   height: calc(100% - 60px);
-  background-image: url(/assets/ui/map/travelButton.png);
+  background-image: url(../assets/ui/map/travelButton.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 
 #location-detail-travel-button:hover {
-  background-image: url(/assets/ui/map/travelButtonHover.png);
+  background-image: url(../assets/ui/map/travelButtonHover.png);
 }
 
 #travel-button-fill-image {

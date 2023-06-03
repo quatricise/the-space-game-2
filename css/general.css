@@ -321,10 +321,10 @@ button.generic:hover {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url(/assets/ui/closeButton.png);
+  background-image: url(../assets/ui/closeButton.png);
 }
 .close-button:hover {
-  background-image: url(/assets/ui/closeButtonHover.png);
+  background-image: url(../assets/ui/closeButtonHover.png);
 }
 .close-button-angled {
   width: 60px;
@@ -332,8 +332,8 @@ button.generic:hover {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
-  background-image: url(/assets/ui/closeButtonAngled.png);
+  background-image: url(../assets/ui/closeButtonAngled.png);
 }
 .close-button-angled:hover {
-  background-image: url(/assets/ui/closeButtonAngledHover.png);
+  background-image: url(../assets/ui/closeButtonAngledHover.png);
 }

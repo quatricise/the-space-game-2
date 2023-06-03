@@ -5,7 +5,7 @@
   width: 100vw;
   height: 100vh;
   background-color: var(--dark-1);
-  background-image: url(/assets/ui/settings/settingsBackground.png);
+  background-image: url(../assets/ui/settings/settingsBackground.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -15,7 +15,7 @@
   position: absolute;
   left: calc(50% - 200px);
   top: -36px;
-  background-image: url(/assets/ui/settings/settingsLabel.png);
+  background-image: url(../assets/ui/settings/settingsLabel.png);
   width: 400px;
   height: 80px;
 }

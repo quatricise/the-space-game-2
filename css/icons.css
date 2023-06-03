@@ -208,8 +208,8 @@
 }
 
 .star-system-icon {
-  background-image: url(/assets/icons/starSystemIconNew.png);
+  background-image: url(../assets/icons/starSystemIconNew.png);
 }
 .planet-icon {
-  background-image: url(/assets/icons/planetIcon.png);
+  background-image: url(../assets/icons/planetIcon.png);
 }

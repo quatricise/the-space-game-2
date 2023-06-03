@@ -15,7 +15,7 @@
 }
 .dialogue-screen-background-panel {
   position: absolute;
-  background-image: url(/assets/ui/chat/backgroundPanel.png);
+  background-image: url(../assets/ui/chat/backgroundPanel.png);
   width: 1654px;
   height: 824px;
   background-position: center;
@@ -130,11 +130,11 @@
 
 .chat-bubble-arrow.right {
   right: -60px;
-  background-image: url(/assets/ui/chat/arrowLightOrange.png);
+  background-image: url(../assets/ui/chat/arrowLightOrange.png);
 }
 .chat-bubble-arrow.left {
   transform: scaleX(-1);
-  background-image: url(/assets/ui/chat/arrowDialogueGray.png);
+  background-image: url(../assets/ui/chat/arrowDialogueGray.png);
   left: -60px;
 }
 
@@ -165,7 +165,7 @@
   padding: 20px 40px;
   backdrop-filter: blur(10px);
   transition: filter 0.5s ease-in-out;
-  background-image: url(/assets/ui/chat/chatOptionsPanelActive.png);
+  background-image: url(../assets/ui/chat/chatOptionsPanelActive.png);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -203,7 +203,7 @@
 }
 
 .dialogue-options.inactive {
-  background-image: url(/assets/ui/chat/chatOptionsPanel.png);
+  background-image: url(../assets/ui/chat/chatOptionsPanel.png);
 }
 
 .dialogue-options .option:hover {
@@ -335,20 +335,20 @@
 }
 
 .contacts-button {
-  background-image: url(/assets/ui/chat/contactsButton.png);
+  background-image: url(../assets/ui/chat/contactsButton.png);
   width: 60px;
 }
 
 .contacts-button:hover {
-  background-image: url(/assets/ui/chat/contactsButtonHover.png);
+  background-image: url(../assets/ui/chat/contactsButtonHover.png);
 }
 .logs-button {
-  background-image: url(/assets/ui/chat/logsButton.png);
+  background-image: url(../assets/ui/chat/logsButton.png);
   width: 60px;
 }
 
 .logs-button:hover {
-  background-image: url(/assets/ui/chat/logsButtonHover.png);
+  background-image: url(../assets/ui/chat/logsButtonHover.png);
 }
 
 .dialogue-end-block {
@@ -358,7 +358,7 @@
   width: 600px;
   min-height: 59.5px;
   padding: 4px 30px 0 60px;
-  background-image: url(/assets/ui/chat/dialogueParticipantsLeft.png);
+  background-image: url(../assets/ui/chat/dialogueParticipantsLeft.png);
 }
 
 .dialogue-block-informatory-text-bubble {

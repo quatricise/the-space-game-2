@@ -492,7 +492,7 @@
   height: 32px;
   border-radius: 5px;
   background-color: var(--dark-3);
-  background-image: url(/assets/icons/iconPlus.png);
+  background-image: url(../assets/icons/iconPlus.png);
 }
 .dialogue-node-add-fact-button:hover {
   background-color: var(--dark-2);
@@ -535,7 +535,7 @@
 .dialogue-node-fact-delete-button {
   width: 32px;
   height: 32px;
-  background-image: url(/assets/editor/iconMinus.png);
+  background-image: url(../assets/editor/iconMinus.png);
 }
 .dialogue-node-fact-delete-button:hover {
   background-color: var(--dark-4);

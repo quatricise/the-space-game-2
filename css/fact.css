@@ -101,7 +101,7 @@
   width: 24px;
   height: 24px;
   border-radius: 3px;
-  background-image: url(/assets/editor/iconWidgetRemove.png);
+  background-image: url(../assets/editor/iconWidgetRemove.png);
   order: 2;
 }
 .criterion-requirement-delete-button:hover {
