@@ -1,7 +1,6 @@
 function tick(deltaFactor) {
   setDelta(deltaFactor)
   //#region update
-  AudioManager.update()
   mouse.updateShipAngle()
   mouse.updateWorldPosition()
   filterManager.update()

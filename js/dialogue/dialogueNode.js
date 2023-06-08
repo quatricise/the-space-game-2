@@ -9,30 +9,25 @@ class DialogueNode {
     this.criteria = criteria ?? []
     this.factsToSet = options.factsToSet ?? []
     this.labels = {
-      lie:        options.labels?.lie || false,
-      exaggerate: options.labels?.exaggerate || false,
+      lie:        options.labels?.lie         || false,
+      exaggerate: options.labels?.exaggerate  || false,
     }
     this.in = []
     this.out = []
     this.transfer = transfer ?? [
       {
         owner: "player",
-        items: [
-          "",
-        ]
+        items: [""]
       },
       {
         owner: "player",
-        items: [
-          "",
-        ]
-      },
+        items: [""]
+      }
     ]
     dialogueEditor.nodes.push(this)
     this["createHTML" + type.capitalize()]()
     this.update()
     this.reorderOutputs()
-    console.log("new node")
   }
   drag() {
     this.pos.add(mouse.clientMoved)
@@ -224,7 +219,7 @@ class DialogueNode {
       let addButton = El("div", "dialogue-node-add-item",  [["title", "Add new item slot"]])
 
       //for each item in both rows of transfer, add an item element into this array
-      let items = this.transfer[i].items.map(item => {
+      let items = this.transfer[i].items.map(() => {
         return El("div", "dialogue-node-item empty", [["title", "Click to select an item"]])
       })
 
@@ -247,7 +242,7 @@ class DialogueNode {
       this.transfer[i].items.forEach((item, index) => {
         if(item == "") return
         let thumbnail = new Image()
-            thumbnail.src = "assets/item/" + item + ".png"
+            thumbnail.src = `assets/${data.item[item].folder ?? "item"}/${item}.png`
         items[index].append(thumbnail)
       })
 
@@ -423,17 +418,17 @@ class DialogueNode {
     })
     this.out = []
   }
-  delete() {
+  update() {
+    this.element.style.left = this.pos.x + "px"
+    this.element.style.top = this.pos.y + "px"
+    this.element.querySelector(".fact-count").innerText = this.criteria.length + " criteria"
+  }
+  destroy() {
     this.deleteIn()
     this.deleteOut()
     this.element.remove()
     dialogueEditor.unsetActiveNode()
     dialogueEditor.nodes = dialogueEditor.nodes.filter(node => node !== this)
-  }
-  update() {
-    this.element.style.left = this.pos.x + "px"
-    this.element.style.top = this.pos.y + "px"
-    this.element.querySelector(".fact-count").innerText = this.criteria.length + " criteria"
   }
   static types = [
     "text",

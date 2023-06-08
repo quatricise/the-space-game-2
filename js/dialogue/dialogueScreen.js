@@ -338,7 +338,7 @@ class DialogueScreen extends GameWindow {
     bubble.dataset.playsfx = ""
     bubble.dataset.sounds = "buttonNoAction"
     bubble.dataset.playonevents = "mouseover"
-    bubble.dataset.volumes = "0.10"
+    bubble.dataset.volumes = "0.05"
     bubble.style.height = bubbleHeight + "px"
     nextLetter()
     
@@ -375,7 +375,7 @@ class DialogueScreen extends GameWindow {
   scrollDown() {
     this.dialogueContent.scrollTo({top: this.dialogueContent.scrollHeight, behavior: "smooth",})
   }
-  fastForwardBubble() {
+  async fastForwardBubble() {
     if(!this.canFastForwardBubble) return
     if(this.currentNode.type === "responsePicker") return
 
@@ -388,6 +388,12 @@ class DialogueScreen extends GameWindow {
 
     let timeout = setTimeout(() => this.getNextNode(), 400)
     this.timeouts.push(timeout)
+
+    AudioManager.playSFX("buttonNoAction", 0.3)
+    await waitFor(70)
+    AudioManager.playSFX("buttonNoAction", 0.2)
+    await waitFor(70)
+    AudioManager.playSFX("buttonNoAction", 0.15)
   }
   filterNodes(nodes) {
     let filteredNodes = []

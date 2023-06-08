@@ -150,13 +150,13 @@ class AudioManager {
     if(category === "music" && isMusicPlaying)
       for(let key in this.musicAudioClips)
         if(this.musicAudioClips[key].playing)
-          this.musicAudioClips[key].fadeOut(3500)
+          this.musicAudioClips[key].fadeOut(4500)
     
     this[category + "AudioClips"][name].start()
 
     if(category === "music" && isMusicPlaying) {
       this[category + "AudioClips"][name].setVolume(0)
-      setTimeout(() => this[category + "AudioClips"][name].fadeIn(5000, volume), 500)
+      setTimeout(() => this[category + "AudioClips"][name].fadeIn(6000, volume), 500)
     }
     else {
       this[category + "AudioClips"][name].setVolume(volume)
@@ -168,12 +168,12 @@ class AudioManager {
   static dimMusic(toVolume) {
     for(let key in this.musicAudioClips)
       if(this.musicAudioClips[key].playing)
-        this.musicAudioClips[key].fadeTo(3000, toVolume)
+        this.musicAudioClips[key].fadeTo(3500, toVolume)
   }
   static restoreMusic() {
     for(let key in this.musicAudioClips)
       if(this.musicAudioClips[key].playing)
-        this.musicAudioClips[key].fadeTo(3000, this.musicAudioClips[key].previousVolume)
+        this.musicAudioClips[key].fadeTo(3500, this.musicAudioClips[key].previousVolume)
   }
   //#region an attempt to do audio layers - not functional
   static audioLayers = [

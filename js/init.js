@@ -18,10 +18,11 @@ const initMacros = {
 };
 
 (function init() {
+  gameManager.preloadImageAssets()
+  Cutscene.preloadScenes()
   attachListeners()
   Fact.loadFacts()
   loadFonts(() => map.load())
-  gameManager.preloadImageAssets()
   AudioManager.prime()
   AudioManager.loadSounds()
   Item.registerItemsFromWeapons()

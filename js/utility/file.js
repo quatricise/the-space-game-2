@@ -23,3 +23,16 @@ function readJSONFile(file, callback) {
   }
   request.send(null);
 }
+
+
+function exportToUTF8(text, filename) {     
+  let dataStr = text
+  let dataUri = 'data:text/javascript;charset=utf-8,'+ encodeURIComponent(dataStr);
+  let defaultName = filename || 'file.js';
+
+  let 
+  linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', defaultName);
+  linkElement.click();
+} 

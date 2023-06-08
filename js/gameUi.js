@@ -4,10 +4,14 @@ class GameUI extends GameWindow {
     this.shipHull = Q('#ship-hull-wrapper')
     this.shipHullWrapper = Q('#ship-hull-wrapper')
     this.audioCallPanel = Q("#audio-call-panel")
-    this.setupTooltips()
+    this.tooltip = new Tooltip(250)
     this.state = new State(
       "default",
       "dragging"
+    )
+
+    this.timers = new Timer(
+      ["audioCallFlash", 4000, {loop: true, active: false, onfinish: this.flashAudioCallPanel.bind(this)}]
     )
 
     /* temp globals for drag functionality */
@@ -16,13 +20,11 @@ class GameUI extends GameWindow {
     this.draggedElement = null
     this.dragParent = null
 
-    this.statsVisible = false
-
     /* UI sequence data */
     this.sequenceTooltip = null
-  }
-  setupTooltips() {
-    this.tooltip = new Tooltip(250)
+
+    /* Means that game statistics like fps and collisionCount are displayed */
+    this.statsVisible = false
   }
   //#region input
   handleKeydown(event) {
@@ -151,16 +153,17 @@ class GameUI extends GameWindow {
   //#endregion
   openAudioCallPanel(caller, message, dialogueName) {
     let name = data.person[caller].addressAs ?? data.person[caller].displayName
+
     this.audioCallPanel.classList.remove("hidden")
     this.audioCallPanel.querySelector(".audio-call-heading").innerText = "You have a call from " + name + "."
     this.audioCallPanel.querySelector(".audio-call-message").innerText = message
     this.audioCallPanel.querySelector(".caller-portrait").src = "assets/portraits/" + caller + ".png"
     this.audioCallPanel.querySelector(".call-option.accept").onclick = () => {
       gameManager.setWindow(dialogueScreen)
-      setTimeout(() => dialogueScreen.load(dialogueName), 500)
+      setTimeout(() => dialogueScreen.load(dialogueName), 600)
       this.closeAudioCallPanel()
     }
-    this.animateAudioCallPanel(5, 100)
+    this.animateAudioCallPanel(0, 100, () => this.timers.audioCallFlash.start())
     AudioManager.playLoopedAudio("SFX", "tightbeamCall")
   }
   animateAudioCallPanel(fromOpacity, toOpacity, onfinish = () => {}) {
@@ -169,7 +172,7 @@ class GameUI extends GameWindow {
       {filter: `opacity(${toOpacity / 100})`},
     ],
     {
-      duration: 750,
+      duration: 650,
       easing: "cubic-bezier(0.65, 0.0, 0.35, 1.0)"
     })
     .onfinish = () => {
@@ -177,17 +180,30 @@ class GameUI extends GameWindow {
       onfinish()
     }
   }
+  async flashAudioCallPanel(iterations = 3, durationMS = 125) {
+    await fetch("assets/ui/audioCallPopupHover.png")
+    await fetch("assets/ui/audioCallPopup.png")
+    for(let i = 0; i < iterations; i++) {
+      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopup.png")')
+      AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 1.5))
+      await waitFor(durationMS)
+      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopupHover.png")')
+      await waitFor(durationMS)
+    }
+    this.audioCallPanel.style.backgroundImage = ""
+  }
   closeAudioCallPanel() {
-    this.animateAudioCallPanel(100, 5, () => this.audioCallPanel.classList.add("hidden"))
+    this.animateAudioCallPanel(100, 0, () => this.audioCallPanel.classList.add("hidden"))
+    this.timers.audioCallFlash.stop()
   }
   async animateHullDamage() {
     let iterations = 4
     let animDurationMS = 1000 / 8
-    await fetch("/assets/ui/shipHullAndWeaponPanelWarning.png")
+    await fetch("assets/ui/shipHullAndWeaponPanelWarning.png")
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("/assets/ui/shipHullAndWeaponPanelWarning.png")')
+      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("assets/ui/shipHullAndWeaponPanelWarning.png")')
       await waitFor(animDurationMS)
-      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("/assets/ui/shipHullAndWeaponPanel.png")')
+      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("assets/ui/shipHullAndWeaponPanel.png")')
       await waitFor(animDurationMS)
     }
     Q("#ship-hull-and-weapon-panel").style.backgroundImage = ""
@@ -512,13 +528,17 @@ class GameUI extends GameWindow {
   toggleDevIcons() {
     Qa(".dev-icon").forEach(icon => icon.classList.toggle("hidden"))
   }
-  update() {
+  updateStats() {
     if(!this.statsVisible) return
-
+    
     Q('#collision-count').innerText = game.previousCollisions.length
     Q('#zoom-level').innerText = game.camera.currentZoom
     Q("#game-state-view").innerText = game.state.current.capitalize()
     Q("#stage-offset").innerText = "x: " + game.app.stage.position.x.toFixed(0) + " y: " + game.app.stage.position.y.toFixed(0) 
     Q("#fps").innerText = fps.toFixed(0)
+  }
+  update() {
+    this.updateStats()
+    this.timers.update()
   }
 }

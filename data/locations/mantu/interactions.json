@@ -51,7 +51,7 @@
         "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
         "doOnEnter": ["showHint"],
         "doOnDestroy": ["createInteraction"],
-        "interactionDelay": 4000,
+        "interactionDelay": 2500,
         "newInteractionId": "ship_proximity_alert",
         "hintData": {
           "hintText": "It's possible to travel even without a proximity to a beacon, just open the map. Be warned that it's more difficult to escape during combat situations.",
@@ -79,7 +79,7 @@
         "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
         "doOnEnter": ["showHint"],
         "doOnDestroy": ["createInteraction"],
-        "interactionDelay": 4000,
+        "interactionDelay": 2500,
         "newInteractionId": "ship_proximity_alert",
         "hintData": {
           "hintText": "There seem to be two ships on the radar, maybe it's worth approaching them.",

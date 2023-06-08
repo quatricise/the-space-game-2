@@ -113,7 +113,7 @@ class Interactable extends GameObject {
     this.hint = null
   }
   triggerAudioCall() {
-    gameUI.openAudioCallPanel(this.interactionData.audioCallCaller, this.interactionData.audioCallMessage, this.interactionData.audioCallName, )
+    gameUI.openAudioCallPanel(this.interactionData.audioCallCaller, this.interactionData.audioCallMessage, this.interactionData.audioCallName)
   }
   createMarker() {
     this.gameWorld.createMarkerById(this.interactionData.newMarkerId)

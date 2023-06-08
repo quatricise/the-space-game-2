@@ -88,6 +88,8 @@ class GameManager {
           player.ship.weapons.addWeapon(weapon)
       }, 100)
 
+      setTimeout(() => player.ship.skip.playTravelAnimation(player.ship.transform.position), 1500)
+
       gameUI.updateShipHullUI()
       gameUI.destroyUIWeaponComponents()
       this.restorePlayerControl()

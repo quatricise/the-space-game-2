@@ -13,6 +13,12 @@ class Cutscene {
     this.currentElement = null
     this.finished = false
     this.finishedPage = false
+
+    /* store the timeout that displays the cutscene window hint in this */
+    this.hintTimeout = null
+
+    /* this is used to fast forward the animation when set to a numerical value */
+    this.nextHold = null
   }
   begin() {
     this.nextPage()
@@ -23,14 +29,15 @@ class Cutscene {
     let hintType = this.currentPageIndex === 0 ? "full" : "mouse"
     if(this.pagesLeft.length == 0)
       this.finished = true
-    setTimeout(() => cutsceneWindow.showHint(hintType), 1500)
+    this.hintTimeout = setTimeout(() => cutsceneWindow.showHint(hintType), 1500)
   }
   replayPage() {
-    this.nextPage
+    
   }
   nextPage() {
     this.finishedPage = false
     cutsceneWindow.hideHint()
+    window.clearTimeout(this.hintTimeout)
     this.currentPage = this.pagesLeft.shift()
     this.fadeScene()
     this.currentPageIndex++
@@ -44,6 +51,9 @@ class Cutscene {
     setTimeout(()=> {
       this.nextElement()
     }, Cutscene.defaultHold)
+
+    /* reset the nextHold so that elements of the next panel animate normally */
+    this.nextHold = null
   }
   nextElement() {
     this.currentElement = this.currentPanel.elements.shift()
@@ -70,8 +80,7 @@ class Cutscene {
     
     setTimeout(() => {
       this.nextElement()
-    }, 
-    hold * Cutscene.timeStretch)
+    }, this.nextHold ?? hold * Cutscene.timeStretch)
   }
   nextTextElement() {
     let text = El("div", "cutscene-text-element")
@@ -120,5 +129,25 @@ class Cutscene {
     duration: 900, 
     easing: "cubic-bezier(0.6, 0, 0.4, 1.0)",
     translate: {x: -25, y: 0},
+  }
+  static async preloadScenes() {
+    let sources = []
+    for(let scene in this.scenes) {
+      for(let page in this.scenes[scene].pages) {
+        for(let panel of this.scenes[scene].pages[page].panels) {
+          for(let element of panel.elements) {
+            sources.push(`assets/cutscene/${scene}/${page}/${element.src}.png`)
+          }
+        }
+      }
+    }
+    /* map all sources to promises and wait until they are all fetched */
+    await Promise.all(sources.map(source => 
+      new Promise(async resolve => {
+        await fetch(source)
+        resolve(source)
+      })
+    ))
+    console.log("Cutscenes loaded.")
   }
 }

@@ -66,6 +66,9 @@ class CutsceneWindow extends GameWindow {
     else
     if(this.cutscene && this.cutscene.finishedPage)
       this.cutscene.nextPage()
+    else
+    if(this.cutscene)
+      this.cutscene.nextHold = 100
   }
   exit() {
     this.hideHint()
@@ -75,12 +78,8 @@ class CutsceneWindow extends GameWindow {
   onexit() {
     //custom method used by GameManager to attach some event to the eventual completion of the cutscene
   }
-  showHint(type = "full") {
-    if(type === "full")
-      this.hintFull.classList.remove("hidden")
-    if(type === "mouse")
-      this.hintMouse.classList.remove("hidden")
-
+  showHint(type = "full" | "mouse") {
+    this["hint" + type.capitalize()].classList.remove("hidden")
     this.hint.classList.remove("hidden")
   }
   hideHint() {

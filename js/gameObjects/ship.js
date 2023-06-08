@@ -158,6 +158,8 @@ class Ship extends GameObject {
     /* camera zoom in */
     if(this.gameWorld.camera.lockedTo === this)
       this.gameWorld.camera.zoomInit("in")
+
+    AudioManager.playSFX("shipEngineStop")
   }
   dockTick() {
     if(this.state.isnt("docking", "undocking")) return
@@ -195,6 +197,8 @@ class Ship extends GameObject {
     this.timers.dock.duration = this.dockData.durationMin
     this.state.set("undocking")
     this.timers.dock.start()
+
+    AudioManager.playSFX("shipEngineStart")
 
     /* camera zoom out */
     if(this.gameWorld.camera.lockedTo === this)

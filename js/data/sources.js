@@ -686,6 +686,8 @@ let sources = {
       "ultraportAmbience loop",
       "ultraportTravel",
       "tightbeamCall loop",
+      "shipEngineStart",
+      "shipEngineStop",
     ]
   }
 };

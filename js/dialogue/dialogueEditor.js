@@ -9,8 +9,13 @@ class DialogueEditor extends GameWindow {
       connectionWidth: 8
     }
     this.scale = 1
-    this.highlighted = null //just an element that's visually highlighted
-    this.lastNpc = Object.keys(data.person)[0] //name of the last npc used inside a text node
+
+    /* an element that's visually highlighted using a blue outline */
+    this.highlighted = null
+
+    /* name of the last npc used inside a text node */
+    this.lastNpc = Object.keys(data.person)[0]
+
     this.state = new State(
       "default",
       "connecting",
@@ -76,13 +81,13 @@ class DialogueEditor extends GameWindow {
         this.visual.classList.add("hidden")
       },
       selectObjects: () => {
-        this.nodes.forEach(node => {
-          let nodeRect = node.element.getBoundingClientRect()
+        let nodeRects = this.nodes.map(node => node.element.getBoundingClientRect())
+        this.nodes.forEach((node, index) => {
           let nodeBox = new BoundingBox(
-            nodeRect.x,
-            nodeRect.y,
-            nodeRect.width,
-            nodeRect.height
+            nodeRects[index].x,
+            nodeRects[index].y,
+            nodeRects[index].width,
+            nodeRects[index].height
           )
           if(Collision.auto(this.boxSelection.box, nodeBox)) {
             this.selectNode(node)
@@ -94,6 +99,7 @@ class DialogueEditor extends GameWindow {
         this.endPoint.set(0)
       },
     }
+
     this.createHtml()
     this.createFactEditor()
     this.unsetActiveNode()
@@ -110,33 +116,30 @@ class DialogueEditor extends GameWindow {
     let importIcon = El('div', "icon-import", [["title", "Import dialogue file"]])
     let exportIcon = El('div', "icon-export-facts", [["title", "Export dialogue tree and facts"]])
     this.element.querySelector(".icon-close-container").prepend(importIcon, exportIcon)
+
+    /* canvas for drawing node connections */
+    this.canvas = El("canvas", undefined, [["id", "dialogue-editor-canvas"]])
+    this.canvas.width = cw
+    this.canvas.height = ch
+    this.element.append(this.canvas)
   }
   pan() {
-    this.nodes.forEach(node => {
-      node.pos.add(mouse.clientMoved)
-    })
+    this.nodes.forEach(node => node.pos.add(mouse.clientMoved))
   }
   scroll(amt) {
     this.nodes.forEach(node => node.pos.y += amt)
-    this.reconstructHtml()
-  }
-  close() {
-    this.nodes.forEach(node=> {
-      node.element.remove()
-    })
-    this.nodes = []
-    this.reconstructHtml()
+    this.updateHTML()
   }
   import() {
     let name = window.prompt("dialogue filename", "al_and_betty_2")
     if(!name) return
 
-    this.close()
+    this.reset()
     this.state.set('loading')
-
     Q(".dialogue-name").innerText = name
     this.dialogueName = name
     let url = "data/dialogue/" + name + ".json"
+
     readJSONFile(url, (text) => {
       let nodes = JSON.parse(text);
       /* create nodes */
@@ -161,11 +164,11 @@ class DialogueEditor extends GameWindow {
           nodeOrigin.createConnection(nodeDestination)
         })
       })
-    })
-    setTimeout(()=> {
-      this.reconstructHtml()
+      /* reconstruct html */
+      this.reconstructHTML()
       this.state.set("default")
-    }, 600)
+    })
+    
   }
   export() {
     let exportData = []
@@ -228,8 +231,9 @@ class DialogueEditor extends GameWindow {
     this.activeNode.transfer[ownerIndex].owner = owner
     this.activeNode.transfer[ownerIndex].items[itemIndex] = item
 
-    let itemThumbnail = new Image()
-        itemThumbnail.src = "assets/item/" + item + ".png"
+    let 
+    itemThumbnail = new Image()
+    itemThumbnail.src = `assets/${data.item[item].folder ?? "item"}/${item}.png`
 
     let itemElement = speakerRow.querySelector(`.dialogue-node-item[data-itemindex='${itemIndex}']`)
 
@@ -358,6 +362,7 @@ class DialogueEditor extends GameWindow {
       this.npcSearchFilter()
       return
     }
+    /* when editing a text field */
     if(document.activeElement === this.textarea || this.state.is("editing")) {
       if((event.code === "Enter" || event.code === "NumpadEnter") && (!keys.shift && !keys.shiftRight))
         this.editConfirm()
@@ -365,9 +370,11 @@ class DialogueEditor extends GameWindow {
         this.editCancel()
       return
     }
+    /* general cancel event, should hide most searches, popups and context menus */
     if(event.code === "Escape") {
       this.editCancel()
       this.npcSearchDelete()
+      this.itemSearchDelete()
       this.contextMenuDelete()
       this.selected.nodes.length > 0 ? this.deselectAll() : this.unsetActiveNode()
     }
@@ -517,7 +524,7 @@ class DialogueEditor extends GameWindow {
       let node = this.nodes.find(node => node.id === +event.target.closest("svg").dataset.id)
       let index = +svg.dataset.index
       node.deleteConnection(index)
-      this.reconstructHtml()
+      this.reconstructHTML()
     }
 
     if(target.closest(".search-popup-row")) {
@@ -615,8 +622,7 @@ class DialogueEditor extends GameWindow {
     if(this.state.is("dragging")) {
       this.activeNode.drag(event)
       this.selected.nodes.forEach(node => {
-        if(node == this.activeNode) return
-        node.drag(event)
+        if(node !== this.activeNode) node.drag(event)
       })
     }
     if(this.state.is("panning")) {
@@ -629,10 +635,10 @@ class DialogueEditor extends GameWindow {
     if(this.state.is("boxSelection")) {
       this.boxSelection.update()
     }
-    this.updateHtml()
+    this.updateHTML()
   }
   handleMouseup(event) {
-    //LMB
+    /* LMB */
     if(event.button === 0) {
       if(this.state.is("connecting") && event.target.closest(".dialogue-node")) {
         let connectTo = this.getNodeAtMousePosition(event)
@@ -650,14 +656,14 @@ class DialogueEditor extends GameWindow {
         this.factEditor.refreshStructure()
       }
       if(this.state.is("deleting") && event.target.closest(".dialogue-node-widget.remove")) {
-        this.activeNode.delete()
+        this.activeNode.destroy()
       }
       if(this.state.is("boxSelection")) {
         this.boxSelection.end()
       }
       this.contextMenuDelete()
     }
-    //RMB
+    /* RMB */
     if(event.button === 2) {
       if(this.state.is("creatingContextMenu") && event.target === this.element) {
         this.contextMenuCreate()
@@ -670,20 +676,17 @@ class DialogueEditor extends GameWindow {
     if(this.state.isnt("editing", "selectingSpeaker", "selectingItem")) {
       this.state.set("default")
     }
-    this.reconstructHtml()
     this.factEditor.toggleEditability()
+    this.reconstructHTML()
   }
   handleWheel(event) {
     if(event.target.closest(".fact-editor")) return
     if(event.target.closest(".search-popup")) return
 
-    if(event.deltaY < 0)
-      this.scroll(-event.deltaY)
-    if(event.deltaY > 0)
-      this.scroll(-event.deltaY)
+    this.scroll(-event.deltaY)
   }
   //#endregion input
-  //#region set options
+  //#region options
   async setOptionCompactView() {
     /* this method causes a truncation error somewhere and the nodes are getting further apart with each click  */
 
@@ -702,7 +705,7 @@ class DialogueEditor extends GameWindow {
     let avgHeightDifference = avg(...this.nodes.map(node => node.element.getBoundingClientRect().height / node.temp.height))
     
     this.nodes.forEach(node => node.pos.y *= avgHeightDifference)
-    this.reconstructHtml()
+    this.reconstructHTML()
   }
   //#endregion
   contextMenuCreate() {
@@ -724,6 +727,8 @@ class DialogueEditor extends GameWindow {
     menu.style.top =  (mouse.clientPosition.y + 5) + "px"
     this.element.append(menu)
     this.contextMenu = menu
+    setTimeout(() => this.fitInViewport(this.contextMenu), 0)
+
   }
   contextMenuDelete() {
     if(!this.contextMenu) return
@@ -738,8 +743,8 @@ class DialogueEditor extends GameWindow {
     let input =         El("input", "search-popup-input", [["type", "text"]])
 
     const createField = (speaker) => {
-      let row = El("div", "search-popup-row", undefined, undefined, [["datatype", role],["speaker", speaker]])
-      let name = El("div", "search-popup-name", undefined, speaker)
+      let row =   El("div", "search-popup-row", undefined, undefined, [["datatype", role],["speaker", speaker]])
+      let name =  El("div", "search-popup-name", undefined, speaker)
 
       let 
       img = new Image()
@@ -759,20 +764,18 @@ class DialogueEditor extends GameWindow {
     this.element.append(popup)
     this.npcSearch = popup
     this.npcSearchInput = input
-    setTimeout(() => this.npcSearchAdjust(), 0)
+    setTimeout(() => this.fitInViewport(this.npcSearch), 0)
   }
-  npcSearchAdjust() {
-    let rect = this.npcSearch.getBoundingClientRect()
+  fitInViewport(popupElement) {
+    let rect = popupElement.getBoundingClientRect()
     console.log(rect)
     if(rect.bottom > ch) {
       let top = ch - rect.height - 20
-      console.log(top)
-      this.npcSearch.style.top = top + "px"
+      popupElement.style.top = top + "px"
     }
     if(rect.right > cw) {
       let left = cw - rect.width - 20
-      console.log(left)
-      this.npcSearch.style.left = left + "px"
+      popupElement.style.left = left + "px"
     }
   }
   npcSearchFilter() {
@@ -784,29 +787,41 @@ class DialogueEditor extends GameWindow {
         row.classList.add("hidden")
     })
   }
-  itemSearchCreate() {
-    let menu = El("div", "search-popup")
-    let input = El("input", "search-popup-input", [["type", "text"]])
+  npcSearchDelete() {
+    if(!this.npcSearch) return
 
-    const createField = (prop) => {
+    this.npcSearch.remove()
+    this.npcSearch = null
+    this.highlighted.style.outline = ""
+    this.highlighted = null
+    this.state.ifrevert("selectingSpeaker")
+  }
+  itemSearchCreate() {
+    let popup =         El("div", "search-popup")
+    let input =         El("input", "search-popup-input", [["type", "text"]])
+    let itemContainer = El("div", "search-popup-item-list")
+
+    const createItemElement = (prop) => {
       let row = El("div", "search-popup-row")
           row.dataset.datatype = "item"
       let name = El("div", "search-popup-name", undefined, prop)
       let img = new Image()
-          img.src = "assets/item/" + prop + ".png"
+          img.src = `assets/${data.item[prop].folder ?? "item"}/${prop}.png`
 
       row.append(img, name)
       row.dataset.item = prop
-      menu.append(row)
+      itemContainer.append(row)
     }
-    for(let prop in data.item) 
-      createField(prop)
+    /* generate elements for all items */
+    for(let prop in data.item)
+      createItemElement(prop)
 
-    menu.append(input)
-    menu.style.left = (mouse.clientPosition.x + 5) + "px"
-    menu.style.top = (mouse.clientPosition.y + 5) + "px"
-    this.element.append(menu)
-    this.itemSearch = menu
+    popup.append(input, itemContainer)
+    popup.style.left = (mouse.clientPosition.x + 5) + "px"
+    popup.style.top = (mouse.clientPosition.y + 5) + "px"
+    this.element.append(popup)
+    this.itemSearch = popup
+    setTimeout(() => this.fitInViewport(this.itemSearch), 0)
   }
   itemSearchDelete() {
     if(!this.itemSearch) return
@@ -816,15 +831,6 @@ class DialogueEditor extends GameWindow {
     this.highlighted.style.outline = ""
     this.highlighted = null
     this.state.ifrevert("selectingItem")
-  }
-  npcSearchDelete() {
-    if(!this.npcSearch) return
-
-    this.npcSearch.remove()
-    this.npcSearch = null
-    this.highlighted.style.outline = ""
-    this.highlighted = null
-    this.state.ifrevert("selectingSpeaker")
   }
   createNode(type) {
     let node = new DialogueNode(
@@ -879,14 +885,15 @@ class DialogueEditor extends GameWindow {
       _.cloneDeep(node.transfer)
     )
   }
-  
-  reconstructHtml() {
-    //generate svgs for connections
+  reconstructHTML() {
+    /* generate svgs for connections */
     this.svgCont.innerHTML = ""
     this.nodes.forEach(node => {
       
+      /* highlight entry and exit nodes for better visual navigation of the node tree */
       node.out.length === 0 ? node.element.classList.add("end-node")    : node.element.classList.remove("end-node")
       node.in.length === 0  ? node.element.classList.add("start-node")  : node.element.classList.remove("start-node")
+
       node.update()
       node.out.forEach(conn => {
         let svg = SVGEl(
@@ -923,28 +930,46 @@ class DialogueEditor extends GameWindow {
         this.svgCont.append(svg)
       })
     })
-    this.updateHtml()
+    this.updateHTML()
   }
-  updateHtml() {
-    this.nodes.forEach(node => {
-      node.update()
+  updateHTML() {
+    /* store information about the position of node sockets */
+    let layoutData = []
+
+    /* update nodes */
+    this.nodes.forEach(node => node.update())
+      
+    /* get layout information */
+    this.nodes.forEach((node, index) => {
       node.out.forEach(conn => {
         let rects = [
           node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
           conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
         ]
-        let selector = "svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path"
-        let path = this.svgCont.querySelector(selector)
+        let path = this.svgCont.querySelector("svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path")
+        layoutData.push({path, rects})
+      })
+    })
 
-        path.setAttribute("d",
-          "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
-          "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
+    /* recalculate the SVG paths */
+    this.nodes.forEach((node, index) => {
+      node.out.forEach(conn => {
+        layoutData[index].path.setAttribute("d",
+          "M " + (layoutData[index].rects[0].x + 6) + " " + (layoutData[index].rects[0].y + 6) + 
+          "L " + (layoutData[index].rects[1].x + 6) + " " + (layoutData[index].rects[1].y + 6)
         )
       })
     })
   }
+  reset() {
+    this.nodes.forEach(node => node.destroy())
+    this.nodes = []
+    this.activeNode = null
+    this.editedData = {}
+    this.updateHTML()
+  }
   update() {
-   
+
   }
   //#region debugging methods
   checkForDuplicateIds() {

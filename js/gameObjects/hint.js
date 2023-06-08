@@ -1,5 +1,5 @@
 class Hint extends GameObject {
-  constructor(transform, hintData, fadeoutTime = 1000, parent) {
+  constructor(transform, hintData, fadeoutTime = 520, parent) {
     super(transform)
     this.type = "hint"
     this.name = "Hint"
@@ -21,16 +21,22 @@ class Hint extends GameObject {
     this.element.dataset.tooltip = "Click to dismiss hint [H]"
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
-    this.element.dataset.parentelementid= this.id
+    this.element.dataset.parentelementid = this.id
 
     this.element.dataset.playsfx = ""
     this.element.dataset.sounds = "buttonHover buttonClick"
     this.element.dataset.playonevents = "mouseover mousedown"
 
+    /* do periodic hint flashing */
+    this.timers.add(
+      ["flash", 5500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
+    )
+
+    if(this.hintText != "")
+      Q('#interaction-container').append(this.element)
+
     this.element.style.filter = "opacity(0)"
     this.element.onclick = () => this.complete()
-    if(this.hintText !== "")
-      Q('#interaction-container').append(this.element)
     this.updateHtml()
   }
   registerCompleteMethods() {
@@ -139,20 +145,22 @@ class Hint extends GameObject {
     })
     .onfinish = () => {
       this.element.style.filter = ""
-      if(onFinish)
+      if(onFinish && !this.destroyed)
         onFinish()
     }
   }
-  async flash() {
-    let iterations = 3
-    let animDurationMS = 1000 / 8
+  async flash(iterations = 3, durationMS = 125) {
     await fetch("/assets/ui/hintContainerHover.png")
     await fetch("/assets/ui/hintContainer.png")
     for(let i = 0; i < iterations; i++) {
       setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainerHover.png")')
-      await waitFor(animDurationMS)
+
+      if(this.hintText)
+        AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 2))
+
+      await waitFor(durationMS)
       setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainer.png")')
-      await waitFor(animDurationMS)
+      await waitFor(durationMS)
     }
     this.element.style.backgroundImage = ""
   }
@@ -199,5 +207,6 @@ class Hint extends GameObject {
   }
   destroy() {
     this.element.remove()
+    console.log("destroyed hint", this)
   }
 }

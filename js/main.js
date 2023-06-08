@@ -66,6 +66,8 @@ window.onresize = () => {
     win.app?.resize()
     win.camera?.contextDim.set(cw, ch)
   })
+  dialogueEditor.canvas.width = cw
+  dialogueEditor.canvas.height = ch
 }
 
 // window.onblur = () => gameManager.pauseGame()
