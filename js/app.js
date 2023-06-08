@@ -6358,7 +6358,7 @@ class Cutscene {
     /* store the timeout that displays the cutscene window hint in this */
     this.hintTimeout = null
 
-    /* this is used to fast forward the animation when set to a numerical value */
+    /* this is used to fast forward the start of an animation of the next element when set to a non-null value */
     this.nextHold = null
   }
   begin() {
@@ -6398,10 +6398,8 @@ class Cutscene {
   }
   nextElement() {
     this.currentElement = this.currentPanel.elements.shift()
-    if(!this.currentElement) {
-      this.nextPanel()
-      return
-    }
+    if(!this.currentElement) 
+      return this.nextPanel()
 
     let 
     image = new Image()
@@ -6417,7 +6415,6 @@ class Cutscene {
       hold = this.currentElement.animation?.duration 
     else 
       hold = this.currentElement.hold ?? Cutscene.defaultHold
-    // hold = clamp(hold, 0, Cutscene.defaultHold)
     
     setTimeout(() => {
       this.nextElement()
@@ -6434,7 +6431,7 @@ class Cutscene {
     animData.easing     = (this.currentElement.animation?.easing     ?? Cutscene.defaultAnimation.easing)
     animData.translate  = (this.currentElement.animation?.translate  ?? Cutscene.defaultAnimation.translate)
 
-    let anim = imageElement.animate([
+    imageElement.animate([
       {
         transform: `translateX(${animData.translate.x}px) translateY(${animData.translate.y}px)`,
         filter: "opacity(0)",
@@ -6482,14 +6479,14 @@ class Cutscene {
         }
       }
     }
-    /* map all sources to promises and wait until they are all fetched */
+    /* map all sources to promises and wait until an image is loaded */
     await Promise.all(sources.map(source => 
       new Promise(async resolve => {
-        await fetch(source)
-        resolve(source)
+        let img = new Image()
+        img.src = source
+        img.onload = resolve(img)
       })
-    ))
-    console.log("Cutscenes loaded.")
+    )).then(data => console.log("Cutscenes loaded."))
   }
 }
 class ImageSprite {
@@ -17831,11 +17828,13 @@ class LocationEditor extends GameWorldWindow {
       "ultraportBeacon",
       "decorativeObject",
     ]
+
     for(let type of typesDef)
     for(let key in data[type]) {
       names.push(key)
       types.push(type)
     }
+
     names.forEach((n, index) => {
       if(debug.locationEditor) 
         console.log(types[index], names[index], sources.img[types[index]][names[index]])

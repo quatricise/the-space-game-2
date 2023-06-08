@@ -267,11 +267,13 @@ class LocationEditor extends GameWorldWindow {
       "ultraportBeacon",
       "decorativeObject",
     ]
+
     for(let type of typesDef)
     for(let key in data[type]) {
       names.push(key)
       types.push(type)
     }
+
     names.forEach((n, index) => {
       if(debug.locationEditor) 
         console.log(types[index], names[index], sources.img[types[index]][names[index]])
