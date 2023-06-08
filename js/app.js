@@ -651,6 +651,19 @@ function readJSONFile(file, callback) {
   }
   request.send(null);
 }
+
+
+function exportToUTF8(text, filename) {     
+  let dataStr = text
+  let dataUri = 'data:text/javascript;charset=utf-8,'+ encodeURIComponent(dataStr);
+  let defaultName = filename || 'file.js';
+
+  let 
+  linkElement = document.createElement('a');
+  linkElement.setAttribute('href', dataUri);
+  linkElement.setAttribute('download', defaultName);
+  linkElement.click();
+} 
 function clamp(value, min, max) {
   let val = value
   if(val <= min) val = min
@@ -764,17 +777,6 @@ function waitFor(time) {
   });
 }
 
-function exportToUTF8(text, filename) {     
-  let dataStr = text
-  let dataUri = 'data:text/javascript;charset=utf-8,'+ encodeURIComponent(dataStr);
-  let defaultName = filename || 'file.js';
-
-  let 
-  linkElement = document.createElement('a');
-  linkElement.setAttribute('href', dataUri);
-  linkElement.setAttribute('download', defaultName);
-  linkElement.click();
-} 
 class State {
   constructor(...values) {
     this.values = values
@@ -2921,6 +2923,8 @@ let sources = {
       "ultraportAmbience loop",
       "ultraportTravel",
       "tightbeamCall loop",
+      "shipEngineStart",
+      "shipEngineStop",
     ]
   }
 };
@@ -6350,6 +6354,12 @@ class Cutscene {
     this.currentElement = null
     this.finished = false
     this.finishedPage = false
+
+    /* store the timeout that displays the cutscene window hint in this */
+    this.hintTimeout = null
+
+    /* this is used to fast forward the animation when set to a numerical value */
+    this.nextHold = null
   }
   begin() {
     this.nextPage()
@@ -6360,14 +6370,15 @@ class Cutscene {
     let hintType = this.currentPageIndex === 0 ? "full" : "mouse"
     if(this.pagesLeft.length == 0)
       this.finished = true
-    setTimeout(() => cutsceneWindow.showHint(hintType), 1500)
+    this.hintTimeout = setTimeout(() => cutsceneWindow.showHint(hintType), 1500)
   }
   replayPage() {
-    this.nextPage
+    
   }
   nextPage() {
     this.finishedPage = false
     cutsceneWindow.hideHint()
+    window.clearTimeout(this.hintTimeout)
     this.currentPage = this.pagesLeft.shift()
     this.fadeScene()
     this.currentPageIndex++
@@ -6381,6 +6392,9 @@ class Cutscene {
     setTimeout(()=> {
       this.nextElement()
     }, Cutscene.defaultHold)
+
+    /* reset the nextHold so that elements of the next panel animate normally */
+    this.nextHold = null
   }
   nextElement() {
     this.currentElement = this.currentPanel.elements.shift()
@@ -6407,8 +6421,7 @@ class Cutscene {
     
     setTimeout(() => {
       this.nextElement()
-    }, 
-    hold * Cutscene.timeStretch)
+    }, this.nextHold ?? hold * Cutscene.timeStretch)
   }
   nextTextElement() {
     let text = El("div", "cutscene-text-element")
@@ -6457,6 +6470,26 @@ class Cutscene {
     duration: 900, 
     easing: "cubic-bezier(0.6, 0, 0.4, 1.0)",
     translate: {x: -25, y: 0},
+  }
+  static async preloadScenes() {
+    let sources = []
+    for(let scene in this.scenes) {
+      for(let page in this.scenes[scene].pages) {
+        for(let panel of this.scenes[scene].pages[page].panels) {
+          for(let element of panel.elements) {
+            sources.push(`assets/cutscene/${scene}/${page}/${element.src}.png`)
+          }
+        }
+      }
+    }
+    /* map all sources to promises and wait until they are all fetched */
+    await Promise.all(sources.map(source => 
+      new Promise(async resolve => {
+        await fetch(source)
+        resolve(source)
+      })
+    ))
+    console.log("Cutscenes loaded.")
   }
 }
 class ImageSprite {
@@ -6605,6 +6638,9 @@ class CutsceneWindow extends GameWindow {
     else
     if(this.cutscene && this.cutscene.finishedPage)
       this.cutscene.nextPage()
+    else
+    if(this.cutscene)
+      this.cutscene.nextHold = 100
   }
   exit() {
     this.hideHint()
@@ -6614,12 +6650,8 @@ class CutsceneWindow extends GameWindow {
   onexit() {
     //custom method used by GameManager to attach some event to the eventual completion of the cutscene
   }
-  showHint(type = "full") {
-    if(type === "full")
-      this.hintFull.classList.remove("hidden")
-    if(type === "mouse")
-      this.hintMouse.classList.remove("hidden")
-
+  showHint(type = "full" | "mouse") {
+    this["hint" + type.capitalize()].classList.remove("hidden")
     this.hint.classList.remove("hidden")
   }
   hideHint() {
@@ -8426,7 +8458,7 @@ class Interactable extends GameObject {
     this.hint = null
   }
   triggerAudioCall() {
-    gameUI.openAudioCallPanel(this.interactionData.audioCallCaller, this.interactionData.audioCallMessage, this.interactionData.audioCallName, )
+    gameUI.openAudioCallPanel(this.interactionData.audioCallCaller, this.interactionData.audioCallMessage, this.interactionData.audioCallName)
   }
   createMarker() {
     this.gameWorld.createMarkerById(this.interactionData.newMarkerId)
@@ -11593,6 +11625,8 @@ class Ship extends GameObject {
     /* camera zoom in */
     if(this.gameWorld.camera.lockedTo === this)
       this.gameWorld.camera.zoomInit("in")
+
+    AudioManager.playSFX("shipEngineStop")
   }
   dockTick() {
     if(this.state.isnt("docking", "undocking")) return
@@ -11630,6 +11664,8 @@ class Ship extends GameObject {
     this.timers.dock.duration = this.dockData.durationMin
     this.state.set("undocking")
     this.timers.dock.start()
+
+    AudioManager.playSFX("shipEngineStart")
 
     /* camera zoom out */
     if(this.gameWorld.camera.lockedTo === this)
@@ -12324,7 +12360,7 @@ class HintGraphic extends GameObject {
   }
 }
 class Hint extends GameObject {
-  constructor(transform, hintData, fadeoutTime = 1000, parent) {
+  constructor(transform, hintData, fadeoutTime = 520, parent) {
     super(transform)
     this.type = "hint"
     this.name = "Hint"
@@ -12346,16 +12382,22 @@ class Hint extends GameObject {
     this.element.dataset.tooltip = "Click to dismiss hint [H]"
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
-    this.element.dataset.parentelementid= this.id
+    this.element.dataset.parentelementid = this.id
 
     this.element.dataset.playsfx = ""
     this.element.dataset.sounds = "buttonHover buttonClick"
     this.element.dataset.playonevents = "mouseover mousedown"
 
+    /* do periodic hint flashing */
+    this.timers.add(
+      ["flash", 5500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
+    )
+
+    if(this.hintText != "")
+      Q('#interaction-container').append(this.element)
+
     this.element.style.filter = "opacity(0)"
     this.element.onclick = () => this.complete()
-    if(this.hintText !== "")
-      Q('#interaction-container').append(this.element)
     this.updateHtml()
   }
   registerCompleteMethods() {
@@ -12464,20 +12506,22 @@ class Hint extends GameObject {
     })
     .onfinish = () => {
       this.element.style.filter = ""
-      if(onFinish)
+      if(onFinish && !this.destroyed)
         onFinish()
     }
   }
-  async flash() {
-    let iterations = 3
-    let animDurationMS = 1000 / 8
+  async flash(iterations = 3, durationMS = 125) {
     await fetch("/assets/ui/hintContainerHover.png")
     await fetch("/assets/ui/hintContainer.png")
     for(let i = 0; i < iterations; i++) {
       setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainerHover.png")')
-      await waitFor(animDurationMS)
+
+      if(this.hintText)
+        AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 2))
+
+      await waitFor(durationMS)
       setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainer.png")')
-      await waitFor(animDurationMS)
+      await waitFor(durationMS)
     }
     this.element.style.backgroundImage = ""
   }
@@ -12524,6 +12568,7 @@ class Hint extends GameObject {
   }
   destroy() {
     this.element.remove()
+    console.log("destroyed hint", this)
   }
 }
 class Explosion extends GameObject {
@@ -14252,7 +14297,7 @@ class DialogueScreen extends GameWindow {
     bubble.dataset.playsfx = ""
     bubble.dataset.sounds = "buttonNoAction"
     bubble.dataset.playonevents = "mouseover"
-    bubble.dataset.volumes = "0.10"
+    bubble.dataset.volumes = "0.05"
     bubble.style.height = bubbleHeight + "px"
     nextLetter()
     
@@ -14289,7 +14334,7 @@ class DialogueScreen extends GameWindow {
   scrollDown() {
     this.dialogueContent.scrollTo({top: this.dialogueContent.scrollHeight, behavior: "smooth",})
   }
-  fastForwardBubble() {
+  async fastForwardBubble() {
     if(!this.canFastForwardBubble) return
     if(this.currentNode.type === "responsePicker") return
 
@@ -14302,6 +14347,12 @@ class DialogueScreen extends GameWindow {
 
     let timeout = setTimeout(() => this.getNextNode(), 400)
     this.timeouts.push(timeout)
+
+    AudioManager.playSFX("buttonNoAction", 0.3)
+    await waitFor(70)
+    AudioManager.playSFX("buttonNoAction", 0.2)
+    await waitFor(70)
+    AudioManager.playSFX("buttonNoAction", 0.15)
   }
   filterNodes(nodes) {
     let filteredNodes = []
@@ -14477,30 +14528,25 @@ class DialogueNode {
     this.criteria = criteria ?? []
     this.factsToSet = options.factsToSet ?? []
     this.labels = {
-      lie:        options.labels?.lie || false,
-      exaggerate: options.labels?.exaggerate || false,
+      lie:        options.labels?.lie         || false,
+      exaggerate: options.labels?.exaggerate  || false,
     }
     this.in = []
     this.out = []
     this.transfer = transfer ?? [
       {
         owner: "player",
-        items: [
-          "",
-        ]
+        items: [""]
       },
       {
         owner: "player",
-        items: [
-          "",
-        ]
-      },
+        items: [""]
+      }
     ]
     dialogueEditor.nodes.push(this)
     this["createHTML" + type.capitalize()]()
     this.update()
     this.reorderOutputs()
-    console.log("new node")
   }
   drag() {
     this.pos.add(mouse.clientMoved)
@@ -14692,7 +14738,7 @@ class DialogueNode {
       let addButton = El("div", "dialogue-node-add-item",  [["title", "Add new item slot"]])
 
       //for each item in both rows of transfer, add an item element into this array
-      let items = this.transfer[i].items.map(item => {
+      let items = this.transfer[i].items.map(() => {
         return El("div", "dialogue-node-item empty", [["title", "Click to select an item"]])
       })
 
@@ -14715,7 +14761,7 @@ class DialogueNode {
       this.transfer[i].items.forEach((item, index) => {
         if(item == "") return
         let thumbnail = new Image()
-            thumbnail.src = "assets/item/" + item + ".png"
+            thumbnail.src = `assets/${data.item[item].folder ?? "item"}/${item}.png`
         items[index].append(thumbnail)
       })
 
@@ -14891,17 +14937,17 @@ class DialogueNode {
     })
     this.out = []
   }
-  delete() {
+  update() {
+    this.element.style.left = this.pos.x + "px"
+    this.element.style.top = this.pos.y + "px"
+    this.element.querySelector(".fact-count").innerText = this.criteria.length + " criteria"
+  }
+  destroy() {
     this.deleteIn()
     this.deleteOut()
     this.element.remove()
     dialogueEditor.unsetActiveNode()
     dialogueEditor.nodes = dialogueEditor.nodes.filter(node => node !== this)
-  }
-  update() {
-    this.element.style.left = this.pos.x + "px"
-    this.element.style.top = this.pos.y + "px"
-    this.element.querySelector(".fact-count").innerText = this.criteria.length + " criteria"
   }
   static types = [
     "text",
@@ -14925,8 +14971,13 @@ class DialogueEditor extends GameWindow {
       connectionWidth: 8
     }
     this.scale = 1
-    this.highlighted = null //just an element that's visually highlighted
-    this.lastNpc = Object.keys(data.person)[0] //name of the last npc used inside a text node
+
+    /* an element that's visually highlighted using a blue outline */
+    this.highlighted = null
+
+    /* name of the last npc used inside a text node */
+    this.lastNpc = Object.keys(data.person)[0]
+
     this.state = new State(
       "default",
       "connecting",
@@ -14992,13 +15043,13 @@ class DialogueEditor extends GameWindow {
         this.visual.classList.add("hidden")
       },
       selectObjects: () => {
-        this.nodes.forEach(node => {
-          let nodeRect = node.element.getBoundingClientRect()
+        let nodeRects = this.nodes.map(node => node.element.getBoundingClientRect())
+        this.nodes.forEach((node, index) => {
           let nodeBox = new BoundingBox(
-            nodeRect.x,
-            nodeRect.y,
-            nodeRect.width,
-            nodeRect.height
+            nodeRects[index].x,
+            nodeRects[index].y,
+            nodeRects[index].width,
+            nodeRects[index].height
           )
           if(Collision.auto(this.boxSelection.box, nodeBox)) {
             this.selectNode(node)
@@ -15010,6 +15061,7 @@ class DialogueEditor extends GameWindow {
         this.endPoint.set(0)
       },
     }
+
     this.createHtml()
     this.createFactEditor()
     this.unsetActiveNode()
@@ -15026,33 +15078,30 @@ class DialogueEditor extends GameWindow {
     let importIcon = El('div', "icon-import", [["title", "Import dialogue file"]])
     let exportIcon = El('div', "icon-export-facts", [["title", "Export dialogue tree and facts"]])
     this.element.querySelector(".icon-close-container").prepend(importIcon, exportIcon)
+
+    /* canvas for drawing node connections */
+    this.canvas = El("canvas", undefined, [["id", "dialogue-editor-canvas"]])
+    this.canvas.width = cw
+    this.canvas.height = ch
+    this.element.append(this.canvas)
   }
   pan() {
-    this.nodes.forEach(node => {
-      node.pos.add(mouse.clientMoved)
-    })
+    this.nodes.forEach(node => node.pos.add(mouse.clientMoved))
   }
   scroll(amt) {
     this.nodes.forEach(node => node.pos.y += amt)
-    this.reconstructHtml()
-  }
-  close() {
-    this.nodes.forEach(node=> {
-      node.element.remove()
-    })
-    this.nodes = []
-    this.reconstructHtml()
+    this.updateHTML()
   }
   import() {
     let name = window.prompt("dialogue filename", "al_and_betty_2")
     if(!name) return
 
-    this.close()
+    this.reset()
     this.state.set('loading')
-
     Q(".dialogue-name").innerText = name
     this.dialogueName = name
     let url = "data/dialogue/" + name + ".json"
+
     readJSONFile(url, (text) => {
       let nodes = JSON.parse(text);
       /* create nodes */
@@ -15077,11 +15126,11 @@ class DialogueEditor extends GameWindow {
           nodeOrigin.createConnection(nodeDestination)
         })
       })
-    })
-    setTimeout(()=> {
-      this.reconstructHtml()
+      /* reconstruct html */
+      this.reconstructHTML()
       this.state.set("default")
-    }, 600)
+    })
+    
   }
   export() {
     let exportData = []
@@ -15144,8 +15193,9 @@ class DialogueEditor extends GameWindow {
     this.activeNode.transfer[ownerIndex].owner = owner
     this.activeNode.transfer[ownerIndex].items[itemIndex] = item
 
-    let itemThumbnail = new Image()
-        itemThumbnail.src = "assets/item/" + item + ".png"
+    let 
+    itemThumbnail = new Image()
+    itemThumbnail.src = `assets/${data.item[item].folder ?? "item"}/${item}.png`
 
     let itemElement = speakerRow.querySelector(`.dialogue-node-item[data-itemindex='${itemIndex}']`)
 
@@ -15274,6 +15324,7 @@ class DialogueEditor extends GameWindow {
       this.npcSearchFilter()
       return
     }
+    /* when editing a text field */
     if(document.activeElement === this.textarea || this.state.is("editing")) {
       if((event.code === "Enter" || event.code === "NumpadEnter") && (!keys.shift && !keys.shiftRight))
         this.editConfirm()
@@ -15281,9 +15332,11 @@ class DialogueEditor extends GameWindow {
         this.editCancel()
       return
     }
+    /* general cancel event, should hide most searches, popups and context menus */
     if(event.code === "Escape") {
       this.editCancel()
       this.npcSearchDelete()
+      this.itemSearchDelete()
       this.contextMenuDelete()
       this.selected.nodes.length > 0 ? this.deselectAll() : this.unsetActiveNode()
     }
@@ -15433,7 +15486,7 @@ class DialogueEditor extends GameWindow {
       let node = this.nodes.find(node => node.id === +event.target.closest("svg").dataset.id)
       let index = +svg.dataset.index
       node.deleteConnection(index)
-      this.reconstructHtml()
+      this.reconstructHTML()
     }
 
     if(target.closest(".search-popup-row")) {
@@ -15531,8 +15584,7 @@ class DialogueEditor extends GameWindow {
     if(this.state.is("dragging")) {
       this.activeNode.drag(event)
       this.selected.nodes.forEach(node => {
-        if(node == this.activeNode) return
-        node.drag(event)
+        if(node !== this.activeNode) node.drag(event)
       })
     }
     if(this.state.is("panning")) {
@@ -15545,10 +15597,10 @@ class DialogueEditor extends GameWindow {
     if(this.state.is("boxSelection")) {
       this.boxSelection.update()
     }
-    this.updateHtml()
+    this.updateHTML()
   }
   handleMouseup(event) {
-    //LMB
+    /* LMB */
     if(event.button === 0) {
       if(this.state.is("connecting") && event.target.closest(".dialogue-node")) {
         let connectTo = this.getNodeAtMousePosition(event)
@@ -15566,14 +15618,14 @@ class DialogueEditor extends GameWindow {
         this.factEditor.refreshStructure()
       }
       if(this.state.is("deleting") && event.target.closest(".dialogue-node-widget.remove")) {
-        this.activeNode.delete()
+        this.activeNode.destroy()
       }
       if(this.state.is("boxSelection")) {
         this.boxSelection.end()
       }
       this.contextMenuDelete()
     }
-    //RMB
+    /* RMB */
     if(event.button === 2) {
       if(this.state.is("creatingContextMenu") && event.target === this.element) {
         this.contextMenuCreate()
@@ -15586,20 +15638,17 @@ class DialogueEditor extends GameWindow {
     if(this.state.isnt("editing", "selectingSpeaker", "selectingItem")) {
       this.state.set("default")
     }
-    this.reconstructHtml()
     this.factEditor.toggleEditability()
+    this.reconstructHTML()
   }
   handleWheel(event) {
     if(event.target.closest(".fact-editor")) return
     if(event.target.closest(".search-popup")) return
 
-    if(event.deltaY < 0)
-      this.scroll(-event.deltaY)
-    if(event.deltaY > 0)
-      this.scroll(-event.deltaY)
+    this.scroll(-event.deltaY)
   }
   //#endregion input
-  //#region set options
+  //#region options
   async setOptionCompactView() {
     /* this method causes a truncation error somewhere and the nodes are getting further apart with each click  */
 
@@ -15618,7 +15667,7 @@ class DialogueEditor extends GameWindow {
     let avgHeightDifference = avg(...this.nodes.map(node => node.element.getBoundingClientRect().height / node.temp.height))
     
     this.nodes.forEach(node => node.pos.y *= avgHeightDifference)
-    this.reconstructHtml()
+    this.reconstructHTML()
   }
   //#endregion
   contextMenuCreate() {
@@ -15640,6 +15689,8 @@ class DialogueEditor extends GameWindow {
     menu.style.top =  (mouse.clientPosition.y + 5) + "px"
     this.element.append(menu)
     this.contextMenu = menu
+    setTimeout(() => this.fitInViewport(this.contextMenu), 0)
+
   }
   contextMenuDelete() {
     if(!this.contextMenu) return
@@ -15654,8 +15705,8 @@ class DialogueEditor extends GameWindow {
     let input =         El("input", "search-popup-input", [["type", "text"]])
 
     const createField = (speaker) => {
-      let row = El("div", "search-popup-row", undefined, undefined, [["datatype", role],["speaker", speaker]])
-      let name = El("div", "search-popup-name", undefined, speaker)
+      let row =   El("div", "search-popup-row", undefined, undefined, [["datatype", role],["speaker", speaker]])
+      let name =  El("div", "search-popup-name", undefined, speaker)
 
       let 
       img = new Image()
@@ -15675,20 +15726,18 @@ class DialogueEditor extends GameWindow {
     this.element.append(popup)
     this.npcSearch = popup
     this.npcSearchInput = input
-    setTimeout(() => this.npcSearchAdjust(), 0)
+    setTimeout(() => this.fitInViewport(this.npcSearch), 0)
   }
-  npcSearchAdjust() {
-    let rect = this.npcSearch.getBoundingClientRect()
+  fitInViewport(popupElement) {
+    let rect = popupElement.getBoundingClientRect()
     console.log(rect)
     if(rect.bottom > ch) {
       let top = ch - rect.height - 20
-      console.log(top)
-      this.npcSearch.style.top = top + "px"
+      popupElement.style.top = top + "px"
     }
     if(rect.right > cw) {
       let left = cw - rect.width - 20
-      console.log(left)
-      this.npcSearch.style.left = left + "px"
+      popupElement.style.left = left + "px"
     }
   }
   npcSearchFilter() {
@@ -15700,29 +15749,41 @@ class DialogueEditor extends GameWindow {
         row.classList.add("hidden")
     })
   }
-  itemSearchCreate() {
-    let menu = El("div", "search-popup")
-    let input = El("input", "search-popup-input", [["type", "text"]])
+  npcSearchDelete() {
+    if(!this.npcSearch) return
 
-    const createField = (prop) => {
+    this.npcSearch.remove()
+    this.npcSearch = null
+    this.highlighted.style.outline = ""
+    this.highlighted = null
+    this.state.ifrevert("selectingSpeaker")
+  }
+  itemSearchCreate() {
+    let popup =         El("div", "search-popup")
+    let input =         El("input", "search-popup-input", [["type", "text"]])
+    let itemContainer = El("div", "search-popup-item-list")
+
+    const createItemElement = (prop) => {
       let row = El("div", "search-popup-row")
           row.dataset.datatype = "item"
       let name = El("div", "search-popup-name", undefined, prop)
       let img = new Image()
-          img.src = "assets/item/" + prop + ".png"
+          img.src = `assets/${data.item[prop].folder ?? "item"}/${prop}.png`
 
       row.append(img, name)
       row.dataset.item = prop
-      menu.append(row)
+      itemContainer.append(row)
     }
-    for(let prop in data.item) 
-      createField(prop)
+    /* generate elements for all items */
+    for(let prop in data.item)
+      createItemElement(prop)
 
-    menu.append(input)
-    menu.style.left = (mouse.clientPosition.x + 5) + "px"
-    menu.style.top = (mouse.clientPosition.y + 5) + "px"
-    this.element.append(menu)
-    this.itemSearch = menu
+    popup.append(input, itemContainer)
+    popup.style.left = (mouse.clientPosition.x + 5) + "px"
+    popup.style.top = (mouse.clientPosition.y + 5) + "px"
+    this.element.append(popup)
+    this.itemSearch = popup
+    setTimeout(() => this.fitInViewport(this.itemSearch), 0)
   }
   itemSearchDelete() {
     if(!this.itemSearch) return
@@ -15732,15 +15793,6 @@ class DialogueEditor extends GameWindow {
     this.highlighted.style.outline = ""
     this.highlighted = null
     this.state.ifrevert("selectingItem")
-  }
-  npcSearchDelete() {
-    if(!this.npcSearch) return
-
-    this.npcSearch.remove()
-    this.npcSearch = null
-    this.highlighted.style.outline = ""
-    this.highlighted = null
-    this.state.ifrevert("selectingSpeaker")
   }
   createNode(type) {
     let node = new DialogueNode(
@@ -15795,14 +15847,15 @@ class DialogueEditor extends GameWindow {
       _.cloneDeep(node.transfer)
     )
   }
-  
-  reconstructHtml() {
-    //generate svgs for connections
+  reconstructHTML() {
+    /* generate svgs for connections */
     this.svgCont.innerHTML = ""
     this.nodes.forEach(node => {
       
+      /* highlight entry and exit nodes for better visual navigation of the node tree */
       node.out.length === 0 ? node.element.classList.add("end-node")    : node.element.classList.remove("end-node")
       node.in.length === 0  ? node.element.classList.add("start-node")  : node.element.classList.remove("start-node")
+
       node.update()
       node.out.forEach(conn => {
         let svg = SVGEl(
@@ -15839,28 +15892,46 @@ class DialogueEditor extends GameWindow {
         this.svgCont.append(svg)
       })
     })
-    this.updateHtml()
+    this.updateHTML()
   }
-  updateHtml() {
-    this.nodes.forEach(node => {
-      node.update()
+  updateHTML() {
+    /* store information about the position of node sockets */
+    let layoutData = []
+
+    /* update nodes */
+    this.nodes.forEach(node => node.update())
+      
+    /* get layout information */
+    this.nodes.forEach((node, index) => {
       node.out.forEach(conn => {
         let rects = [
           node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
           conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
         ]
-        let selector = "svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path"
-        let path = this.svgCont.querySelector(selector)
+        let path = this.svgCont.querySelector("svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path")
+        layoutData.push({path, rects})
+      })
+    })
 
-        path.setAttribute("d",
-          "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
-          "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
+    /* recalculate the SVG paths */
+    this.nodes.forEach((node, index) => {
+      node.out.forEach(conn => {
+        layoutData[index].path.setAttribute("d",
+          "M " + (layoutData[index].rects[0].x + 6) + " " + (layoutData[index].rects[0].y + 6) + 
+          "L " + (layoutData[index].rects[1].x + 6) + " " + (layoutData[index].rects[1].y + 6)
         )
       })
     })
   }
+  reset() {
+    this.nodes.forEach(node => node.destroy())
+    this.nodes = []
+    this.activeNode = null
+    this.editedData = {}
+    this.updateHTML()
+  }
   update() {
-   
+
   }
   //#region debugging methods
   checkForDuplicateIds() {
@@ -16321,7 +16392,7 @@ class NPC extends Person {
       setupTimers(state) {
         return new Timer(
           ["createNavmesh", 400, {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon", 200, {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["fireWeapon", 800, {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
         )
       }
     },
@@ -18719,10 +18790,14 @@ class GameUI extends GameWindow {
     this.shipHull = Q('#ship-hull-wrapper')
     this.shipHullWrapper = Q('#ship-hull-wrapper')
     this.audioCallPanel = Q("#audio-call-panel")
-    this.setupTooltips()
+    this.tooltip = new Tooltip(250)
     this.state = new State(
       "default",
       "dragging"
+    )
+
+    this.timers = new Timer(
+      ["audioCallFlash", 4000, {loop: true, active: false, onfinish: this.flashAudioCallPanel.bind(this)}]
     )
 
     /* temp globals for drag functionality */
@@ -18731,13 +18806,11 @@ class GameUI extends GameWindow {
     this.draggedElement = null
     this.dragParent = null
 
-    this.statsVisible = false
-
     /* UI sequence data */
     this.sequenceTooltip = null
-  }
-  setupTooltips() {
-    this.tooltip = new Tooltip(250)
+
+    /* Means that game statistics like fps and collisionCount are displayed */
+    this.statsVisible = false
   }
   //#region input
   handleKeydown(event) {
@@ -18866,16 +18939,17 @@ class GameUI extends GameWindow {
   //#endregion
   openAudioCallPanel(caller, message, dialogueName) {
     let name = data.person[caller].addressAs ?? data.person[caller].displayName
+
     this.audioCallPanel.classList.remove("hidden")
     this.audioCallPanel.querySelector(".audio-call-heading").innerText = "You have a call from " + name + "."
     this.audioCallPanel.querySelector(".audio-call-message").innerText = message
     this.audioCallPanel.querySelector(".caller-portrait").src = "assets/portraits/" + caller + ".png"
     this.audioCallPanel.querySelector(".call-option.accept").onclick = () => {
       gameManager.setWindow(dialogueScreen)
-      setTimeout(() => dialogueScreen.load(dialogueName), 500)
+      setTimeout(() => dialogueScreen.load(dialogueName), 600)
       this.closeAudioCallPanel()
     }
-    this.animateAudioCallPanel(5, 100)
+    this.animateAudioCallPanel(0, 100, () => this.timers.audioCallFlash.start())
     AudioManager.playLoopedAudio("SFX", "tightbeamCall")
   }
   animateAudioCallPanel(fromOpacity, toOpacity, onfinish = () => {}) {
@@ -18884,7 +18958,7 @@ class GameUI extends GameWindow {
       {filter: `opacity(${toOpacity / 100})`},
     ],
     {
-      duration: 750,
+      duration: 650,
       easing: "cubic-bezier(0.65, 0.0, 0.35, 1.0)"
     })
     .onfinish = () => {
@@ -18892,17 +18966,30 @@ class GameUI extends GameWindow {
       onfinish()
     }
   }
+  async flashAudioCallPanel(iterations = 3, durationMS = 125) {
+    await fetch("assets/ui/audioCallPopupHover.png")
+    await fetch("assets/ui/audioCallPopup.png")
+    for(let i = 0; i < iterations; i++) {
+      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopup.png")')
+      AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 1.5))
+      await waitFor(durationMS)
+      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopupHover.png")')
+      await waitFor(durationMS)
+    }
+    this.audioCallPanel.style.backgroundImage = ""
+  }
   closeAudioCallPanel() {
-    this.animateAudioCallPanel(100, 5, () => this.audioCallPanel.classList.add("hidden"))
+    this.animateAudioCallPanel(100, 0, () => this.audioCallPanel.classList.add("hidden"))
+    this.timers.audioCallFlash.stop()
   }
   async animateHullDamage() {
     let iterations = 4
     let animDurationMS = 1000 / 8
-    await fetch("/assets/ui/shipHullAndWeaponPanelWarning.png")
+    await fetch("assets/ui/shipHullAndWeaponPanelWarning.png")
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("/assets/ui/shipHullAndWeaponPanelWarning.png")')
+      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("assets/ui/shipHullAndWeaponPanelWarning.png")')
       await waitFor(animDurationMS)
-      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("/assets/ui/shipHullAndWeaponPanel.png")')
+      setTimeout(() => Q("#ship-hull-and-weapon-panel").style.backgroundImage = 'url("assets/ui/shipHullAndWeaponPanel.png")')
       await waitFor(animDurationMS)
     }
     Q("#ship-hull-and-weapon-panel").style.backgroundImage = ""
@@ -19227,14 +19314,18 @@ class GameUI extends GameWindow {
   toggleDevIcons() {
     Qa(".dev-icon").forEach(icon => icon.classList.toggle("hidden"))
   }
-  update() {
+  updateStats() {
     if(!this.statsVisible) return
-
+    
     Q('#collision-count').innerText = game.previousCollisions.length
     Q('#zoom-level').innerText = game.camera.currentZoom
     Q("#game-state-view").innerText = game.state.current.capitalize()
     Q("#stage-offset").innerText = "x: " + game.app.stage.position.x.toFixed(0) + " y: " + game.app.stage.position.y.toFixed(0) 
     Q("#fps").innerText = fps.toFixed(0)
+  }
+  update() {
+    this.updateStats()
+    this.timers.update()
   }
 }
 
@@ -20172,13 +20263,13 @@ class AudioManager {
     if(category === "music" && isMusicPlaying)
       for(let key in this.musicAudioClips)
         if(this.musicAudioClips[key].playing)
-          this.musicAudioClips[key].fadeOut(3500)
+          this.musicAudioClips[key].fadeOut(4500)
     
     this[category + "AudioClips"][name].start()
 
     if(category === "music" && isMusicPlaying) {
       this[category + "AudioClips"][name].setVolume(0)
-      setTimeout(() => this[category + "AudioClips"][name].fadeIn(5000, volume), 500)
+      setTimeout(() => this[category + "AudioClips"][name].fadeIn(6000, volume), 500)
     }
     else {
       this[category + "AudioClips"][name].setVolume(volume)
@@ -20190,12 +20281,12 @@ class AudioManager {
   static dimMusic(toVolume) {
     for(let key in this.musicAudioClips)
       if(this.musicAudioClips[key].playing)
-        this.musicAudioClips[key].fadeTo(3000, toVolume)
+        this.musicAudioClips[key].fadeTo(3500, toVolume)
   }
   static restoreMusic() {
     for(let key in this.musicAudioClips)
       if(this.musicAudioClips[key].playing)
-        this.musicAudioClips[key].fadeTo(3000, this.musicAudioClips[key].previousVolume)
+        this.musicAudioClips[key].fadeTo(3500, this.musicAudioClips[key].previousVolume)
   }
   //#region an attempt to do audio layers - not functional
   static audioLayers = [
@@ -20334,7 +20425,6 @@ const mapGrid = {
 function tick(deltaFactor) {
   setDelta(deltaFactor)
   //#region update
-  AudioManager.update()
   mouse.updateShipAngle()
   mouse.updateWorldPosition()
   filterManager.update()
@@ -20796,6 +20886,8 @@ class GameManager {
           player.ship.weapons.addWeapon(weapon)
       }, 100)
 
+      setTimeout(() => player.ship.skip.playTravelAnimation(player.ship.transform.position), 1500)
+
       gameUI.updateShipHullUI()
       gameUI.destroyUIWeaponComponents()
       this.restorePlayerControl()
@@ -20983,6 +21075,8 @@ window.onresize = () => {
     win.app?.resize()
     win.camera?.contextDim.set(cw, ch)
   })
+  dialogueEditor.canvas.width = cw
+  dialogueEditor.canvas.height = ch
 }
 
 // window.onblur = () => gameManager.pauseGame()
@@ -21017,10 +21111,11 @@ const initMacros = {
 };
 
 (function init() {
+  gameManager.preloadImageAssets()
+  Cutscene.preloadScenes()
   attachListeners()
   Fact.loadFacts()
   loadFonts(() => map.load())
-  gameManager.preloadImageAssets()
   AudioManager.prime()
   AudioManager.loadSounds()
   Item.registerItemsFromWeapons()
@@ -21029,25 +21124,3 @@ const initMacros = {
   Q("#ship-skip-charge-icon").classList.add(gameManager.playerData.shipName)
   gameUI.toggleDevIcons()
 })();
-
-/* merge scripts in a janky way */
-setTimeout(() => {
-  // return
-  let data = []
-  let count = document.scripts.length - 1 // - 1 is to prevent this very code getting in the bundle
-  let excludedNames = ["dependencies/"]
-  let current = 0
-  Array.from(document.scripts).forEach((script, index) => {
-    if(script.src.includesAny(...excludedNames)) return count--
-
-    readJSONFile(script.src, (text) => {
-      try {data.push({text: text, index: index})} catch (e) {}
-      current++
-      if(current == count) {
-        data.sort((a, b) => a.index - b.index)
-        data = data.map(d => d.text).join("\n")
-        exportToUTF8(data, "app.js")
-      }
-    })
-  })
-}, 0)
