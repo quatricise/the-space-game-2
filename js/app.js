@@ -5291,14 +5291,7 @@ data.station = {
       filename: "crownDockingStationLarge",
       definition: null,
     },
-    wares: {weapons: [
-        {name: "missileHelios"},
-        {name: "trapMissile"},
-        {name: "debrisGun"},
-        {name: "plasmaChain"},
-        {name: "plasmaCannonI"},
-        {name: "plasmaCannonII"},
-    ],systems: [],misc: []},
+    wares: {weapons: [], systems: [], misc: []},
   },
   introDepotStation: {
     displayName: "Crown Depot Station",
@@ -12380,14 +12373,13 @@ class Hint extends GameObject {
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
     this.element.dataset.parentelementid = this.id
-
     this.element.dataset.playsfx = ""
     this.element.dataset.sounds = "buttonHover buttonClick"
     this.element.dataset.playonevents = "mouseover mousedown"
 
     /* do periodic hint flashing */
     this.timers.add(
-      ["flash", 5500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
+      ["flash", 6500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
     )
 
     if(this.hintText != "")
@@ -12404,7 +12396,8 @@ class Hint extends GameObject {
     }
     this.onComplete = () => this[this.hintComplete.onComplete]()
     this.hintComplete.eventListeners = []
-    //register event listeners for all the requirements for hint completion
+
+    /* register event listeners for all the requirements for hint completion */
     for(let [index, req] of this.hintComplete.requirements.entries())
       this.registerRequirementCompleteMethod(req, index)
   }
@@ -12461,7 +12454,12 @@ class Hint extends GameObject {
     }
   }
   requirementCheck(index) {
-    /* this shitty function checks whether a specific requirement has been completed, so far it only accepts gameEvent and destroyGameObject */
+    /* 
+    this is called periodically every 100ms or so as long as the hint is active, it checks the state of the world
+
+    this shitty function checks whether a specific requirement for the hint completion has been fulfilled
+    so far it only accepts gameEvent and destroyGameObject 
+    */
     let requirement = this.hintComplete.requirements[index]
     switch(requirement.method) {
       case "gameEvent": {
@@ -12480,7 +12478,7 @@ class Hint extends GameObject {
   }
   //#region hintType specific methods
   static() {
-    /* this is a legacy function, it does nothing */
+    /* this does nothing */
   }
   dynamic() {
     let boundingBox = this.element.getBoundingClientRect()
@@ -12508,8 +12506,7 @@ class Hint extends GameObject {
     }
   }
   async flash(iterations = 3, durationMS = 125) {
-    await fetch("/assets/ui/hintContainerHover.png")
-    await fetch("/assets/ui/hintContainer.png")
+    /* flash animation */
     for(let i = 0; i < iterations; i++) {
       setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainerHover.png")')
 
@@ -12566,6 +12563,19 @@ class Hint extends GameObject {
   destroy() {
     this.element.remove()
     console.log("destroyed hint", this)
+  }
+  static async preloadAssets() {
+    /* preload images just in case */
+    let images = ["/assets/ui/hintContainerHover.png", "/assets/ui/hintContainer.png"]
+
+    await Promise.all(images.map(src => {
+      new Promise(resolve => {
+        let img = new Image()
+        img.src = src
+        img.onload = resolve()
+      })
+    }))
+    console.log("Hint assets loaded.")
   }
 }
 class Explosion extends GameObject {
@@ -21112,6 +21122,7 @@ const initMacros = {
 (function init() {
   gameManager.preloadImageAssets()
   Cutscene.preloadScenes()
+  Hint.preloadAssets()
   attachListeners()
   Fact.loadFacts()
   loadFonts(() => map.load())

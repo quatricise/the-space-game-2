@@ -9,14 +9,7 @@ data.station = {
       filename: "crownDockingStationLarge",
       definition: null,
     },
-    wares: {weapons: [
-        {name: "missileHelios"},
-        {name: "trapMissile"},
-        {name: "debrisGun"},
-        {name: "plasmaChain"},
-        {name: "plasmaCannonI"},
-        {name: "plasmaCannonII"},
-    ],systems: [],misc: []},
+    wares: {weapons: [], systems: [], misc: []},
   },
   introDepotStation: {
     displayName: "Crown Depot Station",

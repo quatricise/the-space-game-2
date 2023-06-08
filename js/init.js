@@ -20,6 +20,7 @@ const initMacros = {
 (function init() {
   gameManager.preloadImageAssets()
   Cutscene.preloadScenes()
+  Hint.preloadAssets()
   attachListeners()
   Fact.loadFacts()
   loadFonts(() => map.load())
