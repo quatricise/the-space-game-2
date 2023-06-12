@@ -23,6 +23,9 @@ class GameUI extends GameWindow {
     /* UI sequence data */
     this.sequenceTooltip = null
 
+    /* temp globals for audio call */
+    this.isAudioCallActive = false
+
     /* Means that game statistics like fps and collisionCount are displayed */
     this.statsVisible = false
   }
@@ -36,9 +39,19 @@ class GameUI extends GameWindow {
       this.toggleGameStats()
     if(event.code === binds.devIcons) 
       this.toggleDevIcons()
+
+    /* rudimentary key-buttons highlighting for hints */
+    Qa(".keyboard-key").forEach(key => {
+      if(binds[key.dataset.bind] == event.code)
+        key.classList.add("pressed", "accepted")
+    })
   }
   handleKeyup(event) {
-    
+    /* rudimentary key-buttons highlighting for hints */
+    Qa(".keyboard-key").forEach(key => {
+      if(binds[key.dataset.bind] == event.code)
+        key.classList.remove("pressed")
+    })
   }
   handleMousedown(event) {
     if(event.target.closest("*[data-draggable='true']"))
@@ -152,9 +165,9 @@ class GameUI extends GameWindow {
   }
   //#endregion
   openAudioCallPanel(caller, message, dialogueName) {
+    this.isAudioCallActive = true
     let name = data.person[caller].addressAs ?? data.person[caller].displayName
 
-    this.audioCallPanel.classList.remove("hidden")
     this.audioCallPanel.querySelector(".audio-call-heading").innerText = "You have a call from " + name + "."
     this.audioCallPanel.querySelector(".audio-call-message").innerText = message
     this.audioCallPanel.querySelector(".caller-portrait").src = "assets/portraits/" + caller + ".png"
@@ -163,13 +176,31 @@ class GameUI extends GameWindow {
       setTimeout(() => dialogueScreen.load(dialogueName), 600)
       this.closeAudioCallPanel()
     }
-    this.animateAudioCallPanel(0, 100, () => this.timers.audioCallFlash.start())
+    this.maximizeAudioCallPanel()
+    this.animateAudioCallPanel(0, 1, () => this.timers.audioCallFlash.start())
+
+    /* hide miniature */
+    Q("#audio-call-panel-miniature").classList.add("hidden")
+
     AudioManager.playLoopedAudio("SFX", "tightbeamCall")
+  }
+  maximizeAudioCallPanel() {
+    if(!this.isAudioCallActive) return
+
+    Q("#audio-call-panel-miniature").classList.add("hidden")
+    Q("#audio-call-panel").classList.remove("hidden")
+    game.gameObjects.hint.forEach(hint => hint.minimize())
+  }
+  minimizeAudioCallPanel() {
+    if(!this.isAudioCallActive) return
+
+    Q("#audio-call-panel").classList.add("hidden")
+    Q("#audio-call-panel-miniature").classList.remove("hidden")
   }
   animateAudioCallPanel(fromOpacity, toOpacity, onfinish = () => {}) {
     this.audioCallPanel.animate([
-      {filter: `opacity(${fromOpacity / 100})`},
-      {filter: `opacity(${toOpacity / 100})`},
+      {filter: `opacity(${fromOpacity})`},
+      {filter: `opacity(${toOpacity})`},
     ],
     {
       duration: 650,
@@ -193,7 +224,11 @@ class GameUI extends GameWindow {
     this.audioCallPanel.style.backgroundImage = ""
   }
   closeAudioCallPanel() {
-    this.animateAudioCallPanel(100, 0, () => this.audioCallPanel.classList.add("hidden"))
+    this.isAudioCallActive = false
+    this.animateAudioCallPanel(1, 0, () => {
+      Q("#audio-call-panel").classList.add("hidden")
+      Q("#audio-call-panel-miniature").classList.add("hidden")
+    })
     this.timers.audioCallFlash.stop()
   }
   async animateHullDamage() {

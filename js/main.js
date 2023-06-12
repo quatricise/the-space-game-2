@@ -72,6 +72,31 @@ window.onresize = () => {
 
 // window.onblur = () => gameManager.pauseGame()
 
+/* mutation observer used to update hints */
+{
+  const container = Q("#interaction-container")
+  const audioCall = Q("#audio-call-panel")
+
+  let canUpdate = true
+  const callback = async () => {
+    await waitFor(250)
+    if(!canUpdate) return
+    setTimeout(() => canUpdate = true, 1000)
+    canUpdate = false
+    
+    /* 
+    if the total number of visible audio call panels AND big hints is less than 1,
+    try to maximize the first hint, if it doesn't exist, maximize audio call
+    */
+    if(Qa('#interaction-container .hint:not(.hidden), #audio-call-panel:not(.hidden)').length < 1) {
+      let firstVisibleHint = game.gameObjects.hint.find(h => h.hintText)
+      firstVisibleHint ? firstVisibleHint.maximize() : gameUI.maximizeAudioCallPanel()
+    }
+  }
+  const interactionObserver = new MutationObserver(callback)
+  interactionObserver.observe(container, {childList: true})
+  interactionObserver.observe(audioCall, {attributes: true})
+}
 
 function perfRun(fn = function() {}, context, ...args) {
   [1, 10, 100, 1000]

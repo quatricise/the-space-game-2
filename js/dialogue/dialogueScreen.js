@@ -206,6 +206,8 @@ class DialogueScreen extends GameWindow {
     return this.nodes.find(node => node.id === +id)
   }
   getNextNode() {
+    this.unhighlightSpeakerImage()
+
     if(this.forwardingTimeout)
       window.clearTimeout(this.forwardingTimeout)
 
@@ -236,7 +238,7 @@ class DialogueScreen extends GameWindow {
   }
   //#region processing notes per type
   processTextNode(node) {
-    this.generateBlock(node.speaker, node.text)
+    this.createBubble(node.speaker, node.text)
   }
   processResponsePickerNode(node) {
     let out = node.out.map(output => this.nodes.find(node => node.id === output.to))
@@ -259,7 +261,7 @@ class DialogueScreen extends GameWindow {
     receivedItemModal.onClose = () => this.getNextNode()
   }
   processPassNode(node) {
-    this.generateBlock(node.speaker, node.text)
+    this.createBubble(node.speaker, node.text)
   }
   processWhisperNode(node) {
     
@@ -290,15 +292,18 @@ class DialogueScreen extends GameWindow {
     this.timeouts.forEach(t => window.clearTimeout(t))
     this.timeouts = []
   }
-  async generateBlock(speaker, text) {
-    let block = El("div", "dialogue-block")
-    this.remainingLetters = text.split("")
-    let bubble = El("div", "chat-bubble ui-button-minimal-alt-filled")
+  async createBubble(speaker, text) {
+    /* create html elements for the bubble */
+    let block =       El("div", "dialogue-block")
+    let bubble =      El("div", "chat-bubble ui-button-minimal-alt-filled")
     let bubbleArrow = El("div", "chat-bubble-arrow")
-    let bubbleText = El("span", "chat-bubble-text")
-
+    let bubbleText =  El("span", "chat-bubble-text")
     this.dialogueContent.append(block)
 
+    /* remaining letters for the current dialogue bubble */
+    this.remainingLetters = text.split("")
+
+    /* keep calling this function until there are no remaining letters to animate */
     const nextLetter = (prependWithSpace = false) => {
       let letter = this.remainingLetters.shift()
       let prependNextLetterWithSpace
@@ -317,8 +322,9 @@ class DialogueScreen extends GameWindow {
         return
       }
 
+      /* set next delay based on character */
       let delay = 28
-      if(letter.includes(",")) 
+      if(letter.includes(","))
         delay = 260
       if(letter.includes("?")) 
         delay = 520
@@ -340,8 +346,13 @@ class DialogueScreen extends GameWindow {
     bubble.dataset.playonevents = "mouseover"
     bubble.dataset.volumes = "0.05"
     bubble.style.height = bubbleHeight + "px"
-    nextLetter()
-    
+    bubbleText.classList.add("chat-bubble-text-background-color")
+
+    /* highlight character that the chat bubble belongs to */
+    bubble.onmouseenter = () => this.highlightSpeakerImage(speaker)
+    bubble.onmouseleave = () => this.unhighlightSpeakerImage()
+
+    /* change bubble appearance based on whether speaker is player */
     if(speaker === "player") {
       bubble.classList.add("orange")
       bubbleArrow.classList.add("right")
@@ -352,10 +363,20 @@ class DialogueScreen extends GameWindow {
       bubbleArrow.classList.add("left")
       block.append(bubble)
     }
-
+    nextLetter()
     this.scrollDown()
-
-    bubbleText.classList.add("chat-bubble-text-background-color")
+    this.previousSpeaker = speaker
+  }
+  highlightSpeakerImage(speaker) {
+    Qa("#dialogue-screen-portrait-container-right .chat-portrait-big img, #dialogue-screen-portrait-container-left .chat-portrait-big img").forEach(portrait => {
+      if(portrait.src.includes(speaker)) 
+        portrait.style.filter = DialogueScreen.highlightFilter
+      else
+        portrait.style.filter = DialogueScreen.dimFilter
+    })
+  }
+  unhighlightSpeakerImage() {
+    Qa(".chat-portrait-big img").forEach(portrait => portrait.style.filter = "")
   }
   async getBubbleHeight(text, dialogueBlock) {
     /* this function creates an invisible bubble, waits for DOM to *hopefully* update and then returns the bubble height */
@@ -524,7 +545,7 @@ class DialogueScreen extends GameWindow {
     this.isDialogueFinished = true
     AudioManager.playSFX("speakerLeaveDialogue")
     this.generateDialogueEndBlock(endMessage)
-    Qa(".chat-portrait-big").forEach(portrait => portrait.style.filter = "grayscale(0.5) brightness(0.6)")
+    Qa(".chat-portrait-big").forEach(portrait => portrait.style.filter = DialogueScreen.desatFilter)
   }
   generateDialogueEndBlock(endMessage) {
     let block = El("div", "dialogue-end-block ui-graphic")
@@ -536,10 +557,12 @@ class DialogueScreen extends GameWindow {
     this.scrollDown()
 
     let option = El("div", "option leave-call-option", undefined, "Leave call")
+    option.dataset.playsfx =      ""
+    option.dataset.sounds =       "buttonHover buttonClick"
+    option.dataset.playonevents = "mouseover mousedown"
 
     /* this is a terrible hack so the intro quest can continue */
-    let closeButton = Q("#leave-call-button")
-    option.onclick = () => closeButton.click()
+    option.onclick = () => Q("#leave-call-button").click()
 
     this.optionsElement.append(option)
   }
@@ -557,4 +580,7 @@ class DialogueScreen extends GameWindow {
     "aiAssistant",
   ]
   static bubbleDelay = 450
+  static desatFilter =      "grayscale(0.5)  brightness(0.6)"
+  static dimFilter =        "grayscale(0.25) brightness(0.78)"
+  static highlightFilter =  "saturate(1.1)   brightness(1.3)"
 }

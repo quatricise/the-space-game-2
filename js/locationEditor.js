@@ -98,9 +98,9 @@ class LocationEditor extends GameWorldWindow {
 
     /* add layers here and set each to unlocked */
     this.lockedLayers = {}
-    for(let key in this.layers)
+    for(let key in this.layers) {
       this.lockedLayers[key] = false
-
+    }
     this.rotationData = {
       clickOrigin: new Vector(),
       angleStart: 0,
@@ -115,6 +115,7 @@ class LocationEditor extends GameWorldWindow {
     this.brushSpacing = 50
     this.eraserRadius = 50
     this.fog = []
+    
     /* this is an array of gameobjects that are used to move fog sprites around */
     this.fogHandlers = []
 
@@ -142,6 +143,7 @@ class LocationEditor extends GameWorldWindow {
     this.clearLocation()
 
     readJSONFile("data/locations/" + name + "/objects.json", (text) => {
+      // let rawData = 
       let location = JSON.parse(text)
 
       /* cosmetic */
@@ -192,7 +194,7 @@ class LocationEditor extends GameWorldWindow {
     gameLocation.fog = this.fog.map(f => {
       return {
         position: {
-          x: f.position.x, 
+          x: f.position.x,
           y: f.position.y
         },
         alpha: f.alpha,
@@ -216,9 +218,14 @@ class LocationEditor extends GameWorldWindow {
       }
       if(obj.pilot)
         newobj.pilot = obj.pilot
+      
       gameLocation.objects.push(newobj)
     })
-    exportToJSONFile(gameLocation, "location001")
+
+    /* convert to save file */
+    let saveFile = SaveConverter.convert("data", "save", gameLocation, {decimals: 0})
+    console.log(saveFile)
+    exportToJSONFile(saveFile, "location001")
   }
   show() {
     this.element.classList.remove('hidden')

@@ -17,8 +17,9 @@ class Hint extends GameObject {
     this.fade(0, 1, this.flash.bind(this))
   }
   createHtml() {
-    this.element = El('div', "hint tooltip-popup", [["id", this.id]], this.hintText)
-    this.element.dataset.tooltip = "Click to dismiss hint [H]"
+    /* create hint */
+    this.element = El('div', "hint tooltip-popup")
+    this.element.dataset.tooltip = createRichText("Click to dismiss ~bind=dismissHint~")
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
     this.element.dataset.parentelementid = this.id
@@ -26,17 +27,57 @@ class Hint extends GameObject {
     this.element.dataset.sounds = "buttonHover buttonClick"
     this.element.dataset.playonevents = "mouseover mousedown"
 
+    let richText = createRichText(this.hintText)
+
+    /* put the innerHTML inside the hint element */
+    this.element.innerHTML = "<div class='hint-content'>" + richText + "</div>"
+
+    /* create miniature */
+    this.miniature = El('div', "hint-miniature tooltip-popup")
+    this.miniature.dataset.tooltip = "Maximize [Click]"
+    this.miniature.dataset.delay = 300
+    this.miniature.dataset.tooltipattachment = "top"
+    this.miniature.dataset.parentelementid = this.id
+    this.miniature.dataset.playsfx = ""
+    this.miniature.dataset.sounds = "buttonHover buttonClick"
+    this.miniature.dataset.playonevents = "mouseover mousedown"
+
+    /* create wrapper element */
+    this.hintWrapper = El('div', "hint-wrapper")
+    this.hintWrapper.append(this.element, this.miniature)
+
+    /* turns other hints into a miniature and displays this hint */
+    this.miniature.onclick = () => this.maximize()
+
     /* do periodic hint flashing */
     this.timers.add(
       ["flash", 6500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
     )
 
-    if(this.hintText != "")
-      Q('#interaction-container').append(this.element)
+    if(Qa('#interaction-container *:not(.hidden)').length > 0)
+      this.element.classList.add("hidden")
+    else
+      this.miniature.classList.add("hidden")
+
+    if(this.hintText != "") 
+      Q('#interaction-container').append(this.hintWrapper)
 
     this.element.style.filter = "opacity(0)"
     this.element.onclick = () => this.complete()
     this.updateHtml()
+  }
+  maximize() {
+    this.minimizeOtherInteractions()
+    this.element.classList.remove("hidden")
+    this.miniature.classList.add("hidden")
+  }
+  minimize() {
+    this.element.classList.add("hidden")
+    this.miniature.classList.remove("hidden")
+  }
+  minimizeOtherInteractions() {
+    game.gameObjects.hint.forEach(hint => hint.minimize())
+    gameUI.minimizeAudioCallPanel()
   }
   registerCompleteMethods() {
     if(!this.hintComplete) {
@@ -210,8 +251,8 @@ class Hint extends GameObject {
     this.onComplete()
   }
   destroy() {
-    this.element.remove()
-    console.log("destroyed hint", this)
+    this.hintWrapper.remove()
+    //console.log("destroyed hint", this)
   }
   static async preloadAssets() {
     /* preload images just in case */

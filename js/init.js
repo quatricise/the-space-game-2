@@ -18,6 +18,7 @@ const initMacros = {
 };
 
 (function init() {
+  SaveConverter.generateReverseDictionary()
   gameManager.preloadImageAssets()
   Cutscene.preloadScenes()
   Hint.preloadAssets()

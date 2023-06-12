@@ -337,3 +337,7 @@ button.generic:hover {
 .close-button-angled:hover {
   background-image: url(../assets/ui/closeButtonAngledHover.png);
 }
+
+.highlighted-text {
+  color: #ed9200;
+}

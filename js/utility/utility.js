@@ -110,3 +110,82 @@ function waitFor(time) {
     }, time);
   });
 }
+
+function getDataType(data) {
+  if(Array.isArray(data))
+    return "array"
+  else
+  if(typeof data == "object" && data)
+    return "object"
+  else
+  if(typeof data == "object" && data == null)
+    return "null"
+  else
+  if(typeof data == "number" && !data && data !== 0)
+    return "NaN"
+  else
+    return typeof data
+}
+
+function createRichText(inputText) {
+  /* 
+  this function creates HTML elements based on a tilde (~) based commands so the text can be loaded from JSON 
+  */
+
+  let regex = /~/gi
+  let text = inputText
+  let result = ""
+  let indices = []
+  while ((result = regex.exec(text))) {
+    indices.push(result.index);
+  }
+  if(indices.length % 2 !== 0) throw "invalid '~' count, check the source text for errors"
+  
+  let pairs = indices.map((i, index) => {
+    if(index % 2) return [indices[index - 1], indices[index]] 
+  })
+  pairs = pairs.filter(p => p)
+  console.log(pairs)
+
+  let commands = pairs.map(pair => inputText.substring(pair[0] + 1, pair[1]))
+
+  /* split the text so commands can be converted into elements */
+  let remainingText = inputText
+
+  /* replace every other "~" with nothing */
+  let firstIndices = pairs.map(p => p[0]).reverse()
+
+  /* remove the last one to properly split the string for my purposes */
+  firstIndices.forEach(index => {
+    remainingText = remainingText.substring(0, index) + remainingText.substring(index + 1)
+  })
+
+  /* replace the commands with nothing */
+  commands.forEach(command => {
+    remainingText = remainingText.replace(command, "~")
+  })
+
+  let splitText = remainingText.split("~")
+  console.log(remainingText, splitText)
+
+  let insertionOffset = 1
+  commands.forEach((command, index) => {
+    let [name, value] = command.split("=")
+    switch(name) {
+      case "bind": {
+        let text = binds[value]
+        text = text.replace("Key", "")
+        splitText[index + insertionOffset] = 
+        `<span class="keyboard-key" data-bind="${value}">${text.capitalize()}<span class="keyboard-key-bg-left"></span><span class="keyboard-key-bg-right"></span></span>`
+        break
+      }
+      case "highlight": {
+        splitText[index + insertionOffset] = `<span class="highlighted-text">${value}</span>`
+        break
+      }
+    }
+    insertionOffset++
+  })
+
+  return splitText.join("")
+}

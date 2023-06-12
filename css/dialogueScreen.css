@@ -293,7 +293,7 @@
   right: -30px;
 }
 
-.portrait-container .chat-portrait-big {
+.chat-portrait-big {
   height: 500px;
   margin-left: -250px;
   transition: filter 0.8s ease-in-out;
@@ -301,6 +301,7 @@
 
 .chat-portrait-big img {
   height: 100%;
+  transition: filter 0.35s ease-in-out;
 }
 .portrait-container.left .chat-portrait-big:first-of-type {
   margin-left: -50px;

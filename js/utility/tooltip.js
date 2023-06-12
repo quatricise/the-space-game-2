@@ -43,15 +43,15 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       item.category || (item.flags.questItem ? "[Quest item]" : "")
-        this.cannotSellText.innerText =     item.flags.canSell ? "" : "Item cannot be sold"
-        this.buyCost.innerText =            item.buyCost    ? `COST: ${item.buyCost}` : ""
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       item.category || (item.flags.questItem ? "[Quest item]" : "")
+        this.cannotSellText.innerHTML =     item.flags.canSell ? "" : "Item cannot be sold"
+        this.buyCost.innerHTML =            item.buyCost    ? `COST: ${item.buyCost}` : ""
 
-        this.itemCategory.innerText    ? this.itemCategory.style.display = ""       : this.itemCategory.style.display = "none"
-        this.cannotSellText.innerText  ? this.cannotSellWarning.style.display = ""  : this.cannotSellWarning.style.display = "none"
-        this.buyCost.innerText         ? this.buyCost.style.display = ""            : this.buyCost.style.display = "none"
+        this.itemCategory.innerHTML    ? this.itemCategory.style.display = ""       : this.itemCategory.style.display = "none"
+        this.cannotSellText.innerHTML  ? this.cannotSellWarning.style.display = ""  : this.cannotSellWarning.style.display = "none"
+        this.buyCost.innerHTML         ? this.buyCost.style.display = ""            : this.buyCost.style.display = "none"
 
         this.heading.style.display =     ""    
         this.description.style.display = ""
@@ -62,10 +62,10 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       "[WEAPON]"
-        this.buyCost.innerText =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       "[WEAPON]"
+        this.buyCost.innerHTML =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
 
         this.heading.style.display =      ""
         this.description.style.display =  ""
@@ -80,10 +80,10 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       "[SHIP SYSTEM]"
-        this.buyCost.innerText =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       "[SHIP SYSTEM]"
+        this.buyCost.innerHTML =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
 
         this.heading.style.display =      ""
         this.description.style.display =  ""
@@ -95,8 +95,8 @@ class Tooltip {
         break
       }
       default: {
-        this.heading.innerText =      target.dataset.tooltip
-        this.description.innerText =  target.dataset.tooltipdescription
+        this.heading.innerHTML =      target.dataset.tooltip
+        this.description.innerHTML =  target.dataset.tooltipdescription
         
         target.dataset.tooltip              ? this.heading.style.display = ""       : this.heading.style.display = "none"
         target.dataset.tooltipdescription   ? this.description.style.display = ""   : this.description.style.display = "none"

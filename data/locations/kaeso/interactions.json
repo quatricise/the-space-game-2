@@ -216,7 +216,7 @@
         ],
         "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []
         },
-        "interactionDelay": 9000,
+        "interactionDelay": 1000,
         "newInteractionId": "ship_movement_hint",
         "facts": [
           {
@@ -225,7 +225,7 @@
           }
         ],
         "hintData": {
-          "hintText": "You are docked in an orbital station, which means you cannot move. Press [G] to undock.",
+          "hintText": "You are docked in an orbital station, which means you cannot move. Press ~bind=dockShip~ to undock. You can also ~highlight=dismiss hints~ by clicking on them.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -261,7 +261,7 @@
           "parentGameObject": "player_ship"
         },
         "hintData": {
-          "hintText": "Your ship's main movement is controlled by WASD.",
+          "hintText": "Use ~bind=accel~ ~bind=rotateCCW~ ~bind=decel~ ~bind=rotateCW~ to control your ship.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -319,7 +319,7 @@
         "interactionDelay": 2800,
         "newInteractionId": "pulse_shields_hint",
         "hintData": {
-          "hintText": "Your ship has brakes which can be toggled by pressing [B]. Turning off brakes makes travelling over large distances more pleasant.",
+          "hintText": "Your ship has brakes which can be toggled by pressing ~bind=toggleAutobrake~. Turning off brakes makes travelling over large distances more pleasant.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -355,7 +355,7 @@
         "interactionDelay": 2000,
         "newInteractionId": "marker_depot_station_hint",
         "hintData": {
-          "hintText": "Your ship is also equipped with directional PULSE SHIELDS, they're activated by pressing [F]. Shields are useful for reflecting projectiles and small debris.",
+          "hintText": "Your ship is also equipped with directional PULSE SHIELDS, they're activated by pressing ~bind=activateShields~. Shields are useful for reflecting projectiles and small debris.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -580,7 +580,7 @@
         },
         "newInteractionId": "asteroid_wall_hint2",
         "hintData": {
-          "hintText": "This asteroid wall is a hazard to your fragile ship. Bumping into an asteroid damages your hull. Press [H] to continue.",
+          "hintText": "This asteroid wall is a hazard to your fragile ship. Bumping into an asteroid damages your hull. Press ~bind=dismissHint~ to continue.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -684,7 +684,7 @@
           "parentGameObject": "player_ship"
         },
         "hintData": {
-          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated. Press [H] to dismiss hint.",
+          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated. Press ~bind=dismissHint~ to dismiss hint.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -727,7 +727,7 @@
         },
         "interactionDelay": 1500,
         "hintData": {
-          "hintText": "Great, now let's get to the station to buy some weapons, you'll need them. Press [H] to dismiss hint.",
+          "hintText": "Great, now let's get to the station to buy some weapons, you'll need them.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -766,7 +766,7 @@
         },
         "newInteractionId": "intro_depot_station_hint2",
         "hintData": {
-          "hintText": "Press [G] to dock into this station. This will give you access to the station's interface.",
+          "hintText": "Press ~bind=dockShip~ to dock into this station. This will give you access to the station's interface.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -903,7 +903,7 @@
         "interactionDelay": 1200,
         "newInteractionId": "intro_depot_station_hint6",
         "hintData": {
-          "hintText": "The most reliable way to select weapons is to use the hotkeys [Digit1] through [Digit4].",
+          "hintText": "The most reliable way to select weapons is to use the hotkeys ~bind=selectWeapon0~ through ~bind=selectWeapon4~.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {

@@ -48,8 +48,7 @@
   left: calc(50% - 197px);
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  align-items: flex-end;
   gap: 20px;
   max-height: 100%;
   pointer-events: none;
@@ -63,9 +62,9 @@
   max-width: 394px;
   height: 182px;
   align-items: center;
-  padding: 40px 30px 40px 70px;
+  padding: 30px 30px 30px 70px;
   border-radius: 5px;
-  line-height: 140%;
+  line-height: 150%;
   color: #93867f!important;
   font-family: "big-t-comic";
   font-size: 0.9rem;
@@ -89,6 +88,27 @@
 
 .hint:hover {
   background-image: url(../assets/ui/hintContainerHover.png);
+}
+
+.hint-content {
+  
+}
+
+.hint-wrapper {
+  display: flex;
+}
+
+.hint-miniature {
+  width: 60px;
+  height: 60px;
+  background-image: url(../assets/ui/hintMiniature.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: all!important;
+}
+.hint-miniature:hover {
+  background-image: url(../assets/ui/hintMiniatureHover.png);
 }
 
 .ingame-message {
@@ -170,6 +190,19 @@
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.1));
 }
 
+#audio-call-panel-miniature {
+  width: 60px;
+  height: 60px;
+  background-image: url(../assets/ui/audioCallMiniature.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: all!important;
+}
+#audio-call-panel-miniature:hover {
+  background-image: url(../assets/ui/audioCallMiniatureHover.png);
+}
+
 @keyframes audio-call-pulse {
   0% 
   {
@@ -187,47 +220,6 @@
   gap: 20px;
   padding: 0 0 0 5px;
   width: 100%;
-}
-
-.caller-message {
-  flex-grow: 1;
-  font-size: 1rem;
-  animation-name: audio-call-message-pulse;
-  animation-duration: 2s;
-  animation-direction: forwards;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease;
-}
-
-@keyframes audio-call-message-pulse {
-  0% 
-  {
-    color: rgba(255, 255, 255, 1);
-  }
-  70% 
-  {
-    color: rgba(255, 255, 255, 1);
-  }
-  73% 
-  {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  76% 
-  {
-    color: rgba(255, 255, 255, 1);
-  }
-  79% 
-  {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  82% 
-  {
-    color: rgba(255, 255, 255, 1);
-  }
-  100% 
-  {
-    color: rgba(255, 255, 255, 1);
-  }
 }
 
 #mouse-tooltip {
@@ -950,4 +942,46 @@
 }
 #brakes-off-warning img {
   width: 100%;
+}
+
+.keyboard-key {
+  position: relative;
+  top: -2px;
+  margin: -2px 4px 0 2px;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  width: min-content;
+  padding: 4px 13px 3px 15px;
+  overflow: hidden;
+  color: #ed9200;
+  transition: all 0.05s;
+}
+.keyboard-key.pressed {
+  background-color: #ed920044;
+}
+.keyboard-key.accepted:not(.pressed) {
+  opacity: 0.45;
+}
+.keyboard-key-bg-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+  background-image: url(../assets/ui/keyboardKeyBG.png);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.keyboard-key-bg-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 50%;
+  background-image: url(../assets/ui/keyboardKeyBG.png);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
