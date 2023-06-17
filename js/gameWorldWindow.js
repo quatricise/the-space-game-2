@@ -210,9 +210,8 @@ class GameWorldWindow extends GameWindow {
   //#endregion
   //#region location loading
   clearLocation() {
-    let objects = [...this.gameObjects.gameObject]
+    let objects = [...this.gameObjects.gameObject].concat(this.gameObjects.decoration)
     objects.forEach(obj => GameObject.destroy(obj))
-
     this.interactionsTemplate = null
     this.fogHandlers = []
     this.destroyFog()

@@ -1568,9 +1568,8 @@ class GameWorldWindow extends GameWindow {
   //#endregion
   //#region location loading
   clearLocation() {
-    let objects = [...this.gameObjects.gameObject]
+    let objects = [...this.gameObjects.gameObject].concat(this.gameObjects.decoration)
     objects.forEach(obj => GameObject.destroy(obj))
-
     this.interactionsTemplate = null
     this.fogHandlers = []
     this.destroyFog()
@@ -6206,9 +6205,8 @@ data.UIHintSequence = {
         title: "This is the Inventory.",
         text: 
         `It has three tabs: <b>Inventory, Station and Quests</b>. 
-        <br>
         Let's quickly go over them.
-        <br><br><br>
+        <br>
         ~bind=forwardSequence~ <b>Continue</b>&nbsp;&nbsp;&nbsp;~bind=cancel~ <b>Cancel hint</b>.
         </b>
         `,
@@ -6225,7 +6223,7 @@ data.UIHintSequence = {
         title: "This tab contains the player inventory.",
         text: 
         `Here you can manage your ship's ~highlight=weapons~ and inspect or sell ~highlight=items~. 
-        <br><br>
+        <br>
         ~highlight=Selling items is only available when docked in a station~.`,
         actions: [
           {
@@ -6245,7 +6243,7 @@ data.UIHintSequence = {
         title: "This tab contains the station interface.",
         text: 
         `Here you can ~highlight=purchase~ things or ~highlight=upgrade~ your ship.
-        <br><br>
+        <br>
         This tab is ~highlight=only accessible when you dock into a station~. If the icon is grayed out, it means it isn't available.
         `,
         actions: [
@@ -6266,9 +6264,9 @@ data.UIHintSequence = {
         title: "This tab contains the Journal.",
         text:
         `Inside you find info about your ~highlight=current quests~. 
-        <br><br>
+        <br>
         When you start a new quest, a journal entry will be created for it.
-        <br><br>
+        <br>
         Progressing on a quest will ~highlight=update its description~. You can check your journal anytime you're not sure what to do, and need a hint.
         `,
         actions: [
@@ -6289,7 +6287,12 @@ data.UIHintSequence = {
         title: "Tour over",
         text:
         `That's it, now go buy some weapons.`,
-        actions: []
+        actions: [
+          {
+            actionName: "clickElement",
+            elementId: "inventory-switch-station"
+          }
+        ]
       },
     ]
   },
@@ -6307,7 +6310,7 @@ data.UIHintSequence = {
         title: "~larger=This is the Galaxy map~",
         text: 
         `Here you can see the entire breadth of the game's world.
-        <br><br><br>
+        <br>
         ~bind=forwardSequence~&nbsp;<b>Take tour</b>&nbsp;&nbsp;&nbsp;~bind=cancel~&nbsp;<b>Cancel tour</b>.
         `,
         actions: []
@@ -6323,11 +6326,11 @@ data.UIHintSequence = {
         title: "~larger=Territories~",
         text: 
         `The map is divided into ~highlight=territories~.
-        <br><br>
+        <br>
         Each territory is controlled by a somewhat independent government.
-        <br><br>
+        <br>
         You're free to travel all places marked by ~white=white~ icons, ~white=without spending fuel~.
-        <br><br>
+        <br>
         All ~highlight=outback~ (orange) icons cost ~highlight=1 unit of heavy fuel~ to travel there.
         `,
         actions: []
@@ -20832,10 +20835,11 @@ class Game extends GameWorldWindow {
     )
   }
   setBoundsOnCamera(bounds) {
-    this.camera.bounds = bounds
+    this.camera.bounds = bounds ?? this.camera.bounds
     this.camera.zoomRange = [0.25, 5]
     this.camera.zoom.duration = 1600
     this.camera.currentZoom = 1.25
+    this.camera.baseZoom = 1.25
   }
   modifyLayers() {
     let filter1 = new PIXI.filters.ColorMatrixFilter()
@@ -21238,7 +21242,6 @@ class GameManager {
     }
   }
   newGame() {
-    console.log("loading new game...")
     cutsceneWindow.loadCutscene("intro")
     cutsceneWindow.onexit = () => this.loadStartingLocation()
     AudioManager.playLoopedAudio("music", "introCutscene", 0.75)
@@ -21269,6 +21272,9 @@ class GameManager {
         player.ship.dockBegin()
         player.ship.timers.dock.currentTime += player.ship.timers.dock.duration - 10
       }, 100)
+
+      /* this tries to fix the camera, should be set BEFORE THE ship starts docking */
+      setTimeout(() => game.camera.currentZoom = 1.25)
     }
   }
   loadLocation(starSystemName) {

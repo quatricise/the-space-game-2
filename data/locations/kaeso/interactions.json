@@ -2,7 +2,7 @@
   "cameraBounds": {
     "minX": -100000,
     "minY": -230,
-    "maxX": 100000, 
+    "maxX": 100000,
     "maxY": 100000
   },
   "pointsOfInterest": [
@@ -580,7 +580,7 @@
         },
         "newInteractionId": "asteroid_wall_hint2",
         "hintData": {
-          "hintText": "This asteroid wall is a hazard to your fragile ship. Bumping into an asteroid damages your hull. Press ~bind=dismissHint~ to continue.",
+          "hintText": "This asteroid wall is a hazard to your fragile ship. Bumping into an asteroid damages your hull.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -684,7 +684,7 @@
           "parentGameObject": "player_ship"
         },
         "hintData": {
-          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated. Press ~bind=dismissHint~ to dismiss hint.",
+          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -766,7 +766,7 @@
         },
         "newInteractionId": "intro_depot_station_hint2",
         "hintData": {
-          "hintText": "Press ~bind=dockShip~ to dock into this station. This will give you access to the station's interface.",
+          "hintText": "Press ~bind=dockShip~ to dock into this station. \n This will give you access to the station's interface.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -903,7 +903,7 @@
         "interactionDelay": 1200,
         "newInteractionId": "intro_depot_station_hint6",
         "hintData": {
-          "hintText": "The most reliable way to select weapons is to use the hotkeys ~bind=selectWeapon0~ through ~bind=selectWeapon4~.",
+          "hintText": "The most reliable way to select weapons is to use the hotkeys ~bind=selectWeapon0~ through ~bind=selectWeapon3~.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -929,11 +929,12 @@
       },
       "interactionData": {
         "doOnEnter":    ["showHint"],
-        "doOnDestroy":  [],
+        "doOnDestroy":  ["createInteraction"],
         "trigger" :     {"allowedIds": ["player_ship"], "allowAll": false, "allowedTypes": []},
         "interactionDelay": 1200,
+        "newInteractionId": "beacon_hint",
         "hintData": {
-          "hintText": "You can practice firing on asteroids here, just make sure you do not target any ships, there are heavy penalties for friendly-fire.",
+          "hintText": "You can practice firing on asteroids here, just make sure you do not target any ships, there are ~highlight=heavy penalties for friendly-fire~.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -957,7 +958,7 @@
         "conditional": true
       },
       "interactionData": {
-        "doOnEnter": ["showHint"],
+        "doOnEnter":   ["showHint"],
         "doOnDestroy": ["createMarker"],
         "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
         "interactionDelay": 2500,

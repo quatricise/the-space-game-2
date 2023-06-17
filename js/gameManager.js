@@ -9,7 +9,6 @@ class GameManager {
     }
   }
   newGame() {
-    console.log("loading new game...")
     cutsceneWindow.loadCutscene("intro")
     cutsceneWindow.onexit = () => this.loadStartingLocation()
     AudioManager.playLoopedAudio("music", "introCutscene", 0.75)
@@ -40,6 +39,9 @@ class GameManager {
         player.ship.dockBegin()
         player.ship.timers.dock.currentTime += player.ship.timers.dock.duration - 10
       }, 100)
+
+      /* this tries to fix the camera, should be set BEFORE THE ship starts docking */
+      setTimeout(() => game.camera.currentZoom = 1.25)
     }
   }
   loadLocation(starSystemName) {

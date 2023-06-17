@@ -23,10 +23,11 @@ class Game extends GameWorldWindow {
     )
   }
   setBoundsOnCamera(bounds) {
-    this.camera.bounds = bounds
+    this.camera.bounds = bounds ?? this.camera.bounds
     this.camera.zoomRange = [0.25, 5]
     this.camera.zoom.duration = 1600
     this.camera.currentZoom = 1.25
+    this.camera.baseZoom = 1.25
   }
   modifyLayers() {
     let filter1 = new PIXI.filters.ColorMatrixFilter()
