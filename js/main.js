@@ -79,6 +79,10 @@ window.onresize = () => {
 
   let canUpdate = true
   const callback = async () => {
+
+    /* this is run because the UI shuffles and I want to hide tooltips that would correspond to incorrect or hidden elements */
+    gameUI.cancelTooltipPopup()
+
     await waitFor(250)
     if(!canUpdate) return
     setTimeout(() => canUpdate = true, 1000)

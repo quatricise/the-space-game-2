@@ -238,12 +238,10 @@ class WorldMap extends GameWorldWindow {
     }
   }
   handleMousemove(event) {
-    if(mouse.keys.middle) 
-    {
+    if(mouse.keys.middle || (mouse.keys.left && this.editMode.is(false))) {
       this.pan()
     }
-    else
-    {
+    else {
       this.gameObjects.mapIcon.forEach(icon => {
         if(Collision.auto(mouse.mapPosition, icon.hitbox)) {
           icon.hover = true

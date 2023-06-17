@@ -59,15 +59,16 @@
   position: relative;
   bottom: 0;
   display: flex;
-  max-width: 394px;
+  max-width: 451px;
   height: 182px;
   align-items: center;
-  padding: 30px 30px 30px 70px;
+  justify-content: center;
+  padding: 0 40px;
   border-radius: 5px;
   line-height: 150%;
   color: #93867f!important;
   font-family: "big-t-comic";
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: -0.10em;
 
@@ -91,7 +92,7 @@
 }
 
 .hint-content {
-  
+  text-align: center;
 }
 
 .hint-wrapper {
@@ -417,7 +418,7 @@
   font-weight: 400;
   font-size: 0.9rem;
   letter-spacing: -0.12em;
-  line-height: 115%;
+  line-height: 130%;
 }
 .popup-tooltip-arrow {
   position: absolute;

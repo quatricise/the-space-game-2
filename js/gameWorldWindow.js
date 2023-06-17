@@ -7,18 +7,18 @@ class GameWorldWindow extends GameWindow {
     this.createCamera()
     this.createCameraAnchor()
         
+    this.locationName = "Location"
+
     this.gridSprite = new PIXI.TilingSprite(grid.texture, cw + grid.cellSize*2, ch + grid.cellSize*2)
-    this.stats = new GameStats()
     this.fog = []
     this.previousCollisions = []
-    this.locationName = "Location"
     this.markers = []
-
     this.mode = new State("play", "edit")
-
+    
     this.layers.graphics.addChild(this.graphics)
     this.element.append(this.app.view)
     this.canvas = this.app.view
+    this.stats = new GameStats()
   }
   //#region setup 
   createApp() {
@@ -100,6 +100,7 @@ class GameWorldWindow extends GameWindow {
       locationRandomizer: [],
       randomSpawner: [],
       decorativeObject: [],
+      decoration: [],
       lightSource: [],
       audioEmitter: [],
       mapIcon: [],
@@ -135,8 +136,8 @@ class GameWorldWindow extends GameWindow {
   //#region GameObject logic
   addGameObject(obj, layer) {
     obj.prototypeChain.forEach(prototype => {
-      if(!this.gameObjects[prototype])
-        console.log(prototype)
+      if(!this.gameObjects[prototype]) console.error(prototype)
+
       this.gameObjects[prototype].push(obj)
     })
     obj.gameWorld = this
@@ -146,10 +147,10 @@ class GameWorldWindow extends GameWindow {
   placeObjectInLayer(obj, layerOverride) {
     let layer = null
     let types = data.objectToLayerMap.get(obj.type)
+
     if(layerOverride)
       layer = layerOverride
-    else
-    if(types)
+    else if(types)
       layer = Random.from(...data.objectToLayerMap.get(obj.type))
     else
       console.error("Object with sprite component doesn't have a layer assigned in data.objectToLayerMap", obj)
@@ -166,7 +167,9 @@ class GameWorldWindow extends GameWindow {
     delete obj.gameWorld
   }
   updateGameObjects(forceUpdate = false) {
-    let alwaysUpdateTypes = [Interactable, Hint, HintGraphic, GameOverlay]
+    /* this shit is a performance bottleneck, for some reason checking instanceof is expensive */
+    let alwaysUpdateTypes = [Interactable, Hint]
+
     let windowMode = this.mode.get()
     for(let obj of this.gameObjects.gameObject) {
       if(
@@ -174,7 +177,7 @@ class GameWorldWindow extends GameWindow {
         player.ship && 
         GameObject.distanceFast(obj, player.ship) > data.updateObjectsWithinThisFastDistanceOfPlayer && 
         !forceUpdate &&
-        alwaysUpdateTypes.filter(t => obj instanceof t).length === 0
+        alwaysUpdateTypes.filter(type => obj instanceof type).length === 0
       ) {
         obj.cull()
         continue
@@ -187,11 +190,22 @@ class GameWorldWindow extends GameWindow {
       if(windowMode === "play")
         GameObject.updateOnPlay(obj)
     }
-    if(!visible.hitbox) return
-    for(let obj of this.gameObjects.gameObject) {
-      Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
-      Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+    
+    /* update decorations */
+    this.gameObjects.decoration.forEach(deco => deco.update())
+
+    /* draw hitboxes */
+    if(visible.hitbox) {
+      for(let obj of this.gameObjects.gameObject) {
+        Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
+        Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+      }
+      for(let obj of this.gameObjects.decoration) {
+        Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
+        Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+      }
     }
+      
   }
   //#endregion
   //#region location loading
@@ -217,7 +231,8 @@ class GameWorldWindow extends GameWindow {
   }
   loadObjects(locationName, ...callbackFunctions) {
     readJSONFile("data/locations/" + locationName + "/objects.json", (text) => {
-      let location = JSON.parse(text)
+      let rawData = JSON.parse(text)
+      let location = SaveConverter.convert("save", "data", rawData)
       this.locationName = location.name
       this.locationRefName = locationName
       location.objects.forEach(obj => {
@@ -470,7 +485,7 @@ class GameWorldWindow extends GameWindow {
         while(overlapping)
 
         let gameObject = GameObject.create(
-          "decorativeObject", 
+          "decoration", 
           Random.weighted(variantsPerLayer[l]),
           {
             transform: new Transform(

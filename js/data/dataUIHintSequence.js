@@ -7,7 +7,7 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This is the Inventory.",
@@ -16,7 +16,7 @@ data.UIHintSequence = {
         <br>
         Let's quickly go over them.
         <br><br><br>
-        <b>[Space]</b> Continue&nbsp;&nbsp;&nbsp;<b>[Escape]</b> Cancel hint.
+        ~bind=forwardSequence~ <b>Continue</b>&nbsp;&nbsp;&nbsp;~bind=cancel~ <b>Cancel hint</b>.
         </b>
         `,
         actions: []
@@ -26,14 +26,14 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the player inventory.",
         text: 
-        `Here you can manage your ship's <b>weapons and inspect or sell items</b>. 
+        `Here you can manage your ship's ~highlight=weapons~ and inspect or sell ~highlight=items~. 
         <br><br>
-        Selling items is only available when docked in a station.`,
+        ~highlight=Selling items is only available when docked in a station~.`,
         actions: [
           {
             actionName: "clickElement",
@@ -46,14 +46,14 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the station interface.",
         text: 
-        `Here you can purchase things or upgrade your ship.
+        `Here you can ~highlight=purchase~ things or ~highlight=upgrade~ your ship.
         <br><br>
-        This tab is only accessible when you dock into a station. If the icon is grayed out, it means it isn't available.
+        This tab is ~highlight=only accessible when you dock into a station~. If the icon is grayed out, it means it isn't available.
         `,
         actions: [
           {
@@ -67,16 +67,16 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the Journal.",
         text:
-        `Inside you find info about your current quests. 
-        \n \n
-        When you start a new quest, a journal entry will be created for it. 
-        \n \n
-        Progressing on a quest will update its description. You can check your journal anytime you're not sure what to do, and need a hint.
+        `Inside you find info about your ~highlight=current quests~. 
+        <br><br>
+        When you start a new quest, a journal entry will be created for it.
+        <br><br>
+        Progressing on a quest will ~highlight=update its description~. You can check your journal anytime you're not sure what to do, and need a hint.
         `,
         actions: [
           {
@@ -90,7 +90,7 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "Tour over",
@@ -111,11 +111,11 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "This is the Galaxy map.",
+        title: "~larger=This is the Galaxy map~",
         text: 
         `Here you can see the entire breadth of the game's world.
         <br><br><br>
-        <b>[Space]</b>&nbsp;Take tour&nbsp;&nbsp;&nbsp;<b>[Escape]</b>&nbsp;Cancel tour.
+        ~bind=forwardSequence~&nbsp;<b>Take tour</b>&nbsp;&nbsp;&nbsp;~bind=cancel~&nbsp;<b>Cancel tour</b>.
         `,
         actions: []
       },
@@ -127,12 +127,15 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "Territories",
+        title: "~larger=Territories~",
         text: 
-        `The map is divided into territories.
+        `The map is divided into ~highlight=territories~.
         <br><br>
         Each territory is controlled by a somewhat independent government.
-        You're free to travel all places marked by white icons, without spending fuel.
+        <br><br>
+        You're free to travel all places marked by ~white=white~ icons, ~white=without spending fuel~.
+        <br><br>
+        All ~highlight=outback~ (orange) icons cost ~highlight=1 unit of heavy fuel~ to travel there.
         `,
         actions: []
       },
@@ -143,9 +146,9 @@ data.UIHintSequence = {
           useBackground: true,
           allowPointerEvents: true,
         },
-        title: "Legend",
+        title: "~larger=Legend~",
         text: 
-        `At last, you can view the map legend here if you need it.`,
+        `At last, you can view the ~highlight=map legend~ here if you need it.`,
         actions: [
           {
             actionName: "addClass",
@@ -162,7 +165,7 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "That's all folks",
+        title: "~larger=That's all folks~",
         text: 
         `The map tour hours are over.`,
         actions: [

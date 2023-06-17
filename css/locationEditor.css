@@ -52,6 +52,7 @@
 #location-editor-context-window .key, #location-editor-context-window .value {
   cursor: var(--cursor-pointer);
   padding: 5px 5px;
+  border-radius: 5px;
 }
 
 #location-editor-context-window .key {

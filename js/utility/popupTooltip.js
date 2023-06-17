@@ -11,7 +11,7 @@ class PopupTooltip {
     this.options.centerTooltipText =            options.centerTooltipText             ?? false
     this.options.attachmentOffset =             options.attachmentOffset              ?? null
     this.options.allowPointerEvents =           options.allowPointerEvents            ?? false
-    this.options.useBackground =                options.useBackground
+    this.options.useBackground =                options.useBackground                 ?? false
 
     this.createHTML()
     this.show()
@@ -23,10 +23,8 @@ class PopupTooltip {
     this.title =    El("div", "popup-tooltip-title", undefined)
     this.text =     El("div", "popup-tooltip-text", undefined)
 
-    // this.element.onmouseover = () => this.element.classList.replace("ui-button-minimal-filled", "ui-button-minimal-filled-hover")
-
-    this.title.innerHTML = this.hintData.title
-    this.text.innerHTML = this.hintData.text
+    this.title.innerHTML = createRichText(this.hintData.title)
+    this.text.innerHTML = createRichText(this.hintData.text)
 
     this.parentElement = Q(`#${this.triggerElement.dataset.parentelementid}`) ?? this.triggerElement
     
@@ -34,8 +32,6 @@ class PopupTooltip {
       this.element.append(this.title)
     if(this.hintData.text)          
       this.element.append(this.text)
-
-    // this.element.append(this.arrow)
 
     if(this.options.setMaxWidthToTriggerElement)
       this.element.style.width = this.parentElement.getBoundingClientRect().width + "px"
@@ -113,8 +109,6 @@ class PopupTooltip {
     if(elementRectBeforeClamp.right > window.innerWidth - PopupTooltip.insetBorder)
       inset.right += Math.abs(elementRectBeforeClamp.right - window.innerWidth + PopupTooltip.insetBorder)
     alignElement()
-
-    // this.placeArrow()
   }
   hide() {
     if(!this.visible) return
@@ -141,7 +135,6 @@ class PopupTooltip {
   destroy() {
     this.element.remove()
     this.background?.remove()
-    Logger.log("tooltip popup destroy!")
   }
   static insetBorder = 20
 }

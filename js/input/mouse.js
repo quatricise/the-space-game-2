@@ -12,6 +12,7 @@ class Mouse {
     this.hitboxEditorMoved        = new Vector()
     this.locationEditorMoved      = new Vector()
     this.mapMoved                 = new Vector()
+    this.target = null
     this.clickTarget = null
     this.travelled = 0
     this.pressure = 1
@@ -34,6 +35,7 @@ class Mouse {
       case "click"        : {this.handleClick(event); break;}
       case "wheel"        : {this.handleWheel(event); break;}
     }
+    this.target = event.target
   }
   updateKeys(event) {
     if(event.type === "mousedown") {

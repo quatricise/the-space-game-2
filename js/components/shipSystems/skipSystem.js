@@ -99,8 +99,16 @@ class SkipSystem extends ShipSystem {
       scale = 1 - scale
     filterManager.scaleGlitchFilter(scale)
   }
-  recharge() {
+  async recharge() {
     this.ready = true
+    this.gameObject.sprite.vwbOutline.renderable = true
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = false
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = true
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = false
+    await waitFor(125)
     this.gameObject.sprite.vwbOutline.renderable = true
   }
   updateUISkipCharge() {

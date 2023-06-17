@@ -301,7 +301,6 @@ class GameObject {
     if(type === "projectile")               obj = new Projectile(params.transform, name, params.owner, params.target)
     if(type === "cluster")                  obj = new Cluster(params.transform)
     if(type === "fragment")                 obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
-    if(type === "decorativeObject")         obj = new DecorativeObject(params.transform, name, params.isPermanent, params.opacity)
     if(type === "ultraportBeacon")          obj = new UltraportBeacon(params.transform, name)
     if(type === "hintGraphic")              obj = new HintGraphic(params.transform, name, params.parent)
     if(type === "gameOverlay")              obj = new GameOverlay(params.transform, name, params.parent)
@@ -314,8 +313,13 @@ class GameObject {
     if(type === "player")                   obj = new Player()
     if(type === "lightSource")              obj = new LightSource(params.transform, name, params.parent, params.lightData)
     if(type === "audioEmitter")             obj = new AudioEmitter(params.category, name, params.parent, params.options)
+    
+    /* unfinished objects */
     if(type === "locationRandomizer")       throw "location randomizer not finished"
     if(type === "randomSpawner")            throw "random spawner not finished"
+
+    /* exception for decoration objects */
+    if(type === "decoration") obj = new Decoration(params.transform, name)
 
     if(!options.world)
       console.error("A GameObject needs to be placed inside a GameWorldWindow.", type, name, params, options)
@@ -324,13 +328,8 @@ class GameObject {
 
     obj.prototypeChain = []
     
-    if(params.id)
-      obj.id = params.id
-    if(params.collisionGroup)
-      obj.collisionGroup = params.collisionGroup
-
-    // if(Random.chance(20) && options.world === game && (obj instanceof Asteroid || obj instanceof Debris))
-    //   obj.transform.angularVelocity += Random.float(-0.5, 0.5)
+    if(params.id)             obj.id = params.id
+    if(params.collisionGroup) obj.collisionGroup = params.collisionGroup
 
     if(obj instanceof GameObject)           obj.prototypeChain.push("gameObject")
     if(obj instanceof Camera)               obj.prototypeChain.push("camera")
@@ -338,7 +337,6 @@ class GameObject {
     if(obj instanceof Satellite)            obj.prototypeChain.push("satellite")
     if(obj instanceof Asteroid)             obj.prototypeChain.push("asteroid")
     if(obj instanceof Debris)               obj.prototypeChain.push("debris")
-    if(obj instanceof DecorativeObject)     obj.prototypeChain.push("decorativeObject")
     if(obj instanceof Cluster)              obj.prototypeChain.push("cluster")
     if(obj instanceof Interactable)         obj.prototypeChain.push("interactable")
     if(obj instanceof Ship)                 obj.prototypeChain.push("ship")
@@ -361,6 +359,9 @@ class GameObject {
     if(obj instanceof LightSource)          obj.prototypeChain.push("lightSource")
     if(obj instanceof AudioEmitter)         obj.prototypeChain.push("audioEmitter")
 
+    /* special exception for the Decoration object, which has less overheads when updating */
+    if(obj instanceof Decoration)           obj.prototypeChain.push("decoration")
+
     options.world.addGameObject(obj, options.layer)
     return obj
   }
@@ -370,7 +371,7 @@ class GameObject {
     obj.destroy()
     this.removeFromStage(obj)
     if(obj.sprite) {
-      obj.sprite.container.destroy()
+      obj.sprite.container?.destroy()
       if(obj.sprite.minimapIcon)
         game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
     }
@@ -382,11 +383,23 @@ class GameObject {
     obj.npcs.forEach(npc => GameObject.destroy(npc))
     obj.gameWorld.removeGameObject(obj)
     obj.destroyed = true
+
+    GameEvent.create("destroyGameObject", {obj})
   }
   static addToStage(obj, stage) {
     obj.stage = stage
-    obj.stage.addChild(obj.sprite.container)
-    obj.show()
+
+    /* Decoration objects are simpler so they need some custom handling */
+    switch(obj.type) {
+      case "decoration" : {
+        obj.stage.addChild(obj.sprite)
+        break
+      }
+      default: {
+        obj.stage.addChild(obj.sprite.container)
+        obj.show()
+      }
+    }
   }
   static removeFromStage(obj) {
     obj.stage?.removeChild(obj.sprite?.container)

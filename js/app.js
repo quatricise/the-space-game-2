@@ -777,6 +777,92 @@ function waitFor(time) {
   });
 }
 
+function getDataType(data) {
+  if(Array.isArray(data))
+    return "array"
+  else
+  if(typeof data == "object" && data)
+    return "object"
+  else
+  if(typeof data == "object" && data == null)
+    return "null"
+  else
+  if(typeof data == "number" && !data && data !== 0)
+    return "NaN"
+  else
+    return typeof data
+}
+
+function createRichText(inputText) {
+  /* 
+  this function creates HTML elements based on a tilde (~) based commands so the text can be loaded from JSON 
+  */
+
+  if(!inputText) return ""
+
+  let regex = /~/gi
+  let text = inputText
+  let result = ""
+  let indices = []
+  while ((result = regex.exec(text))) {
+    indices.push(result.index);
+  }
+  if(indices.length % 2 !== 0) throw "invalid '~' count, check the source text for errors"
+  
+  let pairs = indices.map((i, index) => {
+    if(index % 2) return [indices[index - 1], indices[index]] 
+  })
+  pairs = pairs.filter(p => p)
+
+  let commands = pairs.map(pair => inputText.substring(pair[0] + 1, pair[1]))
+
+  /* split the text so commands can be converted into elements */
+  let remainingText = inputText
+
+  /* replace every other "~" with nothing */
+  let firstIndices = pairs.map(p => p[0]).reverse()
+
+  /* remove the last one to properly split the string for my purposes */
+  firstIndices.forEach(index => {
+    remainingText = remainingText.substring(0, index) + remainingText.substring(index + 1)
+  })
+
+  /* replace the commands with nothing */
+  commands.forEach(command => {
+    remainingText = remainingText.replace(command, "~")
+  })
+
+  let splitText = remainingText.split("~")
+
+  let insertionOffset = 1
+  commands.forEach((command, index) => {
+    let [name, value] = command.split("=")
+    switch(name) {
+      case "bind": {
+        let text = binds[value]
+        text = text.replace("Key", "")
+        splitText[index + insertionOffset] = 
+        `<span class="keyboard-key" data-bind="${value}">${text.capitalize()}<span class="keyboard-key-bg-left"></span><span class="keyboard-key-bg-right"></span></span>`
+        break
+      }
+      case "highlight": {
+        splitText[index + insertionOffset] = `<span class="highlighted-text">${value}</span>`
+        break
+      }
+      case "white": {
+        splitText[index + insertionOffset] = `<span class="white-text">${value}</span>`
+        break
+      }
+      case "larger": {
+        splitText[index + insertionOffset] = `<span class="larger-text">${value}</span>`
+        break
+      }
+    }
+    insertionOffset++
+  })
+
+  return splitText.join("").replaceAll("\n", "<br>")
+}
 class State {
   constructor(...values) {
     this.values = values
@@ -985,15 +1071,15 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       item.category || (item.flags.questItem ? "[Quest item]" : "")
-        this.cannotSellText.innerText =     item.flags.canSell ? "" : "Item cannot be sold"
-        this.buyCost.innerText =            item.buyCost    ? `COST: ${item.buyCost}` : ""
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       item.category || (item.flags.questItem ? "[Quest item]" : "")
+        this.cannotSellText.innerHTML =     item.flags.canSell ? "" : "Item cannot be sold"
+        this.buyCost.innerHTML =            item.buyCost    ? `COST: ${item.buyCost}` : ""
 
-        this.itemCategory.innerText    ? this.itemCategory.style.display = ""       : this.itemCategory.style.display = "none"
-        this.cannotSellText.innerText  ? this.cannotSellWarning.style.display = ""  : this.cannotSellWarning.style.display = "none"
-        this.buyCost.innerText         ? this.buyCost.style.display = ""            : this.buyCost.style.display = "none"
+        this.itemCategory.innerHTML    ? this.itemCategory.style.display = ""       : this.itemCategory.style.display = "none"
+        this.cannotSellText.innerHTML  ? this.cannotSellWarning.style.display = ""  : this.cannotSellWarning.style.display = "none"
+        this.buyCost.innerHTML         ? this.buyCost.style.display = ""            : this.buyCost.style.display = "none"
 
         this.heading.style.display =     ""    
         this.description.style.display = ""
@@ -1004,10 +1090,10 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       "[WEAPON]"
-        this.buyCost.innerText =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       "[WEAPON]"
+        this.buyCost.innerHTML =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
 
         this.heading.style.display =      ""
         this.description.style.display =  ""
@@ -1022,10 +1108,10 @@ class Tooltip {
         let item = data.item[target.dataset.itemname]
         if(!item) throw "bad item reference: " + target.dataset.itemname
 
-        this.heading.innerText =            item.title
-        this.description.innerText =        item.description
-        this.itemCategory.innerText =       "[SHIP SYSTEM]"
-        this.buyCost.innerText =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
+        this.heading.innerHTML =            item.title
+        this.description.innerHTML =        item.description
+        this.itemCategory.innerHTML =       "[SHIP SYSTEM]"
+        this.buyCost.innerHTML =            item.buyCost ? `COST: ${item.buyCost}` : "COST: 0"
 
         this.heading.style.display =      ""
         this.description.style.display =  ""
@@ -1037,8 +1123,8 @@ class Tooltip {
         break
       }
       default: {
-        this.heading.innerText =      target.dataset.tooltip
-        this.description.innerText =  target.dataset.tooltipdescription
+        this.heading.innerHTML =      target.dataset.tooltip
+        this.description.innerHTML =  target.dataset.tooltipdescription
         
         target.dataset.tooltip              ? this.heading.style.display = ""       : this.heading.style.display = "none"
         target.dataset.tooltipdescription   ? this.description.style.display = ""   : this.description.style.display = "none"
@@ -1069,7 +1155,7 @@ class PopupTooltip {
     this.options.centerTooltipText =            options.centerTooltipText             ?? false
     this.options.attachmentOffset =             options.attachmentOffset              ?? null
     this.options.allowPointerEvents =           options.allowPointerEvents            ?? false
-    this.options.useBackground =                options.useBackground
+    this.options.useBackground =                options.useBackground                 ?? false
 
     this.createHTML()
     this.show()
@@ -1081,10 +1167,8 @@ class PopupTooltip {
     this.title =    El("div", "popup-tooltip-title", undefined)
     this.text =     El("div", "popup-tooltip-text", undefined)
 
-    // this.element.onmouseover = () => this.element.classList.replace("ui-button-minimal-filled", "ui-button-minimal-filled-hover")
-
-    this.title.innerHTML = this.hintData.title
-    this.text.innerHTML = this.hintData.text
+    this.title.innerHTML = createRichText(this.hintData.title)
+    this.text.innerHTML = createRichText(this.hintData.text)
 
     this.parentElement = Q(`#${this.triggerElement.dataset.parentelementid}`) ?? this.triggerElement
     
@@ -1092,8 +1176,6 @@ class PopupTooltip {
       this.element.append(this.title)
     if(this.hintData.text)          
       this.element.append(this.text)
-
-    // this.element.append(this.arrow)
 
     if(this.options.setMaxWidthToTriggerElement)
       this.element.style.width = this.parentElement.getBoundingClientRect().width + "px"
@@ -1171,8 +1253,6 @@ class PopupTooltip {
     if(elementRectBeforeClamp.right > window.innerWidth - PopupTooltip.insetBorder)
       inset.right += Math.abs(elementRectBeforeClamp.right - window.innerWidth + PopupTooltip.insetBorder)
     alignElement()
-
-    // this.placeArrow()
   }
   hide() {
     if(!this.visible) return
@@ -1199,7 +1279,6 @@ class PopupTooltip {
   destroy() {
     this.element.remove()
     this.background?.remove()
-    Logger.log("tooltip popup destroy!")
   }
   static insetBorder = 20
 }
@@ -1286,18 +1365,18 @@ class GameWorldWindow extends GameWindow {
     this.createCamera()
     this.createCameraAnchor()
         
+    this.locationName = "Location"
+
     this.gridSprite = new PIXI.TilingSprite(grid.texture, cw + grid.cellSize*2, ch + grid.cellSize*2)
-    this.stats = new GameStats()
     this.fog = []
     this.previousCollisions = []
-    this.locationName = "Location"
     this.markers = []
-
     this.mode = new State("play", "edit")
-
+    
     this.layers.graphics.addChild(this.graphics)
     this.element.append(this.app.view)
     this.canvas = this.app.view
+    this.stats = new GameStats()
   }
   //#region setup 
   createApp() {
@@ -1379,6 +1458,7 @@ class GameWorldWindow extends GameWindow {
       locationRandomizer: [],
       randomSpawner: [],
       decorativeObject: [],
+      decoration: [],
       lightSource: [],
       audioEmitter: [],
       mapIcon: [],
@@ -1414,8 +1494,8 @@ class GameWorldWindow extends GameWindow {
   //#region GameObject logic
   addGameObject(obj, layer) {
     obj.prototypeChain.forEach(prototype => {
-      if(!this.gameObjects[prototype])
-        console.log(prototype)
+      if(!this.gameObjects[prototype]) console.error(prototype)
+
       this.gameObjects[prototype].push(obj)
     })
     obj.gameWorld = this
@@ -1425,10 +1505,10 @@ class GameWorldWindow extends GameWindow {
   placeObjectInLayer(obj, layerOverride) {
     let layer = null
     let types = data.objectToLayerMap.get(obj.type)
+
     if(layerOverride)
       layer = layerOverride
-    else
-    if(types)
+    else if(types)
       layer = Random.from(...data.objectToLayerMap.get(obj.type))
     else
       console.error("Object with sprite component doesn't have a layer assigned in data.objectToLayerMap", obj)
@@ -1445,7 +1525,9 @@ class GameWorldWindow extends GameWindow {
     delete obj.gameWorld
   }
   updateGameObjects(forceUpdate = false) {
-    let alwaysUpdateTypes = [Interactable, Hint, HintGraphic, GameOverlay]
+    /* this shit is a performance bottleneck, for some reason checking instanceof is expensive */
+    let alwaysUpdateTypes = [Interactable, Hint]
+
     let windowMode = this.mode.get()
     for(let obj of this.gameObjects.gameObject) {
       if(
@@ -1453,7 +1535,7 @@ class GameWorldWindow extends GameWindow {
         player.ship && 
         GameObject.distanceFast(obj, player.ship) > data.updateObjectsWithinThisFastDistanceOfPlayer && 
         !forceUpdate &&
-        alwaysUpdateTypes.filter(t => obj instanceof t).length === 0
+        alwaysUpdateTypes.filter(type => obj instanceof type).length === 0
       ) {
         obj.cull()
         continue
@@ -1466,11 +1548,22 @@ class GameWorldWindow extends GameWindow {
       if(windowMode === "play")
         GameObject.updateOnPlay(obj)
     }
-    if(!visible.hitbox) return
-    for(let obj of this.gameObjects.gameObject) {
-      Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
-      Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+    
+    /* update decorations */
+    this.gameObjects.decoration.forEach(deco => deco.update())
+
+    /* draw hitboxes */
+    if(visible.hitbox) {
+      for(let obj of this.gameObjects.gameObject) {
+        Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
+        Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+      }
+      for(let obj of this.gameObjects.decoration) {
+        Hitbox.draw           (obj, this.graphics, this.camera.currentZoom)
+        Hitbox.drawProjections(obj, this.graphics, this.camera.currentZoom)
+      }
     }
+      
   }
   //#endregion
   //#region location loading
@@ -1496,7 +1589,8 @@ class GameWorldWindow extends GameWindow {
   }
   loadObjects(locationName, ...callbackFunctions) {
     readJSONFile("data/locations/" + locationName + "/objects.json", (text) => {
-      let location = JSON.parse(text)
+      let rawData = JSON.parse(text)
+      let location = SaveConverter.convert("save", "data", rawData)
       this.locationName = location.name
       this.locationRefName = locationName
       location.objects.forEach(obj => {
@@ -1749,7 +1843,7 @@ class GameWorldWindow extends GameWindow {
         while(overlapping)
 
         let gameObject = GameObject.create(
-          "decorativeObject", 
+          "decoration", 
           Random.weighted(variantsPerLayer[l]),
           {
             transform: new Transform(
@@ -2119,7 +2213,6 @@ class GameObject {
     if(type === "projectile")               obj = new Projectile(params.transform, name, params.owner, params.target)
     if(type === "cluster")                  obj = new Cluster(params.transform)
     if(type === "fragment")                 obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
-    if(type === "decorativeObject")         obj = new DecorativeObject(params.transform, name, params.isPermanent, params.opacity)
     if(type === "ultraportBeacon")          obj = new UltraportBeacon(params.transform, name)
     if(type === "hintGraphic")              obj = new HintGraphic(params.transform, name, params.parent)
     if(type === "gameOverlay")              obj = new GameOverlay(params.transform, name, params.parent)
@@ -2132,8 +2225,13 @@ class GameObject {
     if(type === "player")                   obj = new Player()
     if(type === "lightSource")              obj = new LightSource(params.transform, name, params.parent, params.lightData)
     if(type === "audioEmitter")             obj = new AudioEmitter(params.category, name, params.parent, params.options)
+    
+    /* unfinished objects */
     if(type === "locationRandomizer")       throw "location randomizer not finished"
     if(type === "randomSpawner")            throw "random spawner not finished"
+
+    /* exception for decoration objects */
+    if(type === "decoration") obj = new Decoration(params.transform, name)
 
     if(!options.world)
       console.error("A GameObject needs to be placed inside a GameWorldWindow.", type, name, params, options)
@@ -2142,13 +2240,8 @@ class GameObject {
 
     obj.prototypeChain = []
     
-    if(params.id)
-      obj.id = params.id
-    if(params.collisionGroup)
-      obj.collisionGroup = params.collisionGroup
-
-    // if(Random.chance(20) && options.world === game && (obj instanceof Asteroid || obj instanceof Debris))
-    //   obj.transform.angularVelocity += Random.float(-0.5, 0.5)
+    if(params.id)             obj.id = params.id
+    if(params.collisionGroup) obj.collisionGroup = params.collisionGroup
 
     if(obj instanceof GameObject)           obj.prototypeChain.push("gameObject")
     if(obj instanceof Camera)               obj.prototypeChain.push("camera")
@@ -2156,7 +2249,6 @@ class GameObject {
     if(obj instanceof Satellite)            obj.prototypeChain.push("satellite")
     if(obj instanceof Asteroid)             obj.prototypeChain.push("asteroid")
     if(obj instanceof Debris)               obj.prototypeChain.push("debris")
-    if(obj instanceof DecorativeObject)     obj.prototypeChain.push("decorativeObject")
     if(obj instanceof Cluster)              obj.prototypeChain.push("cluster")
     if(obj instanceof Interactable)         obj.prototypeChain.push("interactable")
     if(obj instanceof Ship)                 obj.prototypeChain.push("ship")
@@ -2179,6 +2271,9 @@ class GameObject {
     if(obj instanceof LightSource)          obj.prototypeChain.push("lightSource")
     if(obj instanceof AudioEmitter)         obj.prototypeChain.push("audioEmitter")
 
+    /* special exception for the Decoration object, which has less overheads when updating */
+    if(obj instanceof Decoration)           obj.prototypeChain.push("decoration")
+
     options.world.addGameObject(obj, options.layer)
     return obj
   }
@@ -2188,7 +2283,7 @@ class GameObject {
     obj.destroy()
     this.removeFromStage(obj)
     if(obj.sprite) {
-      obj.sprite.container.destroy()
+      obj.sprite.container?.destroy()
       if(obj.sprite.minimapIcon)
         game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
     }
@@ -2200,11 +2295,23 @@ class GameObject {
     obj.npcs.forEach(npc => GameObject.destroy(npc))
     obj.gameWorld.removeGameObject(obj)
     obj.destroyed = true
+
+    GameEvent.create("destroyGameObject", {obj})
   }
   static addToStage(obj, stage) {
     obj.stage = stage
-    obj.stage.addChild(obj.sprite.container)
-    obj.show()
+
+    /* Decoration objects are simpler so they need some custom handling */
+    switch(obj.type) {
+      case "decoration" : {
+        obj.stage.addChild(obj.sprite)
+        break
+      }
+      default: {
+        obj.stage.addChild(obj.sprite.container)
+        obj.show()
+      }
+    }
   }
   static removeFromStage(obj) {
     obj.stage?.removeChild(obj.sprite?.container)
@@ -2235,6 +2342,29 @@ class GameObject {
   //#endregion
 }
 
+class GameEvent {
+  constructor(type, ...params) {
+    this.type = type
+    for(let key in params)
+      this[key] = params[key]
+  }
+  static create(type, params = {}) {
+    let event = new GameEvent(type, params)
+
+    /* 
+    go through some potential handlers to process the event 
+    the event isn't referenced anywhere to allow GC to devour the related data
+    */
+   this.handlers.forEach(handler => {
+    if(handler.eventType === event.type || handler.eventType === "any")
+      handler.function(event)
+   })
+  }
+  static attachHandler(handler = {eventType: "destroyGameObject", function: () => {}}) {
+    this.handlers.push(handler)
+  }
+  static handlers = []
+}
 let sources = {
   img: {
     ship: {
@@ -2563,7 +2693,7 @@ let sources = {
         auto: ["linework44"],
       },
     },
-    decorativeObject: {
+    decoration: {
       empty: {
         folder: "assets/decorativeObject/_empty/",
         auto: [],
@@ -3087,6 +3217,7 @@ data.objectToLayerMap.set("mapIcon",          ["overlays"])
 data.objectToLayerMap.set("mapImage",         ["overlays"])
 data.objectToLayerMap.set("mapLabel",         ["overlays"])
 data.objectToLayerMap.set("decorativeObject", ["background", "background2", "background3", "background4", "foreground", "foreground2", "foreground3"])
+data.objectToLayerMap.set("decoration",       ["background", "background2", "background3", "background4", "foreground", "foreground2", "foreground3"])
 
 
 data.item = {
@@ -6012,7 +6143,7 @@ data.gameOverlay = {
     onFinishPlaying: "destroyOverlay",
   },
 }
-data.decorativeObject = {
+data.decoration = {
   empty: {},
 
   /* background asteroids */
@@ -6069,7 +6200,7 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This is the Inventory.",
@@ -6078,7 +6209,7 @@ data.UIHintSequence = {
         <br>
         Let's quickly go over them.
         <br><br><br>
-        <b>[Space]</b> Continue&nbsp;&nbsp;&nbsp;<b>[Escape]</b> Cancel hint.
+        ~bind=forwardSequence~ <b>Continue</b>&nbsp;&nbsp;&nbsp;~bind=cancel~ <b>Cancel hint</b>.
         </b>
         `,
         actions: []
@@ -6088,14 +6219,14 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the player inventory.",
         text: 
-        `Here you can manage your ship's <b>weapons and inspect or sell items</b>. 
+        `Here you can manage your ship's ~highlight=weapons~ and inspect or sell ~highlight=items~. 
         <br><br>
-        Selling items is only available when docked in a station.`,
+        ~highlight=Selling items is only available when docked in a station~.`,
         actions: [
           {
             actionName: "clickElement",
@@ -6108,14 +6239,14 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the station interface.",
         text: 
-        `Here you can purchase things or upgrade your ship.
+        `Here you can ~highlight=purchase~ things or ~highlight=upgrade~ your ship.
         <br><br>
-        This tab is only accessible when you dock into a station. If the icon is grayed out, it means it isn't available.
+        This tab is ~highlight=only accessible when you dock into a station~. If the icon is grayed out, it means it isn't available.
         `,
         actions: [
           {
@@ -6129,16 +6260,16 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "This tab contains the Journal.",
         text:
-        `Inside you find info about your current quests. 
-        \n \n
-        When you start a new quest, a journal entry will be created for it. 
-        \n \n
-        Progressing on a quest will update its description. You can check your journal anytime you're not sure what to do, and need a hint.
+        `Inside you find info about your ~highlight=current quests~. 
+        <br><br>
+        When you start a new quest, a journal entry will be created for it.
+        <br><br>
+        Progressing on a quest will ~highlight=update its description~. You can check your journal anytime you're not sure what to do, and need a hint.
         `,
         actions: [
           {
@@ -6152,7 +6283,7 @@ data.UIHintSequence = {
         hintPlacement: "center",
         options: {
           useBackground: true,
-          attachmentOffset: {top: 200, left: 0},
+          attachmentOffset: {top: 360, left: 0},
           allowPointerEvents: true,
         },
         title: "Tour over",
@@ -6173,11 +6304,11 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "This is the Galaxy map.",
+        title: "~larger=This is the Galaxy map~",
         text: 
         `Here you can see the entire breadth of the game's world.
         <br><br><br>
-        <b>[Space]</b>&nbsp;Take tour&nbsp;&nbsp;&nbsp;<b>[Escape]</b>&nbsp;Cancel tour.
+        ~bind=forwardSequence~&nbsp;<b>Take tour</b>&nbsp;&nbsp;&nbsp;~bind=cancel~&nbsp;<b>Cancel tour</b>.
         `,
         actions: []
       },
@@ -6189,12 +6320,15 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "Territories",
+        title: "~larger=Territories~",
         text: 
-        `The map is divided into territories.
+        `The map is divided into ~highlight=territories~.
         <br><br>
         Each territory is controlled by a somewhat independent government.
-        You're free to travel all places marked by white icons, without spending fuel.
+        <br><br>
+        You're free to travel all places marked by ~white=white~ icons, ~white=without spending fuel~.
+        <br><br>
+        All ~highlight=outback~ (orange) icons cost ~highlight=1 unit of heavy fuel~ to travel there.
         `,
         actions: []
       },
@@ -6205,9 +6339,9 @@ data.UIHintSequence = {
           useBackground: true,
           allowPointerEvents: true,
         },
-        title: "Legend",
+        title: "~larger=Legend~",
         text: 
-        `At last, you can view the map legend here if you need it.`,
+        `At last, you can view the ~highlight=map legend~ here if you need it.`,
         actions: [
           {
             actionName: "addClass",
@@ -6224,7 +6358,7 @@ data.UIHintSequence = {
           attachmentOffset: {top: 200, left: 0},
           allowPointerEvents: true,
         },
-        title: "That's all folks",
+        title: "~larger=That's all folks~",
         text: 
         `The map tour hours are over.`,
         actions: [
@@ -8674,10 +8808,8 @@ class Sprite extends Component {
   }
   update() {
     Sprite.updateGeneric(this)
-    if(this.highlights)
-      Sprite.updateHighlights(this)
-    if(this.minimapIcon)
-      Sprite.updateMinimapIcon(this)
+    if(this.highlights)   Sprite.updateHighlights(this)
+    if(this.minimapIcon)  Sprite.updateMinimapIcon(this)
   }
   //#region static methods
   static createDefault(gameObject) {
@@ -9986,8 +10118,16 @@ class SkipSystem extends ShipSystem {
       scale = 1 - scale
     filterManager.scaleGlitchFilter(scale)
   }
-  recharge() {
+  async recharge() {
     this.ready = true
+    this.gameObject.sprite.vwbOutline.renderable = true
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = false
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = true
+    await waitFor(125)
+    this.gameObject.sprite.vwbOutline.renderable = false
+    await waitFor(125)
     this.gameObject.sprite.vwbOutline.renderable = true
   }
   updateUISkipCharge() {
@@ -11742,17 +11882,31 @@ class DecorativeObject extends GameObject {
   static fadeTime = 4000
 }
 class Decoration {
-  constructor(transform, src) {
+  constructor(transform, name) {
     this.transform = transform || new Transform()
+    this.type = "decoration"
+    this.name = name
+
+    /* 
+    get sprite source to avoid having to create a sprite component 
+    the sprite source is ALWAYS linework.png
+    */
+    let folder = sources.img.decoration[name].folder
+    let src = folder + "linework.png"
+
     this.sprite = PIXI.Sprite.from(src)
+    this.sprite.anchor.set(0.5)
+    this.sprite.rotation = this.transform.rotation
   }
   update() {
     this.transform.position.x += this.transform.velocity.x * dt
     this.transform.position.y += this.transform.velocity.y * dt
-
     this.transform.rotation += this.transform.angularVelocity * dt
-
     this.sprite.position.set(this.transform.position.x, this.transform.position.y)
+    this.sprite.rotation = this.transform.rotation
+  }
+  destroy() {
+    this.stage.remove(this.sprite)
   }
 }
 class Asteroid extends GameObject {
@@ -12368,8 +12522,9 @@ class Hint extends GameObject {
     this.fade(0, 1, this.flash.bind(this))
   }
   createHtml() {
-    this.element = El('div', "hint tooltip-popup", [["id", this.id]], this.hintText)
-    this.element.dataset.tooltip = "Click to dismiss hint [H]"
+    /* create hint */
+    this.element = El('div', "hint tooltip-popup")
+    this.element.dataset.tooltip = "Click to dismiss ~bind=dismissHint~"
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
     this.element.dataset.parentelementid = this.id
@@ -12377,17 +12532,57 @@ class Hint extends GameObject {
     this.element.dataset.sounds = "buttonHover buttonClick"
     this.element.dataset.playonevents = "mouseover mousedown"
 
+    let richText = createRichText(this.hintText)
+
+    /* put the innerHTML inside the hint element */
+    this.element.innerHTML = "<div class='hint-content'>" + richText + "</div>"
+
+    /* create miniature */
+    this.miniature = El('div', "hint-miniature tooltip-popup")
+    this.miniature.dataset.tooltip = "Maximize [Click]"
+    this.miniature.dataset.delay = 300
+    this.miniature.dataset.tooltipattachment = "top"
+    this.miniature.dataset.parentelementid = this.id
+    this.miniature.dataset.playsfx = ""
+    this.miniature.dataset.sounds = "buttonHover buttonClick"
+    this.miniature.dataset.playonevents = "mouseover mousedown"
+
+    /* create wrapper element */
+    this.hintWrapper = El('div', "hint-wrapper")
+    this.hintWrapper.append(this.element, this.miniature)
+
+    /* turns other hints into a miniature and displays this hint */
+    this.miniature.onclick = () => this.maximize()
+
     /* do periodic hint flashing */
     this.timers.add(
-      ["flash", 6500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
+      ["flash", 6500, {loop: true, active: true, onfinish: this.periodicFlash.bind(this, 3, 180)}]
     )
 
-    if(this.hintText != "")
-      Q('#interaction-container').append(this.element)
+    if(Qa('#interaction-container *:not(.hidden)').length > 0)
+      this.element.classList.add("hidden")
+    else
+      this.miniature.classList.add("hidden")
+
+    if(this.hintText != "") 
+      Q('#interaction-container').append(this.hintWrapper)
 
     this.element.style.filter = "opacity(0)"
     this.element.onclick = () => this.complete()
     this.updateHtml()
+  }
+  maximize() {
+    this.minimizeOtherInteractions()
+    this.element.classList.remove("hidden")
+    this.miniature.classList.add("hidden")
+  }
+  minimize() {
+    this.element.classList.add("hidden")
+    this.miniature.classList.remove("hidden")
+  }
+  minimizeOtherInteractions() {
+    game.gameObjects.hint.forEach(hint => hint.minimize())
+    gameUI.minimizeAudioCallPanel()
   }
   registerCompleteMethods() {
     if(!this.hintComplete) {
@@ -12455,10 +12650,10 @@ class Hint extends GameObject {
   }
   requirementCheck(index) {
     /* 
-    this is called periodically every 100ms or so as long as the hint is active, it checks the state of the world
-
     this shitty function checks whether a specific requirement for the hint completion has been fulfilled
     so far it only accepts gameEvent and destroyGameObject 
+
+    this is called periodically EVERY 100ms or so as long as the hint is active
     */
     let requirement = this.hintComplete.requirements[index]
     switch(requirement.method) {
@@ -12505,19 +12700,34 @@ class Hint extends GameObject {
         onFinish()
     }
   }
+  periodicFlash(iterations, durationMS) {
+    /* this function exists solely to check whether the hint is a miniature, in that case the flashing isn't applied */
+    if(this.element.classList.contains("hidden")) return
+    this.flash(iterations, durationMS)
+  }
   async flash(iterations = 3, durationMS = 125) {
-    /* flash animation */
+    /* choose whether to animate the full element or miniature */
+    let element, image
+    if(this.element.classList.contains("hidden")) {
+      element = this.miniature
+      image = "hintMiniature"
+    }
+    else {
+      element = this.element
+      image = "hintContainer"
+    }
+
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainerHover.png")')
+      element.style.backgroundImage = `url("/assets/ui/${image}Hover.png")`
 
       if(this.hintText)
         AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 2))
 
       await waitFor(durationMS)
-      setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainer.png")')
+      element.style.backgroundImage = `url("/assets/ui/${image}.png")`
       await waitFor(durationMS)
     }
-    this.element.style.backgroundImage = ""
+    element.style.backgroundImage = ""
   }
   //#endregion
   //#region onComplete commands
@@ -12561,8 +12771,8 @@ class Hint extends GameObject {
     this.onComplete()
   }
   destroy() {
-    this.element.remove()
-    console.log("destroyed hint", this)
+    this.hintWrapper.remove()
+    //console.log("destroyed hint", this)
   }
   static async preloadAssets() {
     /* preload images just in case */
@@ -13286,12 +13496,10 @@ class WorldMap extends GameWorldWindow {
     }
   }
   handleMousemove(event) {
-    if(mouse.keys.middle) 
-    {
+    if(mouse.keys.middle || (mouse.keys.left && this.editMode.is(false))) {
       this.pan()
     }
-    else
-    {
+    else {
       this.gameObjects.mapIcon.forEach(icon => {
         if(Collision.auto(mouse.mapPosition, icon.hitbox)) {
           icon.hover = true
@@ -14172,6 +14380,8 @@ class DialogueScreen extends GameWindow {
     return this.nodes.find(node => node.id === +id)
   }
   getNextNode() {
+    this.unhighlightSpeakerImage()
+
     if(this.forwardingTimeout)
       window.clearTimeout(this.forwardingTimeout)
 
@@ -14202,7 +14412,7 @@ class DialogueScreen extends GameWindow {
   }
   //#region processing notes per type
   processTextNode(node) {
-    this.generateBlock(node.speaker, node.text)
+    this.createBubble(node.speaker, node.text)
   }
   processResponsePickerNode(node) {
     let out = node.out.map(output => this.nodes.find(node => node.id === output.to))
@@ -14225,7 +14435,7 @@ class DialogueScreen extends GameWindow {
     receivedItemModal.onClose = () => this.getNextNode()
   }
   processPassNode(node) {
-    this.generateBlock(node.speaker, node.text)
+    this.createBubble(node.speaker, node.text)
   }
   processWhisperNode(node) {
     
@@ -14256,15 +14466,18 @@ class DialogueScreen extends GameWindow {
     this.timeouts.forEach(t => window.clearTimeout(t))
     this.timeouts = []
   }
-  async generateBlock(speaker, text) {
-    let block = El("div", "dialogue-block")
-    this.remainingLetters = text.split("")
-    let bubble = El("div", "chat-bubble ui-button-minimal-alt-filled")
+  async createBubble(speaker, text) {
+    /* create html elements for the bubble */
+    let block =       El("div", "dialogue-block")
+    let bubble =      El("div", "chat-bubble ui-button-minimal-alt-filled")
     let bubbleArrow = El("div", "chat-bubble-arrow")
-    let bubbleText = El("span", "chat-bubble-text")
-
+    let bubbleText =  El("span", "chat-bubble-text")
     this.dialogueContent.append(block)
 
+    /* remaining letters for the current dialogue bubble */
+    this.remainingLetters = text.split("")
+
+    /* keep calling this function until there are no remaining letters to animate */
     const nextLetter = (prependWithSpace = false) => {
       let letter = this.remainingLetters.shift()
       let prependNextLetterWithSpace
@@ -14283,8 +14496,9 @@ class DialogueScreen extends GameWindow {
         return
       }
 
+      /* set next delay based on character */
       let delay = 28
-      if(letter.includes(",")) 
+      if(letter.includes(","))
         delay = 260
       if(letter.includes("?")) 
         delay = 520
@@ -14306,8 +14520,13 @@ class DialogueScreen extends GameWindow {
     bubble.dataset.playonevents = "mouseover"
     bubble.dataset.volumes = "0.05"
     bubble.style.height = bubbleHeight + "px"
-    nextLetter()
-    
+    bubbleText.classList.add("chat-bubble-text-background-color")
+
+    /* highlight character that the chat bubble belongs to */
+    bubble.onmouseenter = () => this.highlightSpeakerImage(speaker)
+    bubble.onmouseleave = () => this.unhighlightSpeakerImage()
+
+    /* change bubble appearance based on whether speaker is player */
     if(speaker === "player") {
       bubble.classList.add("orange")
       bubbleArrow.classList.add("right")
@@ -14318,10 +14537,20 @@ class DialogueScreen extends GameWindow {
       bubbleArrow.classList.add("left")
       block.append(bubble)
     }
-
+    nextLetter()
     this.scrollDown()
-
-    bubbleText.classList.add("chat-bubble-text-background-color")
+    this.previousSpeaker = speaker
+  }
+  highlightSpeakerImage(speaker) {
+    Qa("#dialogue-screen-portrait-container-right .chat-portrait-big img, #dialogue-screen-portrait-container-left .chat-portrait-big img").forEach(portrait => {
+      if(portrait.src.includes(speaker)) 
+        portrait.style.filter = DialogueScreen.highlightFilter
+      else
+        portrait.style.filter = DialogueScreen.dimFilter
+    })
+  }
+  unhighlightSpeakerImage() {
+    Qa(".chat-portrait-big img").forEach(portrait => portrait.style.filter = "")
   }
   async getBubbleHeight(text, dialogueBlock) {
     /* this function creates an invisible bubble, waits for DOM to *hopefully* update and then returns the bubble height */
@@ -14490,7 +14719,7 @@ class DialogueScreen extends GameWindow {
     this.isDialogueFinished = true
     AudioManager.playSFX("speakerLeaveDialogue")
     this.generateDialogueEndBlock(endMessage)
-    Qa(".chat-portrait-big").forEach(portrait => portrait.style.filter = "grayscale(0.5) brightness(0.6)")
+    Qa(".chat-portrait-big").forEach(portrait => portrait.style.filter = DialogueScreen.desatFilter)
   }
   generateDialogueEndBlock(endMessage) {
     let block = El("div", "dialogue-end-block ui-graphic")
@@ -14502,10 +14731,12 @@ class DialogueScreen extends GameWindow {
     this.scrollDown()
 
     let option = El("div", "option leave-call-option", undefined, "Leave call")
+    option.dataset.playsfx =      ""
+    option.dataset.sounds =       "buttonHover buttonClick"
+    option.dataset.playonevents = "mouseover mousedown"
 
     /* this is a terrible hack so the intro quest can continue */
-    let closeButton = Q("#leave-call-button")
-    option.onclick = () => closeButton.click()
+    option.onclick = () => Q("#leave-call-button").click()
 
     this.optionsElement.append(option)
   }
@@ -14523,6 +14754,9 @@ class DialogueScreen extends GameWindow {
     "aiAssistant",
   ]
   static bubbleDelay = 450
+  static desatFilter =      "grayscale(0.5)  brightness(0.6)"
+  static dimFilter =        "grayscale(0.25) brightness(0.78)"
+  static highlightFilter =  "saturate(1.1)   brightness(1.3)"
 }
 class DialogueNode {
   constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null}, transfer, recipient) {
@@ -17646,7 +17880,8 @@ class LocationEditor extends GameWorldWindow {
             bottomRightPoint.x - topLeftPoint.x,
             bottomRightPoint.y - topLeftPoint.y,
         )
-        this.gameObjects.gameObject.forEach(obj => {
+        let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+        selectable.forEach(obj => {
           if(!obj.hitbox) return
           if(Collision.auto(obj.hitbox, box)) 
             this.selectObject(obj)
@@ -17669,9 +17904,9 @@ class LocationEditor extends GameWorldWindow {
 
     /* add layers here and set each to unlocked */
     this.lockedLayers = {}
-    for(let key in this.layers)
+    for(let key in this.layers) {
       this.lockedLayers[key] = false
-
+    }
     this.rotationData = {
       clickOrigin: new Vector(),
       angleStart: 0,
@@ -17686,7 +17921,8 @@ class LocationEditor extends GameWorldWindow {
     this.brushSpacing = 50
     this.eraserRadius = 50
     this.fog = []
-    /* this is an array of gameobjects that are used to move fog sprites around */
+    
+    /* this is an array of gameObjects that are used to move fog sprites around */
     this.fogHandlers = []
 
     this.moveSpawnsAlong = false
@@ -17713,7 +17949,8 @@ class LocationEditor extends GameWorldWindow {
     this.clearLocation()
 
     readJSONFile("data/locations/" + name + "/objects.json", (text) => {
-      let location = JSON.parse(text)
+      let rawData = JSON.parse(text)
+      let location = SaveConverter.convert("save", "data", rawData)
 
       /* cosmetic */
       this.locationName = location.name
@@ -17725,7 +17962,7 @@ class LocationEditor extends GameWorldWindow {
       /* objects */
       location.objects.forEach(obj => {
 
-        if(obj.type == "decorativeObject" && obj.name == "empty") return
+        if(obj.type == "decoration" && obj.name == "empty") return
 
         let params = {
           transform: Transform.fromPlain(obj.transform),
@@ -17760,23 +17997,27 @@ class LocationEditor extends GameWorldWindow {
     gameLocation.name = this.locationName
     gameLocation.position = this.locationPosition.plain()
 
+    /* fog */
     gameLocation.fog = this.fog.map(f => {
       return {
         position: {
-          x: f.position.x, 
+          x: f.position.x,
           y: f.position.y
         },
         alpha: f.alpha,
       }
     })
 
+    /* objects */
     gameLocation.objects = []
     let exceptions = [NPC, Person, Player, Hint, GameOverlay, HintGraphic]
-    this.gameObjects.gameObject.forEach(obj => {
+    let exportedObjects = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+
+    exportedObjects.forEach(obj => {
       for(let exception of exceptions)
         if(obj instanceof exception) return
       
-      if(obj.type == "decorativeObject" && obj.name == "empty") return
+      if(obj.type == "decoration" && obj.name == "empty") return
 
       let newobj = {
         id: obj.id, 
@@ -17787,9 +18028,14 @@ class LocationEditor extends GameWorldWindow {
       }
       if(obj.pilot)
         newobj.pilot = obj.pilot
+      
       gameLocation.objects.push(newobj)
     })
-    exportToJSONFile(gameLocation, "location001")
+
+    /* convert to save file */
+    let saveFile = SaveConverter.convert("data", "save", gameLocation, {decimals: 0})
+    console.log(saveFile)
+    exportToJSONFile(saveFile, "location001")
   }
   show() {
     this.element.classList.remove('hidden')
@@ -17812,15 +18058,13 @@ class LocationEditor extends GameWorldWindow {
     this.stage.addChild(this.origin)
   }
   generateIcons() {
-    this.tools.forEach(t => {
+    this.tools.forEach(tool => {
       let cont = El('div', "tool-cont")
-      let icon = El('div', "tool-icon " + t)
+      let icon = El('div', "tool-icon " + tool)
       cont.append(icon)
-      cont.onclick = () => {
-        this.setTool(t)
-      }
-      cont.title = t.replaceAll('-', " ").replaceAll("_", " ").capitalize()
-      cont.dataset.toolname = t
+      cont.onclick = () => this.setTool(tool)
+      cont.title = tool.replaceAll('-', " ").replaceAll("_", " ").capitalize()
+      cont.dataset.toolname = tool
       Q('#location-editor-toolset').append(cont)
     })
   }
@@ -17829,6 +18073,8 @@ class LocationEditor extends GameWorldWindow {
     let backgroundList =  this.element.querySelector(".search-dropdown-window .dropdown-list-background")
     let names = []
     let types = []
+
+    /* only these objects are placeable, the rest like 'projectiles' wouldn't make sense */
     let typesDef = [
       "ship",
       "asteroid",
@@ -17836,21 +18082,21 @@ class LocationEditor extends GameWorldWindow {
       "station",
       "satellite",
       "ultraportBeacon",
-      "decorativeObject",
+      "decoration",
     ]
 
     for(let type of typesDef)
-    for(let key in data[type]) {
-      names.push(key)
-      types.push(type)
-    }
+      for(let key in data[type]) {
+        names.push(key)
+        types.push(type)
+      }
 
     names.forEach((n, index) => {
       if(debug.locationEditor) 
         console.log(types[index], names[index], sources.img[types[index]][names[index]])
 
       let img = new Image()
-      types[index].includes("decorativeObject") ? 
+      types[index].includes("decoration") ? 
       img.src = sources.img[types[index]][names[index]].folder + "linework.png" :
       img.src = sources.img[types[index]][names[index]].folder + "thumbnail.png"
       img.style.position = "absolute"
@@ -17864,7 +18110,7 @@ class LocationEditor extends GameWorldWindow {
       cont.dataset.type = types[index]
       cont.append(imageCont, desc)
 
-      if(types[index].includes("decorativeObject"))
+      if(types[index].includes("decoration"))
         backgroundList.append(cont)
       else
         regularList.append(cont)
@@ -18158,10 +18404,8 @@ class LocationEditor extends GameWorldWindow {
     if(this.limitSelectionToLayer && this.activeLayer && obj.layer !== this.activeLayer) return
     if(this.lockedLayers[obj.layer]) return
 
-    // setTimeout(() => {
-      this.selected.push(obj)
-      this.contextWindowRefresh()
-    // },this.selectDelay)
+    this.selected.push(obj)
+    this.contextWindowRefresh()
   }
   deselectObject(obj) {
     this.selected.remove(obj)
@@ -18171,7 +18415,8 @@ class LocationEditor extends GameWorldWindow {
   }
   selectAll() {
     this.deselectAll()
-    this.gameObjects.gameObject.forEach(obj => {
+    let selectable = this.gameObjects.decoration.concat(this.gameObjects.gameObject)
+    selectable.forEach(obj => {
       if(obj === this.camera) return
       if(this.activeLayer && this.limitSelectionToLayer && obj.layer === this.activeLayer)
         this.selectObject(obj)
@@ -18250,7 +18495,7 @@ class LocationEditor extends GameWorldWindow {
 
     /* create a gameobject that holds the fog in reference and then when you move the gameobject, it moves the fog sprite */
     let 
-    go = GameObject.create("decorativeObject", "empty", {transform: new Transform(new Vector(position.x, position.y))}, {world: this, layer: "fog"})
+    go = GameObject.create("decoration", "empty", {transform: new Transform(new Vector(position.x, position.y))}, {world: this, layer: "fog"})
     go.attachedFogSprite = fog
     this.fogHandlers.push(go)
     this.supplyHitboxIfNotPresent(go, 0x335aee)
@@ -18336,7 +18581,8 @@ class LocationEditor extends GameWorldWindow {
       let fakeGameObject = {transform: {position: pos}}
       let fakeCircleHitbox = {type: "circle", radius: this.circleSelectRadius * this.camera.currentZoom, gameObject: fakeGameObject}
 
-      this.gameObjects.gameObject.forEach(obj => {
+      let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+      selectable.forEach(obj => {
         if(!obj.hitbox) return
 
         if(!Collision.auto(fakeCircleHitbox, obj.hitbox)) return
@@ -18555,7 +18801,9 @@ class LocationEditor extends GameWorldWindow {
       if(target === this.element && this.state.is("addingObj")) {
         let hit = false
         mouse.travelled = 0
-        this.gameObjects.gameObject.forEach(obj => {
+        let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+
+        selectable.forEach(obj => {
           if(!(obj instanceof LocationRandomizer) && !(obj instanceof RandomSpawner)) return
           if(Collision.vectorCircle(mouse.locationEditorPosition, obj.hitbox)) {
             if(obj instanceof LocationRandomizer) {
@@ -18581,7 +18829,8 @@ class LocationEditor extends GameWorldWindow {
           let hasHit = false
           let pos = mouse.locationEditorPosition.clone()
 
-          this.gameObjects.gameObject.forEach(obj => {
+          let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+          selectable.forEach(obj => {
             if(hasHit) return
             if(!obj.hitbox) return
             
@@ -18660,7 +18909,8 @@ class LocationEditor extends GameWorldWindow {
     this.fogPlaced = 0
     this.fogRemoved = 0
 
-    this.gameObjects.gameObject.forEach(obj => {
+    let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+    selectable.forEach(obj => {
       if(!obj.hitbox) return
       let hit = false
       let pos = mouse.clientPosition.clone().sub(new Vector(this.stage.position.x, this.stage.position.y))
@@ -18693,19 +18943,45 @@ class LocationEditor extends GameWorldWindow {
   supplyHitboxIfNotPresent(obj, color = 0xd35a1e) {
     if(obj.hitbox || data[obj.type][obj.name].hitbox) return
 
-    obj.components.push("hitbox", "rigidbody")
-    obj.addComponent("hitbox", {
-      hitbox: {
-        type: "box",
-        filename: null,
-        definition: {
-          a: 50,
-          b: 50,
-          color
-        }
+    switch(obj.type) {
+      case "decoration": {
+        /* do some black magic with the decoration to convert it to quasi-gameobject and add hitbox and rigidbody and some other shit */
+        obj.components = []
+        obj.addComponent = GameObject.prototype.addComponent
+        obj.calculateBroadphaseGrowFactor = GameObject.prototype.calculateBroadphaseGrowFactor
+        obj.components.push("hitbox", "rigidbody")
+        obj.addComponent("hitbox", {
+          hitbox: {
+            type: "box",
+            filename: null,
+            definition: {
+              a: 50,
+              b: 50,
+              color
+            }
+          }
+        })
+        obj.addComponent("rigidbody", {rigidbody: {}})
+        break
       }
-    })
-    obj.addComponent("rigidbody", {rigidbody: {}})
+      default: {
+        obj.components.push("hitbox", "rigidbody")
+        obj.addComponent("hitbox", {
+          hitbox: {
+            type: "box",
+            filename: null,
+            definition: {
+              a: 50,
+              b: 50,
+              color
+            }
+          }
+        })
+        obj.addComponent("rigidbody", {rigidbody: {}})
+        break
+      }
+    }
+
   }
   toggleDropdown(target) {
     let el = target.closest(".tool-cont")
@@ -18731,13 +19007,10 @@ class LocationEditor extends GameWorldWindow {
     this.dropdown.classList.add("hidden")
   }
   zoom(event) {
-    if(event.deltaY < 0) {
+    if(event.deltaY < 0) 
       this.camera.zoomInit("in")
-    }
     else
-    if(event.deltaY > 0) {
       this.camera.zoomInit("out")
-    }
   }
   updateCursorOverlays() {
     if(this.tool === "fog-eraser") {
@@ -18751,8 +19024,8 @@ class LocationEditor extends GameWorldWindow {
       this.graphics.closePath()
     }
   }
-  updateHitboxesForDecorativeObjects() {
-    this.gameObjects.decorativeObject.forEach(obj => {
+  updateHitboxesForDecorations() {
+    this.gameObjects.decoration.forEach(obj => {
       let layerOffsetMultiplier = GameWorldWindow.layerCounterOffset[obj.layer] ?? 1
       obj.hitbox.positionOffset.x = this.camera.transform.position.x * layerOffsetMultiplier
       obj.hitbox.positionOffset.y = this.camera.transform.position.y * layerOffsetMultiplier
@@ -18773,11 +19046,6 @@ class LocationEditor extends GameWorldWindow {
   drawSelectedObjects() {
     this.selected.forEach(obj => {
       Hitbox.drawBoundingBox(obj, this.graphics, this.camera.currentZoom)
-      if(obj instanceof RandomSpawner) {
-        this.graphics.lineStyle(2 * this.camera.currentZoom, colors.hitbox.noCollision, 1)
-        this.graphics.drawCircle(obj.pos.x, obj.pos.y, obj.radius)
-        this.graphics.closePath()
-      }
     })
   }
   updateGridSpriteNew() {
@@ -18785,7 +19053,7 @@ class LocationEditor extends GameWorldWindow {
     this.gridSprite.position.y = Math.floor((0-this.stage.position.y + ch/2) / grid.cellSize) * grid.cellSize - grid.cellSize
   }
   update() {
-    this.updateHitboxesForDecorativeObjects()
+    this.updateHitboxesForDecorations()
     this.updateCursorOverlays()
     this.drawSelectedObjects()
     this.drawBoxSelection()
@@ -18796,10 +19064,16 @@ class LocationEditor extends GameWorldWindow {
 class GameUI extends GameWindow {
   constructor() {
     super("GameUI", Q("#game-ui"))
-    this.shipHull = Q('#ship-hull-wrapper')
-    this.shipHullWrapper = Q('#ship-hull-wrapper')
-    this.audioCallPanel = Q("#audio-call-panel")
+
+    /* elements */
+    this.shipHull =           Q('#ship-hull-wrapper')
+    this.shipHullWrapper =    Q('#ship-hull-wrapper')
+    this.audioCallPanel =     Q("#audio-call-panel")
+    this.audioCallMiniature = Q("#audio-call-panel-miniature")
+
+    /* tooltips */
     this.tooltip = new Tooltip(250)
+
     this.state = new State(
       "default",
       "dragging"
@@ -18818,6 +19092,9 @@ class GameUI extends GameWindow {
     /* UI sequence data */
     this.sequenceTooltip = null
 
+    /* temp globals for audio call */
+    this.isAudioCallActive = false
+
     /* Means that game statistics like fps and collisionCount are displayed */
     this.statsVisible = false
   }
@@ -18831,9 +19108,19 @@ class GameUI extends GameWindow {
       this.toggleGameStats()
     if(event.code === binds.devIcons) 
       this.toggleDevIcons()
+
+    /* rudimentary key-buttons highlighting for hints */
+    Qa(".keyboard-key").forEach(key => {
+      if(binds[key.dataset.bind] == event.code)
+        key.classList.add("pressed", "accepted")
+    })
   }
   handleKeyup(event) {
-    
+    /* rudimentary key-buttons highlighting for hints */
+    Qa(".keyboard-key").forEach(key => {
+      if(binds[key.dataset.bind] == event.code)
+        key.classList.remove("pressed")
+    })
   }
   handleMousedown(event) {
     if(event.target.closest("*[data-draggable='true']"))
@@ -18947,9 +19234,9 @@ class GameUI extends GameWindow {
   }
   //#endregion
   openAudioCallPanel(caller, message, dialogueName) {
+    this.isAudioCallActive = true
     let name = data.person[caller].addressAs ?? data.person[caller].displayName
 
-    this.audioCallPanel.classList.remove("hidden")
     this.audioCallPanel.querySelector(".audio-call-heading").innerText = "You have a call from " + name + "."
     this.audioCallPanel.querySelector(".audio-call-message").innerText = message
     this.audioCallPanel.querySelector(".caller-portrait").src = "assets/portraits/" + caller + ".png"
@@ -18958,13 +19245,31 @@ class GameUI extends GameWindow {
       setTimeout(() => dialogueScreen.load(dialogueName), 600)
       this.closeAudioCallPanel()
     }
-    this.animateAudioCallPanel(0, 100, () => this.timers.audioCallFlash.start())
+    this.maximizeAudioCallPanel()
+    this.animateAudioCallPanel(0, 1, () => this.timers.audioCallFlash.start())
+
+    /* hide miniature */
+    Q("#audio-call-panel-miniature").classList.add("hidden")
+
     AudioManager.playLoopedAudio("SFX", "tightbeamCall")
+  }
+  maximizeAudioCallPanel() {
+    if(!this.isAudioCallActive) return
+
+    Q("#audio-call-panel-miniature").classList.add("hidden")
+    Q("#audio-call-panel").classList.remove("hidden")
+    game.gameObjects.hint.forEach(hint => hint.minimize())
+  }
+  minimizeAudioCallPanel() {
+    if(!this.isAudioCallActive) return
+
+    Q("#audio-call-panel").classList.add("hidden")
+    Q("#audio-call-panel-miniature").classList.remove("hidden")
   }
   animateAudioCallPanel(fromOpacity, toOpacity, onfinish = () => {}) {
     this.audioCallPanel.animate([
-      {filter: `opacity(${fromOpacity / 100})`},
-      {filter: `opacity(${toOpacity / 100})`},
+      {filter: `opacity(${fromOpacity})`},
+      {filter: `opacity(${toOpacity})`},
     ],
     {
       duration: 650,
@@ -18975,20 +19280,37 @@ class GameUI extends GameWindow {
       onfinish()
     }
   }
-  async flashAudioCallPanel(iterations = 3, durationMS = 125) {
+  async flashAudioCallPanel(iterations = 3, durationMS = 180) {
+    let image, element
+    if(this.audioCallPanel.classList.contains("hidden")) {
+      image = "audioCallMiniature"
+      element = this.audioCallMiniature
+    }
+    else {
+      image = "audioCallPopup"
+      element = this.audioCallPanel
+    }
+    
     await fetch("assets/ui/audioCallPopupHover.png")
     await fetch("assets/ui/audioCallPopup.png")
+    await fetch("assets/ui/audioCallMiniatureHover.png")
+    await fetch("assets/ui/audioCallMiniature.png")
+
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopup.png")')
+      setTimeout(() => element.style.backgroundImage = `url("assets/ui/${image}.png")`)
       AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 1.5))
       await waitFor(durationMS)
-      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopupHover.png")')
+      setTimeout(() => element.style.backgroundImage = `url("assets/ui/${image}Hover.png")`)
       await waitFor(durationMS)
     }
-    this.audioCallPanel.style.backgroundImage = ""
+    element.style.backgroundImage = ""
   }
   closeAudioCallPanel() {
-    this.animateAudioCallPanel(100, 0, () => this.audioCallPanel.classList.add("hidden"))
+    this.isAudioCallActive = false
+    this.animateAudioCallPanel(1, 0, () => {
+      Q("#audio-call-panel").classList.add("hidden")
+      Q("#audio-call-panel-miniature").classList.add("hidden")
+    })
     this.timers.audioCallFlash.stop()
   }
   async animateHullDamage() {
@@ -19059,7 +19381,7 @@ class GameUI extends GameWindow {
   stepUIHintSequence(index, previousHandler) {
     if(!this.UIHintSequence) return
 
-    document.removeEventListener("keydown", previousHandler)
+    document.removeEventListener("keyup", previousHandler)
     let handler = (e) => {
       if(e.code.includesAny("Enter", "NumpadEnter", "Space"))
         this.stepUIHintSequence(++index, handler)
@@ -19078,20 +19400,29 @@ class GameUI extends GameWindow {
     this.sequenceTooltip = new PopupTooltip(
       element, 
       hintBlock.hintPlacement, 
-      {title: hintBlock.title, text: hintBlock.text}, 
+      {
+        title: hintBlock.title, 
+        text: createRichText(hintBlock.text)
+      }, 
       hintBlock.options
     )
+
+    /* add a popup tooltip to the popup tooltip 🤡 */
+    this.sequenceTooltip.element.classList.add("tooltip-popup")
+    this.sequenceTooltip.element.dataset.tooltip = "~bind=forwardSequence~ Continue hint <br><br>  ~bind=cancel~ Cancel hint"
+    this.sequenceTooltip.element.dataset.tooltipattachment = "top"
+    this.sequenceTooltip.element.dataset.setmaxwidthtotriggerelement = "true"
 
     if(hintBlock.options.allowPointerEvents)
       this.sequenceTooltip.element.onclick = () => this.stepUIHintSequence(++index, handler)
 
-    document.addEventListener("keydown", handler)
+    document.addEventListener("keyup", handler)
 
     /* hint actions */
     for(let action of hintBlock.actions) {
       switch(action.actionName) {
         case "clickElement": {
-          Q(`#${action.elementId}`).onclick()
+          Q(`#${action.elementId}`).click()
           break
         }
         case "focusElement": {
@@ -19604,6 +19935,8 @@ const binds = {
   zoomIn:             "Digit8",
   zoomOut:            "Digit9",
   resetZoom:          "Digit0",
+  forwardSequence:    "Space",
+  /* modifiers */
   shift:              "ShiftLeft",
   shiftRight:         "ShiftRight",
   ctrl:               "ControlLeft",
@@ -19624,6 +19957,7 @@ class Mouse {
     this.hitboxEditorMoved        = new Vector()
     this.locationEditorMoved      = new Vector()
     this.mapMoved                 = new Vector()
+    this.target = null
     this.clickTarget = null
     this.travelled = 0
     this.pressure = 1
@@ -19646,6 +19980,7 @@ class Mouse {
       case "click"        : {this.handleClick(event); break;}
       case "wheel"        : {this.handleWheel(event); break;}
     }
+    this.target = event.target
   }
   updateKeys(event) {
     if(event.type === "mousedown") {
@@ -20657,6 +20992,7 @@ class Game extends GameWorldWindow {
     )
   }
   spawnFgObjects() {
+    return
     let count = Random.int(0, 5)
     let types = [
       "fgMedium0",
@@ -20680,7 +21016,7 @@ class Game extends GameWorldWindow {
       
       position.add(offsetFromPlayer)
       GameObject.create(
-        "decorativeObject", 
+        "decoration",
         Random.from(...types), 
         {
           transform: new Transform(position, velocity, rotation, angularVelocity),
@@ -20798,6 +21134,92 @@ class StartScreen extends GameWindow {
   show() {
     this.visible = true
     this.element.classList.remove('hidden')
+  }
+}
+class SaveConverter {
+  static dictionaries = {
+    dataToSave: {
+      type: "t",
+      name: "n",
+      position: "p",
+      alpha: "a",
+      transform: "tr",
+      velocity: "v",
+      rotation: "r",
+      angularVelocity: "aV",
+      cellPosition: "cP",
+      objects: "objs",
+      fog: "f",
+      pilot: "pl",
+      layer: "l"
+    },
+    saveToData: {}
+  }
+  
+  static generateReverseDictionary() {
+    /* this function creates the reverse dictionary from dataToSave */
+
+    let totalKeys = Object.keys(this.dictionaries.dataToSave)
+    
+    /* test whether there are duplicit values, this could corrupt the save */
+    let values = new Set()
+    for(let key of totalKeys)
+      values.add(this.dictionaries.dataToSave[key])
+    if(values.size < totalKeys.length)
+      throw "Duplicit values."
+
+    /* create the reverse dictionary */
+    totalKeys.forEach(key => {
+      let value = this.dictionaries.dataToSave[key]
+      this.dictionaries.saveToData[value] = key
+    })
+  }
+  static convert(from, to, inputData, options = {decimals: 0}, parentObject, parentAccessor) {
+    /* 
+    this function MODIFIES THE INPUT OBJECT recursively
+    functions:
+      modify object keys
+      truncate number precision
+    */
+
+    /* which dictionary to use when converting */
+    let dictionary = this.dictionaries[from + "To" + to.capitalize()]
+
+    /* get data type */
+    let type = getDataType(inputData)
+
+    switch(type) {
+      case "array": {
+        for(let [index, child] of inputData.entries())
+          this.convert(from, to, child, options, inputData, index)
+        break
+      }
+      case "object": {
+        let originalKeys = Object.keys(inputData)
+        for(let origKey of originalKeys) {
+
+          /* replace the original key for new one if it is found inside the dictionary */
+          let key = dictionary[origKey]
+          if(key) {
+            inputData[key] = inputData[origKey]
+            delete inputData[origKey]
+          }
+          else {
+            key = origKey
+          }
+
+          this.convert(from, to, inputData[key], options, inputData, key)
+        }
+        break
+      }
+      case "number": {
+        if(options.decimals)
+          parentObject[parentAccessor] = +inputData.toFixed(options.decimals)
+        break
+      }
+      default: {}
+    }
+    return inputData
   }
 }
 class SaveSelectScreen extends GameWindow {
@@ -21090,6 +21512,35 @@ window.onresize = () => {
 
 // window.onblur = () => gameManager.pauseGame()
 
+/* mutation observer used to update hints */
+{
+  const container = Q("#interaction-container")
+  const audioCall = Q("#audio-call-panel")
+
+  let canUpdate = true
+  const callback = async () => {
+
+    /* this is run because the UI shuffles and I want to hide tooltips that would correspond to incorrect or hidden elements */
+    gameUI.cancelTooltipPopup()
+
+    await waitFor(250)
+    if(!canUpdate) return
+    setTimeout(() => canUpdate = true, 1000)
+    canUpdate = false
+    
+    /* 
+    if the total number of visible audio call panels AND big hints is less than 1,
+    try to maximize the first hint, if it doesn't exist, maximize audio call
+    */
+    if(Qa('#interaction-container .hint:not(.hidden), #audio-call-panel:not(.hidden)').length < 1) {
+      let firstVisibleHint = game.gameObjects.hint.find(h => h.hintText)
+      firstVisibleHint ? firstVisibleHint.maximize() : gameUI.maximizeAudioCallPanel()
+    }
+  }
+  const interactionObserver = new MutationObserver(callback)
+  interactionObserver.observe(container, {childList: true})
+  interactionObserver.observe(audioCall, {attributes: true})
+}
 
 function perfRun(fn = function() {}, context, ...args) {
   [1, 10, 100, 1000]
@@ -21120,6 +21571,7 @@ const initMacros = {
 };
 
 (function init() {
+  SaveConverter.generateReverseDictionary()
   gameManager.preloadImageAssets()
   Cutscene.preloadScenes()
   Hint.preloadAssets()

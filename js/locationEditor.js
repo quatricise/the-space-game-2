@@ -75,7 +75,8 @@ class LocationEditor extends GameWorldWindow {
             bottomRightPoint.x - topLeftPoint.x,
             bottomRightPoint.y - topLeftPoint.y,
         )
-        this.gameObjects.gameObject.forEach(obj => {
+        let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+        selectable.forEach(obj => {
           if(!obj.hitbox) return
           if(Collision.auto(obj.hitbox, box)) 
             this.selectObject(obj)
@@ -116,7 +117,7 @@ class LocationEditor extends GameWorldWindow {
     this.eraserRadius = 50
     this.fog = []
     
-    /* this is an array of gameobjects that are used to move fog sprites around */
+    /* this is an array of gameObjects that are used to move fog sprites around */
     this.fogHandlers = []
 
     this.moveSpawnsAlong = false
@@ -143,8 +144,8 @@ class LocationEditor extends GameWorldWindow {
     this.clearLocation()
 
     readJSONFile("data/locations/" + name + "/objects.json", (text) => {
-      // let rawData = 
-      let location = JSON.parse(text)
+      let rawData = JSON.parse(text)
+      let location = SaveConverter.convert("save", "data", rawData)
 
       /* cosmetic */
       this.locationName = location.name
@@ -156,7 +157,7 @@ class LocationEditor extends GameWorldWindow {
       /* objects */
       location.objects.forEach(obj => {
 
-        if(obj.type == "decorativeObject" && obj.name == "empty") return
+        if(obj.type == "decoration" && obj.name == "empty") return
 
         let params = {
           transform: Transform.fromPlain(obj.transform),
@@ -191,6 +192,7 @@ class LocationEditor extends GameWorldWindow {
     gameLocation.name = this.locationName
     gameLocation.position = this.locationPosition.plain()
 
+    /* fog */
     gameLocation.fog = this.fog.map(f => {
       return {
         position: {
@@ -201,13 +203,16 @@ class LocationEditor extends GameWorldWindow {
       }
     })
 
+    /* objects */
     gameLocation.objects = []
     let exceptions = [NPC, Person, Player, Hint, GameOverlay, HintGraphic]
-    this.gameObjects.gameObject.forEach(obj => {
+    let exportedObjects = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+
+    exportedObjects.forEach(obj => {
       for(let exception of exceptions)
         if(obj instanceof exception) return
       
-      if(obj.type == "decorativeObject" && obj.name == "empty") return
+      if(obj.type == "decoration" && obj.name == "empty") return
 
       let newobj = {
         id: obj.id, 
@@ -248,15 +253,13 @@ class LocationEditor extends GameWorldWindow {
     this.stage.addChild(this.origin)
   }
   generateIcons() {
-    this.tools.forEach(t => {
+    this.tools.forEach(tool => {
       let cont = El('div', "tool-cont")
-      let icon = El('div', "tool-icon " + t)
+      let icon = El('div', "tool-icon " + tool)
       cont.append(icon)
-      cont.onclick = () => {
-        this.setTool(t)
-      }
-      cont.title = t.replaceAll('-', " ").replaceAll("_", " ").capitalize()
-      cont.dataset.toolname = t
+      cont.onclick = () => this.setTool(tool)
+      cont.title = tool.replaceAll('-', " ").replaceAll("_", " ").capitalize()
+      cont.dataset.toolname = tool
       Q('#location-editor-toolset').append(cont)
     })
   }
@@ -265,6 +268,8 @@ class LocationEditor extends GameWorldWindow {
     let backgroundList =  this.element.querySelector(".search-dropdown-window .dropdown-list-background")
     let names = []
     let types = []
+
+    /* only these objects are placeable, the rest like 'projectiles' wouldn't make sense */
     let typesDef = [
       "ship",
       "asteroid",
@@ -272,21 +277,21 @@ class LocationEditor extends GameWorldWindow {
       "station",
       "satellite",
       "ultraportBeacon",
-      "decorativeObject",
+      "decoration",
     ]
 
     for(let type of typesDef)
-    for(let key in data[type]) {
-      names.push(key)
-      types.push(type)
-    }
+      for(let key in data[type]) {
+        names.push(key)
+        types.push(type)
+      }
 
     names.forEach((n, index) => {
       if(debug.locationEditor) 
         console.log(types[index], names[index], sources.img[types[index]][names[index]])
 
       let img = new Image()
-      types[index].includes("decorativeObject") ? 
+      types[index].includes("decoration") ? 
       img.src = sources.img[types[index]][names[index]].folder + "linework.png" :
       img.src = sources.img[types[index]][names[index]].folder + "thumbnail.png"
       img.style.position = "absolute"
@@ -300,7 +305,7 @@ class LocationEditor extends GameWorldWindow {
       cont.dataset.type = types[index]
       cont.append(imageCont, desc)
 
-      if(types[index].includes("decorativeObject"))
+      if(types[index].includes("decoration"))
         backgroundList.append(cont)
       else
         regularList.append(cont)
@@ -594,10 +599,8 @@ class LocationEditor extends GameWorldWindow {
     if(this.limitSelectionToLayer && this.activeLayer && obj.layer !== this.activeLayer) return
     if(this.lockedLayers[obj.layer]) return
 
-    // setTimeout(() => {
-      this.selected.push(obj)
-      this.contextWindowRefresh()
-    // },this.selectDelay)
+    this.selected.push(obj)
+    this.contextWindowRefresh()
   }
   deselectObject(obj) {
     this.selected.remove(obj)
@@ -607,7 +610,8 @@ class LocationEditor extends GameWorldWindow {
   }
   selectAll() {
     this.deselectAll()
-    this.gameObjects.gameObject.forEach(obj => {
+    let selectable = this.gameObjects.decoration.concat(this.gameObjects.gameObject)
+    selectable.forEach(obj => {
       if(obj === this.camera) return
       if(this.activeLayer && this.limitSelectionToLayer && obj.layer === this.activeLayer)
         this.selectObject(obj)
@@ -686,7 +690,7 @@ class LocationEditor extends GameWorldWindow {
 
     /* create a gameobject that holds the fog in reference and then when you move the gameobject, it moves the fog sprite */
     let 
-    go = GameObject.create("decorativeObject", "empty", {transform: new Transform(new Vector(position.x, position.y))}, {world: this, layer: "fog"})
+    go = GameObject.create("decoration", "empty", {transform: new Transform(new Vector(position.x, position.y))}, {world: this, layer: "fog"})
     go.attachedFogSprite = fog
     this.fogHandlers.push(go)
     this.supplyHitboxIfNotPresent(go, 0x335aee)
@@ -772,7 +776,8 @@ class LocationEditor extends GameWorldWindow {
       let fakeGameObject = {transform: {position: pos}}
       let fakeCircleHitbox = {type: "circle", radius: this.circleSelectRadius * this.camera.currentZoom, gameObject: fakeGameObject}
 
-      this.gameObjects.gameObject.forEach(obj => {
+      let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+      selectable.forEach(obj => {
         if(!obj.hitbox) return
 
         if(!Collision.auto(fakeCircleHitbox, obj.hitbox)) return
@@ -991,7 +996,9 @@ class LocationEditor extends GameWorldWindow {
       if(target === this.element && this.state.is("addingObj")) {
         let hit = false
         mouse.travelled = 0
-        this.gameObjects.gameObject.forEach(obj => {
+        let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+
+        selectable.forEach(obj => {
           if(!(obj instanceof LocationRandomizer) && !(obj instanceof RandomSpawner)) return
           if(Collision.vectorCircle(mouse.locationEditorPosition, obj.hitbox)) {
             if(obj instanceof LocationRandomizer) {
@@ -1017,7 +1024,8 @@ class LocationEditor extends GameWorldWindow {
           let hasHit = false
           let pos = mouse.locationEditorPosition.clone()
 
-          this.gameObjects.gameObject.forEach(obj => {
+          let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+          selectable.forEach(obj => {
             if(hasHit) return
             if(!obj.hitbox) return
             
@@ -1096,7 +1104,8 @@ class LocationEditor extends GameWorldWindow {
     this.fogPlaced = 0
     this.fogRemoved = 0
 
-    this.gameObjects.gameObject.forEach(obj => {
+    let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
+    selectable.forEach(obj => {
       if(!obj.hitbox) return
       let hit = false
       let pos = mouse.clientPosition.clone().sub(new Vector(this.stage.position.x, this.stage.position.y))
@@ -1129,19 +1138,45 @@ class LocationEditor extends GameWorldWindow {
   supplyHitboxIfNotPresent(obj, color = 0xd35a1e) {
     if(obj.hitbox || data[obj.type][obj.name].hitbox) return
 
-    obj.components.push("hitbox", "rigidbody")
-    obj.addComponent("hitbox", {
-      hitbox: {
-        type: "box",
-        filename: null,
-        definition: {
-          a: 50,
-          b: 50,
-          color
-        }
+    switch(obj.type) {
+      case "decoration": {
+        /* do some black magic with the decoration to convert it to quasi-gameobject and add hitbox and rigidbody and some other shit */
+        obj.components = []
+        obj.addComponent = GameObject.prototype.addComponent
+        obj.calculateBroadphaseGrowFactor = GameObject.prototype.calculateBroadphaseGrowFactor
+        obj.components.push("hitbox", "rigidbody")
+        obj.addComponent("hitbox", {
+          hitbox: {
+            type: "box",
+            filename: null,
+            definition: {
+              a: 50,
+              b: 50,
+              color
+            }
+          }
+        })
+        obj.addComponent("rigidbody", {rigidbody: {}})
+        break
       }
-    })
-    obj.addComponent("rigidbody", {rigidbody: {}})
+      default: {
+        obj.components.push("hitbox", "rigidbody")
+        obj.addComponent("hitbox", {
+          hitbox: {
+            type: "box",
+            filename: null,
+            definition: {
+              a: 50,
+              b: 50,
+              color
+            }
+          }
+        })
+        obj.addComponent("rigidbody", {rigidbody: {}})
+        break
+      }
+    }
+
   }
   toggleDropdown(target) {
     let el = target.closest(".tool-cont")
@@ -1167,13 +1202,10 @@ class LocationEditor extends GameWorldWindow {
     this.dropdown.classList.add("hidden")
   }
   zoom(event) {
-    if(event.deltaY < 0) {
+    if(event.deltaY < 0) 
       this.camera.zoomInit("in")
-    }
     else
-    if(event.deltaY > 0) {
       this.camera.zoomInit("out")
-    }
   }
   updateCursorOverlays() {
     if(this.tool === "fog-eraser") {
@@ -1187,8 +1219,8 @@ class LocationEditor extends GameWorldWindow {
       this.graphics.closePath()
     }
   }
-  updateHitboxesForDecorativeObjects() {
-    this.gameObjects.decorativeObject.forEach(obj => {
+  updateHitboxesForDecorations() {
+    this.gameObjects.decoration.forEach(obj => {
       let layerOffsetMultiplier = GameWorldWindow.layerCounterOffset[obj.layer] ?? 1
       obj.hitbox.positionOffset.x = this.camera.transform.position.x * layerOffsetMultiplier
       obj.hitbox.positionOffset.y = this.camera.transform.position.y * layerOffsetMultiplier
@@ -1209,11 +1241,6 @@ class LocationEditor extends GameWorldWindow {
   drawSelectedObjects() {
     this.selected.forEach(obj => {
       Hitbox.drawBoundingBox(obj, this.graphics, this.camera.currentZoom)
-      if(obj instanceof RandomSpawner) {
-        this.graphics.lineStyle(2 * this.camera.currentZoom, colors.hitbox.noCollision, 1)
-        this.graphics.drawCircle(obj.pos.x, obj.pos.y, obj.radius)
-        this.graphics.closePath()
-      }
     })
   }
   updateGridSpriteNew() {
@@ -1221,7 +1248,7 @@ class LocationEditor extends GameWorldWindow {
     this.gridSprite.position.y = Math.floor((0-this.stage.position.y + ch/2) / grid.cellSize) * grid.cellSize - grid.cellSize
   }
   update() {
-    this.updateHitboxesForDecorativeObjects()
+    this.updateHitboxesForDecorations()
     this.updateCursorOverlays()
     this.drawSelectedObjects()
     this.drawBoxSelection()

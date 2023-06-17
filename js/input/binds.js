@@ -36,6 +36,8 @@ const binds = {
   zoomIn:             "Digit8",
   zoomOut:            "Digit9",
   resetZoom:          "Digit0",
+  forwardSequence:    "Space",
+  /* modifiers */
   shift:              "ShiftLeft",
   shiftRight:         "ShiftRight",
   ctrl:               "ControlLeft",

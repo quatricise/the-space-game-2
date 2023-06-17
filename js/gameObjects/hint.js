@@ -19,7 +19,7 @@ class Hint extends GameObject {
   createHtml() {
     /* create hint */
     this.element = El('div', "hint tooltip-popup")
-    this.element.dataset.tooltip = createRichText("Click to dismiss ~bind=dismissHint~")
+    this.element.dataset.tooltip = "Click to dismiss ~bind=dismissHint~"
     this.element.dataset.tooltipattachment = "top"
     this.element.dataset.setmaxwidthtotriggerelement = "true"
     this.element.dataset.parentelementid = this.id
@@ -51,7 +51,7 @@ class Hint extends GameObject {
 
     /* do periodic hint flashing */
     this.timers.add(
-      ["flash", 6500, {loop: true, active: true, onfinish: this.flash.bind(this, 3, 180)}]
+      ["flash", 6500, {loop: true, active: true, onfinish: this.periodicFlash.bind(this, 3, 180)}]
     )
 
     if(Qa('#interaction-container *:not(.hidden)').length > 0)
@@ -145,10 +145,10 @@ class Hint extends GameObject {
   }
   requirementCheck(index) {
     /* 
-    this is called periodically every 100ms or so as long as the hint is active, it checks the state of the world
-
     this shitty function checks whether a specific requirement for the hint completion has been fulfilled
     so far it only accepts gameEvent and destroyGameObject 
+
+    this is called periodically EVERY 100ms or so as long as the hint is active
     */
     let requirement = this.hintComplete.requirements[index]
     switch(requirement.method) {
@@ -195,19 +195,34 @@ class Hint extends GameObject {
         onFinish()
     }
   }
+  periodicFlash(iterations, durationMS) {
+    /* this function exists solely to check whether the hint is a miniature, in that case the flashing isn't applied */
+    if(this.element.classList.contains("hidden")) return
+    this.flash(iterations, durationMS)
+  }
   async flash(iterations = 3, durationMS = 125) {
-    /* flash animation */
+    /* choose whether to animate the full element or miniature */
+    let element, image
+    if(this.element.classList.contains("hidden")) {
+      element = this.miniature
+      image = "hintMiniature"
+    }
+    else {
+      element = this.element
+      image = "hintContainer"
+    }
+
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainerHover.png")')
+      element.style.backgroundImage = `url("/assets/ui/${image}Hover.png")`
 
       if(this.hintText)
         AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 2))
 
       await waitFor(durationMS)
-      setTimeout(() => this.element.style.backgroundImage = 'url("/assets/ui/hintContainer.png")')
+      element.style.backgroundImage = `url("/assets/ui/${image}.png")`
       await waitFor(durationMS)
     }
-    this.element.style.backgroundImage = ""
+    element.style.backgroundImage = ""
   }
   //#endregion
   //#region onComplete commands

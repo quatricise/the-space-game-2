@@ -216,7 +216,7 @@
         ],
         "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []
         },
-        "interactionDelay": 1000,
+        "interactionDelay": 9000,
         "newInteractionId": "ship_movement_hint",
         "facts": [
           {
@@ -225,7 +225,7 @@
           }
         ],
         "hintData": {
-          "hintText": "You are docked in an orbital station, which means you cannot move. Press ~bind=dockShip~ to undock. You can also ~highlight=dismiss hints~ by clicking on them.",
+          "hintText": "You are docked in an orbital station, which means you cannot move. \n\n Press ~bind=dockShip~ to undock.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -319,7 +319,7 @@
         "interactionDelay": 2800,
         "newInteractionId": "pulse_shields_hint",
         "hintData": {
-          "hintText": "Your ship has brakes which can be toggled by pressing ~bind=toggleAutobrake~. Turning off brakes makes travelling over large distances more pleasant.",
+          "hintText": "Your ship is equipped with brakes. Turning them off makes travelling over large distances more pleasant. \n\n Press ~bind=toggleAutobrake~ to toggle brakes. ",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {

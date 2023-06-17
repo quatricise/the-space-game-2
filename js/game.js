@@ -183,6 +183,7 @@ class Game extends GameWorldWindow {
     )
   }
   spawnFgObjects() {
+    return
     let count = Random.int(0, 5)
     let types = [
       "fgMedium0",
@@ -206,7 +207,7 @@ class Game extends GameWorldWindow {
       
       position.add(offsetFromPlayer)
       GameObject.create(
-        "decorativeObject", 
+        "decoration",
         Random.from(...types), 
         {
           transform: new Transform(position, velocity, rotation, angularVelocity),

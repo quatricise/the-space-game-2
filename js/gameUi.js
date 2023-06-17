@@ -1,10 +1,16 @@
 class GameUI extends GameWindow {
   constructor() {
     super("GameUI", Q("#game-ui"))
-    this.shipHull = Q('#ship-hull-wrapper')
-    this.shipHullWrapper = Q('#ship-hull-wrapper')
-    this.audioCallPanel = Q("#audio-call-panel")
+
+    /* elements */
+    this.shipHull =           Q('#ship-hull-wrapper')
+    this.shipHullWrapper =    Q('#ship-hull-wrapper')
+    this.audioCallPanel =     Q("#audio-call-panel")
+    this.audioCallMiniature = Q("#audio-call-panel-miniature")
+
+    /* tooltips */
     this.tooltip = new Tooltip(250)
+
     this.state = new State(
       "default",
       "dragging"
@@ -211,17 +217,30 @@ class GameUI extends GameWindow {
       onfinish()
     }
   }
-  async flashAudioCallPanel(iterations = 3, durationMS = 125) {
+  async flashAudioCallPanel(iterations = 3, durationMS = 180) {
+    let image, element
+    if(this.audioCallPanel.classList.contains("hidden")) {
+      image = "audioCallMiniature"
+      element = this.audioCallMiniature
+    }
+    else {
+      image = "audioCallPopup"
+      element = this.audioCallPanel
+    }
+    
     await fetch("assets/ui/audioCallPopupHover.png")
     await fetch("assets/ui/audioCallPopup.png")
+    await fetch("assets/ui/audioCallMiniatureHover.png")
+    await fetch("assets/ui/audioCallMiniature.png")
+
     for(let i = 0; i < iterations; i++) {
-      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopup.png")')
+      setTimeout(() => element.style.backgroundImage = `url("assets/ui/${image}.png")`)
       AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 1.5))
       await waitFor(durationMS)
-      setTimeout(() => this.audioCallPanel.style.backgroundImage = 'url("assets/ui/audioCallPopupHover.png")')
+      setTimeout(() => element.style.backgroundImage = `url("assets/ui/${image}Hover.png")`)
       await waitFor(durationMS)
     }
-    this.audioCallPanel.style.backgroundImage = ""
+    element.style.backgroundImage = ""
   }
   closeAudioCallPanel() {
     this.isAudioCallActive = false
@@ -299,7 +318,7 @@ class GameUI extends GameWindow {
   stepUIHintSequence(index, previousHandler) {
     if(!this.UIHintSequence) return
 
-    document.removeEventListener("keydown", previousHandler)
+    document.removeEventListener("keyup", previousHandler)
     let handler = (e) => {
       if(e.code.includesAny("Enter", "NumpadEnter", "Space"))
         this.stepUIHintSequence(++index, handler)
@@ -318,20 +337,29 @@ class GameUI extends GameWindow {
     this.sequenceTooltip = new PopupTooltip(
       element, 
       hintBlock.hintPlacement, 
-      {title: hintBlock.title, text: hintBlock.text}, 
+      {
+        title: hintBlock.title, 
+        text: createRichText(hintBlock.text)
+      }, 
       hintBlock.options
     )
+
+    /* add a popup tooltip to the popup tooltip 🤡 */
+    this.sequenceTooltip.element.classList.add("tooltip-popup")
+    this.sequenceTooltip.element.dataset.tooltip = "~bind=forwardSequence~ Continue hint <br><br>  ~bind=cancel~ Cancel hint"
+    this.sequenceTooltip.element.dataset.tooltipattachment = "top"
+    this.sequenceTooltip.element.dataset.setmaxwidthtotriggerelement = "true"
 
     if(hintBlock.options.allowPointerEvents)
       this.sequenceTooltip.element.onclick = () => this.stepUIHintSequence(++index, handler)
 
-    document.addEventListener("keydown", handler)
+    document.addEventListener("keyup", handler)
 
     /* hint actions */
     for(let action of hintBlock.actions) {
       switch(action.actionName) {
         case "clickElement": {
-          Q(`#${action.elementId}`).onclick()
+          Q(`#${action.elementId}`).click()
           break
         }
         case "focusElement": {

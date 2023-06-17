@@ -4,10 +4,8 @@ class Sprite extends Component {
   }
   update() {
     Sprite.updateGeneric(this)
-    if(this.highlights)
-      Sprite.updateHighlights(this)
-    if(this.minimapIcon)
-      Sprite.updateMinimapIcon(this)
+    if(this.highlights)   Sprite.updateHighlights(this)
+    if(this.minimapIcon)  Sprite.updateMinimapIcon(this)
   }
   //#region static methods
   static createDefault(gameObject) {

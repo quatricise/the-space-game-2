@@ -16,4 +16,5 @@ data.objectToLayerMap.set("mapIcon",          ["overlays"])
 data.objectToLayerMap.set("mapImage",         ["overlays"])
 data.objectToLayerMap.set("mapLabel",         ["overlays"])
 data.objectToLayerMap.set("decorativeObject", ["background", "background2", "background3", "background4", "foreground", "foreground2", "foreground3"])
+data.objectToLayerMap.set("decoration",       ["background", "background2", "background3", "background4", "foreground", "foreground2", "foreground3"])
 

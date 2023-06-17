@@ -132,6 +132,8 @@ function createRichText(inputText) {
   this function creates HTML elements based on a tilde (~) based commands so the text can be loaded from JSON 
   */
 
+  if(!inputText) return ""
+
   let regex = /~/gi
   let text = inputText
   let result = ""
@@ -145,7 +147,6 @@ function createRichText(inputText) {
     if(index % 2) return [indices[index - 1], indices[index]] 
   })
   pairs = pairs.filter(p => p)
-  console.log(pairs)
 
   let commands = pairs.map(pair => inputText.substring(pair[0] + 1, pair[1]))
 
@@ -166,7 +167,6 @@ function createRichText(inputText) {
   })
 
   let splitText = remainingText.split("~")
-  console.log(remainingText, splitText)
 
   let insertionOffset = 1
   commands.forEach((command, index) => {
@@ -183,9 +183,17 @@ function createRichText(inputText) {
         splitText[index + insertionOffset] = `<span class="highlighted-text">${value}</span>`
         break
       }
+      case "white": {
+        splitText[index + insertionOffset] = `<span class="white-text">${value}</span>`
+        break
+      }
+      case "larger": {
+        splitText[index + insertionOffset] = `<span class="larger-text">${value}</span>`
+        break
+      }
     }
     insertionOffset++
   })
 
-  return splitText.join("")
+  return splitText.join("").replaceAll("\n", "<br>")
 }

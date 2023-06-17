@@ -905,7 +905,7 @@
           "y": 6
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -927,7 +927,7 @@
           "y": 5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -949,7 +949,7 @@
           "y": 2
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -971,7 +971,7 @@
           "y": -6
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -993,7 +993,7 @@
           "y": 2
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog2",
       "layer": "fog"
     },
@@ -1015,7 +1015,7 @@
           "y": 3
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -1037,7 +1037,7 @@
           "y": 10
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1059,7 +1059,7 @@
           "y": 15
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -1081,7 +1081,7 @@
           "y": 12
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1103,7 +1103,7 @@
           "y": 19
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1125,7 +1125,7 @@
           "y": 13
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog1",
       "layer": "fog"
     },
@@ -1147,7 +1147,7 @@
           "y": 8
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1169,7 +1169,7 @@
           "y": 12
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1191,7 +1191,7 @@
           "y": 6
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog1",
       "layer": "fog"
     },
@@ -1213,7 +1213,7 @@
           "y": 7
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1235,7 +1235,7 @@
           "y": 2
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1257,7 +1257,7 @@
           "y": 13
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog1",
       "layer": "fog"
     },
@@ -1279,7 +1279,7 @@
           "y": -5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog2",
       "layer": "fog"
     },
@@ -1301,7 +1301,7 @@
           "y": 1
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1323,7 +1323,7 @@
           "y": -5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -1345,7 +1345,7 @@
           "y": -14
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1367,7 +1367,7 @@
           "y": -20
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog1",
       "layer": "fog"
     },
@@ -1389,7 +1389,7 @@
           "y": -1
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1411,7 +1411,7 @@
           "y": 20
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1433,7 +1433,7 @@
           "y": 20
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1455,7 +1455,7 @@
           "y": 30
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1477,7 +1477,7 @@
           "y": -19
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1499,7 +1499,7 @@
           "y": -29
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -1521,7 +1521,7 @@
           "y": -37
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1543,7 +1543,7 @@
           "y": -25
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -1565,7 +1565,7 @@
           "y": -25
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1587,7 +1587,7 @@
           "y": -29
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1609,7 +1609,7 @@
           "y": -36
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -1631,7 +1631,7 @@
           "y": -19
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "shipWreckTU",
       "layer": "background4"
     },
@@ -1653,7 +1653,7 @@
           "y": -26
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "shipWreckTU",
       "layer": "background3"
     },
@@ -1675,7 +1675,7 @@
           "y": 4
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeDebrisPlate",
       "layer": "background3"
     },
@@ -1697,7 +1697,7 @@
           "y": 3
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeDebrisPlate",
       "layer": "background2"
     },
@@ -1719,7 +1719,7 @@
           "y": -10
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1741,7 +1741,7 @@
           "y": -12
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog1",
       "layer": "fog"
     },
@@ -1763,7 +1763,7 @@
           "y": -10
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1785,7 +1785,7 @@
           "y": -14
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -1807,7 +1807,7 @@
           "y": -7
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -1829,7 +1829,7 @@
           "y": 5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -1851,7 +1851,7 @@
           "y": 7
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -1873,7 +1873,7 @@
           "y": 13
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -1895,7 +1895,7 @@
           "y": 12
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -1917,7 +1917,7 @@
           "y": 19
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog3",
       "layer": "fog"
     },
@@ -1939,7 +1939,7 @@
           "y": 1
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -1961,7 +1961,7 @@
           "y": 5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -1983,7 +1983,7 @@
           "y": 11
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -2005,7 +2005,7 @@
           "y": -17
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -2027,7 +2027,7 @@
           "y": -5
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -2049,7 +2049,7 @@
           "y": -40
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -2071,7 +2071,7 @@
           "y": -9
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -2093,7 +2093,7 @@
           "y": -13
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -2115,7 +2115,7 @@
           "y": -6
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -2137,7 +2137,7 @@
           "y": -7
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "mediumFog0",
       "layer": "fog"
     },
@@ -2159,7 +2159,7 @@
           "y": -30
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -2181,7 +2181,7 @@
           "y": -37
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -2203,7 +2203,7 @@
           "y": -43
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -2225,7 +2225,7 @@
           "y": -42
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog4",
       "layer": "fog"
     },
@@ -2247,7 +2247,7 @@
           "y": 9
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -2269,7 +2269,7 @@
           "y": 7
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog0",
       "layer": "fog"
     },
@@ -2291,7 +2291,7 @@
           "y": 9
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },
@@ -2313,7 +2313,7 @@
           "y": 13
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog1",
       "layer": "fog"
     },
@@ -2335,7 +2335,7 @@
           "y": -8
         }
       },
-      "type": "decorativeObject",
+      "type": "decoration",
       "name": "largeFog2",
       "layer": "fog"
     },

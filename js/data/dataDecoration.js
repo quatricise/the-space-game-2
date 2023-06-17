@@ -1,4 +1,4 @@
-data.decorativeObject = {
+data.decoration = {
   empty: {},
 
   /* background asteroids */

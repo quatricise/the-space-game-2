@@ -340,4 +340,12 @@ button.generic:hover {
 
 .highlighted-text {
   color: #ed9200;
+  font-weight: 600;
+}
+.white-text {
+  color: white;
+  font-weight: 600;
+}
+.larger-text {
+  font-size: larger;
 }

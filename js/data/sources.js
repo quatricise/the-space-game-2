@@ -326,7 +326,7 @@ let sources = {
         auto: ["linework44"],
       },
     },
-    decorativeObject: {
+    decoration: {
       empty: {
         folder: "assets/decorativeObject/_empty/",
         auto: [],
