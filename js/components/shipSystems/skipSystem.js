@@ -120,7 +120,7 @@ class SkipSystem extends ShipSystem {
 
     let uiGraphicStateCount = 6
     let chargeStep = Math.floor(chargePercentage / (100 / uiGraphicStateCount))
-    Q("#ship-skip-charge-icon").style.backgroundImage = `url(/assets/ui/skipCharge/skipChargeGraphic000${chargeStep}.png)`
+    Q("#ship-skip-charge-icon").style.backgroundImage = `url(assets/ui/skipCharge/skipChargeGraphic000${chargeStep}.png)`
   }
   update() {
     if(this.active)
