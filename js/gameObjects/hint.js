@@ -213,13 +213,13 @@ class Hint extends GameObject {
     }
 
     for(let i = 0; i < iterations; i++) {
-      element.style.backgroundImage = `url("/assets/ui/${image}Hover.png")`
+      element.style.backgroundImage = `url("assets/ui/${image}Hover.png")`
 
       if(this.hintText)
         AudioManager.playSFX("buttonNoAction", Random.decimal(0.05, 0.15, 2))
 
       await waitFor(durationMS)
-      element.style.backgroundImage = `url("/assets/ui/${image}.png")`
+      element.style.backgroundImage = `url("assets/ui/${image}.png")`
       await waitFor(durationMS)
     }
     element.style.backgroundImage = ""
@@ -271,7 +271,7 @@ class Hint extends GameObject {
   }
   static async preloadAssets() {
     /* preload images just in case */
-    let images = ["/assets/ui/hintContainerHover.png", "/assets/ui/hintContainer.png"]
+    let images = ["assets/ui/hintContainerHover.png", "assets/ui/hintContainer.png"]
 
     await Promise.all(images.map(src => {
       new Promise(resolve => {

@@ -17,7 +17,7 @@ class UIWeaponComponent extends UIComponent {
     this.weaponChargeContainer =  El("div", "selected-weapon-charge-state tooltip-popup")
     this.chargeIndicator =        El("div", `ui-weapon-container-charge-indicator ${this.weapon.type}`)
 
-    this.icon.style.backgroundImage = `url(/assets/weaponIcon/${this.weapon.name}.png)`
+    this.icon.style.backgroundImage = `url(assets/weaponIcon/${this.weapon.name}.png)`
     this.titleElement.style.color = data.weapon[this.weapon.name].iconColor || `var(--color-${this.weapon.type})`
     
     /* element tooltip setup */
