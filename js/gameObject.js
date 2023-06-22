@@ -369,20 +369,25 @@ class GameObject {
     if(obj.destroyed) return
     
     obj.destroy()
-    this.removeFromStage(obj)
-    if(obj.sprite) {
-      obj.sprite.container?.destroy()
-      if(obj.sprite.minimapIcon)
-        game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
-    }
-    obj.components.forEach(comp => {
-      delete obj[comp].gameObject
-      delete obj[comp]
-    })
+    switch(obj.type) {
+      case "decoration": {break}
+      default: {
+        this.removeFromStage(obj)
+        if(obj.sprite) {
+          obj.sprite.container?.destroy()
+          if(obj.sprite.minimapIcon)
+            game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
+        }
+        obj.components.forEach(comp => {
+          delete obj[comp].gameObject
+          delete obj[comp]
+        })
 
-    obj.npcs.forEach(npc => GameObject.destroy(npc))
-    obj.gameWorld.removeGameObject(obj)
-    obj.destroyed = true
+        obj.npcs.forEach(npc => GameObject.destroy(npc))
+        obj.gameWorld.removeGameObject(obj)
+        obj.destroyed = true
+      }
+    }
 
     GameEvent.create("destroyGameObject", {obj})
   }
@@ -403,7 +408,7 @@ class GameObject {
   }
   static removeFromStage(obj) {
     obj.stage?.removeChild(obj.sprite?.container)
-    obj.hide()
+    obj?.hide()
   }
   //#endregion
   //#region utility methods

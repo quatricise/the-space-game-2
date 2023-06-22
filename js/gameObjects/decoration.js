@@ -23,6 +23,6 @@ class Decoration {
     this.sprite.rotation = this.transform.rotation
   }
   destroy() {
-    this.stage.remove(this.sprite)
+    this.stage.removeChild(this.sprite)
   }
 }

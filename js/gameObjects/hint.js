@@ -55,9 +55,12 @@ class Hint extends GameObject {
     )
 
     if(Qa('#interaction-container *:not(.hidden)').length > 0)
-      this.element.classList.add("hidden")
-    else
       this.miniature.classList.add("hidden")
+    else
+      this.element.classList.add("hidden")
+
+    /* if the audiocall panel is hidden, maximize this hint immediately */
+    if(Q("#audio-call-panel").classList.contains("hidden")) this.maximize()
 
     if(this.hintText != "") 
       Q('#interaction-container').append(this.hintWrapper)

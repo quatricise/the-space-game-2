@@ -627,7 +627,7 @@
         "interactionDelay": 1500,
         "newInteractionId": "asteroid_wall_hint3",
         "hintData": {
-          "hintText": "Your ship has the ability to slow-teleport through matter. It's called 'skipping'. \n Activate it by holding [SHIFT] and left clicking somewhere.",
+          "hintText": "Your ship has the ability to slow-teleport through matter. It's called 'skipping'. \n Activate it by holding ~bind=shift~ and left-clicking somewhere.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {
@@ -684,7 +684,7 @@
           "parentGameObject": "player_ship"
         },
         "hintData": {
-          "hintText": "Your skip ability takes about 4 seconds to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated.",
+          "hintText": "Your skip ability takes about ~highlight=6 seconds~ to recharge, you'll know it's ready when the pale violet outline around your ship has regenerated.",
           "hintType": "static",
           "hintAttachment": "bottom",
           "hintComplete": {

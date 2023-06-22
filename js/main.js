@@ -97,6 +97,9 @@ window.onresize = () => {
       firstVisibleHint ? firstVisibleHint.maximize() : gameUI.maximizeAudioCallPanel()
     }
   }
+  /* just fuckin call this periodically anyways */
+  setInterval(callback, 250)
+
   const interactionObserver = new MutationObserver(callback)
   interactionObserver.observe(container, {childList: true})
   interactionObserver.observe(audioCall, {attributes: true})

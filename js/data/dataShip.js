@@ -49,8 +49,8 @@ data.ship["theGrandMoth"] = {
     items: [],
   },
   engine: {
-    angularVelocity: (95 * PI) / 180,
-    glideReduction: 0.08,
+    angularVelocity: (135 * PI) / 180,
+    glideReduction: 0.07,
     acceleration: 8,
     maxSpeed: 400,
     skipRechargeTime: 2800,

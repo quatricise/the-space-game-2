@@ -62,8 +62,9 @@ class NPC extends Person {
       ],
       setupTimers(state) {
         return new Timer(
-          ["createNavmesh", 400, {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon", 800, {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
+          ["fireWeapon",    800,  {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
         )
       }
     },
@@ -349,15 +350,32 @@ class NPC extends Person {
       weaponSystem.activeWeapon.handleInput.bind(weaponSystem.activeWeapon, event)()
     }
   }
+  static useSkip() {
+    if(!this.gameObject.ship.skip.ready) return
+
+    let targetPos = this.gameObject.target.transform.position
+    let destination = targetPos.clone()
+
+    destination.x += 300
+    destination.y += 300
+    destination.rotateAround(targetPos, Random.rotation())
+
+    this.gameObject.ship.skip.activate(destination)
+
+    /* this kinda randomizes when the next skip occurs */
+    this.timers.skip.duration = Random.int(5000, 18000)
+    this.timers.skip.start()
+  }
   //#endregion
   //#region helper methods
   static drawNavMesh(npcObject) {
     if(!visible.navMesh) return
 
     for(let [index, box] of npcObject.navMesh.boundingBoxes.entries()) {
-      index === npcObject.navMesh.indexOfTargetBox ? 
-      game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0xff0000, 1) :
-      game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0x1111dd, 1)
+      if(index === npcObject.navMesh.indexOfTargetBox) 
+        game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0xff0000, 1)
+      else
+        game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0x1111dd, 1)
 
       game.graphics.drawRect(box.x, box.y, box.w, box.h)
       game.graphics.closePath()

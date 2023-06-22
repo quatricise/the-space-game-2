@@ -2280,20 +2280,25 @@ class GameObject {
     if(obj.destroyed) return
     
     obj.destroy()
-    this.removeFromStage(obj)
-    if(obj.sprite) {
-      obj.sprite.container?.destroy()
-      if(obj.sprite.minimapIcon)
-        game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
-    }
-    obj.components.forEach(comp => {
-      delete obj[comp].gameObject
-      delete obj[comp]
-    })
+    switch(obj.type) {
+      case "decoration": {break}
+      default: {
+        this.removeFromStage(obj)
+        if(obj.sprite) {
+          obj.sprite.container?.destroy()
+          if(obj.sprite.minimapIcon)
+            game.minimapApp.stage.removeChild(obj.sprite.minimapIcon)
+        }
+        obj.components.forEach(comp => {
+          delete obj[comp].gameObject
+          delete obj[comp]
+        })
 
-    obj.npcs.forEach(npc => GameObject.destroy(npc))
-    obj.gameWorld.removeGameObject(obj)
-    obj.destroyed = true
+        obj.npcs.forEach(npc => GameObject.destroy(npc))
+        obj.gameWorld.removeGameObject(obj)
+        obj.destroyed = true
+      }
+    }
 
     GameEvent.create("destroyGameObject", {obj})
   }
@@ -2314,7 +2319,7 @@ class GameObject {
   }
   static removeFromStage(obj) {
     obj.stage?.removeChild(obj.sprite?.container)
-    obj.hide()
+    obj?.hide()
   }
   //#endregion
   //#region utility methods
@@ -4702,8 +4707,8 @@ data.ship["theGrandMoth"] = {
     items: [],
   },
   engine: {
-    angularVelocity: (95 * PI) / 180,
-    glideReduction: 0.08,
+    angularVelocity: (135 * PI) / 180,
+    glideReduction: 0.07,
     acceleration: 8,
     maxSpeed: 400,
     skipRechargeTime: 2800,
@@ -11909,7 +11914,7 @@ class Decoration {
     this.sprite.rotation = this.transform.rotation
   }
   destroy() {
-    this.stage.remove(this.sprite)
+    this.stage.removeChild(this.sprite)
   }
 }
 class Asteroid extends GameObject {
@@ -12563,9 +12568,12 @@ class Hint extends GameObject {
     )
 
     if(Qa('#interaction-container *:not(.hidden)').length > 0)
-      this.element.classList.add("hidden")
-    else
       this.miniature.classList.add("hidden")
+    else
+      this.element.classList.add("hidden")
+
+    /* if the audiocall panel is hidden, maximize this hint immediately */
+    if(Q("#audio-call-panel").classList.contains("hidden")) this.maximize()
 
     if(this.hintText != "") 
       Q('#interaction-container').append(this.hintWrapper)
@@ -16635,8 +16643,9 @@ class NPC extends Person {
       ],
       setupTimers(state) {
         return new Timer(
-          ["createNavmesh", 400, {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon", 800, {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
+          ["fireWeapon",    800,  {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
         )
       }
     },
@@ -16922,15 +16931,32 @@ class NPC extends Person {
       weaponSystem.activeWeapon.handleInput.bind(weaponSystem.activeWeapon, event)()
     }
   }
+  static useSkip() {
+    if(!this.gameObject.ship.skip.ready) return
+
+    let targetPos = this.gameObject.target.transform.position
+    let destination = targetPos.clone()
+
+    destination.x += 300
+    destination.y += 300
+    destination.rotateAround(targetPos, Random.rotation())
+
+    this.gameObject.ship.skip.activate(destination)
+
+    /* this kinda randomizes when the next skip occurs */
+    this.timers.skip.duration = Random.int(5000, 18000)
+    this.timers.skip.start()
+  }
   //#endregion
   //#region helper methods
   static drawNavMesh(npcObject) {
     if(!visible.navMesh) return
 
     for(let [index, box] of npcObject.navMesh.boundingBoxes.entries()) {
-      index === npcObject.navMesh.indexOfTargetBox ? 
-      game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0xff0000, 1) :
-      game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0x1111dd, 1)
+      if(index === npcObject.navMesh.indexOfTargetBox) 
+        game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0xff0000, 1)
+      else
+        game.graphics.lineStyle(npcObject.gameWorld.camera.currentZoom, 0x1111dd, 1)
 
       game.graphics.drawRect(box.x, box.y, box.w, box.h)
       game.graphics.closePath()
@@ -21543,6 +21569,9 @@ window.onresize = () => {
       firstVisibleHint ? firstVisibleHint.maximize() : gameUI.maximizeAudioCallPanel()
     }
   }
+  /* just fuckin call this periodically anyways */
+  setInterval(callback, 250)
+
   const interactionObserver = new MutationObserver(callback)
   interactionObserver.observe(container, {childList: true})
   interactionObserver.observe(audioCall, {attributes: true})
