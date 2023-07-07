@@ -944,11 +944,12 @@ data.weapon = {
         this.destroyLaserPrefireSprites()
 
         let spriteSize = 64
+        let spriteCount = 30
         let angle = this.gameObject.transform.rotation
         let offsetVector = Vector.fromAngle(angle).mult(spriteSize)
         let startingPosition = this.getWeaponFireOrigin()
 
-        for(let i = 0; i < 20; i++) {
+        for(let i = 0; i < spriteCount; i++) {
           let position = startingPosition.clone().add(offsetVector.clone().mult(i))
           let sprite = new PIXI.Sprite.from(`assets/weaponFX/laserFirePrefire.png`)
               sprite.anchor.set(0.5)

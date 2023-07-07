@@ -5,9 +5,7 @@ class DialogueEditor extends GameWindow {
     this.nodes = []
     this.textarea = El("textarea", "dialogue-editor-textarea", [["type", "text"],["size", "300"],["width", ""]])
     this.editedData = {}
-    this.style = {
-      connectionWidth: 8
-    }
+    this.style = {connectionWidth: 8}
     this.scale = 1
 
     /* an element that's visually highlighted using a blue outline */
@@ -36,6 +34,9 @@ class DialogueEditor extends GameWindow {
     }
     this.options = {
       compactView: false
+    }
+    this.connectionData = {
+      outputSocketIndex: null
     }
     this.boxSelection = {
       active: false,
@@ -158,10 +159,10 @@ class DialogueEditor extends GameWindow {
       })
       /* create connections between nodes */
       nodes.forEach(node => {
-        node.out.forEach(outConnection => {
-          let nodeOrigin =      this.nodes.find(n => n.id === node.id)
-          let nodeDestination = this.nodes.find(n => n.id === outConnection.to)
-          nodeOrigin.createConnection(nodeDestination)
+        node.out.forEach((outConnection, index) => {
+          let origin =      this.nodes.find(n => n.id === node.id)
+          let destination = this.nodes.find(n => n.id === outConnection.to)
+          origin.createConnection(destination, index)
         })
       })
       /* reconstruct html */
@@ -211,14 +212,22 @@ class DialogueEditor extends GameWindow {
     console.log("setting person: ", person)
     if(this.activeNode.type == "text" || this.activeNode.type == "whisper" || this.activeNode.type == "pass" || this.activeNode.type == "aggression") {
       this.activeNode[role] = person
-      this.highlighted.innerText = person
     }
     else
     if(this.activeNode.type == "transfer") {
       let personIndex = +this.highlighted.closest(".dialogue-node-transfer").dataset.personindex
       this.activeNode.transfer[personIndex].owner = person
-      this.highlighted.innerText = person
     }
+    /* set HTML */
+    this.highlighted.innerText = person
+
+    let 
+    thumbnail = new Image()
+    thumbnail.src = `assets/portraits/${person}.png`
+    thumbnail.style.height = "32px"
+    thumbnail.style.marginRight = "5px"
+    this.highlighted.prepend(thumbnail)
+
     this.lastNpc = person
     this.npcSearchDelete()
   }
@@ -324,11 +333,14 @@ class DialogueEditor extends GameWindow {
       }
       case "factValue": {
         this.activeNode.flipSetterFact(this.editedData.factIndex)
-        // this.activeNode.factsToSet[this.editedData.factIndex].value = !this.activeNode.factsToSet[this.editedData.factIndex].value
         break
       }
       case "nodeFactIdentifier": {
         this.activeNode.setFactIdentifier(this.editedData.factIndex, value)
+        break
+      }
+      case "nodeTree": {
+        this.activeNode.setNodeTree(element, value)
         break
       }
       default: {
@@ -428,6 +440,7 @@ class DialogueEditor extends GameWindow {
 
     if(target.closest(".dialogue-node-socket.out")) {
       this.state.set("connecting")
+      this.connectionData.outputSocketIndex = +target.closest(".dialogue-node-socket.out").dataset.index
     }
 
     if(target.closest(".dialogue-node") && (keys.shift || keys.shiftRight)) {
@@ -641,13 +654,13 @@ class DialogueEditor extends GameWindow {
     /* LMB */
     if(event.button === 0) {
       if(this.state.is("connecting") && event.target.closest(".dialogue-node")) {
-        let connectTo = this.getNodeAtMousePosition(event)
-        this.activeNode.createConnection(connectTo)
+        let node = this.getNodeAtMousePosition(event)
+        this.activeNode.createConnection(node, this.connectionData.outputSocketIndex)
         this.unsetActiveNode()
       }
       if(this.state.is("connecting") && event.target === this.element) {
         let node = this.createNode("text")
-        this.activeNode.createConnection(node)
+        this.activeNode.createConnection(node, this.connectionData.outputSocketIndex)
       }
       if(this.state.is("creating") && event.target === this.element) {
         let node = this.createNode("text")
@@ -766,18 +779,6 @@ class DialogueEditor extends GameWindow {
     this.npcSearchInput = input
     setTimeout(() => this.fitInViewport(this.npcSearch), 0)
   }
-  fitInViewport(popupElement) {
-    let rect = popupElement.getBoundingClientRect()
-    console.log(rect)
-    if(rect.bottom > ch) {
-      let top = ch - rect.height - 20
-      popupElement.style.top = top + "px"
-    }
-    if(rect.right > cw) {
-      let left = cw - rect.width - 20
-      popupElement.style.left = left + "px"
-    }
-  }
   npcSearchFilter() {
     Qa(".search-popup-row").forEach(row => {
       let name = row.querySelector(".search-popup-name")
@@ -832,10 +833,22 @@ class DialogueEditor extends GameWindow {
     this.highlighted = null
     this.state.ifrevert("selectingItem")
   }
+  fitInViewport(popupElement) {
+    let rect = popupElement.getBoundingClientRect()
+    console.log(rect)
+    if(rect.bottom > ch) {
+      let top = ch - rect.height - 20
+      popupElement.style.top = top + "px"
+    }
+    if(rect.right > cw) {
+      let left = cw - rect.width - 20
+      popupElement.style.left = left + "px"
+    }
+  }
   createNode(type) {
     let node = new DialogueNode(
       type, 
-      "Lorem Ipsum", 
+      "Lorem Ipsum",
       this.lastNpc, 
       mouse.clientPosition, 
       undefined, 
@@ -889,7 +902,6 @@ class DialogueEditor extends GameWindow {
     /* generate svgs for connections */
     this.svgCont.innerHTML = ""
     this.nodes.forEach(node => {
-      
       /* highlight entry and exit nodes for better visual navigation of the node tree */
       node.out.length === 0 ? node.element.classList.add("end-node")    : node.element.classList.remove("end-node")
       node.in.length === 0  ? node.element.classList.add("start-node")  : node.element.classList.remove("start-node")
@@ -912,7 +924,7 @@ class DialogueEditor extends GameWindow {
           undefined, 
           [
             ["d", "M 0 0 L 250 250"],
-            ["stroke", "green"], 
+            ["stroke", "#006000"], 
             ["stroke-width", this.style.connectionWidth]
           ]
         )
@@ -934,29 +946,31 @@ class DialogueEditor extends GameWindow {
   }
   updateHTML() {
     /* store information about the position of node sockets */
-    let layoutData = []
+    let layoutData = {}
 
     /* update nodes */
     this.nodes.forEach(node => node.update())
       
     /* get layout information */
-    this.nodes.forEach((node, index) => {
+    this.nodes.forEach((node) => {
+      layoutData[node.id] = []
       node.out.forEach(conn => {
         let rects = [
           node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
           conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
         ]
         let path = this.svgCont.querySelector("svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path")
-        layoutData.push({path, rects})
+        layoutData[node.id].push({path, rects})
       })
     })
 
     /* recalculate the SVG paths */
-    this.nodes.forEach((node, index) => {
-      node.out.forEach(conn => {
-        layoutData[index].path.setAttribute("d",
-          "M " + (layoutData[index].rects[0].x + 6) + " " + (layoutData[index].rects[0].y + 6) + 
-          "L " + (layoutData[index].rects[1].x + 6) + " " + (layoutData[index].rects[1].y + 6)
+    this.nodes.forEach((node) => {
+      node.out.forEach((conn, index) => {
+        let layoutBlock = layoutData[node.id][index]
+        layoutData[node.id][index].path.setAttribute("d",
+          "M " + (layoutBlock.rects[0].x + 6) + " " + (layoutBlock.rects[0].y + 6) + 
+          "L " + (layoutBlock.rects[1].x + 6) + " " + (layoutBlock.rects[1].y + 6)
         )
       })
     })

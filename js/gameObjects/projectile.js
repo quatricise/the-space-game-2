@@ -4,18 +4,14 @@ class Projectile extends GameObject {
     let objectData = data.projectile[name]
     this.type = "projectile"
     this.name = name
-
     this.impactDamage = objectData.impactDamage
     this.speed = objectData.speed
     this.owner = owner
     this.target = target
-
     this.mass = objectData.mass
     this.lifeMax = objectData.life
     this.life = objectData.life
-
     this.projectileData = objectData.projectileData
-
     this.components = [
       "sprite",
       "hitbox",

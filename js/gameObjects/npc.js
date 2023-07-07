@@ -5,6 +5,10 @@ class NPC extends Person {
     this.name = name
     this.ship = null
     this.target = null
+    
+    /* flags */
+    this.canUseAbility = true
+
     this.followDistance = 1400
     this.stopDistance = 650
     this.brakeDistance = 450
@@ -63,8 +67,15 @@ class NPC extends Person {
       setupTimers(state) {
         return new Timer(
           ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon",    800,  {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["fireWeapon",    900,  {loop: true, active: true, onfinish: NPC.useWeapon.bind(state)}],
           ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
+          ["useShield",     600,  {loop: true, active: true, onfinish: NPC.useShields.bind(state)}],
+
+          /* 
+          this is used to limit the rate of abilities so that the NPC doesn't fire weapon and use a shield within a time window
+          because that would feel unnatural
+          */
+          ["resetAbility",    350,  {loop: false, active: true, onfinish: NPC.resetAbility.bind(state)}],
         )
       }
     },
@@ -91,7 +102,8 @@ class NPC extends Person {
 
     let objects = Collision.broadphase(game, this.gameObject.ship, {exclude: [Interactable], grid: navMeshGrid})
     let navmeshFirstPhase = []
-    //1st phase - create 4 bounding boxes around each object
+
+    /* 1st phase - create 4 bounding boxes around each object */
     for(let obj of objects) {
       let offsetFromObject = Math.max(shipBoundingBox.w + obj.hitbox.boundingBox.w, shipBoundingBox.h + obj.hitbox.boundingBox.h)
       let offsetVector = new Vector(offsetFromObject, 0)
@@ -103,7 +115,8 @@ class NPC extends Person {
         offsetVector.rotate(halfPI)
       }
     }
-    //2nd phase - ruling out colliding bounding boxes
+
+    /* 2nd phase - ruling out colliding bounding boxes */
     for(let boundingBox of navmeshFirstPhase) {
       let objects = Collision.broadphaseForVector(game, new Vector(boundingBox.x, boundingBox.y), {exclude: [Interactable], grid: grid} )
       let isColliding = false
@@ -114,7 +127,8 @@ class NPC extends Person {
       if(!isColliding)
         this.gameObject.navMesh.boundingBoxes.push(boundingBox)
     }
-    //player line of sight check
+
+    /* player line of sight check */
     {
       let line = new Line(this.gameObject.ship.transform.position.clone(), player.ship.transform.position.clone())
       let objects = game.gameObjects.gameObject.filter(obj => 
@@ -161,7 +175,6 @@ class NPC extends Person {
     let sortedSubtractedAngles = subtractedAngles.sort((a, b) => a - b)
     let indexOfClosestAngleToPlayerAngle = subtractedAngles.indexOf(subtractedAngles.find(a => a === Math.min(...subtractedAngles)))
     let closestAngle = angles[indexOfClosestAngleToPlayerAngle][0]
-    // console.log(closestAngle)
 
     //this block tries to get the boundingbox which is with its angle to the npc's ship closest to the angle the npc's ship has to the player
     {
@@ -185,11 +198,9 @@ class NPC extends Person {
 
       if(this.gameObject.ship.transform.position.isObjectRotationGreaterThanAngleToVector(nearestPositionBetweenPlayerAndShip, this.gameObject.ship.transform.rotation)) {
         this.gameObject.ship.rotate(-1)
-        // console.log("rotating CCW")
       }      
       else {
         this.gameObject.ship.rotate(1)
-        // console.log("rotating CW")
       }   
     }
     {
@@ -328,8 +339,17 @@ class NPC extends Person {
       this.gameObject.ship.decelerate()
     }
   }
-  static fireWeapon() {
+  static useWeapon() {
+    if(!this.gameObject.canUseAbility) return
     if(!this.gameObject.ship.weapons) return
+    
+    /* rotate the target position around the NPC's ship by up to 10 degrees, to achieve inaccuracy */
+    let 
+    ship = this.gameObject.ship
+    ship.targetPosition.rotateAround(
+      ship.transform.position, 
+      (TAU/360) * Random.int(2, 10) * Random.from(-1, 1)
+    )
     
     let weaponSystem = this.gameObject.ship.weapons
     if(!weaponSystem.activeWeapon.ready) 
@@ -349,15 +369,21 @@ class NPC extends Person {
       let event = {type: weaponSystem.activeWeapon.chargeMethod}
       weaponSystem.activeWeapon.handleInput.bind(weaponSystem.activeWeapon, event)()
     }
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
   }
   static useSkip() {
+    if(!this.gameObject.canUseAbility) return
     if(!this.gameObject.ship.skip.ready) return
+    if(!this.gameObject.target) return
 
     let targetPos = this.gameObject.target.transform.position
     let destination = targetPos.clone()
 
-    destination.x += 300
-    destination.y += 300
+    destination.x += 320
+    destination.y += 320
     destination.rotateAround(targetPos, Random.rotation())
 
     this.gameObject.ship.skip.activate(destination)
@@ -365,6 +391,29 @@ class NPC extends Person {
     /* this kinda randomizes when the next skip occurs */
     this.timers.skip.duration = Random.int(5000, 18000)
     this.timers.skip.start()
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
+  }
+  static useShields() {
+    if(!this.gameObject.canUseAbility) return
+    if(!this.gameObject.ship.shields.ready) return
+
+    let targets = Collision.broadphase(this.gameObject.ship.gameWorld, this.gameObject.ship, {solo: [Projectile]})
+    targets.forEach(target => {
+      if(!target.transform.position.isClose(300, this.gameObject.ship.transform.position)) return
+      if(target.owner === this.gameObject.ship) return
+
+      this.gameObject.ship.shields.activate(GameObject.angle(this.gameObject.ship, target))
+    })
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
+  }
+  static resetAbility() {
+    this.gameObject.canUseAbility = true
   }
   //#endregion
   //#region helper methods

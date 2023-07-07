@@ -198,6 +198,11 @@ class Sprite extends Component {
         length = 13
       }
       else
+      if(name.includes("shieldPulse")) {
+        url = "assets/shields/shieldPulse0000.png"
+        length = 8
+      }
+      else
       if(name.includes("weapons")) {
         spriteComponent.weapons = new PIXI.Container()
         spriteComponent.container.addChild(spriteComponent.weapons)

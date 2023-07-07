@@ -642,10 +642,219 @@
 <script src="js/dependencies/intersects.min.js"></script> <!-- 6.3.0 -->
 <script src="js/dependencies/vanilla-tilt.js"></script>   <!-- 6.3.0 -->
 
+<!-- load fonts -->
+<script src="js/loadFonts.js"></script>
+
+<!-- utility -->
+<script src="js/utility/constants.js"></script>
+<script src="js/utility/range.js"></script>
+<script src="js/utility/mathUtils.js"></script>
+<script src="js/utility/random.js"></script>
+<script src="js/utility/extensions.js"></script>
+<script src="js/utility/htmlMethods.js"></script>
+<script src="js/utility/rotation.js"></script>
+<script src="js/utility/vector.js"></script>
+<script src="js/utility/line.js"></script>
+<script src="js/utility/ease.js"></script>
+<script src="js/utility/debug.js"></script>
+<script src="js/utility/colors.js"></script>
+<script src="js/utility/visible.js"></script>
+<script src="js/utility/file.js"></script>
+<script src="js/utility/utility.js"></script>
+<script src="js/utility/state.js"></script>
+<script src="js/utility/switch.js"></script>
+<script src="js/utility/timer.js"></script>
+<script src="js/utility/tooltip.js"></script>
+<script src="js/utility/popupTooltip.js"></script>
+
+<!-- basic game structural elements -->
+<script src="js/gameStats.js"></script>
+<script src="js/gameWindow.js"></script>
+<script src="js/gameWorldWindow.js"></script>
+<script src="js/gameObject.js"></script>
+<script src="js/gameEvent.js"></script>
+
+<!-- data -->
+<script src="js/data/sources.js"></script>
+<script src="js/data/data.js"></script>
+<script src="js/data/dataObjectToLayerMap.js"></script>
+<script src="js/data/dataItem.js"></script>
+<script src="js/data/dataQuest.js"></script>
+<script src="js/data/dataPerson.js"></script>
+<script src="js/data/dataWeapon.js"></script>
+<script src="js/data/dataShip.js"></script>
+<script src="js/data/dataAsteroid.js"></script>
+<script src="js/data/dataCamera.js"></script>
+<script src="js/data/dataDebris.js"></script>
+<script src="js/data/dataStation.js"></script>
+<script src="js/data/dataSatellite.js"></script>
+<script src="js/data/dataStarSystem.js"></script>
+<script src="js/data/dataMapImage.js"></script>
+<script src="js/data/dataMapIcon.js"></script>
+<script src="js/data/dataProjectile.js"></script>
+<script src="js/data/dataUltraportBeacon.js"></script>
+<script src="js/data/dataHintGraphic.js"></script>
+<script src="js/data/dataExplosion.js"></script>
+<script src="js/data/dataParticle.js"></script>
+<script src="js/data/dataGameOverlay.js"></script>
+<script src="js/data/dataDecoration.js"></script>
+<script src="js/data/dataStatusEffect.js"></script>
+<script src="js/data/dataUIHintSequence.js"></script>
+<script src="js/data/dataQuotes.js"></script>
+<script src="js/data/preferences.js"></script>
+
+<!-- state machine -->
+<script src="js/stateMachine/stateMachine.js"></script>
+<script src="js/stateMachine/stateObject.js"></script>
+
+<!-- cutscenes -->
+<script src="js/cutscene/cutscene.js"></script>
+<script src="js/cutscene/imageSprite.js"></script>
+<script src="js/cutscene/cutsceneWindow.js"></script>
+<script src="js/cutscene/scenes.js"></script>
+
+<!-- interaction -->
+<script src="js/interaction/interaction.js"></script>
+<script src="js/interaction/collision.js"></script>
+<script src="js/interaction/interactionEvent.js"></script>
+<script src="js/interaction/interactionManager.js"></script>
+<script src="js/interaction/polygonBuilder.js"></script>
+<script src="js/interaction/polygon.js"></script>
+<script src="js/interaction/interactable.js"></script>
+
+<!-- components -->
+<script src="js/components/component.js"></script>
+<script src="js/components/transform.js"></script>
+<script src="js/components/sprite.js"></script>
+<script src="js/components/hitbox.js"></script>
+<script src="js/components/rigidbody.js"></script>
+<script src="js/components/reactor.js"></script>
+<script src="js/components/wreck.js"></script>
+
+<!-- ship systems -->
+<script src="js/components/shipSystems/shipSystem.js"></script>
+<script src="js/components/shipSystems/hullSystem.js"></script>
+<script src="js/components/shipSystems/stealthSystem.js"></script>
+<script src="js/components/shipSystems/engineSystem.js"></script>
+<script src="js/components/shipSystems/skipSystem.js"></script>
+<script src="js/components/shipSystems/boostersSystem.js"></script>
+<script src="js/components/shipSystems/brakeSystem.js"></script>
+<script src="js/components/shipSystems/cargoSystem.js"></script>
+<script src="js/components/shipSystems/shieldSystem.js"></script>
+<script src="js/components/shipSystems/weaponSystem.js"></script>
+<script src="js/components/shipSystems/weapon.js"></script>
+<script src="js/components/shipSystems/coater.js"></script>
+
+<!-- ui components -->
+<script src="js/ui/UIComponent.js"></script>
+<script src="js/ui/UISliderComponent.js"></script>
+<script src="js/ui/UIWeaponComponent.js"></script>
+<script src="js/ui/UILootingPopupComponent.js"></script>
+
+<!-- game objects -->
+<script src="js/gameObjects/projectile.js"></script>
+<script src="js/gameObjects/station.js"></script>
+<script src="js/gameObjects/satellite.js"></script>
+<script src="js/gameObjects/ship.js"></script>
+<script src="js/gameObjects/decorativeObject.js"></script>
+<script src="js/gameObjects/decoration.js"></script>
+<script src="js/gameObjects/asteroid.js"></script>
+<script src="js/gameObjects/debris.js"></script>
+<script src="js/gameObjects/cluster.js"></script>
+<script src="js/gameObjects/specialObjects.js"></script>
+<script src="js/gameObjects/gameOverlay.js"></script>
+<script src="js/gameObjects/continuousGraphic.js"></script>
+<script src="js/gameObjects/ultraportBeacon.js"></script>
+<script src="js/gameObjects/hintGraphic.js"></script>
+<script src="js/gameObjects/hint.js"></script>
+<script src="js/gameObjects/explosion.js"></script>
+<script src="js/gameObjects/fragment.js"></script>
+<script src="js/gameObjects/camera.js"></script>
+<script src="js/gameObjects/fogGenerator.js"></script>
+<script src="js/gameObjects/audioEmitter.js"></script>
+<script src="js/gameObjects/lightSource.js"></script>
+<script src="js/gameObjects/particle.js"></script>
+
+<!-- map -->
+<script src="js/map/starSystemDetail.js"></script>
+<script src="js/map/worldMap.js"></script>
+<script src="js/map/mapIcon.js"></script>
+<script src="js/map/mapImage.js"></script>
+<script src="js/map/mapLabel.js"></script>
+<script src="js/map/worldMarker.js"></script>
+
+<!-- quest -->
+<script src="js/quest/questNode.js"></script>
+<script src="js/quest/questDesigner.js"></script>
+
+<!-- status effects -->
+<script src="js/statusEffect.js"></script>
+
+<!-- dialogue -->
+<script src="js/dialogue/dialogueScreen.js"></script>
+<script src="js/dialogue/dialogueNode.js"></script>
+<script src="js/dialogue/dialogueEditor.js"></script>
+<script src="js/dialogue/factEditor.js"></script>
+<script src="js/dialogue/fact.js"></script>
+<script src="js/dialogue/criterion.js"></script>
+<script src="js/dialogue/requirement.js"></script>
+
+<!-- npc logic -->
+<script src="js/gameObjects/person.js"></script>
+<script src="js/gameObjects/npc.js"></script>
+<script src="js/gameObjects/player.js"></script>
+
+<!-- quest -->
+<script src="js/quest.js"></script>
+
+<!-- unsorted -->
+<script src="js/hitboxEditor.js"></script>
+<script src="js/locationEditor.js"></script>
+<script src="js/gameUI.js"></script>
+<script src="js/SVGManager.js"></script>
+<script src="js/logger.js"></script>
+<script src="js/spritePreprocessor.js"></script>
+<script src="js/creditScreen.js"></script>
+<script src="js/loadingScreen.js"></script>
+
+<!-- input -->
+<script src="js/input/binds.js"></script>
+<script src="js/input/mouse.js"></script>
+<script src="js/input/input.js"></script>
+
+<!-- fx -->
+<script src="js/fx/filterManager.js"></script>
+
+<!-- inventory -->
+<script src="js/inventory/inventory.js"></script>
+<script src="js/inventory/inventoryWindow.js"></script>
+<script src="js/inventory/item.js"></script>
+<script src="js/inventory/receivedItemModal.js"></script>
+
+<!-- sound -->
+<script src="js/sound/audioManager.js"></script>
+<script src="js/sound/audioClip.js"></script>
+
+<!-- main stuff -->
+<script src="js/grids.js"></script>
+<script src="js/tick.js"></script>
+<script src="js/game.js"></script>
+<script src="js/gameoverScreen.js"></script>
+<script src="js/settingsScreen.js"></script>
+<script src="js/pauseScreen.js"></script>
+<script src="js/startScreen.js"></script>
+<script src="js/saveConverter.js"></script>
+<script src="js/saveSelectScreen.js"></script>
+<script src="js/gameManager.js"></script>
+<script src="js/main.js"></script>
+<script src="js/init.js"></script>
+
+<script src="js/mergeScripts.js"></script>
+
 <!-- 
   this is a bundled javascript file WITHOUT dependencies in it, it's generated manually via the function in mergeScripts.js
   it's a really bad solution but better than not having a bundler
 -->
-<script src="js/app.js"></script>
+<!-- <script src="js/app.js"></script> -->
 </body>
 </html>

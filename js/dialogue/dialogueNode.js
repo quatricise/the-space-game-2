@@ -1,10 +1,11 @@
 class DialogueNode {
-  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null}, transfer, recipient) {
+  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null}, transfer, recipient) {
     this.id = id || uniqueID(dialogueEditor.nodes)
     this.pos = pos.clone()
     this.type = type
     this.speaker = speaker || null
     this.recipient = recipient || null
+    this.tree = options.tree ?? null
     this.text = text
     this.criteria = criteria ?? []
     this.factsToSet = options.factsToSet ?? []
@@ -14,73 +15,73 @@ class DialogueNode {
     }
     this.in = []
     this.out = []
-    this.transfer = transfer ?? [
-      {
-        owner: "player",
-        items: [""]
-      },
-      {
-        owner: "player",
-        items: [""]
-      }
-    ]
+    this.transfer = transfer ?? [{owner: "player", items: [""]}, {owner: "player", items: [""]}]
     dialogueEditor.nodes.push(this)
-    this["createHTML" + type.capitalize()]()
+
+    // this["createHTML" + type.capitalize()]()
+    this.createHTML()
+
     this.update()
     this.reorderOutputs()
   }
   drag() {
     this.pos.add(mouse.clientMoved)
   }
+  //#region create HTML
   createHTML() {
     /* header */
     let node =                El('div', "dialogue-node")
     let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Fact setter")
+    let nodeTitle =           El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
     let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
     let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
     let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
     let factCount =           El("div", "fact-count")
     let filler =              El("div", "filler")
+    let content =             El("div", "dialogue-node-content")
     
     /* sockets */
     let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
     let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
     let socketOut = El.special('node-socket-out')
     let socketIn = El.special('node-socket-in')
+    socketOut.dataset.index = this.out.length
 
-    this["createHTML" + type.capitalize()]()
+    /* append stuff */
+    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
+    node.append(header, content, factCount, wrapperOut, wrapperIn)
+    wrapperOut.append(socketOut)
+    wrapperIn.append(socketIn)
 
-    //wrap up
-    
-    //finish node creation
+    /* this is used for attaching the variable features of each specific node */
+    this.nodeHTMLContent = content
+
+    dialogueEditor.element.append(node)
+    this.element = node
+    node.dataset.id = this.id
+
+    /* nodetype-specific features */
+    this["createHTML" + this.type.capitalize()]()
+
+    /* attach thumbnails to speakers */
+    Array.from(this.element.querySelectorAll(".dialogue-node-speaker")).forEach(element => {
+      let 
+      thumbnail = new Image()
+      thumbnail.src = `assets/portraits/${element.innerText}.png`
+      thumbnail.style.height = "32px"
+      thumbnail.style.marginRight = "5px"
+      element.prepend(thumbnail)
+    })
   }
   createHTMLText() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let labels =              El("div", "dialogue-node-label-container")
-    let lieLabel =            El("div", "dialogue-node-label", [["title", "The player is lying"]], "Lie")
-    let exaggerateLabel =     El("div", "dialogue-node-label", [["title", "The player is exaggerating"]], "Exaggerate")
+    let labels =                El("div", "dialogue-node-label-container")
+    let lieLabel =              El("div", "dialogue-node-label", [["title", "The player is lying"]], "Lie")
+    let exaggerateLabel =       El("div", "dialogue-node-label", [["title", "The player is exaggerating"]], "Exaggerate")
+    let speaker =               El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
+    let text =                  El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
 
-    if(this.labels.lie)
-      lieLabel.classList.add("active")
-    if(this.labels.exaggerate)
-      exaggerateLabel.classList.add("active")
-
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
-    let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
-
-    socketOut.dataset.index = this.out.length
+    if(this.labels.lie)         lieLabel.classList.add("active")
+    if(this.labels.exaggerate)  exaggerateLabel.classList.add("active")
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -89,68 +90,21 @@ class DialogueNode {
     lieLabel.dataset.nodelabel = "lie"
     exaggerateLabel.dataset.nodelabel = "exaggerate"
 
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
     labels.append(lieLabel, exaggerateLabel)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, labels, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text, labels)
   }
   createHTMLPass() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
 
-    socketOut.dataset.index = this.out.length
-
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLWhisper() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let recipient = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.recipient)
-
     let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
-
-    socketOut.dataset.index = this.out.length
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -158,67 +112,22 @@ class DialogueNode {
     recipient.dataset.id = this.id
     text.dataset.editable = "true"
     text.dataset.datatype = "text"
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.dataset.id = this.id
-    node.append(header, speaker, recipient, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, recipient, text)
   }
   createHTMLResponsePicker() {
-    let node = El('div', "dialogue-node")
-    let header = El('div', "dialogue-node-header")
-    let widgetDrag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList = El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount = El("div", "fact-count")
 
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    
-    let socketIn = El.special('node-socket-in')
-    let socketOut = El.special('node-socket-out')
-
-    socketOut.dataset.index = this.out.length
-    node.dataset.id = this.id
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.append(header, factCount, wrapperIn, wrapperOut )
-
-    dialogueEditor.element.append(node)
-    this.element = node
   }
   createHTMLTransfer() {
-    let node = El('div', "dialogue-node")
-    let header = El('div', "dialogue-node-header")
-    let widgetDrag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])    
-    let nodeTitle =  El('div', "dialogue-node-title", undefined, "Transfer")
-    let widgetRemove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList = El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount = El("div", "fact-count")
-    let filler =    El("div", "filler")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-
-    let socketIn = El.special('node-socket-in')
-    let socketOut = El.special('node-socket-out')
-
     let cont = El('div', "dialogue-node-transfer-container")
-
-    //create the person rows
+    /* create the person rows */
     for(let i = 0; i < 2; i++) {
-      let row = El("div", "dialogue-node-transfer")
-      let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Owner of these items"]])
-      let itemCont = El("div", "dialogue-node-item-container")
-      let icon = El("div", "dialogue-node-icon plus hover-dark-02")
+      let row =       El("div", "dialogue-node-transfer")
+      let speaker =   El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Owner of these items"]])
+      let itemCont =  El("div", "dialogue-node-item-container")
+      let icon =      El("div", "dialogue-node-icon plus hover-dark-02")
       let addButton = El("div", "dialogue-node-add-item",  [["title", "Add new item slot"]])
 
-      //for each item in both rows of transfer, add an item element into this array
+      /* for each item in both rows of transfer, add an item element into this array */
       let items = this.transfer[i].items.map(() => {
         return El("div", "dialogue-node-item empty", [["title", "Click to select an item"]])
       })
@@ -251,85 +160,28 @@ class DialogueNode {
       row.append(speaker, itemCont)
       cont.append(row)
     }
-
-    socketOut.dataset.index = this.out.length
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, factCount, cont, wrapperIn, wrapperOut)
-
-    dialogueEditor.element.append(node)
-    this.element = node
-    console.log(node)
+    this.nodeHTMLContent.append(cont)
   }
   createHTMLAggression() {
-    let node =                El('div', "dialogue-node aggression")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Aggression")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker turns on you. This ends the dialogue.")
-
-    socketOut.dataset.index = this.out.length
-
+    let text =    El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker turns on you. This ends the dialogue.")
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLFactSetter() {
-    /* header */
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Fact setter")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-
-    let factContainer =       El("div", "dialogue-node-fact-container")
-    let addFactButton =       El("div", "dialogue-node-add-fact-button ui-graphic")
-
-    let wrapperOut =          El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  =          El('div', "dialogue-node-socket-wrapper in")
-    let socketOut =           El.special('node-socket-out')
-    let socketIn =            El.special('node-socket-in')
-
-    socketOut.dataset.index = this.out.length
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, factContainer, addFactButton, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
-
+    let factContainer = El("div", "dialogue-node-fact-container")
+    let addFactButton = El("div", "dialogue-node-add-fact-button ui-graphic")
+    this.nodeHTMLContent.append(factContainer, addFactButton)
     this.refreshHTML()
   }
+  createHTMLTree() {
+    let text = El('div', "dialogue-node-row dialogue-node-tree-row", [["title", "Text"]], "Select node tree.")
+    text.dataset.datatype = "nodeTree"
+    text.dataset.editable = "true"
+    this.nodeHTMLContent.append(text)
+  }
+  //#endregion create HTML
   addSetterFact(id, identifier = "fact_identifier", value = true) {
     this.factsToSet.push(Fact.createSetterFact(id, identifier, value))
     this.refreshHTML()
@@ -356,6 +208,37 @@ class DialogueNode {
     this.factsToSet.splice(index, 1)
     this.refreshHTML()
   }
+  setNodeTree(textField, treeName) {
+    fetch(`data/dialogue/${treeName}.json`)
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(nodes => {
+          /* find exit nodes */
+          let exitNodes = nodes.filter(n => n.out.length === 0)
+          
+          /* delete sockets */
+          let sockets = Array.from(this.element.querySelectorAll(".dialogue-node-socket.out"))
+          sockets.forEach(s => s.remove())
+
+          /* create new sockets */
+          for (let i = 0; i < exitNodes.length; i++) {
+            let socketOut = El.special('node-socket-out')
+            socketOut.dataset.index = i
+            socketOut.title = exitNodes[i].type.capitalize().splitCamelCase() + " - " + exitNodes[i].text
+            this.element.querySelector(".dialogue-node-socket-wrapper.out").append(socketOut)
+          }
+          let rect = this.element.querySelector(".dialogue-node-socket-wrapper.out").getBoundingClientRect()
+          this.element.style.minWidth = rect.width + 25 + "px"
+        })
+        this.tree = treeName
+        textField.innerText = treeName
+      }
+      else {
+        textField.innerText = this.tree ?? "Select node tree."
+        alert("Dialogue tree not found.")
+      }
+    })
+  }
   refreshHTML() {
     this[`refresh${this.type.capitalize()}HTML`]()
   }
@@ -364,6 +247,9 @@ class DialogueNode {
     this.factsToSet.forEach((fact, index) => this.createSetterFactHTML(index, fact.identifier, fact.value))
   }
   reorderOutputs() {
+    /* trees have a fixed number of outputs based on the exit node count inside*/
+    if(this.type === "tree") return
+
     let sockets = Array.from(this.element.querySelectorAll(".dialogue-node-socket.out"))
     sockets.forEach(s => s.remove())
 
@@ -379,12 +265,30 @@ class DialogueNode {
       node.index = index
     })
   }
-  createConnection(to) {
-    if(this.type !== "responsePicker") 
+  createConnection(to, treeOutputIndex) {
+    /* delete other outputs unless it's a special type of node */
+    if(this.type !== "responsePicker" && this.type !== "tree")
       this.deleteOut()
+    
+    /* return if the connection already exists */
     if(to.in.find(connection => connection.from.id === this.id)) return
     if(to.out.find(connection => connection.to.id === this.id)) return
-    let index = this.out.length
+
+    let index
+    if(this.type === "tree") {
+      index = treeOutputIndex
+      /* delete connection from this socket if it exists */
+      let conn = this.out.find(conn => conn.index === treeOutputIndex)
+      if(conn) {
+        let to = dialogueEditor.nodes.find(node => node.id === conn.to.id)
+        let destinationRef = to.in.find(conn => conn.from.id === this.id)
+        to.in.remove(destinationRef)
+        this.out.remove(conn)
+      }
+    }
+    else {
+      index = this.out.length
+    }
     let conn = {to, index}
     this.out.push(conn)
 
@@ -428,7 +332,8 @@ class DialogueNode {
     this.deleteOut()
     this.element.remove()
     dialogueEditor.unsetActiveNode()
-    dialogueEditor.nodes = dialogueEditor.nodes.filter(node => node !== this)
+    dialogueEditor.nodes.remove(this)
+    dialogueEditor.reconstructHTML()
   }
   static types = [
     "text",
@@ -438,5 +343,6 @@ class DialogueNode {
     "pass",
     "aggression",
     "factSetter",
+    "tree"
   ]
 }

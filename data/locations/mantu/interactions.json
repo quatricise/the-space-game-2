@@ -106,7 +106,7 @@
       "interactionData": {
         "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
         "interactionDelay": 2000,
-        "doOnEnter":  ["triggerAudioCall", "addUIHandler", "showHint"],
+        "doOnEnter":  ["triggerAudioCall", "addUIHandler", "showHint", "createInteraction"],
         "doOnLeave":  ["destroyInteractable"],
         "doOnDestroy":["removeUIHandler"],
         "UIHandlerData": {
@@ -115,6 +115,7 @@
           "onTrigger": "createInteraction",
           "interactionId": "al_and_betty_turn_hostile"
         },
+        "newInteractionId": "al_and_betty_hostile_on_decline_call",
         "hintData": {
           "hintText": "", 
           "hintType": "static", 
@@ -156,6 +157,24 @@
           }
         },
         "newInteractionId": "show_thank_you_panel",
+        "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1300, "b": 1300}}
+      }
+    },
+    {
+      "interactionId": "al_and_betty_hostile_on_decline_call",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": false, "conditional": true},
+      "interactionData": {
+        "trigger" :   {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "interactionDelay": 0,
+        "doOnEnter":  ["addUIHandler"],
+        "doOnDestroy":["removeUIHandler", "createInteraction"],
+        "UIHandlerData": {
+          "eventType": "mousedown",
+          "elementSelector": "#decline-call-button",
+          "onTrigger": "destroyInteractable",
+          "interactionId": "al_and_betty_turn_hostile"
+        },
         "hitbox" : {"type": "box", "filename": null, "definition": {"a": 1300, "b": 1300}}
       }
     },

@@ -54,22 +54,22 @@ class ShieldSystem extends ShipSystem {
     this.hitbox = new CircleHitbox(this.gameObject, this.shieldData.distance, colors.hitbox.shields)
   }
   //#endregion
-  activate() {
-    this[this.type + "Activate"]()
+  activate(...params) {
+    this[this.type + "Activate"](...params)
   }
   //#region shield type specific methods
   pulse() {
     
   }
-  pulseActivate() {
+  pulseActivate(NPCShipAngle) {
     if(!this.ready) return
 
     this.ready = false
-    this.pulseUpdateSprites()
-    this.pulseTestCollision()
+    this.pulseUpdateSprites(NPCShipAngle)
+    this.pulseTestCollision(NPCShipAngle)
     this.timers.pulseRecharge.start()
   }
-  pulseUpdateSprites() {
+  pulseUpdateSprites(NPCShipAngle) {
     this.gameObject.sprite.shieldCharge.renderable = false
 
     let sprite = this.gameObject.sprite.shieldPulse
@@ -80,12 +80,28 @@ class ShieldSystem extends ShipSystem {
     sprite.animationSpeed = 0.25
     sprite.gotoAndPlay(0)
     sprite.loop = false
-    sprite.rotation = mouse.shipAngle
+    if(this.gameObject === player.ship) 
+      sprite.rotation = mouse.shipAngle
+    else
+      {
+        sprite.rotation = NPCShipAngle
+        console.log(NPCShipAngle)
+      }
+
     sprite.onComplete = () => sprite.renderable = false
   }
-  pulseTestCollision() {
-    let minAngle = mouse.shipAngle - this.shieldData.arcLength/2
-    let maxAngle = mouse.shipAngle + this.shieldData.arcLength/2
+  pulseTestCollision(NPCShipAngle) {
+    let minAngle = 0 - this.shieldData.arcLength/2
+    let maxAngle = 0 + this.shieldData.arcLength/2
+
+    if(this.gameObject === player.ship) {
+      minAngle += mouse.shipAngle
+      maxAngle += mouse.shipAngle
+    }
+    else {
+      minAngle += NPCShipAngle
+      maxAngle += NPCShipAngle
+    }
 
     let targets = Collision.broadphase(this.gameObject.gameWorld, this.gameObject, {exclude: [Interactable]})
     targets.forEach(target => {
@@ -132,8 +148,11 @@ class ShieldSystem extends ShipSystem {
       object.handleImpact(CollisionEvent.fakeEvent(1, 100))
     }
 
-    if(object instanceof Projectile)
+    if(object instanceof Projectile) {
       object.owner = null
+      object.target = null
+    }
+      
 
     object.transform.velocity.add(velocity)
   }

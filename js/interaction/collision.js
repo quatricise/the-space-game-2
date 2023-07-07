@@ -62,6 +62,7 @@ class Collision {
     let cellPosition = usedGrid === navMeshGrid ? "navCellPosition" : "cellPosition"
 
     let objects = []
+    
     main_broadphase:
     for(let i = 0; i < world.gameObjects.gameObject.length; i++) {
       let other = world.gameObjects.gameObject[i]

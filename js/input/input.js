@@ -60,3 +60,67 @@ function handleGlobalInput(e) {
   updateKeys(e)
   gameManager.handleInput(e)
 }
+
+class Input {
+  /* an array of simplified event representations */
+  static record = []            
+  /* time difference from the last event recorded */
+  static eventRecordTimestamp = 0 
+  static get something() {
+
+  }
+  static listener(e) {
+    if(this.record.length === 0) {
+      this.eventRecordTimestamp = Date.now()
+      console.log("empty record")
+    }
+    
+    let delay = Date.now() - this.eventRecordTimestamp
+    this.eventRecordTimestamp = Date.now()
+
+    let event = {
+      type:         e.type,
+      targetId:     e.target?.id,
+      targetClass:  e.target?.classList[0],
+      code:         e.code,
+      delay:        delay 
+    }
+    this.record.push(event)
+  }
+  static startRecording() {
+    this.record = []
+    document.addEventListener("keydown", this.listener.bind(this), false)
+    document.addEventListener("mousedown", this.listener.bind(this), false)
+  }
+  static stopRecording() {
+    document.removeEventListener("keydown", this.listener)
+    document.removeEventListener("mousedown", this.listener)
+    this.generateReplayFunction()
+  }
+  static generateReplayFunction() {
+    const createEventFunction = (record) => {
+      let text = ""
+      switch(record.type) {
+        case "keydown": {
+          text += `
+            let ev = new Event("keydown")
+            ev.code = ${record.code}
+            document.body.dispatchEvent()
+          `
+          break
+        }
+        case "mousedown": {
+          text += `Q(${record.targetId ? "#" + record.targetId : "." + record.targetClass}).click()`
+          break
+        }
+        default: {break}
+      }
+      text += `\n waitFor(${record.delay})`
+      return text
+    }
+    let func = `async () => {
+      ${this.record.map(createEventFunction).join("\n")}
+    }`
+    console.log(func) 
+  }
+}

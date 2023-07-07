@@ -119,7 +119,7 @@ class Game extends GameWorldWindow {
     if(event.code === binds.openMap)            this.toggleLocalMap()
     if(event.code === binds.pause)              gameManager.togglePause()
     if(event.code === binds.openInventory)      {gameManager.setWindow(inventory); inventory.viewInventoryTab("inventory")}
-    if(event.code === binds.openDialogueScreen) {gameManager.setWindow(dialogueScreen); dialogueScreen.setTab("logs")}
+    if(event.code === binds.openDialogueScreen) {gameManager.setWindow(dialogueScreen)}
     if(event.code === binds.openWorldMap)       gameManager.setWindow(map)
   }
   handleKeyup(event) {

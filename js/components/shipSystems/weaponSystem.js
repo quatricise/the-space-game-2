@@ -86,7 +86,7 @@ class WeaponSystem extends ShipSystem {
     })
     this.gameObject.sprite.weapons.children = this.gameObject.sprite.weapons.children.filter((c, i) => indices.findChild(i) == null)
     this.weapons = this.weapons.filter(weapon => !weapon.canBeDismounted)
-    console.log(this.weapons, this.slots)
+    // console.log(this.weapons, this.slots)
   }
   removeWeapon(weapon) {
     throw "unfinished function"

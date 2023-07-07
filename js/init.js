@@ -1,19 +1,28 @@
 /* sets of commands I can easily switch between to make it easier to do stuff */
 const initMacros = {
-  openDialogueEditor() {
+  async openDialogueEditor() {
     gameManager.setWindow(dialogueEditor)
   },
-  loadGame() {
+  async loadGame() {
     gameManager.loadStartingLocation()
   },
-  startIntroDialogue() {
+  async startIntroDialogue() {
     gameManager.setWindow(game)
     gameManager.setWindow(dialogueScreen)
     dialogueScreen.load("intro-king_and_ada")
   },
-  openMap() {
+  async openMap() {
     gameManager.setWindow(game)
+    await waitFor(1000)
     gameManager.setWindow(map)
+  },
+  async loadKreos() {
+    gameManager.loadStartingLocation()
+    await waitFor(4000)
+    gameManager.loadLocation("mantu")
+    await waitFor(2000)
+    player.ship.transform.position.setFrom(game.gameObjects.npc[0].ship.transform.position)
+    game.updateGameObjects(true)
   },
 };
 
@@ -32,4 +41,7 @@ const initMacros = {
   Q("#ship-graphic").classList.add(gameManager.playerData.shipName)
   Q("#ship-skip-charge-icon").classList.add(gameManager.playerData.shipName)
   gameUI.toggleDevIcons()
+
+  /* macro */
+  initMacros.openDialogueEditor()
 })();

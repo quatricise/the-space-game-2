@@ -83,9 +83,9 @@ data.ship["theGrandMoth"] = {
     levelMax: 5,
     power: 0,
     shieldData: {
-      distance: 250,
+      distance: 400,
       pulseStrength: 1000,
-      arcLength: PI/2, 
+      arcLength: PI/1.2, 
       rechargeTimeMS: 1800,
     }
   },
@@ -186,13 +186,15 @@ data.ship["waspFighter"] = {
     powerDistribution: [],
   },
   shields: {
-    type: "hardLight",
+    type: "pulse",
     level: 1,
     levelMax: 5,
     power: 0,
     shieldData: {
-      disposition: "front",
-      distance: 250,
+      distance: 320,
+      pulseStrength: 1000,
+      arcLength: PI/1.2, 
+      rechargeTimeMS: 1800,
     }
   },
   skip: {},
@@ -288,13 +290,15 @@ data.ship["waspFighterII"] = {
     powerDistribution: [],
   },
   shields: {
-    type: "hardLight",
+    type: "pulse",
     level: 1,
     levelMax: 5,
     power: 0,
     shieldData: {
-      disposition: "front",
-      distance: 250,
+      distance: 320,
+      pulseStrength: 1000,
+      arcLength: PI/1.2, 
+      rechargeTimeMS: 1800,
     }
   },
   skip: {},

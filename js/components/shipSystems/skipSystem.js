@@ -28,6 +28,10 @@ class SkipSystem extends ShipSystem {
     this.gameObject.transform.velocity.set(0)
     this.gameObject.enterVoid()
     this.gameObject.sprite.vwbOutline.renderable = false
+
+    if(this.gameObject !== player?.ship)
+      this.gameObject.sprite.container.visible = false
+
     this.playTravelAnimation(destination)
     this.gameObject.sprite.container.filters = [filters.vwb, filters.glitch]
 
@@ -84,6 +88,9 @@ class SkipSystem extends ShipSystem {
     setTimeout(() => {
       this.gameObject.state.ifrevert("skipping")
     }, SkipSystem.shipImmobilizeTime)
+
+    if(this.gameObject !== player?.ship)
+      this.gameObject.sprite.container.visible = true
   }
   moveGameObject() {
     this.gameObject.transform.position.set(
