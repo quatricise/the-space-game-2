@@ -2411,6 +2411,7 @@ let sources = {
           "shieldHardLightFront",
           "vwbOutline",
           "glow",
+          "shieldPulse8",
           "flameLow4",
           "flameMedium4",
           "flameHigh4",
@@ -2439,6 +2440,7 @@ let sources = {
           "shieldHardLightFront",
           "vwbOutline",
           "glow",
+          "shieldPulse8",
           "flameLow4",
           "flameMedium4",
           "flameHigh4",
@@ -4488,11 +4490,12 @@ data.weapon = {
         this.destroyLaserPrefireSprites()
 
         let spriteSize = 64
+        let spriteCount = 30
         let angle = this.gameObject.transform.rotation
         let offsetVector = Vector.fromAngle(angle).mult(spriteSize)
         let startingPosition = this.getWeaponFireOrigin()
 
-        for(let i = 0; i < 20; i++) {
+        for(let i = 0; i < spriteCount; i++) {
           let position = startingPosition.clone().add(offsetVector.clone().mult(i))
           let sprite = new PIXI.Sprite.from(`assets/weaponFX/laserFirePrefire.png`)
               sprite.anchor.set(0.5)
@@ -4741,9 +4744,9 @@ data.ship["theGrandMoth"] = {
     levelMax: 5,
     power: 0,
     shieldData: {
-      distance: 250,
+      distance: 400,
       pulseStrength: 1000,
-      arcLength: PI/2, 
+      arcLength: PI/1.2, 
       rechargeTimeMS: 1800,
     }
   },
@@ -4844,13 +4847,15 @@ data.ship["waspFighter"] = {
     powerDistribution: [],
   },
   shields: {
-    type: "hardLight",
+    type: "pulse",
     level: 1,
     levelMax: 5,
     power: 0,
     shieldData: {
-      disposition: "front",
-      distance: 250,
+      distance: 320,
+      pulseStrength: 1000,
+      arcLength: PI/1.2, 
+      rechargeTimeMS: 1800,
     }
   },
   skip: {},
@@ -4946,13 +4951,15 @@ data.ship["waspFighterII"] = {
     powerDistribution: [],
   },
   shields: {
-    type: "hardLight",
+    type: "pulse",
     level: 1,
     levelMax: 5,
     power: 0,
     shieldData: {
-      disposition: "front",
-      distance: 250,
+      distance: 320,
+      pulseStrength: 1000,
+      arcLength: PI/1.2, 
+      rechargeTimeMS: 1800,
     }
   },
   skip: {},
@@ -7978,6 +7985,7 @@ class Collision {
     let cellPosition = usedGrid === navMeshGrid ? "navCellPosition" : "cellPosition"
 
     let objects = []
+    
     main_broadphase:
     for(let i = 0; i < world.gameObjects.gameObject.length; i++) {
       let other = world.gameObjects.gameObject[i]
@@ -9008,6 +9016,11 @@ class Sprite extends Component {
       if(name.includes("travelAnimation")) {
         url = "assets/travelAnimation/travelAnimation0000.png"
         length = 13
+      }
+      else
+      if(name.includes("shieldPulse")) {
+        url = "assets/shields/shieldPulse0000.png"
+        length = 8
       }
       else
       if(name.includes("weapons")) {
@@ -10055,6 +10068,10 @@ class SkipSystem extends ShipSystem {
     this.gameObject.transform.velocity.set(0)
     this.gameObject.enterVoid()
     this.gameObject.sprite.vwbOutline.renderable = false
+
+    if(this.gameObject !== player?.ship)
+      this.gameObject.sprite.container.visible = false
+
     this.playTravelAnimation(destination)
     this.gameObject.sprite.container.filters = [filters.vwb, filters.glitch]
 
@@ -10111,6 +10128,9 @@ class SkipSystem extends ShipSystem {
     setTimeout(() => {
       this.gameObject.state.ifrevert("skipping")
     }, SkipSystem.shipImmobilizeTime)
+
+    if(this.gameObject !== player?.ship)
+      this.gameObject.sprite.container.visible = true
   }
   moveGameObject() {
     this.gameObject.transform.position.set(
@@ -10362,22 +10382,22 @@ class ShieldSystem extends ShipSystem {
     this.hitbox = new CircleHitbox(this.gameObject, this.shieldData.distance, colors.hitbox.shields)
   }
   //#endregion
-  activate() {
-    this[this.type + "Activate"]()
+  activate(...params) {
+    this[this.type + "Activate"](...params)
   }
   //#region shield type specific methods
   pulse() {
     
   }
-  pulseActivate() {
+  pulseActivate(NPCShipAngle) {
     if(!this.ready) return
 
     this.ready = false
-    this.pulseUpdateSprites()
-    this.pulseTestCollision()
+    this.pulseUpdateSprites(NPCShipAngle)
+    this.pulseTestCollision(NPCShipAngle)
     this.timers.pulseRecharge.start()
   }
-  pulseUpdateSprites() {
+  pulseUpdateSprites(NPCShipAngle) {
     this.gameObject.sprite.shieldCharge.renderable = false
 
     let sprite = this.gameObject.sprite.shieldPulse
@@ -10388,12 +10408,28 @@ class ShieldSystem extends ShipSystem {
     sprite.animationSpeed = 0.25
     sprite.gotoAndPlay(0)
     sprite.loop = false
-    sprite.rotation = mouse.shipAngle
+    if(this.gameObject === player.ship) 
+      sprite.rotation = mouse.shipAngle
+    else
+      {
+        sprite.rotation = NPCShipAngle
+        console.log(NPCShipAngle)
+      }
+
     sprite.onComplete = () => sprite.renderable = false
   }
-  pulseTestCollision() {
-    let minAngle = mouse.shipAngle - this.shieldData.arcLength/2
-    let maxAngle = mouse.shipAngle + this.shieldData.arcLength/2
+  pulseTestCollision(NPCShipAngle) {
+    let minAngle = 0 - this.shieldData.arcLength/2
+    let maxAngle = 0 + this.shieldData.arcLength/2
+
+    if(this.gameObject === player.ship) {
+      minAngle += mouse.shipAngle
+      maxAngle += mouse.shipAngle
+    }
+    else {
+      minAngle += NPCShipAngle
+      maxAngle += NPCShipAngle
+    }
 
     let targets = Collision.broadphase(this.gameObject.gameWorld, this.gameObject, {exclude: [Interactable]})
     targets.forEach(target => {
@@ -10440,8 +10476,11 @@ class ShieldSystem extends ShipSystem {
       object.handleImpact(CollisionEvent.fakeEvent(1, 100))
     }
 
-    if(object instanceof Projectile)
+    if(object instanceof Projectile) {
       object.owner = null
+      object.target = null
+    }
+      
 
     object.transform.velocity.add(velocity)
   }
@@ -10660,7 +10699,7 @@ class WeaponSystem extends ShipSystem {
     })
     this.gameObject.sprite.weapons.children = this.gameObject.sprite.weapons.children.filter((c, i) => indices.findChild(i) == null)
     this.weapons = this.weapons.filter(weapon => !weapon.canBeDismounted)
-    console.log(this.weapons, this.slots)
+    // console.log(this.weapons, this.slots)
   }
   removeWeapon(weapon) {
     throw "unfinished function"
@@ -11272,18 +11311,14 @@ class Projectile extends GameObject {
     let objectData = data.projectile[name]
     this.type = "projectile"
     this.name = name
-
     this.impactDamage = objectData.impactDamage
     this.speed = objectData.speed
     this.owner = owner
     this.target = target
-
     this.mass = objectData.mass
     this.lifeMax = objectData.life
     this.life = objectData.life
-
     this.projectileData = objectData.projectileData
-
     this.components = [
       "sprite",
       "hitbox",
@@ -14770,12 +14805,13 @@ class DialogueScreen extends GameWindow {
   static highlightFilter =  "saturate(1.1)   brightness(1.3)"
 }
 class DialogueNode {
-  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null}, transfer, recipient) {
+  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null}, transfer, recipient) {
     this.id = id || uniqueID(dialogueEditor.nodes)
     this.pos = pos.clone()
     this.type = type
     this.speaker = speaker || null
     this.recipient = recipient || null
+    this.tree = options.tree ?? null
     this.text = text
     this.criteria = criteria ?? []
     this.factsToSet = options.factsToSet ?? []
@@ -14785,73 +14821,73 @@ class DialogueNode {
     }
     this.in = []
     this.out = []
-    this.transfer = transfer ?? [
-      {
-        owner: "player",
-        items: [""]
-      },
-      {
-        owner: "player",
-        items: [""]
-      }
-    ]
+    this.transfer = transfer ?? [{owner: "player", items: [""]}, {owner: "player", items: [""]}]
     dialogueEditor.nodes.push(this)
-    this["createHTML" + type.capitalize()]()
+
+    // this["createHTML" + type.capitalize()]()
+    this.createHTML()
+
     this.update()
     this.reorderOutputs()
   }
   drag() {
     this.pos.add(mouse.clientMoved)
   }
+  //#region create HTML
   createHTML() {
     /* header */
     let node =                El('div', "dialogue-node")
     let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Fact setter")
+    let nodeTitle =           El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
     let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
     let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
     let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
     let factCount =           El("div", "fact-count")
     let filler =              El("div", "filler")
+    let content =             El("div", "dialogue-node-content")
     
     /* sockets */
     let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
     let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
     let socketOut = El.special('node-socket-out')
     let socketIn = El.special('node-socket-in')
+    socketOut.dataset.index = this.out.length
 
-    this["createHTML" + type.capitalize()]()
+    /* append stuff */
+    header.append(widgetRemove, widgetDrag, filler, nodeTitle)
+    node.append(header, content, factCount, wrapperOut, wrapperIn)
+    wrapperOut.append(socketOut)
+    wrapperIn.append(socketIn)
 
-    //wrap up
-    
-    //finish node creation
+    /* this is used for attaching the variable features of each specific node */
+    this.nodeHTMLContent = content
+
+    dialogueEditor.element.append(node)
+    this.element = node
+    node.dataset.id = this.id
+
+    /* nodetype-specific features */
+    this["createHTML" + this.type.capitalize()]()
+
+    /* attach thumbnails to speakers */
+    Array.from(this.element.querySelectorAll(".dialogue-node-speaker")).forEach(element => {
+      let 
+      thumbnail = new Image()
+      thumbnail.src = `assets/portraits/${element.innerText}.png`
+      thumbnail.style.height = "32px"
+      thumbnail.style.marginRight = "5px"
+      element.prepend(thumbnail)
+    })
   }
   createHTMLText() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let labels =              El("div", "dialogue-node-label-container")
-    let lieLabel =            El("div", "dialogue-node-label", [["title", "The player is lying"]], "Lie")
-    let exaggerateLabel =     El("div", "dialogue-node-label", [["title", "The player is exaggerating"]], "Exaggerate")
+    let labels =                El("div", "dialogue-node-label-container")
+    let lieLabel =              El("div", "dialogue-node-label", [["title", "The player is lying"]], "Lie")
+    let exaggerateLabel =       El("div", "dialogue-node-label", [["title", "The player is exaggerating"]], "Exaggerate")
+    let speaker =               El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
+    let text =                  El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
 
-    if(this.labels.lie)
-      lieLabel.classList.add("active")
-    if(this.labels.exaggerate)
-      exaggerateLabel.classList.add("active")
-
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
-    let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
-
-    socketOut.dataset.index = this.out.length
+    if(this.labels.lie)         lieLabel.classList.add("active")
+    if(this.labels.exaggerate)  exaggerateLabel.classList.add("active")
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -14860,68 +14896,21 @@ class DialogueNode {
     lieLabel.dataset.nodelabel = "lie"
     exaggerateLabel.dataset.nodelabel = "exaggerate"
 
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
     labels.append(lieLabel, exaggerateLabel)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, labels, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text, labels)
   }
   createHTMLPass() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
 
-    socketOut.dataset.index = this.out.length
-
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLWhisper() {
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let recipient = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.recipient)
-
     let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
-
-    socketOut.dataset.index = this.out.length
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -14929,67 +14918,22 @@ class DialogueNode {
     recipient.dataset.id = this.id
     text.dataset.editable = "true"
     text.dataset.datatype = "text"
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.dataset.id = this.id
-    node.append(header, speaker, recipient, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, recipient, text)
   }
   createHTMLResponsePicker() {
-    let node = El('div', "dialogue-node")
-    let header = El('div', "dialogue-node-header")
-    let widgetDrag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList = El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount = El("div", "fact-count")
 
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    
-    let socketIn = El.special('node-socket-in')
-    let socketOut = El.special('node-socket-out')
-
-    socketOut.dataset.index = this.out.length
-    node.dataset.id = this.id
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-    header.append(widgetRemove, widgetDrag, widgetList)
-    node.append(header, factCount, wrapperIn, wrapperOut )
-
-    dialogueEditor.element.append(node)
-    this.element = node
   }
   createHTMLTransfer() {
-    let node = El('div', "dialogue-node")
-    let header = El('div', "dialogue-node-header")
-    let widgetDrag = El("div", "dialogue-node-widget drag", [["title", "Drag node"]])    
-    let nodeTitle =  El('div', "dialogue-node-title", undefined, "Transfer")
-    let widgetRemove = El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList = El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount = El("div", "fact-count")
-    let filler =    El("div", "filler")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-
-    let socketIn = El.special('node-socket-in')
-    let socketOut = El.special('node-socket-out')
-
     let cont = El('div', "dialogue-node-transfer-container")
-
-    //create the person rows
+    /* create the person rows */
     for(let i = 0; i < 2; i++) {
-      let row = El("div", "dialogue-node-transfer")
-      let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Owner of these items"]])
-      let itemCont = El("div", "dialogue-node-item-container")
-      let icon = El("div", "dialogue-node-icon plus hover-dark-02")
+      let row =       El("div", "dialogue-node-transfer")
+      let speaker =   El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Owner of these items"]])
+      let itemCont =  El("div", "dialogue-node-item-container")
+      let icon =      El("div", "dialogue-node-icon plus hover-dark-02")
       let addButton = El("div", "dialogue-node-add-item",  [["title", "Add new item slot"]])
 
-      //for each item in both rows of transfer, add an item element into this array
+      /* for each item in both rows of transfer, add an item element into this array */
       let items = this.transfer[i].items.map(() => {
         return El("div", "dialogue-node-item empty", [["title", "Click to select an item"]])
       })
@@ -15022,85 +14966,28 @@ class DialogueNode {
       row.append(speaker, itemCont)
       cont.append(row)
     }
-
-    socketOut.dataset.index = this.out.length
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, factCount, cont, wrapperIn, wrapperOut)
-
-    dialogueEditor.element.append(node)
-    this.element = node
-    console.log(node)
+    this.nodeHTMLContent.append(cont)
   }
   createHTMLAggression() {
-    let node =                El('div', "dialogue-node aggression")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Aggression")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-    
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
-
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker turns on you. This ends the dialogue.")
-
-    socketOut.dataset.index = this.out.length
-
+    let text =    El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker turns on you. This ends the dialogue.")
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, speaker, text, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
+    this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLFactSetter() {
-    /* header */
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, "Fact setter")
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-
-    let factContainer =       El("div", "dialogue-node-fact-container")
-    let addFactButton =       El("div", "dialogue-node-add-fact-button ui-graphic")
-
-    let wrapperOut =          El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  =          El('div', "dialogue-node-socket-wrapper in")
-    let socketOut =           El.special('node-socket-out')
-    let socketIn =            El.special('node-socket-in')
-
-    socketOut.dataset.index = this.out.length
-
-    wrapperOut.append(socketOut)
-    wrapperIn.append(socketIn)
-
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
-    node.dataset.id = this.id
-    node.append(header, factContainer, addFactButton, factCount, wrapperOut, wrapperIn )
-
-    dialogueEditor.element.append(node)
-    this.element = node
-
+    let factContainer = El("div", "dialogue-node-fact-container")
+    let addFactButton = El("div", "dialogue-node-add-fact-button ui-graphic")
+    this.nodeHTMLContent.append(factContainer, addFactButton)
     this.refreshHTML()
   }
+  createHTMLTree() {
+    let text = El('div', "dialogue-node-row dialogue-node-tree-row", [["title", "Text"]], "Select node tree.")
+    text.dataset.datatype = "nodeTree"
+    text.dataset.editable = "true"
+    this.nodeHTMLContent.append(text)
+  }
+  //#endregion create HTML
   addSetterFact(id, identifier = "fact_identifier", value = true) {
     this.factsToSet.push(Fact.createSetterFact(id, identifier, value))
     this.refreshHTML()
@@ -15127,6 +15014,37 @@ class DialogueNode {
     this.factsToSet.splice(index, 1)
     this.refreshHTML()
   }
+  setNodeTree(textField, treeName) {
+    fetch(`data/dialogue/${treeName}.json`)
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(nodes => {
+          /* find exit nodes */
+          let exitNodes = nodes.filter(n => n.out.length === 0)
+          
+          /* delete sockets */
+          let sockets = Array.from(this.element.querySelectorAll(".dialogue-node-socket.out"))
+          sockets.forEach(s => s.remove())
+
+          /* create new sockets */
+          for (let i = 0; i < exitNodes.length; i++) {
+            let socketOut = El.special('node-socket-out')
+            socketOut.dataset.index = i
+            socketOut.title = exitNodes[i].type.capitalize().splitCamelCase() + " - " + exitNodes[i].text
+            this.element.querySelector(".dialogue-node-socket-wrapper.out").append(socketOut)
+          }
+          let rect = this.element.querySelector(".dialogue-node-socket-wrapper.out").getBoundingClientRect()
+          this.element.style.minWidth = rect.width + 25 + "px"
+        })
+        this.tree = treeName
+        textField.innerText = treeName
+      }
+      else {
+        textField.innerText = this.tree ?? "Select node tree."
+        alert("Dialogue tree not found.")
+      }
+    })
+  }
   refreshHTML() {
     this[`refresh${this.type.capitalize()}HTML`]()
   }
@@ -15135,6 +15053,9 @@ class DialogueNode {
     this.factsToSet.forEach((fact, index) => this.createSetterFactHTML(index, fact.identifier, fact.value))
   }
   reorderOutputs() {
+    /* trees have a fixed number of outputs based on the exit node count inside*/
+    if(this.type === "tree") return
+
     let sockets = Array.from(this.element.querySelectorAll(".dialogue-node-socket.out"))
     sockets.forEach(s => s.remove())
 
@@ -15150,12 +15071,30 @@ class DialogueNode {
       node.index = index
     })
   }
-  createConnection(to) {
-    if(this.type !== "responsePicker") 
+  createConnection(to, treeOutputIndex) {
+    /* delete other outputs unless it's a special type of node */
+    if(this.type !== "responsePicker" && this.type !== "tree")
       this.deleteOut()
+    
+    /* return if the connection already exists */
     if(to.in.find(connection => connection.from.id === this.id)) return
     if(to.out.find(connection => connection.to.id === this.id)) return
-    let index = this.out.length
+
+    let index
+    if(this.type === "tree") {
+      index = treeOutputIndex
+      /* delete connection from this socket if it exists */
+      let conn = this.out.find(conn => conn.index === treeOutputIndex)
+      if(conn) {
+        let to = dialogueEditor.nodes.find(node => node.id === conn.to.id)
+        let destinationRef = to.in.find(conn => conn.from.id === this.id)
+        to.in.remove(destinationRef)
+        this.out.remove(conn)
+      }
+    }
+    else {
+      index = this.out.length
+    }
     let conn = {to, index}
     this.out.push(conn)
 
@@ -15199,7 +15138,8 @@ class DialogueNode {
     this.deleteOut()
     this.element.remove()
     dialogueEditor.unsetActiveNode()
-    dialogueEditor.nodes = dialogueEditor.nodes.filter(node => node !== this)
+    dialogueEditor.nodes.remove(this)
+    dialogueEditor.reconstructHTML()
   }
   static types = [
     "text",
@@ -15209,6 +15149,7 @@ class DialogueNode {
     "pass",
     "aggression",
     "factSetter",
+    "tree"
   ]
 }
 
@@ -15219,9 +15160,7 @@ class DialogueEditor extends GameWindow {
     this.nodes = []
     this.textarea = El("textarea", "dialogue-editor-textarea", [["type", "text"],["size", "300"],["width", ""]])
     this.editedData = {}
-    this.style = {
-      connectionWidth: 8
-    }
+    this.style = {connectionWidth: 8}
     this.scale = 1
 
     /* an element that's visually highlighted using a blue outline */
@@ -15250,6 +15189,9 @@ class DialogueEditor extends GameWindow {
     }
     this.options = {
       compactView: false
+    }
+    this.connectionData = {
+      outputSocketIndex: null
     }
     this.boxSelection = {
       active: false,
@@ -15372,10 +15314,10 @@ class DialogueEditor extends GameWindow {
       })
       /* create connections between nodes */
       nodes.forEach(node => {
-        node.out.forEach(outConnection => {
-          let nodeOrigin =      this.nodes.find(n => n.id === node.id)
-          let nodeDestination = this.nodes.find(n => n.id === outConnection.to)
-          nodeOrigin.createConnection(nodeDestination)
+        node.out.forEach((outConnection, index) => {
+          let origin =      this.nodes.find(n => n.id === node.id)
+          let destination = this.nodes.find(n => n.id === outConnection.to)
+          origin.createConnection(destination, index)
         })
       })
       /* reconstruct html */
@@ -15425,14 +15367,22 @@ class DialogueEditor extends GameWindow {
     console.log("setting person: ", person)
     if(this.activeNode.type == "text" || this.activeNode.type == "whisper" || this.activeNode.type == "pass" || this.activeNode.type == "aggression") {
       this.activeNode[role] = person
-      this.highlighted.innerText = person
     }
     else
     if(this.activeNode.type == "transfer") {
       let personIndex = +this.highlighted.closest(".dialogue-node-transfer").dataset.personindex
       this.activeNode.transfer[personIndex].owner = person
-      this.highlighted.innerText = person
     }
+    /* set HTML */
+    this.highlighted.innerText = person
+
+    let 
+    thumbnail = new Image()
+    thumbnail.src = `assets/portraits/${person}.png`
+    thumbnail.style.height = "32px"
+    thumbnail.style.marginRight = "5px"
+    this.highlighted.prepend(thumbnail)
+
     this.lastNpc = person
     this.npcSearchDelete()
   }
@@ -15538,11 +15488,14 @@ class DialogueEditor extends GameWindow {
       }
       case "factValue": {
         this.activeNode.flipSetterFact(this.editedData.factIndex)
-        // this.activeNode.factsToSet[this.editedData.factIndex].value = !this.activeNode.factsToSet[this.editedData.factIndex].value
         break
       }
       case "nodeFactIdentifier": {
         this.activeNode.setFactIdentifier(this.editedData.factIndex, value)
+        break
+      }
+      case "nodeTree": {
+        this.activeNode.setNodeTree(element, value)
         break
       }
       default: {
@@ -15642,6 +15595,7 @@ class DialogueEditor extends GameWindow {
 
     if(target.closest(".dialogue-node-socket.out")) {
       this.state.set("connecting")
+      this.connectionData.outputSocketIndex = +target.closest(".dialogue-node-socket.out").dataset.index
     }
 
     if(target.closest(".dialogue-node") && (keys.shift || keys.shiftRight)) {
@@ -15855,13 +15809,13 @@ class DialogueEditor extends GameWindow {
     /* LMB */
     if(event.button === 0) {
       if(this.state.is("connecting") && event.target.closest(".dialogue-node")) {
-        let connectTo = this.getNodeAtMousePosition(event)
-        this.activeNode.createConnection(connectTo)
+        let node = this.getNodeAtMousePosition(event)
+        this.activeNode.createConnection(node, this.connectionData.outputSocketIndex)
         this.unsetActiveNode()
       }
       if(this.state.is("connecting") && event.target === this.element) {
         let node = this.createNode("text")
-        this.activeNode.createConnection(node)
+        this.activeNode.createConnection(node, this.connectionData.outputSocketIndex)
       }
       if(this.state.is("creating") && event.target === this.element) {
         let node = this.createNode("text")
@@ -15980,18 +15934,6 @@ class DialogueEditor extends GameWindow {
     this.npcSearchInput = input
     setTimeout(() => this.fitInViewport(this.npcSearch), 0)
   }
-  fitInViewport(popupElement) {
-    let rect = popupElement.getBoundingClientRect()
-    console.log(rect)
-    if(rect.bottom > ch) {
-      let top = ch - rect.height - 20
-      popupElement.style.top = top + "px"
-    }
-    if(rect.right > cw) {
-      let left = cw - rect.width - 20
-      popupElement.style.left = left + "px"
-    }
-  }
   npcSearchFilter() {
     Qa(".search-popup-row").forEach(row => {
       let name = row.querySelector(".search-popup-name")
@@ -16046,10 +15988,22 @@ class DialogueEditor extends GameWindow {
     this.highlighted = null
     this.state.ifrevert("selectingItem")
   }
+  fitInViewport(popupElement) {
+    let rect = popupElement.getBoundingClientRect()
+    console.log(rect)
+    if(rect.bottom > ch) {
+      let top = ch - rect.height - 20
+      popupElement.style.top = top + "px"
+    }
+    if(rect.right > cw) {
+      let left = cw - rect.width - 20
+      popupElement.style.left = left + "px"
+    }
+  }
   createNode(type) {
     let node = new DialogueNode(
       type, 
-      "Lorem Ipsum", 
+      "Lorem Ipsum",
       this.lastNpc, 
       mouse.clientPosition, 
       undefined, 
@@ -16103,7 +16057,6 @@ class DialogueEditor extends GameWindow {
     /* generate svgs for connections */
     this.svgCont.innerHTML = ""
     this.nodes.forEach(node => {
-      
       /* highlight entry and exit nodes for better visual navigation of the node tree */
       node.out.length === 0 ? node.element.classList.add("end-node")    : node.element.classList.remove("end-node")
       node.in.length === 0  ? node.element.classList.add("start-node")  : node.element.classList.remove("start-node")
@@ -16126,7 +16079,7 @@ class DialogueEditor extends GameWindow {
           undefined, 
           [
             ["d", "M 0 0 L 250 250"],
-            ["stroke", "green"], 
+            ["stroke", "#006000"], 
             ["stroke-width", this.style.connectionWidth]
           ]
         )
@@ -16148,29 +16101,31 @@ class DialogueEditor extends GameWindow {
   }
   updateHTML() {
     /* store information about the position of node sockets */
-    let layoutData = []
+    let layoutData = {}
 
     /* update nodes */
     this.nodes.forEach(node => node.update())
       
     /* get layout information */
-    this.nodes.forEach((node, index) => {
+    this.nodes.forEach((node) => {
+      layoutData[node.id] = []
       node.out.forEach(conn => {
         let rects = [
           node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
           conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
         ]
         let path = this.svgCont.querySelector("svg[data-id='" + node.id + "']" + "[data-index='" + conn.index + "']" + " path")
-        layoutData.push({path, rects})
+        layoutData[node.id].push({path, rects})
       })
     })
 
     /* recalculate the SVG paths */
-    this.nodes.forEach((node, index) => {
-      node.out.forEach(conn => {
-        layoutData[index].path.setAttribute("d",
-          "M " + (layoutData[index].rects[0].x + 6) + " " + (layoutData[index].rects[0].y + 6) + 
-          "L " + (layoutData[index].rects[1].x + 6) + " " + (layoutData[index].rects[1].y + 6)
+    this.nodes.forEach((node) => {
+      node.out.forEach((conn, index) => {
+        let layoutBlock = layoutData[node.id][index]
+        layoutData[node.id][index].path.setAttribute("d",
+          "M " + (layoutBlock.rects[0].x + 6) + " " + (layoutBlock.rects[0].y + 6) + 
+          "L " + (layoutBlock.rects[1].x + 6) + " " + (layoutBlock.rects[1].y + 6)
         )
       })
     })
@@ -16586,6 +16541,10 @@ class NPC extends Person {
     this.name = name
     this.ship = null
     this.target = null
+    
+    /* flags */
+    this.canUseAbility = true
+
     this.followDistance = 1400
     this.stopDistance = 650
     this.brakeDistance = 450
@@ -16644,8 +16603,15 @@ class NPC extends Person {
       setupTimers(state) {
         return new Timer(
           ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon",    800,  {loop: true, active: true, onfinish: NPC.fireWeapon.bind(state)}],
+          ["fireWeapon",    900,  {loop: true, active: true, onfinish: NPC.useWeapon.bind(state)}],
           ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
+          ["useShield",     600,  {loop: true, active: true, onfinish: NPC.useShields.bind(state)}],
+
+          /* 
+          this is used to limit the rate of abilities so that the NPC doesn't fire weapon and use a shield within a time window
+          because that would feel unnatural
+          */
+          ["resetAbility",    350,  {loop: false, active: true, onfinish: NPC.resetAbility.bind(state)}],
         )
       }
     },
@@ -16672,7 +16638,8 @@ class NPC extends Person {
 
     let objects = Collision.broadphase(game, this.gameObject.ship, {exclude: [Interactable], grid: navMeshGrid})
     let navmeshFirstPhase = []
-    //1st phase - create 4 bounding boxes around each object
+
+    /* 1st phase - create 4 bounding boxes around each object */
     for(let obj of objects) {
       let offsetFromObject = Math.max(shipBoundingBox.w + obj.hitbox.boundingBox.w, shipBoundingBox.h + obj.hitbox.boundingBox.h)
       let offsetVector = new Vector(offsetFromObject, 0)
@@ -16684,7 +16651,8 @@ class NPC extends Person {
         offsetVector.rotate(halfPI)
       }
     }
-    //2nd phase - ruling out colliding bounding boxes
+
+    /* 2nd phase - ruling out colliding bounding boxes */
     for(let boundingBox of navmeshFirstPhase) {
       let objects = Collision.broadphaseForVector(game, new Vector(boundingBox.x, boundingBox.y), {exclude: [Interactable], grid: grid} )
       let isColliding = false
@@ -16695,7 +16663,8 @@ class NPC extends Person {
       if(!isColliding)
         this.gameObject.navMesh.boundingBoxes.push(boundingBox)
     }
-    //player line of sight check
+
+    /* player line of sight check */
     {
       let line = new Line(this.gameObject.ship.transform.position.clone(), player.ship.transform.position.clone())
       let objects = game.gameObjects.gameObject.filter(obj => 
@@ -16742,7 +16711,6 @@ class NPC extends Person {
     let sortedSubtractedAngles = subtractedAngles.sort((a, b) => a - b)
     let indexOfClosestAngleToPlayerAngle = subtractedAngles.indexOf(subtractedAngles.find(a => a === Math.min(...subtractedAngles)))
     let closestAngle = angles[indexOfClosestAngleToPlayerAngle][0]
-    // console.log(closestAngle)
 
     //this block tries to get the boundingbox which is with its angle to the npc's ship closest to the angle the npc's ship has to the player
     {
@@ -16766,11 +16734,9 @@ class NPC extends Person {
 
       if(this.gameObject.ship.transform.position.isObjectRotationGreaterThanAngleToVector(nearestPositionBetweenPlayerAndShip, this.gameObject.ship.transform.rotation)) {
         this.gameObject.ship.rotate(-1)
-        // console.log("rotating CCW")
       }      
       else {
         this.gameObject.ship.rotate(1)
-        // console.log("rotating CW")
       }   
     }
     {
@@ -16909,8 +16875,17 @@ class NPC extends Person {
       this.gameObject.ship.decelerate()
     }
   }
-  static fireWeapon() {
+  static useWeapon() {
+    if(!this.gameObject.canUseAbility) return
     if(!this.gameObject.ship.weapons) return
+    
+    /* rotate the target position around the NPC's ship by up to 10 degrees, to achieve inaccuracy */
+    let 
+    ship = this.gameObject.ship
+    ship.targetPosition.rotateAround(
+      ship.transform.position, 
+      (TAU/360) * Random.int(2, 10) * Random.from(-1, 1)
+    )
     
     let weaponSystem = this.gameObject.ship.weapons
     if(!weaponSystem.activeWeapon.ready) 
@@ -16930,15 +16905,21 @@ class NPC extends Person {
       let event = {type: weaponSystem.activeWeapon.chargeMethod}
       weaponSystem.activeWeapon.handleInput.bind(weaponSystem.activeWeapon, event)()
     }
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
   }
   static useSkip() {
+    if(!this.gameObject.canUseAbility) return
     if(!this.gameObject.ship.skip.ready) return
+    if(!this.gameObject.target) return
 
     let targetPos = this.gameObject.target.transform.position
     let destination = targetPos.clone()
 
-    destination.x += 300
-    destination.y += 300
+    destination.x += 320
+    destination.y += 320
     destination.rotateAround(targetPos, Random.rotation())
 
     this.gameObject.ship.skip.activate(destination)
@@ -16946,6 +16927,29 @@ class NPC extends Person {
     /* this kinda randomizes when the next skip occurs */
     this.timers.skip.duration = Random.int(5000, 18000)
     this.timers.skip.start()
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
+  }
+  static useShields() {
+    if(!this.gameObject.canUseAbility) return
+    if(!this.gameObject.ship.shields.ready) return
+
+    let targets = Collision.broadphase(this.gameObject.ship.gameWorld, this.gameObject.ship, {solo: [Projectile]})
+    targets.forEach(target => {
+      if(!target.transform.position.isClose(300, this.gameObject.ship.transform.position)) return
+      if(target.owner === this.gameObject.ship) return
+
+      this.gameObject.ship.shields.activate(GameObject.angle(this.gameObject.ship, target))
+    })
+
+    /* reset ability use */
+    this.gameObject.canUseAbility = false
+    this.timers.resetAbility.start()
+  }
+  static resetAbility() {
+    this.gameObject.canUseAbility = true
   }
   //#endregion
   //#region helper methods
@@ -20150,6 +20154,70 @@ function handleGlobalInput(e) {
   updateKeys(e)
   gameManager.handleInput(e)
 }
+
+class Input {
+  /* an array of simplified event representations */
+  static record = []            
+  /* time difference from the last event recorded */
+  static eventRecordTimestamp = 0 
+  static get something() {
+
+  }
+  static listener(e) {
+    if(this.record.length === 0) {
+      this.eventRecordTimestamp = Date.now()
+      console.log("empty record")
+    }
+    
+    let delay = Date.now() - this.eventRecordTimestamp
+    this.eventRecordTimestamp = Date.now()
+
+    let event = {
+      type:         e.type,
+      targetId:     e.target?.id,
+      targetClass:  e.target?.classList[0],
+      code:         e.code,
+      delay:        delay 
+    }
+    this.record.push(event)
+  }
+  static startRecording() {
+    this.record = []
+    document.addEventListener("keydown", this.listener.bind(this), false)
+    document.addEventListener("mousedown", this.listener.bind(this), false)
+  }
+  static stopRecording() {
+    document.removeEventListener("keydown", this.listener)
+    document.removeEventListener("mousedown", this.listener)
+    this.generateReplayFunction()
+  }
+  static generateReplayFunction() {
+    const createEventFunction = (record) => {
+      let text = ""
+      switch(record.type) {
+        case "keydown": {
+          text += `
+            let ev = new Event("keydown")
+            ev.code = ${record.code}
+            document.body.dispatchEvent()
+          `
+          break
+        }
+        case "mousedown": {
+          text += `Q(${record.targetId ? "#" + record.targetId : "." + record.targetClass}).click()`
+          break
+        }
+        default: {break}
+      }
+      text += `\n waitFor(${record.delay})`
+      return text
+    }
+    let func = `async () => {
+      ${this.record.map(createEventFunction).join("\n")}
+    }`
+    console.log(func) 
+  }
+}
 class FilterManager {
   constructor() {
     this.filters = filters
@@ -20957,7 +21025,7 @@ class Game extends GameWorldWindow {
     if(event.code === binds.openMap)            this.toggleLocalMap()
     if(event.code === binds.pause)              gameManager.togglePause()
     if(event.code === binds.openInventory)      {gameManager.setWindow(inventory); inventory.viewInventoryTab("inventory")}
-    if(event.code === binds.openDialogueScreen) {gameManager.setWindow(dialogueScreen); dialogueScreen.setTab("logs")}
+    if(event.code === binds.openDialogueScreen) {gameManager.setWindow(dialogueScreen)}
     if(event.code === binds.openWorldMap)       gameManager.setWindow(map)
   }
   handleKeyup(event) {
@@ -21588,20 +21656,29 @@ function perfRun(fn = function() {}, context, ...args) {
 }
 /* sets of commands I can easily switch between to make it easier to do stuff */
 const initMacros = {
-  openDialogueEditor() {
+  async openDialogueEditor() {
     gameManager.setWindow(dialogueEditor)
   },
-  loadGame() {
+  async loadGame() {
     gameManager.loadStartingLocation()
   },
-  startIntroDialogue() {
+  async startIntroDialogue() {
     gameManager.setWindow(game)
     gameManager.setWindow(dialogueScreen)
     dialogueScreen.load("intro-king_and_ada")
   },
-  openMap() {
+  async openMap() {
     gameManager.setWindow(game)
+    await waitFor(1000)
     gameManager.setWindow(map)
+  },
+  async loadKreos() {
+    gameManager.loadStartingLocation()
+    await waitFor(4000)
+    gameManager.loadLocation("mantu")
+    await waitFor(2000)
+    player.ship.transform.position.setFrom(game.gameObjects.npc[0].ship.transform.position)
+    game.updateGameObjects(true)
   },
 };
 
@@ -21620,4 +21697,7 @@ const initMacros = {
   Q("#ship-graphic").classList.add(gameManager.playerData.shipName)
   Q("#ship-skip-charge-icon").classList.add(gameManager.playerData.shipName)
   gameUI.toggleDevIcons()
+
+  /* macro */
+  initMacros.openDialogueEditor()
 })();

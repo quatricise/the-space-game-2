@@ -48,7 +48,7 @@ class DialogueNode {
     socketOut.dataset.index = this.out.length
 
     /* append stuff */
-    header.append(widgetRemove, widgetDrag, widgetList, filler, nodeTitle)
+    header.append(widgetRemove, widgetDrag, filler, nodeTitle)
     node.append(header, content, factCount, wrapperOut, wrapperIn)
     wrapperOut.append(socketOut)
     wrapperIn.append(socketIn)
