@@ -14,6 +14,7 @@ class Mouse {
     this.mapMoved                 = new Vector()
     this.target = null
     this.clickTarget = null
+    this.clickedNotMoved = false
     this.travelled = 0
     this.pressure = 1
     this.shipAngle = 0
@@ -58,6 +59,7 @@ class Mouse {
     this.clickTarget = event.target
   }
   handleMousemove(event) {
+    if(this.travelled > 3) this.clickedNotMoved = false
     this.updateClientPosition(event)
     this.updateTravelledDistance(event)
     this.updateWorldPosition()
@@ -67,6 +69,10 @@ class Mouse {
   }
   handleMouseup(event) {
     this.clientClickEnd.set(event.clientX, event.clientY)
+    if(this.travelled > 3) 
+      this.clickedNotMoved = false
+    else
+      this.clickedNotMoved = true
   }
   handleClick(event) {
 

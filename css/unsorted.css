@@ -65,8 +65,10 @@
   position: absolute;
   top: 20px;
   right: 20px;
+  background-color: var(--dark-2);
+  border-radius: 5px;
   cursor: var(--cursor-pointer);
-  z-index: 1;
+  z-index: 10;
 }
 .icon-close-container > * {
   border-radius: 5px;

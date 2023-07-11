@@ -80,6 +80,7 @@
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  min-width: 220px;
   max-width: 420px;
   gap: 10px;
   border-radius: 5px;
@@ -92,14 +93,15 @@
 
 .dialogue-node.active {
   border-color: var(--color-shield)!important;
+  box-shadow: 0 0 40px 10px #1e54e740;
 }
 .dialogue-node.active::before {
   content: "•";
   position: absolute;
   bottom: -35px;
-  left: calc(50% - 0.5rem);
+  left: calc(50% - 0.75rem);
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 4rem;
   color: var(--color-shield);
 }
 
@@ -107,10 +109,46 @@
   border-color: var(--color-shield);
 }
 
-.dialogue-node.start-node:not(.active, .selected, .end-node) {
-  outline: 4px solid rgb(98, 7, 126);
+.dialogue-node.precondition {
+  outline: 2px solid var(--color-shield)!important;
 }
-.dialogue-node.start-node:not(.active, .selected, .end-node, .highlighted)::before {
+
+.dialogue-node.precondition::before {
+  content: "";
+  text-align: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: unset;
+  right: unset;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-shield);
+  color: white;
+  filter: opacity(0.1);
+  pointer-events: none;
+  z-index: 100;
+}
+.dialogue-node.precondition::after {
+  content: "Precondition";
+  position: absolute;
+  bottom: -45px;
+  left: calc(50% - 3.8rem);
+  border: 2px solid var(--color-shield);
+  background-color: var(--dark-2);
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-shield);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.dialogue-node.start-node:not(.active, .selected, .end-node, .precondition) {
+  outline: 2px solid rgb(98, 7, 126);
+}
+.dialogue-node.start-node:not(.active, .selected, .end-node, .highlighted, .precondition)::before {
   content: "Entry";
   position: absolute;
   bottom: -45px;
@@ -124,9 +162,9 @@
   color: rgb(175, 33, 218);
 }
 .dialogue-node.end-node:not(.active, .selected) {
-  outline: 4px solid green;
+  outline: 2px solid green;
 }
-.dialogue-node.end-node:not(.active, .selected, .start-node, .highlighted)::before {
+.dialogue-node.end-node:not(.active, .selected, .start-node, .highlighted, .precondition)::before {
   content: "Exit";
   position: absolute;
   border: 2px solid green;
@@ -139,14 +177,14 @@
   background-color: var(--dark-2);
   color: green;
 }
-.dialogue-node.end-node.start-node:not(.active, .selected) {
-  outline: 4px solid rgb(160, 29, 19);
+.dialogue-node.end-node.start-node:not(.active, .selected, .precondition) {
+  outline: 2px solid rgb(160, 29, 19);
 }
-.dialogue-node.end-node.start-node:not(.active, .selected)::before {
-  content: "Empty";
+.dialogue-node.end-node.start-node:not(.active, .selected, .precondition)::before {
+  content: "NOT USED";
   position: absolute;
   bottom: -45px;
-  left: calc(50% - 2.2rem);
+  left: calc(50% - 3.2rem);
   border: 2px solid rgb(160, 29, 19);
   border-radius: 5px;
   padding: 4px 10px;
@@ -167,6 +205,10 @@
   justify-content: center;
   margin-right: 5px;
   color: var(--bright-3);
+}
+
+.dialogue-node-title img {
+  height: 100%;
 }
 
 .dialogue-node-row {
@@ -190,7 +232,7 @@
 
 .dialogue-node-tree-row {
   position: relative;
-  border: 4px solid rgb(98, 7, 126)!important;
+  border: 2px solid var(--dark-4)!important;
   padding-left: 28px;
 }
 
@@ -309,6 +351,30 @@
   background-image: url(../assets/editor/iconWidgetAdd.png);
   cursor: var(--cursor-pointer);
 }
+.dialogue-node-widget.precondition {
+  background-image: url(../assets/icons/iconPrecondition.png);
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-widget.precondition.active {
+  outline: 2px solid white;
+  z-index: 1;
+}
+.dialogue-node-widget.precondition-logic {
+  position: relative;
+  top: -100%;
+  background-color: var(--dark-3);
+}
+.dialogue-node-widget.precondition-logic:hover {
+  background-color: var(--dark-2);
+}
+.dialogue-node-widget.precondition-logic.and {
+  background-image: url(../assets/icons/iconLogicalAND.png);
+  cursor: var(--cursor-pointer);
+}
+.dialogue-node-widget.precondition-logic.or {
+  background-image: url(../assets/icons/iconLogicalOR.png);
+  cursor: var(--cursor-pointer);
+}
 .drag-widget {
   background-image: url(../assets/editor/iconWidgetDrag.png);
   cursor: all-scroll;
@@ -324,16 +390,16 @@
   cursor: var(--cursor-pointer);
 }
 .dialogue-node-socket.out {
-  background-color: green;
+  background-color: #1e54e7;
 }
 .dialogue-node-socket.out:hover {
-  background-color: rgb(50, 161, 50);
+  background-color: white;
 }
 .dialogue-node-socket.in {
-  background-color: rgb(98, 7, 126);
+  background-color: #1e54e7;
 }
 .dialogue-node-socket.in:hover {
-  background-color: rgb(142, 67, 165);
+  background-color: white;
 }
 
 .dialogue-node-socket.detached {
@@ -400,7 +466,7 @@
 } */
 
 .dialogue-node-speaker {
-  padding-left: 5px;
+  padding: 2px 5px;
 }
 
 .dialogue-node-response-wrapper {
@@ -507,10 +573,12 @@
   width: 100%;
   border-radius: 5px;
   overflow: hidden;  
-  background-color: var(--dark-4);
+  border: 2px solid transparent;
+  background-color: var(--dark-2);
 }
 .dialogue-node-label-container:hover {
-  background-color: var(--dark-5);
+  background-color: var(--dark-3);
+  border-color: var(--dark-4);
 }
 .dialogue-node-label-container .dialogue-node-label:not(:first-of-type) {
   margin-left: -2px;
@@ -529,7 +597,7 @@
 
 .dialogue-node-label.active {
   color: white;
-  border: 2px solid var(--color-active);
+  border: 2px solid var(--color-shield);
 }
 
 .dialogue-editor-options {
@@ -547,6 +615,7 @@
   color: var(--bright-3);
   border: 2px solid var(--dark-4);
   border-radius: 5px;
+  background-color: var(--dark-3);
 }
 .dialogue-editor-option:hover {
   background-color: var(--dark-4);

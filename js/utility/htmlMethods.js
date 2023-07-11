@@ -27,8 +27,8 @@ function El(
 }
 
 El.special = (name) => {
-  if(name === "node-socket-out") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other sockets"]])
-  if(name === "node-socket-in") return El('div', "dialogue-node-socket in", [["title", "Drag to connect to other sockets"]])
+  if(name === "node-socket-out") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other nodes"]])
+  if(name === "node-socket-in")  return El('div', "dialogue-node-socket in")
 }
 
 El.hasAllClasses = (element, classes = []) => {

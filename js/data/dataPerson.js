@@ -1,4 +1,13 @@
 data.person = {
+  "empty": {
+    displayName: "Empty",
+    addressAs: null,
+    race: "none",
+    sex: "none",
+    description: "Placeholder captain that does nothing but exist to patch holes in my terrible code.",
+    inventory: [],
+    jobTitle: "captain",
+  },
   "dummyCaptain": {
     displayName: "Dummy Captain",
     addressAs: null,

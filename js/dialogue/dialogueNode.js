@@ -1,5 +1,5 @@
 class DialogueNode {
-  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null}, transfer, recipient) {
+  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null, preconditions: null, preconditionLogic: null}, transfer, recipient) {
     this.id = id || uniqueID(dialogueEditor.nodes)
     this.pos = pos.clone()
     this.type = type
@@ -16,11 +16,17 @@ class DialogueNode {
     this.in = []
     this.out = []
     this.transfer = transfer ?? [{owner: "player", items: [""]}, {owner: "player", items: [""]}]
+
+    /* this contains a set of node IDs that are required to run through before this node is accepted */
+    this.preconditions = new Set()
+    if(Array.isArray(options.preconditions)) {
+      options.preconditions.forEach(value => this.preconditions.add(value))
+    } 
+    /* the logical operation used, OR or AND are accepted */
+    this.preconditionLogic =  options.preconditionLogic ?? "OR"
+
     dialogueEditor.nodes.push(this)
-
-    // this["createHTML" + type.capitalize()]()
     this.createHTML()
-
     this.update()
     this.reorderOutputs()
   }
@@ -30,25 +36,34 @@ class DialogueNode {
   //#region create HTML
   createHTML() {
     /* header */
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-    let content =             El("div", "dialogue-node-content")
+    let node =                    El('div', "dialogue-node")
+    let header =                  El('div', "dialogue-node-header")
+    // let nodeTitle =               El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
+    let nodeTitle =               El('div', "dialogue-node-title", [["title", this.type.capitalize().splitCamelCase() + " Node"]])
+    let nodeIcon =                new Image()
+    // let widgetDrag =              El("div", "dialogue-node-widget drag",                    [["title", "Drag node"]])
+    let widgetRemove =            El("div", "dialogue-node-widget remove",                  [["title", "Delete node"]])
+    let widgetList =              El("div", "dialogue-node-widget list",                    [["title", "Open facts list"]])
+    let widgetPrecondition =      El("div", "dialogue-node-widget precondition",            [["title", "Set preconditions"]])
+    let widgetPreconditionLogic = El("div", "dialogue-node-widget precondition-logic or",   [["title", "Set logical operation for preconditions"]])
+    let factCount =               El("div", "fact-count")
+    let filler =                  El("div", "filler")
+    let content =                 El("div", "dialogue-node-content")
     
     /* sockets */
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
+    let wrapperOut =  El('div', "dialogue-node-socket-wrapper out")
+    let wrapperIn  =  El('div', "dialogue-node-socket-wrapper in")
+    let socketOut =   El.special('node-socket-out')
+    let socketIn =    El.special('node-socket-in')
     socketOut.dataset.index = this.out.length
 
+    nodeIcon.classList.add("dialogue-node-icon")
+    nodeIcon.src = `assets/icons/iconNodeType${this.type.capitalize()}.png`
+    nodeIcon.style.filter = "opacity(0.5)"
+
     /* append stuff */
-    header.append(widgetRemove, widgetDrag, filler, nodeTitle)
+    nodeTitle.append(nodeIcon)
+    header.append(widgetRemove, widgetPrecondition, widgetPreconditionLogic, filler, nodeTitle)
     node.append(header, content, factCount, wrapperOut, wrapperIn)
     wrapperOut.append(socketOut)
     wrapperIn.append(socketIn)
@@ -63,15 +78,21 @@ class DialogueNode {
     /* nodetype-specific features */
     this["createHTML" + this.type.capitalize()]()
 
-    /* attach thumbnails to speakers */
+    /* attach thumbnails to person fields */
     Array.from(this.element.querySelectorAll(".dialogue-node-speaker")).forEach(element => {
-      let 
-      thumbnail = new Image()
-      thumbnail.src = `assets/portraits/${element.innerText}.png`
-      thumbnail.style.height = "32px"
-      thumbnail.style.marginRight = "5px"
-      element.prepend(thumbnail)
+      this.setPersonThumbnail(element, element.innerText)
     })
+  }
+  setPersonThumbnail(element, person) {
+    let 
+    thumbnail = new Image()
+    thumbnail.src = `assets/portraits/${person}.png`
+    thumbnail.style.height = "32px"
+    thumbnail.style.marginRight = "5px"
+    element.prepend(thumbnail)
+
+    /* dim if it's the field is assigned to empty character */
+    person === "empty" || person === "dummyCaptain" ? thumbnail.style.filter = "opacity(0.33)" : thumbnail.style.filter = ""
   }
   createHTMLText() {
     let labels =                El("div", "dialogue-node-label-container")
@@ -95,16 +116,16 @@ class DialogueNode {
   }
   createHTMLPass() {
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
+    let text =    El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
     this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLWhisper() {
-    let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
+    let speaker =   El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let recipient = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.recipient)
-    let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
+    let text =      El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -180,6 +201,9 @@ class DialogueNode {
     text.dataset.datatype = "nodeTree"
     text.dataset.editable = "true"
     this.nodeHTMLContent.append(text)
+
+    if(this.tree)
+      this.setNodeTree(text, this.tree)
   }
   //#endregion create HTML
   addSetterFact(id, identifier = "fact_identifier", value = true) {
@@ -188,10 +212,10 @@ class DialogueNode {
   }
   createSetterFactHTML(index, identifier, value) {
     let container = this.element.querySelector(".dialogue-node-fact-container")
-    let row = El("div", "dialogue-node-fact-row", [["data-factindex", index]])
+    let row =               El("div", "dialogue-node-fact-row", [["data-factindex", index]])
     let identifierElement = El("div", "dialogue-node-fact-identifier", [["data-editable", "true"], ["data-datatype", "nodeFactIdentifier"]], identifier)
-    let valueElement = El("div", `dialogue-node-fact-value ${value}`,    [["data-editable", "true"], ["data-datatype", "factValue"], ["data-isboolean", "true"]], value)
-    let deleteButton = El("div", "dialogue-node-fact-delete-button ui-graphic")
+    let valueElement =      El("div", `dialogue-node-fact-value ${value}`,    [["data-editable", "true"], ["data-datatype", "factValue"], ["data-isboolean", "true"]], value)
+    let deleteButton =      El("div", "dialogue-node-fact-delete-button ui-graphic")
 
     row.append(identifierElement, valueElement, deleteButton)
     container.append(row)
@@ -269,6 +293,8 @@ class DialogueNode {
     /* delete other outputs unless it's a special type of node */
     if(this.type !== "responsePicker" && this.type !== "tree")
       this.deleteOut()
+
+    if(to.id === this.id) return
     
     /* return if the connection already exists */
     if(to.in.find(connection => connection.from.id === this.id)) return

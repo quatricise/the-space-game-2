@@ -1,0 +1,76 @@
+[
+  {
+    "id": 639312291068,
+    "pos": {
+      "x": 269,
+      "y": 261,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "empty",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [],
+    "out": [],
+    "tree": null,
+    "preconditions": [],
+    "preconditionLogic": "OR"
+  },
+  {
+    "id": 251034067821,
+    "pos": {
+      "x": 627,
+      "y": 387,
+      "type": "vector"
+    },
+    "type": "tree",
+    "speaker": "empty",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem Ipsum",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [],
+    "out": [],
+    "tree": "al_and_betty_2",
+    "preconditions": [],
+    "preconditionLogic": "OR"
+  }
+]

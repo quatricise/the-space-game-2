@@ -270,8 +270,8 @@ function El(
 }
 
 El.special = (name) => {
-  if(name === "node-socket-out") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other sockets"]])
-  if(name === "node-socket-in") return El('div', "dialogue-node-socket in", [["title", "Drag to connect to other sockets"]])
+  if(name === "node-socket-out") return El('div', "dialogue-node-socket out", [["title", "Drag to connect to other nodes"]])
+  if(name === "node-socket-in")  return El('div', "dialogue-node-socket in")
 }
 
 El.hasAllClasses = (element, classes = []) => {
@@ -3471,6 +3471,15 @@ data.interactionSets = {
   ]
 }
 data.person = {
+  "empty": {
+    displayName: "Empty",
+    addressAs: null,
+    race: "none",
+    sex: "none",
+    description: "Placeholder captain that does nothing but exist to patch holes in my terrible code.",
+    inventory: [],
+    jobTitle: "captain",
+  },
   "dummyCaptain": {
     displayName: "Dummy Captain",
     addressAs: null,
@@ -14805,7 +14814,7 @@ class DialogueScreen extends GameWindow {
   static highlightFilter =  "saturate(1.1)   brightness(1.3)"
 }
 class DialogueNode {
-  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null}, transfer, recipient) {
+  constructor(type, text, speaker, pos = new Vector(cw/2, ch/2), id, criteria, options = {labels: null, factsToSet: null, tree: null, preconditions: null, preconditionLogic: null}, transfer, recipient) {
     this.id = id || uniqueID(dialogueEditor.nodes)
     this.pos = pos.clone()
     this.type = type
@@ -14822,11 +14831,17 @@ class DialogueNode {
     this.in = []
     this.out = []
     this.transfer = transfer ?? [{owner: "player", items: [""]}, {owner: "player", items: [""]}]
+
+    /* this contains a set of node IDs that are required to run through before this node is accepted */
+    this.preconditions = new Set()
+    if(Array.isArray(options.preconditions)) {
+      options.preconditions.forEach(value => this.preconditions.add(value))
+    } 
+    /* the logical operation used, OR or AND are accepted */
+    this.preconditionLogic =  options.preconditionLogic ?? "OR"
+
     dialogueEditor.nodes.push(this)
-
-    // this["createHTML" + type.capitalize()]()
     this.createHTML()
-
     this.update()
     this.reorderOutputs()
   }
@@ -14836,25 +14851,34 @@ class DialogueNode {
   //#region create HTML
   createHTML() {
     /* header */
-    let node =                El('div', "dialogue-node")
-    let header =              El('div', "dialogue-node-header")
-    let nodeTitle =           El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
-    let widgetDrag =          El("div", "dialogue-node-widget drag", [["title", "Drag node"]])
-    let widgetRemove =        El("div", "dialogue-node-widget remove", [["title", "Delete node"]])
-    let widgetList =          El("div", "dialogue-node-widget list", [["title", "Open facts list"]])
-    let factCount =           El("div", "fact-count")
-    let filler =              El("div", "filler")
-    let content =             El("div", "dialogue-node-content")
+    let node =                    El('div', "dialogue-node")
+    let header =                  El('div', "dialogue-node-header")
+    // let nodeTitle =               El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
+    let nodeTitle =               El('div', "dialogue-node-title", [["title", this.type.capitalize().splitCamelCase() + " Node"]])
+    let nodeIcon =                new Image()
+    // let widgetDrag =              El("div", "dialogue-node-widget drag",                    [["title", "Drag node"]])
+    let widgetRemove =            El("div", "dialogue-node-widget remove",                  [["title", "Delete node"]])
+    let widgetList =              El("div", "dialogue-node-widget list",                    [["title", "Open facts list"]])
+    let widgetPrecondition =      El("div", "dialogue-node-widget precondition",            [["title", "Set preconditions"]])
+    let widgetPreconditionLogic = El("div", "dialogue-node-widget precondition-logic or",   [["title", "Set logical operation for preconditions"]])
+    let factCount =               El("div", "fact-count")
+    let filler =                  El("div", "filler")
+    let content =                 El("div", "dialogue-node-content")
     
     /* sockets */
-    let wrapperOut = El('div', "dialogue-node-socket-wrapper out")
-    let wrapperIn  = El('div', "dialogue-node-socket-wrapper in")
-    let socketOut = El.special('node-socket-out')
-    let socketIn = El.special('node-socket-in')
+    let wrapperOut =  El('div', "dialogue-node-socket-wrapper out")
+    let wrapperIn  =  El('div', "dialogue-node-socket-wrapper in")
+    let socketOut =   El.special('node-socket-out')
+    let socketIn =    El.special('node-socket-in')
     socketOut.dataset.index = this.out.length
 
+    nodeIcon.classList.add("dialogue-node-icon")
+    nodeIcon.src = `assets/icons/iconNodeType${this.type.capitalize()}.png`
+    nodeIcon.style.filter = "opacity(0.5)"
+
     /* append stuff */
-    header.append(widgetRemove, widgetDrag, filler, nodeTitle)
+    nodeTitle.append(nodeIcon)
+    header.append(widgetRemove, widgetPrecondition, widgetPreconditionLogic, filler, nodeTitle)
     node.append(header, content, factCount, wrapperOut, wrapperIn)
     wrapperOut.append(socketOut)
     wrapperIn.append(socketIn)
@@ -14869,15 +14893,21 @@ class DialogueNode {
     /* nodetype-specific features */
     this["createHTML" + this.type.capitalize()]()
 
-    /* attach thumbnails to speakers */
+    /* attach thumbnails to person fields */
     Array.from(this.element.querySelectorAll(".dialogue-node-speaker")).forEach(element => {
-      let 
-      thumbnail = new Image()
-      thumbnail.src = `assets/portraits/${element.innerText}.png`
-      thumbnail.style.height = "32px"
-      thumbnail.style.marginRight = "5px"
-      element.prepend(thumbnail)
+      this.setPersonThumbnail(element, element.innerText)
     })
+  }
+  setPersonThumbnail(element, person) {
+    let 
+    thumbnail = new Image()
+    thumbnail.src = `assets/portraits/${person}.png`
+    thumbnail.style.height = "32px"
+    thumbnail.style.marginRight = "5px"
+    element.prepend(thumbnail)
+
+    /* dim if it's the field is assigned to empty character */
+    person === "empty" || person === "dummyCaptain" ? thumbnail.style.filter = "opacity(0.33)" : thumbnail.style.filter = ""
   }
   createHTMLText() {
     let labels =                El("div", "dialogue-node-label-container")
@@ -14901,16 +14931,16 @@ class DialogueNode {
   }
   createHTMLPass() {
     let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
-    let text = El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
+    let text =    El('div', "dialogue-node-row dialogue-node-row-informational", [["title", "Text"]], "Speaker says nothing.")
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
     this.nodeHTMLContent.append(speaker, text)
   }
   createHTMLWhisper() {
-    let speaker = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
+    let speaker =   El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.speaker)
     let recipient = El('div', "dialogue-node-row dialogue-node-speaker", [["title", "Speaker"]], this.recipient)
-    let text = El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
+    let text =      El('div', "dialogue-node-row dialogue-node-text-field", [["title", "Text"]], this.text)
 
     speaker.dataset.datatype = "speaker"
     speaker.dataset.id = this.id
@@ -14986,6 +15016,9 @@ class DialogueNode {
     text.dataset.datatype = "nodeTree"
     text.dataset.editable = "true"
     this.nodeHTMLContent.append(text)
+
+    if(this.tree)
+      this.setNodeTree(text, this.tree)
   }
   //#endregion create HTML
   addSetterFact(id, identifier = "fact_identifier", value = true) {
@@ -14994,10 +15027,10 @@ class DialogueNode {
   }
   createSetterFactHTML(index, identifier, value) {
     let container = this.element.querySelector(".dialogue-node-fact-container")
-    let row = El("div", "dialogue-node-fact-row", [["data-factindex", index]])
+    let row =               El("div", "dialogue-node-fact-row", [["data-factindex", index]])
     let identifierElement = El("div", "dialogue-node-fact-identifier", [["data-editable", "true"], ["data-datatype", "nodeFactIdentifier"]], identifier)
-    let valueElement = El("div", `dialogue-node-fact-value ${value}`,    [["data-editable", "true"], ["data-datatype", "factValue"], ["data-isboolean", "true"]], value)
-    let deleteButton = El("div", "dialogue-node-fact-delete-button ui-graphic")
+    let valueElement =      El("div", `dialogue-node-fact-value ${value}`,    [["data-editable", "true"], ["data-datatype", "factValue"], ["data-isboolean", "true"]], value)
+    let deleteButton =      El("div", "dialogue-node-fact-delete-button ui-graphic")
 
     row.append(identifierElement, valueElement, deleteButton)
     container.append(row)
@@ -15075,6 +15108,8 @@ class DialogueNode {
     /* delete other outputs unless it's a special type of node */
     if(this.type !== "responsePicker" && this.type !== "tree")
       this.deleteOut()
+
+    if(to.id === this.id) return
     
     /* return if the connection already exists */
     if(to.in.find(connection => connection.from.id === this.id)) return
@@ -15174,6 +15209,7 @@ class DialogueEditor extends GameWindow {
       "connecting",
       "creating",
       "creatingContextMenu",
+      "settingPreconditions",
       "deleting",
       "panning",
       "dragging",
@@ -15216,10 +15252,10 @@ class DialogueEditor extends GameWindow {
         let height = bottomRightPoint.y - topLeftPoint.y
 
         this.box = new BoundingBox(
-            topLeftPoint.x,
-            topLeftPoint.y,
-            width,
-            height,
+          topLeftPoint.x,
+          topLeftPoint.y,
+          width,
+          height,
         )
         
         this.updateVisual()
@@ -15255,6 +15291,29 @@ class DialogueEditor extends GameWindow {
         this.endPoint.set(0)
       },
     }
+    this.preconditionSetting = {
+      active: false,
+      toggle: () => {
+        if(this.preconditionSetting.active)
+          this.preconditionSetting.deactivate()
+        else
+          this.preconditionSetting.activate()
+      },
+      activate: () => {
+        if(this.preconditionSetting.active) return
+        /* turn all precondition nodes blue */
+        this.activeNode.preconditions.forEach(entry => {
+          this.nodes.find(n => n.id === entry).element.classList.add("precondition")
+        })
+        this.preconditionSetting.active = true
+      },
+      deactivate: () => {
+        if(!this.preconditionSetting.active) return
+        // this.nodes.forEach(node => node.element.classList.remove("precondition"))
+        Qa(".dialogue-node-widget.precondition").forEach(widget => widget.classList.remove("active"))
+        this.preconditionSetting.active = false
+      },
+    }
 
     this.createHtml()
     this.createFactEditor()
@@ -15286,6 +15345,10 @@ class DialogueEditor extends GameWindow {
     this.nodes.forEach(node => node.pos.y += amt)
     this.updateHTML()
   }
+  scrollSideways(amt) {
+    this.nodes.forEach(node => node.pos.x += amt)
+    this.updateHTML()
+  }
   import() {
     let name = window.prompt("dialogue filename", "al_and_betty_2")
     if(!name) return
@@ -15307,7 +15370,7 @@ class DialogueEditor extends GameWindow {
           new Vector(node.pos.x, node.pos.y), 
           node.id, 
           node.criteria, 
-          {labels: node.labels, factsToSet: node.factsToSet},
+          {labels: node.labels, factsToSet: node.factsToSet, tree: node.tree, preconditions: node.preconditions, preconditionLogic: node.preconditionLogic},
           node.transfer,
           node.recipient
         )
@@ -15346,6 +15409,9 @@ class DialogueEditor extends GameWindow {
           criteria: node.criteria,
           in: inNodes,
           out: outNodes,
+          tree: node.tree,
+          preconditions: Array.from(node.preconditions),
+          preconditionLogic: node.preconditionLogic
         }
       )
     })
@@ -15358,8 +15424,11 @@ class DialogueEditor extends GameWindow {
 
   }
   unsetActiveNode() {
-    Qa(".dialogue-node.active").forEach(node => node.classList.remove("active"))
-    this.nodes.forEach(node => node.element.classList.remove("highlighted"))
+    this.activeNode?.element.classList.remove("active")
+    this.nodes.forEach(node => {
+      node.element.classList.remove("highlighted", "precondition")
+      node.element.style.zIndex = ""
+    })
     this.activeNode = null
     this.factEditor.hide()
   }
@@ -15375,13 +15444,7 @@ class DialogueEditor extends GameWindow {
     }
     /* set HTML */
     this.highlighted.innerText = person
-
-    let 
-    thumbnail = new Image()
-    thumbnail.src = `assets/portraits/${person}.png`
-    thumbnail.style.height = "32px"
-    thumbnail.style.marginRight = "5px"
-    this.highlighted.prepend(thumbnail)
+    this.activeNode.setPersonThumbnail(this.highlighted, person)
 
     this.lastNpc = person
     this.npcSearchDelete()
@@ -15543,7 +15606,13 @@ class DialogueEditor extends GameWindow {
       this.npcSearchDelete()
       this.itemSearchDelete()
       this.contextMenuDelete()
-      this.selected.nodes.length > 0 ? this.deselectAll() : this.unsetActiveNode()
+      
+      if(this.preconditionSetting.active)
+        this.preconditionSetting.deactivate()
+      else if(this.selected.nodes.length > 0)
+        this.deselectAll()
+      else
+        this.unsetActiveNode()
     }
     if(event.code === "KeyD" && !keys.shift) {
       this.duplicateNode(this.activeNode)
@@ -15563,6 +15632,20 @@ class DialogueEditor extends GameWindow {
     if((event.code === "Delete" || event.code === "Backspace") && this.highlighted.dataset.datatype === "item") {
       this.unsetItem(this.highlighted)
     }
+
+    /* navigation part */
+    if(event.code === "ArrowLeft") {
+      this.getPreviousSiblingNode()
+    }
+    if(event.code === "ArrowRight") {
+      this.getNextSiblingNode()
+    }
+    if(event.code === "ArrowUp") {
+      this.getFirstInputNode()
+    }
+    if(event.code === "ArrowDown") {
+      this.getFirstOutputNode()
+    }
   }
   handleKeyup(event) {
     if(document.activeElement === this.npcSearchInput) {
@@ -15579,18 +15662,41 @@ class DialogueEditor extends GameWindow {
   handleLeftDown(event) {
     let target = event.target
     if(this.state.is("editing")) {
+      /* when you click on another node */
       if(target.closest(".dialogue-node") && +target.closest(".dialogue-node").dataset.id !== this.activeNode.id) 
         this.editCancel() 
       else
+      /* when you click outside of a node */
       if(!target.closest(".dialogue-node") && !target.closest(".fact-editor")) 
         this.editCancel()
     }
 
     if(target.closest(".dialogue-node")) {
       let sameNodeAsBefore = target.closest(".dialogue-node") === this.activeNode?.element
-      this.setActiveNode(event)
+
+      /* if precondition setting then you do not set the clicked nodes as active but set it as a precondition to the active node */
+      if(this.preconditionSetting.active && !sameNodeAsBefore) {
+        let node = this.nodes.find(n => n.id === +target.closest(".dialogue-node").dataset.id)
+        if(node === this.activeNode) return alert("")
+        if(this.activeNode.preconditions.has(node.id)) {
+          this.activeNode.preconditions.delete(node.id)
+          node.element.classList.remove("precondition")
+        }
+        else {
+          this.activeNode.preconditions.add(node.id)
+          node.element.classList.add("precondition")
+        }
+        return
+      }
+      else {
+        if(!sameNodeAsBefore) 
+          this.preconditionSetting.deactivate()
+        this.setActiveNode(event)
+      }
+
       if(this.factEditor.open && !sameNodeAsBefore)
         this.factEditor.refreshStructure()
+      
     }
 
     if(target.closest(".dialogue-node-socket.out")) {
@@ -15618,14 +15724,14 @@ class DialogueEditor extends GameWindow {
 
     if(target.closest(".dialogue-node *[data-datatype='speaker']")) {
       this.highlighted = target.closest("[data-datatype='speaker']")
-      this.highlighted.style.outline = "2px solid var(--color-accent)"
+      this.highlighted.style.outline = "2px solid var(--color-shield)"
       this.state.set("selectingSpeaker")
       this.npcSearchCreate("speaker")
     }
 
     if(target.closest(".dialogue-node *[data-datatype='recipient']")) {
       this.highlighted = target.closest("[data-datatype='recipient']")
-      this.highlighted.style.outline = "2px solid var(--color-accent)"
+      this.highlighted.style.outline = "2px solid var(--color-shield)"
       this.state.set("selectingSpeaker")
       this.npcSearchCreate("recipient")
     }
@@ -15636,12 +15742,24 @@ class DialogueEditor extends GameWindow {
         return
       }
       this.highlighted = target.closest("[data-datatype='item']")
-      this.highlighted.style.outline = "2px solid var(--color-accent)"
+      this.highlighted.style.outline = "2px solid var(--color-shield)"
       this.state.set("selectingItem")
       this.itemSearchCreate()
     }
     
-    if(target.closest(".dialogue-node-widget.drag")) {
+    /* conditions for beginning the drag operation, the user must click a non-functional part of the node DIRECTLY */
+    if(
+      target.closest(".dialogue-node") && 
+      (
+        target.classList.contains("dialogue-node")
+        || target.classList.contains("dialogue-node-title")
+        || target.classList.contains("dialogue-node-icon")
+        || target.classList.contains("fact-count")
+        || target.classList.contains("filler") 
+        || target.classList.contains("dialogue-node-content")
+      )
+    )
+    {
       this.editCancel()
       this.state.set("dragging")
     }
@@ -15770,6 +15888,21 @@ class DialogueEditor extends GameWindow {
       this.factEditor.toggle(event)
     }
 
+    if(target.closest(".dialogue-node-widget.precondition")) {
+      target.closest(".dialogue-node-widget.precondition").classList.add("active")
+      this.preconditionSetting.toggle()
+    }
+    if(target.closest(".dialogue-node-widget.precondition-logic")) {
+      if(this.activeNode.preconditionLogic === "OR") {
+        target.closest(".dialogue-node-widget.precondition-logic").classList.replace("or", "and")
+        this.activeNode.preconditionLogic = "AND"
+      }
+      else {
+        target.closest(".dialogue-node-widget.precondition-logic").classList.replace("and", "or")
+        this.activeNode.preconditionLogic = "OR"
+      }
+    }
+
     if(target.closest(".fact-editor .dialogue-node-widget.remove")) {
       this.factEditor.hide()
     }
@@ -15851,7 +15984,10 @@ class DialogueEditor extends GameWindow {
     if(event.target.closest(".fact-editor")) return
     if(event.target.closest(".search-popup")) return
 
-    this.scroll(-event.deltaY)
+    if(keys.shift)
+      this.scrollSideways(-event.deltaY)
+    else
+      this.scroll(-event.deltaY)
   }
   //#endregion input
   //#region options
@@ -15990,7 +16126,6 @@ class DialogueEditor extends GameWindow {
   }
   fitInViewport(popupElement) {
     let rect = popupElement.getBoundingClientRect()
-    console.log(rect)
     if(rect.bottom > ch) {
       let top = ch - rect.height - 20
       popupElement.style.top = top + "px"
@@ -16018,15 +16153,74 @@ class DialogueEditor extends GameWindow {
     target.classList.add('active')
 
     this.activeNode = this.nodes.find(node => node.id === +target.dataset.id)
+    
+    /* set styles to highlight connected nodes */
+    this.activeNode.element.style.zIndex = 4
     this.nodes.forEach(node => node.element.classList.remove("highlighted"))
-    this.activeNode.in.forEach (connection => connection.from.element.classList.add("highlighted"))
-    this.activeNode.out.forEach(connection => connection.to.element.classList.add("highlighted"))
+    this.activeNode.in.forEach(connection => {
+      let node = connection.from
+      node.element.classList.add("highlighted")
+      node.element.style.zIndex = 3
+    })
+    this.activeNode.out.forEach(connection => {
+      let 
+      node = connection.to
+      node.element.classList.add("highlighted")
+      node.element.style.zIndex = 3
+    })
+    this.activeNode.preconditions.forEach(nodeId => {
+      let 
+      node = this.nodes.find(n => n.id === nodeId)
+      node.element.classList.add("precondition")
+      node.element.style.zIndex = 3
+    })
+  }
+  getNextSiblingNode() {
+    this.getSiblingNodeByOffset(1)
+  }
+  getPreviousSiblingNode() {
+    this.getSiblingNodeByOffset(-1)
+  }
+  getSiblingNodeByOffset(offset) {
+    let parent = this.activeNode.in[0]?.from
+    if(!parent) return
+    let parentOutConn = parent.out.find(conn => conn.to === this.activeNode)
+    let indexOfChild = parent.out.indexOf(parentOutConn)
+    let prevSibling = parent.out[indexOfChild + offset]?.to
+    if(prevSibling)
+      this.setActiveNode({target: prevSibling.element})
+    this.panNodeIntoView(this.activeNode)
+  }
+  getFirstOutputNode() {
+    let node = this.activeNode.out[0]?.to
+    if(node)
+      this.setActiveNode({target: node.element})
+    this.panNodeIntoView(this.activeNode)
+  }
+  getFirstInputNode() {
+    let node = this.activeNode.in[0]?.from
+    if(node)
+      this.setActiveNode({target: node.element})
+    this.panNodeIntoView(this.activeNode)
   }
   getNodeAtMousePosition(event) {
     let target = event.target.closest(".dialogue-node")
     if(target) 
       return this.nodes.find(node => node.id === +target.dataset.id)
     return null
+  }
+  panNodeIntoView(node) {
+    let rect = node.element.getBoundingClientRect()
+    let offset = new Vector()
+    let inset = 150
+
+    if(rect.top < 0 + inset)                offset.y = -rect.top + inset
+    if(rect.left < 0 + inset)               offset.x = -rect.left + inset
+    if(rect.top + rect.height > ch - inset) offset.y += ch - (rect.top + rect.height) - inset
+    if(rect.left + rect.width > cw - inset) offset.x += cw - (rect.left + rect.width) - inset
+
+    this.nodes.forEach(node => node.pos.add(offset))
+    this.updateHTML()
   }
   selectNode(node) {
     if(this.selected.nodes.findChild(node)) return
@@ -16079,7 +16273,7 @@ class DialogueEditor extends GameWindow {
           undefined, 
           [
             ["d", "M 0 0 L 250 250"],
-            ["stroke", "#006000"], 
+            ["stroke", "#393c3f"], 
             ["stroke-width", this.style.connectionWidth]
           ]
         )
@@ -16131,7 +16325,8 @@ class DialogueEditor extends GameWindow {
     })
   }
   reset() {
-    this.nodes.forEach(node => node.destroy())
+    let nodes = [...this.nodes]
+    nodes.forEach(node => node.destroy())
     this.nodes = []
     this.activeNode = null
     this.editedData = {}
@@ -19992,6 +20187,7 @@ class Mouse {
     this.mapMoved                 = new Vector()
     this.target = null
     this.clickTarget = null
+    this.clickedNotMoved = false
     this.travelled = 0
     this.pressure = 1
     this.shipAngle = 0
@@ -20036,6 +20232,7 @@ class Mouse {
     this.clickTarget = event.target
   }
   handleMousemove(event) {
+    if(this.travelled > 3) this.clickedNotMoved = false
     this.updateClientPosition(event)
     this.updateTravelledDistance(event)
     this.updateWorldPosition()
@@ -20045,6 +20242,10 @@ class Mouse {
   }
   handleMouseup(event) {
     this.clientClickEnd.set(event.clientX, event.clientY)
+    if(this.travelled > 3) 
+      this.clickedNotMoved = false
+    else
+      this.clickedNotMoved = true
   }
   handleClick(event) {
 
