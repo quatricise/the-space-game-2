@@ -228,11 +228,23 @@ textarea {
 }
 
 .context-menu-option {
+  position: relative;
   padding: 5px 0;
 }
 
 .context-menu-option:hover {
   background-color: var(--dark-3);
+}
+
+.context-menu-index {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: max-content;
+  display: flex;
+  align-items: center;
+  color: var(--bright-3);
 }
 
 .context-menu-title {

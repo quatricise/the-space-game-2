@@ -2,9 +2,10 @@ class FactEditor {
   constructor(gameWindow, viewportSide) {
     this.gameWindow = gameWindow
     this.open = true
-    this.elements = {
-      
-    }
+
+    /* object containing some relevant html elements inside this window */
+    this.elements = {}
+    
     this.activeElements = {
       criterion: null
     }
@@ -24,6 +25,7 @@ class FactEditor {
     this.updateIconsForNodes()
   }
   toggle() {
+    console.log("toggle")
     if(!this.open) 
       this.show()
     else 
@@ -40,7 +42,7 @@ class FactEditor {
   //#region HTML layer
   createHtml(viewportSide) {
     let element =             El("div", "fact-editor " + viewportSide)
-    let header =              El("div", "fact-container-header", undefined, "Fact editor")
+    let header =              El("div", "fact-container-header", undefined, "Node properties")
     let buttonClose =         El("div", "dialogue-node-widget remove")
     let btnAddFact =          El("div", "fact-add-button", [["title", "Add new fact"]])
     let factInputWrapper =    El("div", "fact-input-wrapper")

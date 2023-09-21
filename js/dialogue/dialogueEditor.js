@@ -2,16 +2,19 @@ class DialogueEditor extends GameWindow {
   constructor() {
     super("DialogueEditor", Q('#dialogue-editor'))
     this.dialogueName = "dialogue1"
+    this.description = "Dialogue description"
+    this.dataset = new Set()
+    this.sections = new Set()
     this.nodes = []
-    this.textarea = El("textarea", "dialogue-editor-textarea", [["type", "text"],["size", "300"],["width", ""]])
+    this.activeNode = null
     this.editedData = {}
-    this.style = {connectionWidth: 8}
+    this.style = {connectionWidth: 12}
     this.scale = 1
 
     /* an element that's visually highlighted using a blue outline */
     this.highlighted = null
 
-    /* name of the last npc used inside a text node */
+    /* name of the last npc set inside a text node */
     this.lastNpc = Object.keys(data.person)[0]
 
     this.state = new State(
@@ -34,10 +37,19 @@ class DialogueEditor extends GameWindow {
       nodes: [],
     }
     this.options = {
-      compactView: false
+      compactView: false,
+      safeMode: false,
     }
     this.connectionData = {
-      outputSocketIndex: null
+      outputSocketIndex: null,
+      /**
+      * @type HTMLDivElement
+      */
+      placeholderSocket: null,
+    }
+    this.autoPan = {
+      active: false,
+      maxSpeed: 1,
     }
     this.boxSelection = {
       active: false,
@@ -45,18 +57,27 @@ class DialogueEditor extends GameWindow {
       endPoint: new Vector(),
       box: new BoundingBox(0, 0, 0, 0),
       visual: Q("#dialogue-editor-box-selection"),
-      begin() {
-        this.reset()
-        this.active = true
-        this.startPoint.setFrom(mouse.clientPosition)
-        this.endPoint.setFrom(mouse.clientPosition)
-        this.visual.classList.remove("hidden")
+      begin: () => {
+        if(!keys.shift) {
+          this.deselectAll()
+          this.unsetActiveNode()
+        }
+        this.boxSelection.reset()
+        this.boxSelection.active = true
+        this.boxSelection.startPoint.setFrom(mouse.clientPosition)
+        this.boxSelection.endPoint.setFrom(mouse.clientPosition)
+        this.boxSelection.visual.classList.remove("hidden")
       },
-      update() {
-        this.endPoint.add(mouse.clientMoved)
+      update(offset = mouse.clientMoved) {
+        this.endPoint.add(offset)
 
-        let topLeftPoint = this.startPoint.distance(this.endPoint) > 0 ?  this.startPoint : this.endPoint
-        let bottomRightPoint = topLeftPoint === this.startPoint ? this.endPoint : this.startPoint
+        let topLeftPoint = new Vector()
+        topLeftPoint.x = Math.min(this.startPoint.x, this.endPoint.x)
+        topLeftPoint.y = Math.min(this.startPoint.y, this.endPoint.y)
+
+        let bottomRightPoint = new Vector()
+        bottomRightPoint.x = Math.max(this.startPoint.x, this.endPoint.x)
+        bottomRightPoint.y = Math.max(this.startPoint.y, this.endPoint.y)
 
         let width =  bottomRightPoint.x - topLeftPoint.x
         let height = bottomRightPoint.y - topLeftPoint.y
@@ -92,7 +113,7 @@ class DialogueEditor extends GameWindow {
             nodeRects[index].height
           )
           if(Collision.auto(this.boxSelection.box, nodeBox)) {
-            this.selectNode(node)
+            this.toggleSelectNode(node)
           }
         })
       },
@@ -104,30 +125,20 @@ class DialogueEditor extends GameWindow {
     this.preconditionSetting = {
       active: false,
       toggle: () => {
-        if(this.preconditionSetting.active)
-          this.preconditionSetting.deactivate()
-        else
-          this.preconditionSetting.activate()
+        this.preconditionSetting.active ? this.preconditionSetting.deactivate() : this.preconditionSetting.activate()
       },
       activate: () => {
         if(this.preconditionSetting.active) return
-        /* turn all precondition nodes blue */
-        this.activeNode.preconditions.forEach(entry => {
-          this.nodes.find(n => n.id === entry).element.classList.add("precondition")
-        })
         this.preconditionSetting.active = true
       },
       deactivate: () => {
         if(!this.preconditionSetting.active) return
-        // this.nodes.forEach(node => node.element.classList.remove("precondition"))
         Qa(".dialogue-node-widget.precondition").forEach(widget => widget.classList.remove("active"))
         this.preconditionSetting.active = false
       },
     }
-
     this.createHtml()
     this.createFactEditor()
-    this.unsetActiveNode()
   }
   createFactEditor() {
     this.factEditor = new FactEditor(this, "view-bottom")
@@ -135,9 +146,12 @@ class DialogueEditor extends GameWindow {
   }
   createHtml() {
     Q('.dialogue-name').innerText = this.dialogueName
+
+    /* svg container */
     this.svgCont = El("div", "svg-container")
     this.element.append(this.svgCont)
-    
+
+    this.textarea =   El("textarea", "dialogue-editor-textarea", [["type", "text"],["size", "300"],["width", ""]])
     let importIcon = El('div', "icon-import", [["title", "Import dialogue file"]])
     let exportIcon = El('div', "icon-export-facts", [["title", "Export dialogue tree and facts"]])
     this.element.querySelector(".icon-close-container").prepend(importIcon, exportIcon)
@@ -147,17 +161,15 @@ class DialogueEditor extends GameWindow {
     this.canvas.width = cw
     this.canvas.height = ch
     this.element.append(this.canvas)
-  }
-  pan() {
-    this.nodes.forEach(node => node.pos.add(mouse.clientMoved))
-  }
-  scroll(amt) {
-    this.nodes.forEach(node => node.pos.y += amt)
-    this.updateHTML()
-  }
-  scrollSideways(amt) {
-    this.nodes.forEach(node => node.pos.x += amt)
-    this.updateHTML()
+
+    /* create a placeholder socket that's shown when creating connections */
+    let 
+    socket = El.special("node-socket-out")
+    socket.style.pointerEvents = "none"
+    socket.style.position = "absolute"
+    socket.classList.add("hidden")
+    this.connectionData.placeholderSocket = socket
+    this.element.append(socket)
   }
   import() {
     let name = window.prompt("dialogue filename", "al_and_betty_2")
@@ -179,7 +191,7 @@ class DialogueEditor extends GameWindow {
           node.speaker, 
           new Vector(node.pos.x, node.pos.y), 
           node.id, 
-          node.criteria, 
+          node.criteria,
           {labels: node.labels, factsToSet: node.factsToSet, tree: node.tree, preconditions: node.preconditions, preconditionLogic: node.preconditionLogic},
           node.transfer,
           node.recipient
@@ -197,9 +209,23 @@ class DialogueEditor extends GameWindow {
       this.reconstructHTML()
       this.state.set("default")
     })
-    
   }
   export() {
+    /* this will need to be reworked to support the new format for dialogues */
+
+    /* new format structure */
+    let header = {
+      name: this.dialogueName,
+      sections: Array.from(this.sections),
+      description: this.description
+    }
+    let nodes = []
+    let exportD = {
+      header,
+      nodes
+    }
+    /*  */
+
     let exportData = []
     this.nodes.forEach(node => {
       let inNodes = node.in.map(n => {return {index: n.index, to: n.from.id}})
@@ -227,20 +253,64 @@ class DialogueEditor extends GameWindow {
     })
     exportToJSONFile(exportData, this.dialogueName)
   }
+
+  storeDialogueData() {
+    /* this stores data to this.dataset, under a unified format called DialogueData */
+    let header = {
+      name: this.dialogueName,
+      sections: this.sections,
+      description: this.description
+    }
+    let dialogueData = new DialogueData(header, _.cloneDeep(this.nodes))
+    this.dataset.add(dialogueData)
+    this.reset()
+  }
+  loadDialogueData() {
+    /* this loads data from this.dataset */
+    let name = "dialogue1"
+    let data
+    this.dataset.forEach(value => {
+      if(value.header.name === name)
+        {data = value; console.log("fopund")}
+    })
+    if(!data) return
+
+    this.nodes = data.nodes
+    for(let key in data.header)
+      this[key] = data.header[key]
+    
+    /* reconstruct html */
+    this.reconstructHTML()
+    this.state.set("default")
+  }
+
+  createSection() {
+    if(this.selected.nodes.length < 1 && !this.activeNode) return
+
+    let section = new DialogueEditorSection()
+    this.sections.add(section)
+    section.addNodes(...this.selected.nodes)
+
+    if(this.activeNode)
+      section.addNodes(this.activeNode)
+  }
+  pan(offset) {
+    this.nodes.forEach(node => node.pos.add(offset))
+    this.updateHTML()
+  }
+  scroll(amt) {
+    this.nodes.forEach(node => node.pos.y += amt)
+    this.updateHTML()
+  }
+  scrollSideways(amt) {
+    this.nodes.forEach(node => node.pos.x += amt)
+    this.updateHTML()
+  }
   displayFactSearch() {
     
   }
   hideFactSearch() {
 
-  }
-  unsetActiveNode() {
-    this.activeNode?.element.classList.remove("active")
-    this.nodes.forEach(node => {
-      node.element.classList.remove("highlighted", "precondition")
-      node.element.style.zIndex = ""
-    })
-    this.activeNode = null
-    this.factEditor.hide()
   }
   setPerson(person, role) {
     console.log("setting person: ", person)
@@ -402,6 +472,7 @@ class DialogueEditor extends GameWindow {
       this.npcSearchFilter()
       return
     }
+
     /* when editing a text field */
     if(document.activeElement === this.textarea || this.state.is("editing")) {
       if((event.code === "Enter" || event.code === "NumpadEnter") && (!keys.shift && !keys.shiftRight))
@@ -410,6 +481,7 @@ class DialogueEditor extends GameWindow {
         this.editCancel()
       return
     }
+
     /* general cancel event, should hide most searches, popups and context menus */
     if(event.code === "Escape") {
       this.editCancel()
@@ -439,22 +511,125 @@ class DialogueEditor extends GameWindow {
     if(event.code === "KeyF") {
       this.factEditor.toggle()
     }
-    if((event.code === "Delete" || event.code === "Backspace") && this.highlighted.dataset.datatype === "item") {
+    if((event.code === "Delete" || event.code === "Backspace") && this.highlighted && this.highlighted.dataset.datatype === "item") {
       this.unsetItem(this.highlighted)
     }
 
     /* navigation part */
-    if(event.code === "ArrowLeft") {
-      this.getPreviousSiblingNode()
+    if(!keys.shift && this.activeNode) {
+      if(event.code === "ArrowLeft") {
+        this.getPreviousSiblingNode()
+      }
+      if(event.code === "ArrowRight") {
+        this.getNextSiblingNode()
+      }
+      if(event.code === "ArrowUp") {
+        this.getFirstInputNode()
+      }
+      if(event.code === "ArrowDown") {
+        this.getFirstOutputNode()
+      }
     }
-    if(event.code === "ArrowRight") {
-      this.getNextSiblingNode()
+
+    /* node creation shortcuts */
+    if(event.code.includesAny("Digit1", "Digit2", "Digit3", "Digit4", "Digit5", "Digit6", "Digit7", "Digit8", "Digit9")) {
+      let index = +event.code.replaceAll("Digit", "") - 1
+      if(!DialogueNode.types[index]) return
+
+      let node = this.createNode(DialogueNode.types[index])
+      if(this.activeNode) {
+        let connectionIndex = this.connectionData.outputSocketIndex ?? this.activeNode.out.length
+        this.activeNode.createConnection(node, connectionIndex)
+        this.reconstructHTML()
+      }
     }
-    if(event.code === "ArrowUp") {
-      this.getFirstInputNode()
+
+    /* node nudging */
+    if(keys.shift) {
+      let nudgeAmount = 10
+      let nudgeMultiplier = 1 + 10 * keys.ctrl
+
+      let nodes = new Set()
+      this.selected.nodes.forEach(n => nodes.add(n))
+      if(this.activeNode) nodes.add(this.activeNode)
+
+      if(event.code === "ArrowLeft") {
+        nodes.forEach(n => n.pos.x -= nudgeAmount * nudgeMultiplier)
+      } else
+      if(event.code === "ArrowRight") {
+        nodes.forEach(n => n.pos.x += nudgeAmount * nudgeMultiplier)
+      } else
+      if(event.code === "ArrowUp") {
+        nodes.forEach(n => n.pos.y -= nudgeAmount * nudgeMultiplier)
+      } else
+      if(event.code === "ArrowDown") {
+        nodes.forEach(n => n.pos.y += nudgeAmount * nudgeMultiplier)
+      }
+      this.updateHTML()
     }
-    if(event.code === "ArrowDown") {
-      this.getFirstOutputNode()
+
+    /* node swap */
+    if(event.code === "KeyW") {
+      if(this.selected.nodes.length > 1) {
+        let swappableProperties = ["pos", "in", "out"]
+        for(let prop of swappableProperties) {
+          [
+            this.selected.nodes[0][prop], 
+            this.selected.nodes[1][prop]
+          ] = 
+          [
+            this.selected.nodes[1][prop], 
+            this.selected.nodes[0][prop]
+          ]
+        }
+        this.reconstructHTML()
+      }
+    }
+
+    /* create section */
+    if(event.code === "KeyS") {
+      this.createSection()
+    }
+    
+    /* break connections */
+    if(event.code === "KeyB") {
+      let nodes = new Set()
+      this.selected.nodes.forEach(n => nodes.add(n))
+      if(this.activeNode) nodes.add(this.activeNode)
+      
+      nodes.forEach(node => {
+        let outConns = [...node.out]
+        let inConns = [...node.in]
+        outConns.forEach((conn, index) => node.deleteConnection(index))
+        inConns.forEach((conn, index) => {
+          let srcNode = conn.from
+          let ind = srcNode.out.indexOf(srcNode.out.find(con => con.to === node))
+          srcNode.deleteConnection(ind)
+        })
+      })
+      this.reconstructHTML()
+    }
+
+    /* mass delete */
+    if(event.code === "KeyX" && (this.selected.nodes.length || this.activeNode)) {
+      let nodes = new Set()
+      this.selected.nodes.forEach(n => nodes.add(n))
+      if(this.activeNode) nodes.add(this.activeNode)
+
+      if(window.confirm(`Delete ${nodes.size} nodes?`)) {
+        nodes.forEach(n => n.destroy())
+      }
+    }
+
+    /* tidy up */
+    if(event.code === "KeyT") {
+      this.setOptionTidyUp()
+    }
+    if(event.code === "KeyH") {
+      this.setOptionStackHorizontally()
+    }
+    if(event.code === "KeyV") {
+      this.setOptionStackVertically()
     }
   }
   handleKeyup(event) {
@@ -512,10 +687,12 @@ class DialogueEditor extends GameWindow {
     if(target.closest(".dialogue-node-socket.out")) {
       this.state.set("connecting")
       this.connectionData.outputSocketIndex = +target.closest(".dialogue-node-socket.out").dataset.index
+      this.showPlaceholderSocket()
     }
 
     if(target.closest(".dialogue-node") && (keys.shift || keys.shiftRight)) {
       this.state.set("connecting")
+      this.showPlaceholderSocket()
     }
 
     if(target.closest(".dialogue-node-label")) {
@@ -532,14 +709,24 @@ class DialogueEditor extends GameWindow {
       this.handleElementEdit(target.closest("[data-editable='true']"))
     }
 
+    /* speaker selection logic */
     if(target.closest(".dialogue-node *[data-datatype='speaker']")) {
+      if(this.state.is("selectingSpeaker")) {
+        this.npcSearchDelete()
+        return
+      }
+
       this.highlighted = target.closest("[data-datatype='speaker']")
       this.highlighted.style.outline = "2px solid var(--color-shield)"
       this.state.set("selectingSpeaker")
       this.npcSearchCreate("speaker")
     }
-
     if(target.closest(".dialogue-node *[data-datatype='recipient']")) {
+      if(this.state.is("selectingSpeaker")) {
+        this.npcSearchDelete()
+        return
+      }
+
       this.highlighted = target.closest("[data-datatype='recipient']")
       this.highlighted.style.outline = "2px solid var(--color-shield)"
       this.state.set("selectingSpeaker")
@@ -559,9 +746,11 @@ class DialogueEditor extends GameWindow {
     
     /* conditions for beginning the drag operation, the user must click a non-functional part of the node DIRECTLY */
     if(
-      target.closest(".dialogue-node") && 
-      (
+      target.closest(".dialogue-node") 
+      && !keys.shift
+      && (
         target.classList.contains("dialogue-node")
+        || target.classList.contains("dialogue-node-header")
         || target.classList.contains("dialogue-node-title")
         || target.classList.contains("dialogue-node-icon")
         || target.classList.contains("fact-count")
@@ -614,7 +803,7 @@ class DialogueEditor extends GameWindow {
       this.state.set("creating")
     }
 
-    if(target.closest("path")) {
+    if(target.closest("path.node-connection")) {
       let svg = target.closest("svg")
       svg.childNodes[0].setAttribute("stroke", "blue")
       let node = this.nodes.find(node => node.id === +event.target.closest("svg").dataset.id)
@@ -678,7 +867,8 @@ class DialogueEditor extends GameWindow {
 
     if(target.closest(".context-menu-option")) {
       let option = target.closest(".context-menu-option")
-      this.createNode(option.dataset.type, option.dataset.isplayer.bool())
+      let node = this.createNode(option.dataset.type, option.dataset.isplayer.bool())
+      this.setActiveNode({target: node.element})
       this.contextMenuDelete()
     }
 
@@ -695,7 +885,7 @@ class DialogueEditor extends GameWindow {
     }
 
     if(target.closest(".dialogue-node-widget.list")) {
-      this.factEditor.toggle(event)
+      this.factEditor.toggle()
     }
 
     if(target.closest(".dialogue-node-widget.precondition")) {
@@ -715,6 +905,16 @@ class DialogueEditor extends GameWindow {
 
     if(target.closest(".fact-editor .dialogue-node-widget.remove")) {
       this.factEditor.hide()
+    }
+    if(target.closest(".dialogue-editor-section-title")) {
+      let title = target.closest(".dialogue-editor-section-title")
+      let section = Array.from(this.sections).find(s => s.elements.title === title)
+      section.setName( window.prompt("Enter new name", title.innerText) ?? title.innerText )
+    }
+    if(target.closest(".dialogue-editor-section-delete-button")) {
+      let button = target.closest(".dialogue-editor-section-delete-button")
+      let section = Array.from(this.sections).find(s => s.elements.deleteButton === button)
+      section.destroy()
     }
   }
   handleMiddleDown(event) {
@@ -737,7 +937,11 @@ class DialogueEditor extends GameWindow {
       })
     }
     if(this.state.is("panning")) {
-      this.pan()
+      this.pan(mouse.clientMoved)
+    }
+    if(this.state.is("connecting")) {
+      this.connectionData.placeholderSocket.style.left = mouse.clientPosition.x + "px"
+      this.connectionData.placeholderSocket.style.top =  mouse.clientPosition.y + "px"
     }
     if(this.state.is("creating")) {
       this.boxSelection.begin()
@@ -759,21 +963,23 @@ class DialogueEditor extends GameWindow {
       if(this.state.is("connecting") && event.target === this.element) {
         let node = this.createNode("text")
         this.activeNode.createConnection(node, this.connectionData.outputSocketIndex)
+        this.setActiveNode({target: node.element})
       }
       if(this.state.is("creating") && event.target === this.element) {
         let node = this.createNode("text")
-        let event = {target: node.element}
-        this.setActiveNode(event)
+        this.setActiveNode({target: node.element})
         this.factEditor.refreshStructure()
       }
       if(this.state.is("deleting") && event.target.closest(".dialogue-node-widget.remove")) {
-        this.activeNode.destroy()
+        if((this.options.safeMode && window.confirm("Delete node?")) || !this.options.safeMode)
+          this.activeNode.destroy()
       }
       if(this.state.is("boxSelection")) {
         this.boxSelection.end()
       }
       this.contextMenuDelete()
     }
+    
     /* RMB */
     if(event.button === 2) {
       if(this.state.is("creatingContextMenu") && event.target === this.element) {
@@ -781,12 +987,26 @@ class DialogueEditor extends GameWindow {
       }
     }
 
+    /* all buttons */
     if(this.state.is("dragging") && this.factEditor.open) {
       this.factEditor.show(event)
     }
+
+    /* add node to different section, if you stop the dragging operation over it */
+    if(this.state.is("dragging")) {
+      let section = this.getSectionUnderCursor()
+      if(section) {
+        section.addNodes(...this.selected.nodes)
+        if(this.activeNode) 
+          section.addNodes(this.activeNode)
+      }
+    }
+
+    /* this part should be final, as it resets the main state */
     if(this.state.isnt("editing", "selectingSpeaker", "selectingItem")) {
       this.state.set("default")
     }
+    this.connectionData.placeholderSocket.classList.add("hidden")
     this.factEditor.toggleEditability()
     this.reconstructHTML()
   }
@@ -801,8 +1021,11 @@ class DialogueEditor extends GameWindow {
   }
   //#endregion input
   //#region options
+  setOptionSafeMode() {
+    this.options.safeMode = ! this.options.safeMode
+  }
   async setOptionCompactView() {
-    /* this method causes a truncation error somewhere and the nodes are getting further apart with each click  */
+    /* this method causes a truncation error somewhere and the nodes are getting further apart with each click */
 
     this.nodes.forEach(node => {
       node.temp = {} 
@@ -821,28 +1044,95 @@ class DialogueEditor extends GameWindow {
     this.nodes.forEach(node => node.pos.y *= avgHeightDifference)
     this.reconstructHTML()
   }
+  setOptionTidyUp(forceDirection = null) {
+    let spacing = 20
+
+    let topMost =     Math.min(...this.selected.nodes.map(node => node.pos.y))
+    let bottomMost =  Math.max(...this.selected.nodes.map(node => node.pos.y))
+    let leftMost =    Math.min(...this.selected.nodes.map(node => node.pos.x))
+    let rightMost =   Math.max(...this.selected.nodes.map(node => node.pos.x))
+
+    let isHorizontal = (Math.abs(bottomMost - topMost) / Math.abs(leftMost - rightMost)) < 1
+
+    if(forceDirection == "vertical") isHorizontal = false
+    if(forceDirection == "horizontal") isHorizontal = true
+
+    /* okay this shit is wack, if the nodes aren't all the same dimension, this breaks */
+    if(isHorizontal) {
+      this.selected.nodes = this.selected.nodes.sort((a, b) => a.pos.x - b.pos.x)
+      let rects = this.selected.nodes.map(node => node.element.getBoundingClientRect())
+
+      this.selected.nodes.forEach((node, index) => {
+        node.pos.y = topMost
+        if(index === 0) return
+        
+        let xOffset = rects[0].left
+        for(let j = 0; j < index; j++) {
+          xOffset += rects[j].width + spacing
+        }
+        node.pos.x = xOffset
+      })
+    }
+    else {
+      this.selected.nodes = this.selected.nodes.sort((a, b) => a.pos.y - b.pos.y)
+      let rects = this.selected.nodes.map(node => node.element.getBoundingClientRect())
+      
+      let extraOffset = 0
+
+      this.selected.nodes.forEach((node, index) => {
+        node.pos.x = leftMost
+        if(index === 0) return
+        
+        let yOffset = rects[0].top
+        for(let j = 0; j < index; j++) {
+          yOffset += rects[j].height + spacing
+        }
+
+        /* minor adjustments per node type */
+        if(this.selected.nodes[index - 1].type === "responsePicker")
+          extraOffset += 20
+
+        node.pos.y = yOffset + extraOffset
+      })
+    }
+    this.updateHTML()
+  }
+  setOptionStackHorizontally() {
+    this.setOptionTidyUp("horizontal")    
+  }
+  setOptionStackVertically() {
+    this.setOptionTidyUp("vertical")
+  }
+  setOptionClearNodeOverlaps() {
+
+  }
   //#endregion
   contextMenuCreate() {
     if(this.contextMenu) 
       this.contextMenuDelete()
 
-    let menu = El("div", "context-menu")
+    let menu =  El("div", "context-menu")
     let title = El("div","context-menu-title", undefined, "Select node type")
-    menu.append(title)
 
     for(let type of DialogueNode.types) {
       let option = El("div", "context-menu-option")
       option.innerText = type.replaceAll("-", " ").splitCamelCase().capitalize()
       option.dataset.type = type
       option.dataset.isplayer = false
+      
+      let index = El("div", "context-menu-index")
+      index.innerText = DialogueNode.types.indexOf(type) + 1
+
+      option.append(index)
       menu.append(option)
     }
     menu.style.left = (mouse.clientPosition.x + 5) + "px"
     menu.style.top =  (mouse.clientPosition.y + 5) + "px"
+    
+    menu.prepend(title)
     this.element.append(menu)
     this.contextMenu = menu
-    setTimeout(() => this.fitInViewport(this.contextMenu), 0)
-
+    this.fitInViewport(this.contextMenu)
   }
   contextMenuDelete() {
     if(!this.contextMenu) return
@@ -945,6 +1235,11 @@ class DialogueEditor extends GameWindow {
       popupElement.style.left = left + "px"
     }
   }
+  showPlaceholderSocket() {
+    this.connectionData.placeholderSocket.classList.remove("hidden")
+    this.connectionData.placeholderSocket.style.left = mouse.clientPosition.x + "px"
+    this.connectionData.placeholderSocket.style.top =  mouse.clientPosition.y + "px"
+  }
   createNode(type) {
     let node = new DialogueNode(
       type, 
@@ -954,7 +1249,30 @@ class DialogueEditor extends GameWindow {
       undefined, 
       undefined, 
     )
+
+    this.contextMenuDelete()
+    
+    /* test whether mouse is inside of any section */
+    let section = this.getSectionUnderCursor()
+    section?.addNodes(node)
     return node
+  }
+  getSectionUnderCursor() {
+    /* this will find the first matching section */
+    let section 
+    let sections = Array.from(this.sections)
+    for(let s of sections) {
+      let rect = s.elements.container.getBoundingClientRect()
+      if(rect.left                < mouse.clientPosition.x
+        && rect.left + rect.width > mouse.clientPosition.x
+        && rect.top               < mouse.clientPosition.y
+        && rect.top + rect.height > mouse.clientPosition.y
+      ) {
+        section = s
+        break
+      }
+    }
+    return section
   }
   setActiveNode(event) {
     this.unsetActiveNode()
@@ -966,10 +1284,10 @@ class DialogueEditor extends GameWindow {
     
     /* set styles to highlight connected nodes */
     this.activeNode.element.style.zIndex = 4
-    this.nodes.forEach(node => node.element.classList.remove("highlighted"))
+    this.nodes.forEach(node => node.element.classList.remove("highlighted", "input-node"))
     this.activeNode.in.forEach(connection => {
       let node = connection.from
-      node.element.classList.add("highlighted")
+      node.element.classList.add("highlighted", "input-node")
       node.element.style.zIndex = 3
     })
     this.activeNode.out.forEach(connection => {
@@ -984,6 +1302,20 @@ class DialogueEditor extends GameWindow {
       node.element.classList.add("precondition")
       node.element.style.zIndex = 3
     })
+
+    /* refresh factEditor, even if it isn't visible */
+    this.factEditor.refreshStructure()
+  }
+  unsetActiveNode() {
+    this.activeNode?.element.classList.remove("active")
+    this.nodes.forEach(node => {
+      node.element.classList.remove("highlighted", "precondition")
+      node.element.style.zIndex = ""
+    })
+    this.activeNode = null
+    setTimeout(() => {
+      if(!this.activeNode) this.factEditor.hide()
+    }, 0)
   }
   getNextSiblingNode() {
     this.getSiblingNodeByOffset(1)
@@ -996,9 +1328,14 @@ class DialogueEditor extends GameWindow {
     if(!parent) return
     let parentOutConn = parent.out.find(conn => conn.to === this.activeNode)
     let indexOfChild = parent.out.indexOf(parentOutConn)
-    let prevSibling = parent.out[indexOfChild + offset]?.to
-    if(prevSibling)
-      this.setActiveNode({target: prevSibling.element})
+    let sibling = parent.out[indexOfChild + offset]?.to
+
+    if(indexOfChild + offset > parent.out.length - 1)
+      sibling = parent.out[0].to
+    if(indexOfChild + offset < 0)
+      sibling = parent.out.last().to
+
+    this.setActiveNode({target: sibling.element})
     this.panNodeIntoView(this.activeNode)
   }
   getFirstOutputNode() {
@@ -1022,7 +1359,7 @@ class DialogueEditor extends GameWindow {
   panNodeIntoView(node) {
     let rect = node.element.getBoundingClientRect()
     let offset = new Vector()
-    let inset = 150
+    let inset = 240
 
     if(rect.top < 0 + inset)                offset.y = -rect.top + inset
     if(rect.left < 0 + inset)               offset.x = -rect.left + inset
@@ -1038,15 +1375,25 @@ class DialogueEditor extends GameWindow {
     this.selected.nodes.push(node)
     node.element.classList.add("selected")
   }
+  toggleSelectNode(node) {
+    if(this.selected.nodes.findChild(node))
+      this.deselectNode(node)
+    else
+      this.selectNode(node)
+  }
+  deselectNode(node) {
+    if(!this.selected.nodes.findChild(node)) return
+
+    node.element.classList.remove("selected")
+    this.selected.nodes.remove(node)
+  }
   deselectAll() {
-    this.selected.nodes.forEach(node => {
-      node.element.classList.remove("selected")
-    })
-    this.selected.nodes = []
+    while(this.selected.nodes.length)
+      this.deselectNode(this.selected.nodes[0])
   }
   duplicateNode(node) {
     if(!node) return
-    new DialogueNode(
+    let newNode = new DialogueNode(
       _.cloneDeep(node.type),
       _.cloneDeep(node.text),
       _.cloneDeep(node.speaker),
@@ -1056,6 +1403,14 @@ class DialogueEditor extends GameWindow {
       {labels: _.cloneDeep(node.labels)},
       _.cloneDeep(node.transfer)
     )
+    this.setActiveNode({target: newNode.element})
+    
+    let section = null
+    this.sections.forEach(s => {
+      if(s.nodes.has(node)) 
+        section = s
+    })
+    section?.nodes.add(newNode)
   }
   reconstructHTML() {
     /* generate svgs for connections */
@@ -1064,6 +1419,9 @@ class DialogueEditor extends GameWindow {
       /* highlight entry and exit nodes for better visual navigation of the node tree */
       node.out.length === 0 ? node.element.classList.add("end-node")    : node.element.classList.remove("end-node")
       node.in.length === 0  ? node.element.classList.add("start-node")  : node.element.classList.remove("start-node")
+
+      /* this is used to offset the paths so it looks like they come from the socket; it's set by CSS so fuck it, just hardcode it here for now, it's fiddly anyways */
+      let socketRadius = 7
 
       node.update()
       node.out.forEach(conn => {
@@ -1075,27 +1433,29 @@ class DialogueEditor extends GameWindow {
             ["preserveAspectRatio", "xMinYMax"],
             ["width", cw],
             ["height", ch], 
-            ["fill", "none"]
+            ["fill", "none"],
           ]
         )
         let path = SVGEl(
           "path", 
-          undefined, 
+          "node-connection", 
           [
             ["d", "M 0 0 L 250 250"],
             ["stroke", "#393c3f"], 
-            ["stroke-width", this.style.connectionWidth]
+            ["stroke-width", this.style.connectionWidth],
           ]
         )
+        let title = SVGEl("title", "node-connection-title")
+        title.textContent = "Break connection"
         let rects = [
           node.element.querySelector(`.dialogue-node-socket.out[data-index='${conn.index}'`).getBoundingClientRect(),
           conn.to.element.querySelector(".dialogue-node-socket.in").getBoundingClientRect()
         ]
         path.setAttribute("d", 
-          "M " + (rects[0].x + 6) + " " + (rects[0].y + 6) + 
-          "L " + (rects[1].x + 6) + " " + (rects[1].y + 6)
+          "M " + (rects[0].x + socketRadius) + " " + (rects[0].y + socketRadius) + 
+          "L " + (rects[1].x + socketRadius) + " " + (rects[1].y + socketRadius)
         )
-        svg.append(path)
+        svg.append(title, path)
         svg.dataset.id = node.id
         svg.dataset.index = conn.index
         this.svgCont.append(svg)
@@ -1143,7 +1503,49 @@ class DialogueEditor extends GameWindow {
     this.updateHTML()
   }
   update() {
+    /* autoPan */
+    if(this.state.is("connecting", "boxSelection")) {
+      /* test whether the mouse is too close to an edge */
+      let edgeDistance = 100
+      let maxSpeed = this.autoPan.maxSpeed
+      let vec = new Vector()
+      let expression
+      if(mouse.clientPosition.x < edgeDistance) {
+        expression = (edgeDistance - mouse.clientPosition.x)/4
+        vec.x += clamp(expression, 1, maxSpeed)
+      }
+      if(mouse.clientPosition.y < edgeDistance) {
+        expression = (edgeDistance - mouse.clientPosition.y)/4
+        vec.y += clamp(expression, 1, maxSpeed)
+      }
+      if(mouse.clientPosition.x > cw - edgeDistance) {
+        expression = -(cw - edgeDistance - mouse.clientPosition.x)/4
+        vec.x -= clamp(expression, 1, maxSpeed)
+      }
+      if(mouse.clientPosition.y > ch - edgeDistance) {
+        expression = -(ch - edgeDistance - mouse.clientPosition.y)/4
+        vec.y -= clamp(expression, 1, maxSpeed)
+      }
 
+      if(vec.length() !== 0) {
+        this.pan(vec)
+        this.autoPan.active = true
+        this.autoPan.maxSpeed = clamp(this.autoPan.maxSpeed + 0.25, 0, 30)
+
+        /* update box selection */
+        this.boxSelection.startPoint.add(vec)
+        this.boxSelection.update(new Vector())
+        this.boxSelection.updateVisual()
+      }
+      else {
+        this.autoPan.maxSpeed = 1
+        this.autoPan.active = false
+      }
+    }
+
+    /* update sections but only if not dragging nodes */
+    if(this.state.isnt("dragging"))
+      this.sections.forEach(s => s.update())
   }
   //#region debugging methods
   checkForDuplicateIds() {

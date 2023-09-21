@@ -82,8 +82,7 @@ class Mouse {
   }
   //#endregion
   updateShipAngle() {
-    // this.shipAngle = Math.atan2(this.worldPosition.y - player.ship.transform.position.y, this.worldPosition.x - player.ship.transform.position.x)
-    this.shipAngle = player.ship.transform.position.angleTo(this.worldPosition)
+    this.shipAngle = player?.ship?.transform.position.angleTo(this.worldPosition)
   }
   updateClientPosition(e) {
     this.clientPositionPrev.x = this.clientPosition.x

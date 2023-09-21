@@ -1,9 +1,46 @@
 [
   {
-    "id": 639312291068,
+    "id": 901229407487,
     "pos": {
-      "x": 269,
-      "y": 261,
+      "x": 811,
+      "y": 299,
+      "type": "vector"
+    },
+    "type": "text",
+    "speaker": "empty",
+    "recipient": null,
+    "transfer": [
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      },
+      {
+        "owner": "player",
+        "items": [
+          ""
+        ]
+      }
+    ],
+    "labels": {
+      "lie": false,
+      "exaggerate": false
+    },
+    "text": "Lorem mmmmmmmmmm",
+    "factsToSet": [],
+    "criteria": [],
+    "in": [],
+    "out": [],
+    "tree": null,
+    "preconditions": [],
+    "preconditionLogic": "OR"
+  },
+  {
+    "id": 952708940699,
+    "pos": {
+      "x": 143,
+      "y": 300,
       "type": "vector"
     },
     "type": "text",
@@ -37,13 +74,13 @@
     "preconditionLogic": "OR"
   },
   {
-    "id": 251034067821,
+    "id": 636095966921,
     "pos": {
-      "x": 627,
-      "y": 387,
+      "x": 378,
+      "y": 299,
       "type": "vector"
     },
-    "type": "tree",
+    "type": "text",
     "speaker": "empty",
     "recipient": null,
     "transfer": [
@@ -64,12 +101,12 @@
       "lie": false,
       "exaggerate": false
     },
-    "text": "Lorem Ipsum",
+    "text": "Lorem mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
     "factsToSet": [],
     "criteria": [],
     "in": [],
     "out": [],
-    "tree": "al_and_betty_2",
+    "tree": null,
     "preconditions": [],
     "preconditionLogic": "OR"
   }

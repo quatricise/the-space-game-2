@@ -67,8 +67,14 @@ class LocationEditor extends GameWorldWindow {
         this.selectObjects()
       },
       selectObjects: () => {
-        let topLeftPoint =      this.boxSelection.startPoint.distance(this.boxSelection.endPoint) > 0 ? this.boxSelection.startPoint : this.boxSelection.endPoint
-        let bottomRightPoint =  topLeftPoint === this.boxSelection.startPoint                         ? this.boxSelection.endPoint   : this.boxSelection.startPoint
+        let topLeftPoint = new Vector()
+        topLeftPoint.x = Math.min(this.boxSelection.startPoint.x, this.boxSelection.endPoint.x)
+        topLeftPoint.y = Math.min(this.boxSelection.startPoint.y, this.boxSelection.endPoint.y)
+
+        let bottomRightPoint = new Vector()
+        bottomRightPoint.x = Math.max(this.boxSelection.startPoint.x, this.boxSelection.endPoint.x)
+        bottomRightPoint.y = Math.max(this.boxSelection.startPoint.y, this.boxSelection.endPoint.y)
+        
         let box = new BoundingBox(
             topLeftPoint.x,
             topLeftPoint.y,

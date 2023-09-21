@@ -38,15 +38,13 @@ class DialogueNode {
     /* header */
     let node =                    El('div', "dialogue-node")
     let header =                  El('div', "dialogue-node-header")
-    // let nodeTitle =               El('div', "dialogue-node-title", undefined, this.type.capitalize().splitCamelCase())
     let nodeTitle =               El('div', "dialogue-node-title", [["title", this.type.capitalize().splitCamelCase() + " Node"]])
     let nodeIcon =                new Image()
-    // let widgetDrag =              El("div", "dialogue-node-widget drag",                    [["title", "Drag node"]])
     let widgetRemove =            El("div", "dialogue-node-widget remove",                  [["title", "Delete node"]])
-    let widgetList =              El("div", "dialogue-node-widget list",                    [["title", "Open facts list"]])
+    let widgetProperties =        El("div", "dialogue-node-widget list",                    [["title", "Open node properties"]])
     let widgetPrecondition =      El("div", "dialogue-node-widget precondition",            [["title", "Set preconditions"]])
     let widgetPreconditionLogic = El("div", "dialogue-node-widget precondition-logic or",   [["title", "Set logical operation for preconditions"]])
-    let factCount =               El("div", "fact-count")
+    let factCount =               El("div", "condition-count active")
     let filler =                  El("div", "filler")
     let content =                 El("div", "dialogue-node-content")
     
@@ -63,7 +61,7 @@ class DialogueNode {
 
     /* append stuff */
     nodeTitle.append(nodeIcon)
-    header.append(widgetRemove, widgetPrecondition, widgetPreconditionLogic, filler, nodeTitle)
+    header.append(widgetRemove, widgetProperties, widgetPrecondition, widgetPreconditionLogic, filler, nodeTitle)
     node.append(header, content, factCount, wrapperOut, wrapperIn)
     wrapperOut.append(socketOut)
     wrapperIn.append(socketIn)
@@ -74,8 +72,10 @@ class DialogueNode {
     dialogueEditor.element.append(node)
     this.element = node
     node.dataset.id = this.id
+    node.onmouseover = () => node.style.zIndex = 3
+    node.onmouseout = () => node.style.zIndex = ""
 
-    /* nodetype-specific features */
+    /* specific features per node type */
     this["createHTML" + this.type.capitalize()]()
 
     /* attach thumbnails to person fields */
@@ -91,7 +91,7 @@ class DialogueNode {
     thumbnail.style.marginRight = "5px"
     element.prepend(thumbnail)
 
-    /* dim if it's the field is assigned to empty character */
+    /* dim if the field is assigned to empty character */
     person === "empty" || person === "dummyCaptain" ? thumbnail.style.filter = "opacity(0.33)" : thumbnail.style.filter = ""
   }
   createHTMLText() {
@@ -351,7 +351,17 @@ class DialogueNode {
   update() {
     this.element.style.left = this.pos.x + "px"
     this.element.style.top = this.pos.y + "px"
-    this.element.querySelector(".fact-count").innerText = this.criteria.length + " criteria"
+
+    if(this.criteria.length || this.preconditions.size) {
+      let conditionCount = this.element.querySelector(".condition-count")
+      conditionCount.innerText = ""
+      if(this.criteria.length) 
+        conditionCount.innerText += this.criteria.length + `${this.criteria.length === 1 ? " criterion" : " criteria"}`
+      if(this.preconditions.size)
+        conditionCount.innerText += (this.criteria.length ? `, ` : "") + this.preconditions.size + `${this.preconditions.size === 1 ? " precondition" : " preconditions"}`
+      this.element.querySelector(".condition-count").classList.remove("hidden")
+    }
+    else this.element.querySelector(".condition-count").classList.add("hidden")
   }
   destroy() {
     this.deleteIn()
@@ -359,7 +369,14 @@ class DialogueNode {
     this.element.remove()
     dialogueEditor.unsetActiveNode()
     dialogueEditor.nodes.remove(this)
+    dialogueEditor.deselectNode(this)
     dialogueEditor.reconstructHTML()
+
+    /* clear preconditions if this node was mentioned anywhere */
+    dialogueEditor.nodes.forEach(node => node.preconditions.delete(this.id))
+
+    /* remove this node from sections if they contain it */
+    dialogueEditor.sections.forEach(section => section.nodes.delete(this))
   }
   static types = [
     "text",

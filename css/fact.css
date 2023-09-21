@@ -213,8 +213,16 @@
   background-color: var(--dark-3);
 }
 
-.fact-count {
+.condition-count {
+  margin-top: -5px;
   color: var(--bright-3);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid var(--dark-4);
+}
+.condition-count.active {
+  color: white;
+  border-color: var(--color-shield);
 }
 
 .fact-value {

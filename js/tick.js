@@ -18,7 +18,6 @@ function tick(deltaFactor) {
     win.update()
   })
   //#endregion
-
   //#region interact
   collisionChecksPerFrame = 0
   broadphaseCallsPerFrame = 0

@@ -43,5 +43,6 @@ const initMacros = {
   gameUI.toggleDevIcons()
 
   /* macro */
-  initMacros.openDialogueEditor()
+  initMacros.loadGame()
+  setTimeout(() => initMacros.openDialogueEditor(), 4000)
 })();
