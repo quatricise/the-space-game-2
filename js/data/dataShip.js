@@ -49,7 +49,7 @@ data.ship["theGrandMoth"] = {
     items: [],
   },
   engine: {
-    angularVelocity: (135 * PI) / 180,
+    angularVelocity: (140 * PI) / 180,
     glideReduction: 0.07,
     acceleration: 8,
     maxSpeed: 400,
@@ -83,10 +83,10 @@ data.ship["theGrandMoth"] = {
     levelMax: 5,
     power: 0,
     shieldData: {
-      distance: 400,
+      distance: 600,
       pulseStrength: 1000,
-      arcLength: PI/1.2, 
-      rechargeTimeMS: 1800,
+      arcLength: PI, 
+      rechargeTimeMS: 1600,
     }
   },
   skip: {},
@@ -101,9 +101,6 @@ data.ship["theGrandMoth"] = {
     power: 0,
     weapons: [
       "missileHelios",
-      // "plasmaCannonI",
-      // "trapMissile",
-      // "debrisGun",
     ],
   },
   wreck: {

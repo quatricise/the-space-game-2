@@ -61,6 +61,12 @@
 #start-button:hover {
   background-image: url(../assets/ui/startMenu/startButtonHover.png);
 }
+#deathmatch-button {
+  background-image: url(../assets/ui/startMenu/deathmatchButton.png);
+}
+#deathmatch-button:hover {
+  background-image: url(../assets/ui/startMenu/deathmatchButtonHover.png);
+}
 #options-button {
   background-image: url(../assets/ui/startMenu/optionsButton.png);
 }

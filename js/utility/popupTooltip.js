@@ -28,9 +28,9 @@ class PopupTooltip {
 
     this.parentElement = Q(`#${this.triggerElement.dataset.parentelementid}`) ?? this.triggerElement
     
-    if(this.hintData.title)        
+    if(this.hintData.title)
       this.element.append(this.title)
-    if(this.hintData.text)          
+    if(this.hintData.text)
       this.element.append(this.text)
 
     if(this.options.setMaxWidthToTriggerElement)
@@ -56,8 +56,9 @@ class PopupTooltip {
   show() {
     if(this.visible) return
 
-    this.element.classList.remove("hidden")
     this.visible = true
+    this.element.classList.remove("hidden")
+
     this.elementRect =  this.element.getBoundingClientRect()
     this.arrowRect =    this.arrow.getBoundingClientRect()
     this.parentRect =   this.parentElement.getBoundingClientRect()
@@ -104,10 +105,13 @@ class PopupTooltip {
     alignElement()
 
     let elementRectBeforeClamp = this.element.getBoundingClientRect()
+
     if(elementRectBeforeClamp.x < 0 + PopupTooltip.insetBorder)
       inset.left += Math.abs(elementRectBeforeClamp.x - PopupTooltip.insetBorder)
+
     if(elementRectBeforeClamp.right > window.innerWidth - PopupTooltip.insetBorder)
       inset.right += Math.abs(elementRectBeforeClamp.right - window.innerWidth + PopupTooltip.insetBorder)
+
     alignElement()
   }
   hide() {

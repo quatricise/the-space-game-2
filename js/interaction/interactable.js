@@ -27,8 +27,7 @@ class Interactable extends GameObject {
     this.interactionId = interactionId
     this.hint = null
 
-    if(!parent)
-      console.log("parent object not found, probably destroyed or wrong parent id was input")
+    if(!parent) console.log("parent object not found, probably destroyed or wrong parent id was input")
   }
   checkTriggererValidity(triggerer) {
     if(this.interactionData.trigger.allowedTypes.find(t => t === triggerer.type))
@@ -249,6 +248,7 @@ class Interactable extends GameObject {
         tooltip.options
       )
     }
+    else
     if(tooltip.type === "regular") {
       //do nothing really cos the regular tooltip isn't useful for this
     }
@@ -262,6 +262,62 @@ class Interactable extends GameObject {
       let NPC = this.gameWorld.gameObjects.npc.find(NPC => NPC.name === npc)
       NPC.stateMachine.setStateByName(this.interactionData.npcStateData.stateName)
     }
+  }
+  setGameObjectData() {
+    let data = this.interactionData.gameObjectData
+    data.forEach(datablock => {
+      let objects = [...this.gameWorld.gameObjects.gameObject]
+
+      /* filter by gameObject type */
+      if(datablock.filter.type) {
+        objects = objects.filter(obj => obj.type === datablock.filter.type)
+      }
+
+      /* filter further by allowed ids */
+      if(datablock.filter.ids) {
+        objects = objects.filter(obj => datablock.filter.ids.findChild(obj.id))
+      }
+
+      objects.forEach(obj => {
+        let accessPoint = obj
+        if(datablock.path) {
+          for(let property of datablock.path) {
+
+            /* exit entirely if the next property cannot be accessed */
+            if(!accessPoint) return
+            
+            accessPoint = accessPoint[property]
+          }
+        }
+        for(let key in datablock.data) {
+          accessPoint[key] = typeof datablock.data[key] === "object" ? _.cloneDeep(datablock.data[key]) : datablock.data[key]
+        }
+      })
+    })
+  }
+  turnAllShipsHostile() {
+    for(let npc of this.gameWorld.gameObjects.npc) {
+      npc.stateMachine.setStateByName("attackEnemy")
+    }
+  }
+  createGameObjects() {
+    let data = this.interactionData.gameObjectData
+    data.forEach(datablock => {
+      GameObject.create(datablock.type, datablock.name, datablock.params, datablock.options)
+    })
+  }
+  destroyGameObjects() {
+    let data = this.interactionData.gameObjectData
+    data.forEach(datablock => {
+      datablock.filter.ids?.forEach(id => {
+        let obj = GameObject.byId(this.gameWorld, id)
+        if(obj) GameObject.destroy(obj)
+      })
+      datablock.filter.types?.forEach(type => {
+        let objects = [...this.gameWorld.gameObjects[type]]
+        objects.forEach(obj => GameObject.destroy(obj))
+      })
+    })
   }
   //#endregion
 }

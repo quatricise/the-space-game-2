@@ -121,16 +121,11 @@ class Hint extends GameObject {
         break
       }
       case "gameEvent": {
-        switch(requirement.eventType) {
-          case "destroyGameObject": {
-            this.timers.add(
-              ["requirementCheck" + index, 100, {loop: true, active: true, onfinish: this.requirementCheck.bind(this, index)}]
-            )
-            break
-          }
-        }
-        break
+        this.timers.add(
+          ["requirementCheck" + index, 100, {loop: true, active: true, onfinish: this.requirementCheck.bind(this, index)}]
+        )
       }
+      break
     }
   }
   unregisterRequirementCompleteMethod(index) {
@@ -149,8 +144,6 @@ class Hint extends GameObject {
   requirementCheck(index) {
     /* 
     this shitty function checks whether a specific requirement for the hint completion has been fulfilled
-    so far it only accepts gameEvent and destroyGameObject 
-
     this is called periodically EVERY 100ms or so as long as the hint is active
     */
     let requirement = this.hintComplete.requirements[index]
@@ -160,7 +153,16 @@ class Hint extends GameObject {
           case "destroyGameObject": {
             if(!GameObject.byId(this.gameWorld, requirement.gameObjectId)) {
               this.completeRequirement(index)
-              console.log("completed destroygameobject requirement")
+            }
+            break
+          }
+          case "destroyAllGameObjects": {
+            let objects = this.gameWorld.gameObjects[requirement.filter.type ?? "gameObject"]
+            if(requirement.filter.ids?.length) {
+              objects = objects.filter(obj => requirement.filter.ids?.findChild(obj.id))
+            }
+            if(objects.length === 0) {
+              this.completeRequirement(index)
             }
             break
           }

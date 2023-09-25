@@ -621,6 +621,10 @@ let sources = {
         folder: "./assets/gameOverlay/movementTrap/",
         auto: ["gameOverlay5"],
       },
+      overlayBeaconDeathmatch: {
+        folder: "./assets/gameOverlay/overlayBeaconDeathmatch/",
+        auto: ["gameOverlay"],
+      },
       overlayOpenStationMenu: {
         folder: "./assets/gameOverlay/overlayOpenStationMenu/",
         auto: ["gameOverlay"],

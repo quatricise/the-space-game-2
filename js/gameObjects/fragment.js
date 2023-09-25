@@ -48,7 +48,6 @@ class Fragment extends GameObject {
       GameObject.destroy(this)
   }
   createParticles() {
-    console.count("createParticlesFragment")
     let particleName = data.particle[this.parentName + "HullDamage"] ? this.parentName + "HullDamage" : "debris"
     let count = Random.int(1, 2)
     for(let i = 0; i < count; i++)

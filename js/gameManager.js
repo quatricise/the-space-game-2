@@ -13,12 +13,12 @@ class GameManager {
     cutsceneWindow.onexit = () => this.loadStartingLocation()
     AudioManager.playLoopedAudio("music", "introCutscene", 0.75)
   }
-  loadStartingLocation() {
+  loadStartingLocation(name = "kaeso") {
     gameManager.setWindow(game)
-    game.loadLocation("kaeso", setup.bind(this))
+    game.loadLocation(name, setup.bind(this))
     function setup() {
       /* player */
-      let ship = GameObject.create("ship", this.playerData.shipName, {transform: new Transform(),id: this.playerData.shipId,}, {world: game})
+      let ship = GameObject.create("ship", this.playerData.shipName, {transform: new Transform(), id: this.playerData.shipId,}, {world: game})
       player = GameObject.create("player", "player", {}, {world: game})
       player.ship = ship
       player.currency = 150
@@ -187,6 +187,15 @@ class GameManager {
   update() {
     gameUI.update()
     this.activeWindow.uiComponents.forEach(comp => comp.update())
+  }
+  loadDeathmatch() {
+    this.loadStartingLocation('deathmatch0')
+    Q("#ui-left-side-panel").classList.remove("hidden")
+    Q("#ui-right-side-panel").classList.remove("hidden")
+  }
+  loadNextDeathmatchArena() {
+    let index = +game.locationName.replace(/[^0-9\.]+/g, '')
+    this.loadLocation("deathmatch" + (index + 1))
   }
   preloadImageAssets() {
     /* 

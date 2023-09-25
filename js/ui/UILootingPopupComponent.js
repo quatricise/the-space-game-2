@@ -126,7 +126,6 @@ class UILootingPopupComponent extends UIComponent {
       UIComponent.destroy(this)
   }
   destroy() {
-    console.log("looting popup removed")
     this.element.remove()
     this.indicator.remove()
   }

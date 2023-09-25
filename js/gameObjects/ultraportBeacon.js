@@ -1,5 +1,5 @@
 class UltraportBeacon extends GameObject {
-  constructor(transform, name) {
+  constructor(transform, name, options = {isDeathmatchBeacon: false, travelDestination: "locationName"}) {
     super(transform)
     let objectData = data.ultraportBeacon[name]
     this.name = name
@@ -7,6 +7,16 @@ class UltraportBeacon extends GameObject {
     this.mass = 1_000_000
     this.type = "ultraportBeacon"
     this.name = name
+
+    /** 
+    @type Boolean
+    this is only used inside the deathmatch arenas
+    */
+    this.isDeathmatchBeacon = options.isDeathmatchBeacon ?? false
+    
+    /** @type String - only used for the deathmatch beacon */
+    this.travelDestination = options.travelDestination
+
     this.isPlayerNearby = false
     this.components = [
       "sprite",
@@ -39,6 +49,9 @@ class UltraportBeacon extends GameObject {
     if(player.inventory.findItemByName("beaconAccessKey")) {
       this.overlayMenu = GameObject.create("gameOverlay", "overlayOpenMapAndUseKey", {parent: this}, {world: this.gameWorld})
       this.registerBeaconKeyInteraction()
+    }
+    else if(this.isDeathmatchBeacon) {
+      this.overlayMenu = GameObject.create("gameOverlay", "overlayBeaconDeathmatch", {parent: this}, {world: this.gameWorld})
     }
     else {
       this.overlayMenu = GameObject.create("gameOverlay", "overlayOpenMap", {parent: this}, {world: this.gameWorld})

@@ -123,7 +123,7 @@ class LocationEditor extends GameWorldWindow {
     this.eraserRadius = 50
     this.fog = []
     
-    /* this is an array of gameObjects that are used to move fog sprites around */
+    /** @type Array<GameObject> this is an array of gameObjects that are used to move fog sprites around */
     this.fogHandlers = []
 
     this.moveSpawnsAlong = false

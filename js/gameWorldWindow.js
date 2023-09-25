@@ -219,6 +219,10 @@ class GameWorldWindow extends GameWindow {
   loadLocation(locationName, onFinishCallback = () => {}) {
     this.state.set("loadingLocation")
     gameManager.setWindow(loadingScreen)
+    
+    /* get title and set it */
+    loadingScreen.setTitle(locationName)
+
     this.clearLocation()
     this.loadObjects(
       locationName, 

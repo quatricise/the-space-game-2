@@ -20,4 +20,7 @@ class LoadingScreen extends GameWindow {
   setBackground(locationName) {
     Q("#loading-screen-background").src = `assets/loadingScreen/${locationName}.png`
   }
+  setTitle(locationName) {
+    Q("#loading-screen-title").innerText = locationName
+  }
 }

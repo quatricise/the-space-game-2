@@ -12,7 +12,7 @@ class GameEvent {
     the event isn't referenced anywhere to allow GC to devour the related data
     */
    this.handlers.forEach(handler => {
-    if(handler.eventType === event.type || handler.eventType === "any")
+    if(handler.eventType === event.type || handler.eventType === "*")
       handler.function(event)
    })
   }

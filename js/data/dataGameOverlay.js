@@ -7,6 +7,10 @@ data.gameOverlay = {
     effectDurationMS: 5000,
     onFinishPlaying: "destroyOverlay"
   },
+  overlayBeaconDeathmatch: {
+    overlayType: "gameContextMenu",
+    onFinishPlaying: ""
+  },
   overlayOpenStationMenu: {
     overlayType: "gameContextMenu",
     onFinishPlaying: ""

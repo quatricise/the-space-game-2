@@ -8,10 +8,16 @@ class GameObject {
     this.components = []
     this.overrides = []
     this.npcs = []
-    this.statusEffects = []
+
     this.performanceData = {}
     
+    /** @type Array<StatusEffect> */
+    this.statusEffects = []
+    
+    /** @type GameWorldWindow */
     this.gameWorld = null
+
+    /** @type Timer */
     this.timers = null
 
     /* flags */
@@ -301,7 +307,7 @@ class GameObject {
     if(type === "projectile")               obj = new Projectile(params.transform, name, params.owner, params.target)
     if(type === "cluster")                  obj = new Cluster(params.transform)
     if(type === "fragment")                 obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
-    if(type === "ultraportBeacon")          obj = new UltraportBeacon(params.transform, name)
+    if(type === "ultraportBeacon")          obj = new UltraportBeacon(params.transform, name, params.options)
     if(type === "hintGraphic")              obj = new HintGraphic(params.transform, name, params.parent)
     if(type === "gameOverlay")              obj = new GameOverlay(params.transform, name, params.parent)
     if(type === "explosion")                obj = new Explosion(params.transform, name, params.SFXName)
@@ -370,7 +376,11 @@ class GameObject {
     
     obj.destroy()
     switch(obj.type) {
-      case "decoration": {break}
+      case "decoration": {
+        obj.gameWorld.removeGameObject(obj)
+        obj.destroyed = true
+        break
+      }
       default: {
         this.removeFromStage(obj)
         if(obj.sprite) {

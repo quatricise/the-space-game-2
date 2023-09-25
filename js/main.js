@@ -97,8 +97,12 @@ window.onresize = () => {
       firstVisibleHint ? firstVisibleHint.maximize() : gameUI.maximizeAudioCallPanel()
     }
   }
-  /* just fuckin call this periodically anyways */
-  setInterval(callback, 250)
+  
+  /* 
+  fuckin call this periodically, solves the problem
+  but popup tooltips are messed up then, so let's not call it for now
+   */
+  // setInterval(callback, 250)
 
   const interactionObserver = new MutationObserver(callback)
   interactionObserver.observe(container, {childList: true})

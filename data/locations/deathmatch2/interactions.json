@@ -1,0 +1,77 @@
+{
+  "cameraBounds": {
+    "minX": -100000,
+    "minY": -100000,
+    "maxX":  100000, 
+    "maxY":  100000
+  },
+  "lightSources": [],
+  "markers": [],
+  "interactions": [
+    {
+      "interactionId": "destroy_beacon",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": false},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["destroyGameObjects"],
+        "gameObjectData": [
+          {"filter": {"types": ["ultraportBeacon"]}}
+        ],
+        "interactionDelay": 0
+      }
+    },
+    {
+      "interactionId": "make_enemy_ships_hostile",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": false},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["showHint","turnAllShipsHostile", "setGameObjectData"],
+        "gameObjectData": [
+          {"path": "", "filter": {"type": "npc"}, "data": {"followDistance": 3000}}
+        ],
+        "doOnDestroy":    ["createInteraction"],
+        "interactionDelay": 4000,
+        "newInteractionId": "create_beacon",
+        "hintData": {
+          "hintText": "", 
+          "hintType": "static", 
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {"method": "gameEvent", "eventType": "destroyAllGameObjects", "filter": {"ids": [], "type": "npc"}}
+            ],
+            "onComplete":  "destroyInteractable"
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "create_beacon",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":    ["createGameObjects"],
+        "gameObjectData": [
+          {"type": "ultraportBeacon", "name": "default", "params": {"id": "exit_beacon", "options": {"isDeathmatchBeacon": true, "travelDestination": "deathmatch2"}}}
+        ],
+        "doOnDestroy":    ["createInteraction"],
+        "interactionDelay": 4000,
+        "newInteractionId": "create_beacon",
+        "hintData": {
+          "hintText": "", 
+          "hintType": "static", 
+          "hintAttachment": "bottom",
+          "hintComplete": {
+            "requirements": [
+              {"method": "gameEvent", "eventType": "destroyAllGameObjects", "filter": {"ids": [], "type": "npc"}}
+            ],
+            "onComplete":  "destroyInteractable"
+          }
+        }
+      }
+    }
+  ]
+}

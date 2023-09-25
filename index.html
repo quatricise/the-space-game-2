@@ -46,15 +46,19 @@
       <img src="assets/ui/startMenu/logo.png" alt="">
     </div>
     <div class="buttons">
-      <div id="start-button"     class="main-menu-button ui-graphic" onclick="gameManager.setWindow(saveSelectScreen)"  data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+      <div id="deathmatch-button" class="main-menu-button ui-graphic" onclick="gameManager.loadDeathmatch()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+        <img style="opacity: 0;" src="assets/ui/startMenu/deathmatchButton.png" alt="">
+        <div class="start-button-text">DEATHMATCH</div>
+      </div>
+      <div id="start-button"     class="main-menu-button ui-graphic" onclick="gameManager.setWindow(saveSelectScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
         <img style="opacity: 0;" src="assets/ui/startMenu/startButton.png" alt="">
         <div class="start-button-text">START</div>
       </div>
-      <div id="options-button" class="main-menu-button ui-graphic" onclick="gameManager.setWindow(settingsScreen)"    data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+      <div id="options-button" class="main-menu-button ui-graphic" onclick="gameManager.setWindow(settingsScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
         <img style="opacity: 0;" src="assets/ui/startMenu/optionsButton.png" alt="">
         <div class="start-button-text">SETTINGS</div>
       </div>
-      <div id="credits-button" class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.setWindow(startScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" data-tooltip="me" data-tooltipattachment="left">
+      <div id="credits-button" class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.setWindow(startScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
         <img style="opacity: 0;" src="assets/ui/startMenu/creditsButton.png" alt="">
         <div class="start-button-text">CREDITS</div>
       </div>
@@ -150,6 +154,7 @@
   <div id="loading-screen" class="hidden">
     <img id="loading-screen-background" src="assets/loadingScreen/kaeso.png">
     <div id="loading-screen-panel" class="ui-graphic"></div>
+    <div id="loading-screen-title"></div>
   </div>
 
   <div id="credit-screen" class="hidden">

@@ -112,15 +112,16 @@ class Game extends GameWorldWindow {
     this.gameObjects.hintGraphic.forEach(graphic => graphic.handleInput(event))
   }
   handleKeydown(event) {    
-    if(event.code === binds.zoomIn)             this.camera.zoomInit("in")
-    if(event.code === binds.zoomOut)            this.camera.zoomInit("out")
-    if(event.code === binds.resetZoom)          this.camera.resetZoom()
-    if(event.code === binds.interact)           this.interact()
-    if(event.code === binds.openMap)            this.toggleLocalMap()
-    if(event.code === binds.pause)              gameManager.togglePause()
-    if(event.code === binds.openInventory)      {gameManager.setWindow(inventory); inventory.viewInventoryTab("inventory")}
-    if(event.code === binds.openDialogueScreen) {gameManager.setWindow(dialogueScreen)}
-    if(event.code === binds.openWorldMap)       gameManager.setWindow(map)
+    if(event.code === binds.zoomIn)              this.camera.zoomInit("in")
+    if(event.code === binds.zoomOut)             this.camera.zoomInit("out")
+    if(event.code === binds.resetZoom)           this.camera.resetZoom()
+    if(event.code === binds.interact)            this.interact()
+    if(event.code === binds.openMap)             this.toggleLocalMap()
+    if(event.code === binds.pause)               gameManager.togglePause()
+    if(event.code === binds.openInventory)       {gameManager.setWindow(inventory); inventory.viewInventoryTab("inventory")}
+    if(event.code === binds.openDialogueScreen)  gameManager.setWindow(dialogueScreen)
+    if(event.code === binds.openWorldMap)        gameManager.setWindow(map)
+    if(event.code === binds.deathmatchNextArena) gameManager.loadNextDeathmatchArena()
   }
   handleKeyup(event) {
 
