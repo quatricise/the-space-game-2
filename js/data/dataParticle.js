@@ -29,4 +29,7 @@ data.particle = {
   explosionHit: {
     destroyAfterPlay: true
   },
+  beaconAppear: {
+    destroyAfterPlay: true
+  },
 }

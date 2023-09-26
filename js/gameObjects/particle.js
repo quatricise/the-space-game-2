@@ -16,11 +16,15 @@ class Particle extends GameObject {
       sprite.onComplete = () => {
         if(this.destroyed) return
         haveFinishedPlaying++
-        if(haveFinishedPlaying === this.sprite.all.length && this.destroyAfterPlay)
+        if(haveFinishedPlaying === this.sprite.all.length && this.destroyAfterPlay) {
+          this?.onDestroy()
           GameObject.destroy(this)
+        }
       }
     })
   }
+  /** Replace for callback method */
+  onDestroy() {}
   move() {
     this.transform.position.x += this.transform.velocity.x * dt
     this.transform.position.y += this.transform.velocity.y * dt

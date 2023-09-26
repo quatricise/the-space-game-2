@@ -615,6 +615,10 @@ let sources = {
         folder: "./assets/particle/explosionHit/",
         auto: ["particles3"],
       },
+      beaconAppear: {
+        folder: "./assets/particle/beaconAppear/",
+        auto: ["particles9"],
+      },
     },
     gameOverlay: {
       movementTrap: {

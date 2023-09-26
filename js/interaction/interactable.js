@@ -303,7 +303,23 @@ class Interactable extends GameObject {
   createGameObjects() {
     let data = this.interactionData.gameObjectData
     data.forEach(datablock => {
-      GameObject.create(datablock.type, datablock.name, datablock.params, datablock.options)
+      /* placement */
+      if(datablock.placement) {
+        if(datablock.placement.special === "near-player") {
+          datablock.params.transform = new Transform(player.ship.transform.position.copy)
+          datablock.params.transform.position.add(new Vector(Random.int(300, 400), Random.int(300, 400)))
+        }
+      }
+
+      /* particle before the object appears */
+      if(datablock.particleBefore) {
+        let particle = GameObject.create("particle", datablock.particleBefore.name, {transform: datablock.params.transform}, {world: this.gameWorld})
+        particle.onDestroy = () => createGameObject()
+      }
+      else {
+        createGameObject()
+      }
+      function createGameObject() {GameObject.create(datablock.type, datablock.name, datablock.params, datablock.options)}
     })
   }
   destroyGameObjects() {

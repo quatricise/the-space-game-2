@@ -39,14 +39,23 @@
       "triggerObjectId": "player_ship",
       "options": {"useHostHitbox": true, "conditional": true},
       "interactionData": {
-        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
-        "doOnEnter":    ["createGameObjects"],
+        "trigger" :  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["createGameObjects"],
         "gameObjectData": [
-          {"type": "ultraportBeacon", "name": "default", "params": {"id": "exit_beacon", "options": {"isDeathmatchBeacon": true, "travelDestination": "deathmatch1"}}}
+          {
+            "type": "ultraportBeacon", 
+            "name": "default", 
+            "params": {"id": "exit_beacon", "options": {"isDeathmatchBeacon": true, "travelDestination": "deathmatch1"}}, 
+            "placement": {
+              "special": "near-player"
+            },
+            "particleBefore": {
+              "name": "beaconAppear"
+            }
+          }
         ],
         "doOnDestroy":    ["createInteraction"],
         "interactionDelay": 4000,
-        "newInteractionId": "create_beacon",
         "hintData": {
           "hintText": "", 
           "hintType": "static", 
