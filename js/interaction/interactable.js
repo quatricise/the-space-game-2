@@ -307,7 +307,7 @@ class Interactable extends GameObject {
       if(datablock.placement) {
         if(datablock.placement.special === "near-player") {
           datablock.params.transform = new Transform(player.ship.transform.position.copy)
-          datablock.params.transform.position.add(new Vector(Random.int(300, 400), Random.int(300, 400)))
+          datablock.params.transform.position.add(new Vector(Random.int(300, 350), 0).rotate(Random.rotation()))
         }
       }
 
@@ -334,6 +334,12 @@ class Interactable extends GameObject {
         objects.forEach(obj => GameObject.destroy(obj))
       })
     })
+  }
+  beginCountdown() {
+    Countdown.begin(this.interactionData.countdown)
+  }
+  showModal() {
+    modal.show()
   }
   //#endregion
 }

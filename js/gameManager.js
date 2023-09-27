@@ -154,6 +154,10 @@ class GameManager {
         game.show()
       }
       else
+      if(newWindow instanceof Modal) {
+        game.show()
+      }
+      else
       if(newWindow instanceof ReceivedItemModal) {
         game.show()
         dialogueScreen.show()
@@ -192,6 +196,7 @@ class GameManager {
     this.loadStartingLocation('deathmatch0')
     Q("#ui-left-side-panel").classList.remove("hidden")
     Q("#ui-right-side-panel").classList.remove("hidden")
+    data.updateObjectsWithinThisFastDistanceOfPlayer = 3000
   }
   loadNextDeathmatchArena() {
     let index = +game.locationName.replace(/[^0-9\.]+/g, '')

@@ -26,6 +26,8 @@ function attachListeners() {
     e.preventDefault()
   })
   document.addEventListener("keydown", function (e) {
+    if(e.code === "F1")
+      e.preventDefault()
     handleGlobalInput(e)
   })
   document.addEventListener("keyup", function (e) {
@@ -61,6 +63,7 @@ function handleGlobalInput(e) {
   gameManager.handleInput(e)
 }
 
+/** Largely unused class */
 class Input {
   /* an array of simplified event representations */
   static record = []            

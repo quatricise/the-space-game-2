@@ -40,27 +40,37 @@
 <img class="large-paper-texture" src="assets/paper_texture.jpg" alt="">
 <main>
 
+  <div id="pilot-manual" class="hidden">
+    <img src="assets/ui/pilotManual/page1.png" alt="">
+  </div>
+
+  <div id="modal" class="hidden">
+    <div id="modal-content">
+      <div id="modal-buttons">
+        <div id="modal-button-left" >Text</div>
+        <div id="modal-button-right">Text</div>
+      </div>
+      <img id="modal-background-panel" src="assets/ui/modal.png" alt="">
+    </div>
+  </div>
+
   <div id="start-screen" class="full-screen-container hidden">
     <div id="start-screen-overlay-picture"></div>
     <div class="game-logo">
       <img src="assets/ui/startMenu/logo.png" alt="">
     </div>
     <div class="buttons">
-      <div id="deathmatch-button" class="main-menu-button ui-graphic" onclick="gameManager.loadDeathmatch()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+      <div id="deathmatch-button" class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.loadDeathmatch()" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" data-tooltip="Deathmatch" data-tooltipdescription="Series of progressively harder space fights." data-tooltipattachment="left" data-setmaxheighttotriggerelement="true">
         <img style="opacity: 0;" src="assets/ui/startMenu/deathmatchButton.png" alt="">
-        <div class="start-button-text">DEATHMATCH</div>
       </div>
-      <div id="start-button"     class="main-menu-button ui-graphic" onclick="gameManager.setWindow(saveSelectScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
+      <div id="start-button"     class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.setWindow(saveSelectScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown" data-tooltip="Story mode" data-tooltipdescription="Play through the story of the game." data-tooltipattachment="left" data-setmaxheighttotriggerelement="true">
         <img style="opacity: 0;" src="assets/ui/startMenu/startButton.png" alt="">
-        <div class="start-button-text">START</div>
       </div>
       <div id="options-button" class="main-menu-button ui-graphic" onclick="gameManager.setWindow(settingsScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
         <img style="opacity: 0;" src="assets/ui/startMenu/optionsButton.png" alt="">
-        <div class="start-button-text">SETTINGS</div>
       </div>
       <div id="credits-button" class="main-menu-button ui-graphic tooltip-popup" onclick="gameManager.setWindow(startScreen)" data-playsfx="" data-sounds="buttonHover buttonClick" data-playonevents="mouseover mousedown">
         <img style="opacity: 0;" src="assets/ui/startMenu/creditsButton.png" alt="">
-        <div class="start-button-text">CREDITS</div>
       </div>
     </div>
   </div>
@@ -274,6 +284,9 @@
 
   <div id="game-ui" class="hidden">
     <div id="red-overlay"></div>
+    <div id="countdown-container" class="hidden">
+      <img id="countdown-number">
+    </div>
     <div id="quest-panel" style="filter: opacity(0);">
       <div id="quest-panel-new-quest-started">NEW QUEST STARTED</div>
       <div id="quest-panel-quest-name"></div>
@@ -820,6 +833,7 @@
 <script src="js/quest.js"></script>
 
 <!-- unsorted -->
+<script src="js/countdown.js"></script>
 <script src="js/hitboxEditor.js"></script>
 <script src="js/locationEditor.js"></script>
 <script src="js/gameUi.js"></script>
@@ -828,6 +842,8 @@
 <script src="js/spritePreprocessor.js"></script>
 <script src="js/creditScreen.js"></script>
 <script src="js/loadingScreen.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/manual.js"></script>
 
 <!-- input -->
 <script src="js/input/binds.js"></script>

@@ -456,3 +456,27 @@
   content: url(../assets/editor/iconSpeaker25w.png);
   margin-right: 5px;
 }
+
+#countdown-container {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "big-t-comic";
+  font-size: 4rem;
+  color: #93867f;
+  pointer-events: none;
+  user-select: none;
+}
+#countdown-number {
+  width: 120px;
+  height: 120px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--dark-2);
+  text-align: center;
+}

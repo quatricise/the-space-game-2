@@ -9,12 +9,38 @@
   "markers": [],
   "interactions": [
     {
-      "interactionId": "make_enemy_ships_hostile",
+      "interactionId": "begin_countdown",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "trigger":  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":["beginCountdown"],
+        "countdown": 4
+      }
+    },
+    {
+      "interactionId": "show_modal",
       "triggerObjectId": "player_ship",
       "options": {"useHostHitbox": true, "conditional": false},
       "interactionData": {
-        "trigger" : {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
-        "doOnEnter":    ["showHint","turnAllShipsHostile", "setGameObjectData"],
+        "trigger":  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":["showModal"],
+        "modalData": {
+          "title": "Show tutorial?",
+          "options": {
+            "left": {"text": "Yes", "onclick": "showTutorial"},
+            "right": {"text": "No", "onclick": "createInteractions", "data": {"interactions": ["begin_countdown", "make_enemy_ships_hostile"]}}
+          }
+        }
+      }
+    },
+    {
+      "interactionId": "make_enemy_ships_hostile",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "trigger":  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter":["showHint","turnAllShipsHostile", "setGameObjectData"],
         "gameObjectData": [
           {"path": "", "filter": {"type": "npc"}, "data": {"followDistance": 3000}}
         ],
@@ -54,7 +80,7 @@
             }
           }
         ],
-        "doOnDestroy":    ["createInteraction"],
+        "doOnDestroy": ["createInteraction"],
         "interactionDelay": 4000,
         "hintData": {
           "hintText": "", 

@@ -18,9 +18,7 @@ class Game extends GameWorldWindow {
     this.modifyLayers()
     this.location = null
     this.locations = []
-    this.timers = new Timer(
-      ["spawnFgObjects", 2000, {loop: true, active: true, onfinish: this.spawnFgObjects.bind(this)}]
-    )
+    this.timers = new Timer()
   }
   setBoundsOnCamera(bounds) {
     this.camera.bounds = bounds ?? this.camera.bounds
@@ -122,6 +120,7 @@ class Game extends GameWorldWindow {
     if(event.code === binds.openDialogueScreen)  gameManager.setWindow(dialogueScreen)
     if(event.code === binds.openWorldMap)        gameManager.setWindow(map)
     if(event.code === binds.deathmatchNextArena) gameManager.loadNextDeathmatchArena()
+    if(event.code === binds.openManual)          gameManager.setWindow(manual)
   }
   handleKeyup(event) {
 
@@ -184,47 +183,12 @@ class Game extends GameWorldWindow {
       -this.camera.transform.position.y * Game.minimapScaleFactor + this.minimapApp.view.getBoundingClientRect().height / 2
     )
   }
-  spawnFgObjects() {
-    return
-    let count = Random.int(0, 5)
-    let types = [
-      "fgMedium0",
-      "fgMedium1",
-      "fgMedium2",
-      "fgMedium3",
-      "fgMedium4",
-      "fgMedium5",
-    ];
-    let layers = [
-      "foreground",
-      "foreground2",
-      "foreground3",
-    ]
-    for(let i = 0; i < count; i++) {
-      let position = player.ship.transform.position.clone()
-      let velocity = new Vector(Random.int(12, 150), Random.int(12, 150))
-      let rotation = Random.float(0, TAU)
-      let angularVelocity = Random.float(0, 1)
-      let offsetFromPlayer = new Vector(Random.int(cw/2, cw) * Random.from(-1, 1), Random.int(ch/2, ch) * Random.from(-1, 1))
-      
-      position.add(offsetFromPlayer)
-      GameObject.create(
-        "decoration",
-        Random.from(...types), 
-        {
-          transform: new Transform(position, velocity, rotation, angularVelocity),
-          isPermanent: false
-        },
-        {world: this, layer: Random.from(...layers)}
-      )
-    }
-    this.timers.spawnFgObjects.duration = Random.int(900, 3600)
-  }
   update() {
     this.updateLayers()
     this.updateMinimap()
     this.markers.forEach(m => m.update())
     this.timers.update()
+    Countdown.update()
   }
   static minimapScaleFactor = 0.028
 }

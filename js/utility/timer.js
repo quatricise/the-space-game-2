@@ -10,7 +10,8 @@ class Timer {
     for(let timer of this.all) {
       if(!timer.active) return
       
-      timer.currentTime += 1000 * (this.delta == "adt" ? adt : dt)
+      let delta = this.delta === "adt" ? adt : dt
+      timer.currentTime += 1000 * delta
       if(timer.currentTime >= timer.duration) {
         timer.currentTime = 0
         timer.onfinish()

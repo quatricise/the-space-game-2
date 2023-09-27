@@ -79,8 +79,17 @@ class Vector {
       this.y + (vector.y - this.y) * amount
     )
   }
-  rotate(theta) {
-    this.rotateImprecise(theta)
+  /** 6-decimal-point precision rotation */
+  rotate(angle) {
+    let precision = 6
+    let theta = +angle.toFixed(precision)
+    let xTemp = this.x;
+    let cos = Math.cos(theta)
+    let sin = Math.sin(theta)
+    this.x = this.x*cos - this.y*sin;
+    this.y = xTemp*sin + this.y*cos;
+    this.x = +this.x.toFixed(precision - 2)
+    this.y = +this.y.toFixed(precision - 2)
     return this
   }
   rotatePrecise(theta) {

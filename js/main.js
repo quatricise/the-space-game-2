@@ -1,45 +1,50 @@
 let dt = 0 
 let dtf = 0
 let fps = 0
-
 let cdt = 0
 let cLastTime = 0
 
-let adt = 0 //audiodeltatime
+/** @type Float - Audio delta time */
+let adt = 0
 
+/** @type Integer - Window width */
 let cw = window.innerWidth
+/** @type Integer - Window height */
 let ch = window.innerHeight
 
 let player = {}
 const filters = {}
+const filterManager       = new FilterManager()
+const gameManager         = new GameManager()
+const interactionManager  = new InteractionManager()
+const mouse               = new Mouse()
+const gameUI              = new GameUI()
 
-const filterManager           = new FilterManager()
-const gameManager             = new GameManager()
-const interactionManager      = new InteractionManager()
-const mouse                   = new Mouse()
-const gameUI                  = new GameUI()
-
-const game                    = new Game()
-const locationEditor          = new LocationEditor()
-const dialogueEditor          = new DialogueEditor()
-const hitboxEditor            = new HitboxEditor()
-const dialogueScreen          = new DialogueScreen()
-const starSystemDetail        = new StarSystemDetail()
-const inventory               = new InventoryWindow()
-const map                     = new WorldMap()
-const startScreen             = new StartScreen()
-const saveSelectScreen        = new SaveSelectScreen()
-const settingsScreen          = new SettingsScreen()
-const gameoverScreen          = new GameoverScreen()
-const loadingScreen           = new LoadingScreen()
-const creditScreen            = new CreditScreen()
-const pauseScreen             = new PauseScreen()
-const receivedItemModal       = new ReceivedItemModal()
-const cutsceneWindow          = new CutsceneWindow()
-const questDesigner           = new QuestDesigner()
+/* GameWindow */
+const game                = new Game()
+const manual              = new Manual()
+const modal               = new Modal()
+const locationEditor      = new LocationEditor()
+const dialogueEditor      = new DialogueEditor()
+const hitboxEditor        = new HitboxEditor()
+const dialogueScreen      = new DialogueScreen()
+const starSystemDetail    = new StarSystemDetail()
+const inventory           = new InventoryWindow()
+const map                 = new WorldMap()
+const startScreen         = new StartScreen()
+const saveSelectScreen    = new SaveSelectScreen()
+const settingsScreen      = new SettingsScreen()
+const gameoverScreen      = new GameoverScreen()
+const loadingScreen       = new LoadingScreen()
+const creditScreen        = new CreditScreen()
+const pauseScreen         = new PauseScreen()
+const receivedItemModal   = new ReceivedItemModal()
+const cutsceneWindow      = new CutsceneWindow()
+const questDesigner       = new QuestDesigner()
 
 gameManager.windows.push(
   game,
+  modal,
   locationEditor,
   dialogueEditor,
   hitboxEditor, 

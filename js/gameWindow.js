@@ -2,6 +2,8 @@ class GameWindow {
   constructor(title, element) {
     this.title = title
     this.element = element
+
+    /** (unused property) "solid" or "overlay" */
     this.windowType = "solid"
     this.graphics = new PIXI.Graphics()
     this.uiComponents = []
