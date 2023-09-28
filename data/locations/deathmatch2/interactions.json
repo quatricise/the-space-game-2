@@ -6,7 +6,16 @@
     "maxY":  100000
   },
   "lightSources": [],
-  "markers": [],
+  "markers": [
+    {
+      "markerId": "beacon_marker",
+      "targetObjectId": "exit_beacon",
+      "options": { "conditional": true },
+      "markerData": {
+        "markerIcon": "ultraportBeacon"
+      }
+    }
+  ],
   "interactions": [
     {
       "interactionId": "begin_countdown",
@@ -63,7 +72,8 @@
       "options": {"useHostHitbox": true, "conditional": true},
       "interactionData": {
         "trigger" :  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
-        "doOnEnter": ["createGameObjects"],
+        "doOnEnter": ["createGameObjects", "createInteraction"],
+        "newInteractionId": "create_beacon_marker",
         "gameObjectData": [
           {
             "type": "ultraportBeacon", 
@@ -90,6 +100,17 @@
             "onComplete":  "destroyInteractable"
           }
         }
+      }
+    },
+    {
+      "interactionId": "create_beacon_marker",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "trigger" :  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["createMarker"],
+        "newMarkerId": "beacon_marker",
+        "interactionDelay": 4000
       }
     }
   ]

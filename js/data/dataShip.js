@@ -83,7 +83,7 @@ data.ship["theGrandMoth"] = {
     levelMax: 5,
     power: 0,
     shieldData: {
-      distance: 600,
+      distance: 700,
       pulseStrength: 1000,
       arcLength: PI, 
       rechargeTimeMS: 1600,
@@ -266,7 +266,6 @@ data.ship["waspFighterII"] = {
     levelMax: 5,
     power: 0,
     powerMax: 5,
-
     onupgrade: {
       angularVelocity: (6 * PI) / 180,
       glideReduction: 0.01,
@@ -277,7 +276,7 @@ data.ship["waspFighterII"] = {
   hull: {
     level: 10,
     levelMax: 20,
-    current: 12,
+    current: 10,
     impactResistance: 150,
   },
   reactor: {
@@ -312,9 +311,211 @@ data.ship["waspFighterII"] = {
   },
   wreck: {
     count: 6,
-    hitboxVaultName: "waspFighter"
+    hitboxVaultName: "waspFighterII"
   }
 }
+data.ship["communistFighterI"] = {
+  displayName: "Liberation Fighter I",
+  designation: "fighter",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "communistFighterI",
+    definition: null,
+  },
+  weaponSlots: [
+    { x: 25, y: -54 },
+    { x: 25, y:  54 },
+  ],
+  mass: 35,
+  systems: [
+    "boosters",
+    "brakes",
+    "cargo",
+    "engine",
+    "shields",
+    "stealth",
+    "weapons",
+  ],
+  boosters: {
+    type: "continuous",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    strength: 400,
+    onupgrade: {
+      strength: 0.5,
+    },
+  },
+  brakes: {
+    level: 3,
+    levelMax: 4,
+    power: 0,
+    strength: 75,
+    auto: true,
+  },
+  cargo: {
+    capacity: 20,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (140 * PI) / 180,
+    glideReduction: 0.05,
+    acceleration: 10,
+    maxSpeed: 480,
+    skipRechargeTime: 3500,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    onupgrade: {
+      angularVelocity: (6 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 6,
+    levelMax: 12,
+    current: 6,
+    impactResistance: 120,
+  },
+  reactor: {
+    power: 20,
+    powerFree: 20,
+    powerMax: 40,
+    powerDistribution: [],
+  },
+  shields: {
+    type: "pulse",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      distance: 420,
+      pulseStrength: 1000,
+      arcLength: PI/1.2, 
+      rechargeTimeMS: 1800,
+    }
+  },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
+  },
+  weapons: {
+    slots: 4,
+    power: 0,
+    weapons: [
+      "plasmaChain",
+      "plasmaCannonII",
+    ],
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "waspFighterII"
+  }
+}
+data.ship["lavaShipI"] = {
+  displayName: "Lava Cruiser I",
+  designation: "cruiser",
+  hitbox: {
+    type: "polygonHitbox",
+    filename: "lavaShipI",
+    definition: null,
+  },
+  weaponSlots: [
+    { x: 105, y: -6 },
+    { x: 63, y: -55 },
+    { x: 1, y: 63 },
+  ],
+  mass: 120,
+  systems: [
+    "boosters",
+    "brakes",
+    "cargo",
+    "engine",
+    "shields",
+    "stealth",
+    "weapons",
+  ],
+  boosters: {
+    type: "continuous",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    strength: 400,
+    onupgrade: {
+      strength: 0.5,
+    },
+  },
+  brakes: {
+    level: 3,
+    levelMax: 4,
+    power: 0,
+    strength: 75,
+    auto: true,
+  },
+  cargo: {
+    capacity: 20,
+    items: [],
+  },
+  engine: {
+    angularVelocity: (140 * PI) / 180,
+    glideReduction: 0.05,
+    acceleration: 10,
+    maxSpeed: 480,
+    skipRechargeTime: 3500,
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    powerMax: 5,
+    onupgrade: {
+      angularVelocity: (6 * PI) / 180,
+      glideReduction: 0.01,
+      acceleration: 1,
+      maxSpeed: 40,
+    },
+  },
+  hull: {
+    level: 12,
+    levelMax: 12,
+    current: 12,
+    impactResistance: 120,
+  },
+  reactor: {
+    power: 20,
+    powerFree: 20,
+    powerMax: 40,
+    powerDistribution: [],
+  },
+  shields: {
+    type: "pulse",
+    level: 1,
+    levelMax: 5,
+    power: 0,
+    shieldData: {
+      distance: 420,
+      pulseStrength: 1000,
+      arcLength: PI / 1.2,
+      rechargeTimeMS: 1800,
+    },
+  },
+  skip: {},
+  stealth: {
+    type: "visualCloak",
+  },
+  weapons: {
+    slots: 4,
+    power: 0,
+    weapons: ["lavaGun"],
+  },
+  wreck: {
+    count: 6,
+    hitboxVaultName: "waspFighterII",
+  },
+};
 data.ship["starBee"] = {
   displayName: "Star Bee",
   designation: "scout",

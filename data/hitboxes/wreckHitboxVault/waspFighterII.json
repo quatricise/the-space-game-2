@@ -1,0 +1,218 @@
+[
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": -52,
+            "y": 56,
+            "type": "vector"
+          },
+          {
+            "x": -38,
+            "y": 74,
+            "type": "vector"
+          },
+          {
+            "x": 16,
+            "y": 76,
+            "type": "vector"
+          },
+          {
+            "x": 24,
+            "y": 28,
+            "type": "vector"
+          },
+          {
+            "x": -32,
+            "y": 25,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  },
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": -91,
+            "y": 20,
+            "type": "vector"
+          },
+          {
+            "x": -76,
+            "y": 67,
+            "type": "vector"
+          },
+          {
+            "x": -1,
+            "y": 96,
+            "type": "vector"
+          },
+          {
+            "x": -34,
+            "y": 36,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  },
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": 15,
+            "y": -31,
+            "type": "vector"
+          },
+          {
+            "x": 28,
+            "y": 31,
+            "type": "vector"
+          },
+          {
+            "x": 104,
+            "y": 8,
+            "type": "vector"
+          },
+          {
+            "x": 102,
+            "y": -9,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  },
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": -91,
+            "y": -20,
+            "type": "vector"
+          },
+          {
+            "x": -73,
+            "y": -66,
+            "type": "vector"
+          },
+          {
+            "x": -15,
+            "y": -91,
+            "type": "vector"
+          },
+          {
+            "x": 34,
+            "y": -53,
+            "type": "vector"
+          },
+          {
+            "x": -23,
+            "y": -15,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  },
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": -72,
+            "y": -26,
+            "type": "vector"
+          },
+          {
+            "x": -39,
+            "y": -74,
+            "type": "vector"
+          },
+          {
+            "x": 12,
+            "y": -73,
+            "type": "vector"
+          },
+          {
+            "x": 14,
+            "y": -28,
+            "type": "vector"
+          },
+          {
+            "x": 2,
+            "y": 12,
+            "type": "vector"
+          },
+          {
+            "x": -37,
+            "y": 5,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  },
+  {
+    "type": "polygonHitbox",
+    "color": 16776960,
+    "bodies": [
+      {
+        "vertices": [
+          {
+            "x": -58,
+            "y": -15,
+            "type": "vector"
+          },
+          {
+            "x": -63,
+            "y": 29,
+            "type": "vector"
+          },
+          {
+            "x": -35,
+            "y": 51,
+            "type": "vector"
+          },
+          {
+            "x": 29,
+            "y": 29,
+            "type": "vector"
+          },
+          {
+            "x": 44,
+            "y": -11,
+            "type": "vector"
+          },
+          {
+            "x": -0.417196739999999,
+            "y": -25.264860690000003,
+            "type": "vector"
+          }
+        ],
+        "color": 16776960
+      }
+    ]
+  }
+]

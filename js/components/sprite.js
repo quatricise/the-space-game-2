@@ -183,6 +183,9 @@ class Sprite extends Component {
       newSources.push({src: "minimapIcon.png", length: 1})
     
     newSources.forEach((source) => {
+      /* lets not create minimap icons for the preloaded gameObjects */
+      if(gameObject.dud) return
+
       let url = folder + source.src
       let name = source.src
       let length = source.length

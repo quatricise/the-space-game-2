@@ -339,7 +339,37 @@ class Interactable extends GameObject {
     Countdown.begin(this.interactionData.countdown)
   }
   showModal() {
-    modal.show()
+    gameManager.setWindow(modal)
+    let data = this.interactionData.modal
+    Q("#modal-title").innerHTML = createRichText(data.title)
+    Q("#modal-description").innerHTML = createRichText(data.description)
+
+    /* options parse */
+    for(let key in data.options) {
+      Q(`#modal-button-${key}`).innerText = data.options[key].text
+
+      /* parse onclick event */
+      data.options[key].onclick.forEach(click => {
+        switch(click.action) {
+          case "createInteractions": {
+            modal.addClickForButton(key, () => {
+              for(let id of click.data.interactions) {
+                this.gameWorld.createInteractionById(id)
+              }
+            })
+            break
+          }
+          case "openWindow": {
+            let window = eval(click.data.window)
+            modal.addClickForButton(key, () => {
+              setTimeout(() => gameManager.setWindow(window), 10)
+            })
+            break
+          }
+          default: {throw `Couldn't find onclick event: ${click.action}`}
+        }
+      })
+    }
   }
   //#endregion
 }

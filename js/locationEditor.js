@@ -272,6 +272,7 @@ class LocationEditor extends GameWorldWindow {
   generateObjectList() {
     let regularList =     this.element.querySelector(".search-dropdown-window .dropdown-list-regular")
     let backgroundList =  this.element.querySelector(".search-dropdown-window .dropdown-list-background")
+    let specialList =     this.element.querySelector(".search-dropdown-window .dropdown-list-background")
     let names = []
     let types = []
 
@@ -302,7 +303,7 @@ class LocationEditor extends GameWorldWindow {
       img.src = sources.img[types[index]][names[index]].folder + "thumbnail.png"
       img.style.position = "absolute"
 
-      let cont = El('div', "dropdown-item object", [["title", "Click to select | Click + SHIFT to add/remove object from multi-selection | Click + CTRL to replace selected with this object"]])
+      let cont = El('div', "dropdown-item object", [["title", "Click to select\nSHIFT + Click to add/remove object from multi-selection \nCTRL + Click to replace selected with this object"]])
       let name = names[index].replaceAll("_", ' ').capitalize()
       let desc = El('div', "dropdown-desc", undefined, name) 
       let imageCont = El('div', "dropdown-image")
@@ -944,6 +945,8 @@ class LocationEditor extends GameWorldWindow {
       /* end of layer selection and locking */
 
       if(target.closest("#search-dropdown-category-switch")) {
+        /* remake this shit */
+        alert("remake")
         this.toggleDropdownListCategory()
       }
       if(target.closest("#add-override-button")) {

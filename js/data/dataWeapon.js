@@ -1013,6 +1013,8 @@ data.weapon = {
     buyCost: 60,
     spriteCount: 7,
     weaponData: {
+      chargeMethod: "auto",
+      fireMethod: "mousedown",
       canBeDismounted: true,
       power: 1,
       type: "solid",
@@ -1110,5 +1112,114 @@ data.weapon = {
         )
       }
     }
-  }
+  },
+  lavaGun: {
+    displayName: "Lava Gun I.",
+    displayNameShort: "Lava I.",
+    description: "Very powerful experimental weapon, it spits fast-flying molten rock. Only found on lava ships.",
+    buyCost: 90,
+    spriteCount: 7,
+    weaponData: {
+      chargeMethod: "auto",
+      fireMethod: "mousedown",
+      canBeDismounted: false,
+      power: 1,
+      type: "solid",
+      projectiles: ["lava", "lavaSmall", "lavaBig"],
+      chargeDurationMS: 4500, 
+    },
+    methods: {
+      onkeydown(event) {
+
+      },
+      onkeyup(event) {
+        
+      },
+      onmousemove(event) {
+        
+      },
+      onmousedown(event) {
+        if(this.charging) return
+          this.chargeBegin()
+      },
+      onmouseup(event) {
+        
+      },
+      onclick(event) {
+
+      },
+      onwheel(event) {
+        
+      },
+      fire() {
+        let sprite = this.gameObject.sprite.weapons.children[this.slotIndex]
+        if(sprite) {
+          sprite.gotoAndPlay(2)
+          sprite.onComplete = () => sprite.gotoAndStop(0)
+        }
+        let projectileOffset = new Vector(this.gameObject.weaponSlots[this.slotIndex].x, this.gameObject.weaponSlots[this.slotIndex].y,)
+        .rotate(this.gameObject.transform.rotation)
+
+        let basePosition = this.gameObject.transform.position.clone().add(projectileOffset)
+        let projectileCount = Random.int(5, 10)
+        let collisionGroup = uniqueIDString()
+
+        /** @type Float from 0 to 1 */
+        let speedVariation = 0.30
+
+        for(let i = 0; i < projectileCount; i++) {
+          let projectileName = Random.from(...this.projectiles)
+          let position = basePosition.clone()
+          .add(
+            new Vector(
+              Random.int(-25, 25),
+              Random.int(-25, 25)
+            )
+          )
+          let angleToShipTargetPosition = basePosition.angleTo(this.gameObject.targetPosition) + Random.float(-0.4, 0.4)
+          let velocity = Vector.fromAngle(angleToShipTargetPosition)
+          .mult(data.projectile[this.projectiles[0]].speed * (1 - Random.float(0, speedVariation)))
+          let angularVelocity = Random.float(0, PI/2)
+          let rotation = Random.float(0, TAU)
+
+          GameObject.create(
+            "projectile", 
+            projectileName,
+            {
+              transform: new Transform(
+                position,
+                velocity,
+                rotation,
+                angularVelocity,
+              ),
+              owner: this.gameObject,
+              target: null,
+              collisionGroup,
+            },
+            {
+              world: this.gameObject.gameWorld
+            }
+          )
+        }
+        this.charging = false
+        this.ready = true
+        AudioManager.playSFX("rocketWeaponFire")
+      },
+      chargeBegin() {
+        this.charging = true
+        this.ready = false
+        this.timers.chargeBegin.start()
+      },
+      updateSpecific() {
+        if(!this.powered) return
+
+        this.timers.update()
+      },
+      setup() {
+        this.timers = new Timer(
+          ["chargeBegin", this.chargeDurationMS, {loop: false, active: false, onfinish: this.fire.bind(this)}]
+        )
+      }
+    }
+  },
 }

@@ -98,5 +98,56 @@ data.projectile = {
     projectileData: {
       onHit: "trapTarget",
     }
-  }
+  },
+  lava: {
+    speed: 700,
+    mass: 10,
+    impactDamage: 2,
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 8,
+      }
+    },    
+    life: 10000,
+    projectileData: {
+      onHit: "dieAndCreateParticles",
+      particleName: "lava",
+    }
+  },
+  lavaBig: {
+    speed: 650,
+    mass: 15,
+    impactDamage: 3,
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 8,
+      }
+    },    
+    life: 10000,
+    projectileData: {
+      onHit: "dieAndCreateParticles",
+      particleName: "lava",
+    }
+  },
+  lavaSmall: {
+    speed: 800,
+    mass: 3,
+    impactDamage: 1,
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 8,
+      }
+    },    
+    life: 10000,
+    projectileData: {
+      onHit: "dieAndCreateParticles",
+      particleName: "lava",
+    }
+  },
 }

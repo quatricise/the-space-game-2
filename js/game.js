@@ -120,7 +120,7 @@ class Game extends GameWorldWindow {
     if(event.code === binds.openDialogueScreen)  gameManager.setWindow(dialogueScreen)
     if(event.code === binds.openWorldMap)        gameManager.setWindow(map)
     if(event.code === binds.deathmatchNextArena) gameManager.loadNextDeathmatchArena()
-    if(event.code === binds.openManual)          gameManager.setWindow(manual)
+    if(event.code === binds.showControls)        gameManager.setWindow(manual)
   }
   handleKeyup(event) {
 

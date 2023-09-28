@@ -24,13 +24,13 @@ const gameUI              = new GameUI()
 const game                = new Game()
 const manual              = new Manual()
 const modal               = new Modal()
+const map                 = new WorldMap()
 const locationEditor      = new LocationEditor()
 const dialogueEditor      = new DialogueEditor()
 const hitboxEditor        = new HitboxEditor()
 const dialogueScreen      = new DialogueScreen()
 const starSystemDetail    = new StarSystemDetail()
 const inventory           = new InventoryWindow()
-const map                 = new WorldMap()
 const startScreen         = new StartScreen()
 const saveSelectScreen    = new SaveSelectScreen()
 const settingsScreen      = new SettingsScreen()
@@ -44,14 +44,15 @@ const questDesigner       = new QuestDesigner()
 
 gameManager.windows.push(
   game,
+  manual,
   modal,
+  map,
   locationEditor,
   dialogueEditor,
   hitboxEditor, 
   dialogueScreen,
   starSystemDetail,
   inventory,
-  map,
   startScreen,
   saveSelectScreen,
   settingsScreen,

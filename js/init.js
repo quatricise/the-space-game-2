@@ -43,6 +43,5 @@ const initMacros = {
   gameUI.toggleDevIcons()
 
   /* macro */
-  initMacros.loadGame()
-  setTimeout(() => gameManager.setWindow(modal), 4000)
+  gameManager.loadDeathmatch()
 })();

@@ -8,6 +8,12 @@ data.particle = {
   waspFighterIIHullDamage: {
     destroyAfterPlay: true
   },
+  communistFighterIHullDamage: {
+    destroyAfterPlay: true
+  },
+  lavaShipIHullDamage: {
+    destroyAfterPlay: true
+  },
   starBeeHullDamage: {
     destroyAfterPlay: true
   },
@@ -15,6 +21,9 @@ data.particle = {
     destroyAfterPlay: true
   },
   debris: {
+    destroyAfterPlay: true
+  },
+  lava: {
     destroyAfterPlay: true
   },
   asteroidRock: {

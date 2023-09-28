@@ -125,3 +125,69 @@ class RandomSpawnerSpawn extends GameObject {
     thumbnail.remove()
   }
 }
+
+class Spawner extends GameObject {
+  constructor(transform, name, params = {}) {
+    super(transform, params.id)
+    this.type = "spawner"
+    let objData = data.spawner[name]
+    /** @type Set<GameObject> */
+    this.spawns = new Set()
+
+    /** @type String: "single" || "multiple" */
+    this.objectMode = params.objectMode ?? "multiple"
+
+    /** @type String: "continuous" || "single-use" */
+    this.spawnMode = params.spawnMode ?? "single-use"
+
+    this.spawnArea = new SpawnArea(params.spawnArea.type, params.spawnArea.data)
+
+    this.components = ["hitbox"]
+    this.registerComponents(objData)
+  }
+  addSpawn(objType, objName) {
+    GameObject.create(objType, objName, {})
+  }
+  update() {
+
+  }
+  destroy() {
+    this.spawns.forEach(s => GameObject.destroy(s))
+  }
+}
+
+class SpawnArea {
+  constructor(type, data) {
+    this.type = type
+    switch(type) {
+      case "box": {
+        this.w = data.w
+        this.h = data.h
+        break
+      }
+      case "circle": {
+        this.radius = data.radius
+        break
+      }
+    }
+  }
+}
+
+class Spawn extends GameObject {
+
+  /** 
+  this class represents a gameObject inside the @type Spawner
+  it takes the thumbnail for an actual @type GameObject and puts it into its sprite
+  */
+
+  constructor(transform, name, params) {
+    super(transform, params.id)
+    this.type = "spawn"
+    let objData = data.spawn[name] ?? data.spawn.default
+
+    this.mimic = {
+      name: params.objName,
+      type: params.objType
+    }
+  }
+}

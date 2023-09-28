@@ -986,3 +986,15 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+/* pilot manual */
+#pilot-manual {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}

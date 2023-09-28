@@ -26,7 +26,7 @@ class GameWorldWindow extends GameWindow {
       { 
         width: cw, 
         height: ch, 
-        backgroundColor: 0x151516
+        backgroundColor: 0x151516,
       }
     )
     this.app.resizeTo = Q("main")
@@ -97,8 +97,7 @@ class GameWorldWindow extends GameWindow {
       gameOverlay: [],
       explosion: [],
       particle: [],
-      locationRandomizer: [],
-      randomSpawner: [],
+      spawner: [],
       decorativeObject: [],
       decoration: [],
       lightSource: [],
@@ -136,7 +135,7 @@ class GameWorldWindow extends GameWindow {
   //#region GameObject logic
   addGameObject(obj, layer) {
     obj.prototypeChain.forEach(prototype => {
-      if(!this.gameObjects[prototype]) console.error(prototype)
+      if(!this.gameObjects[prototype]) console.error("Unrecognized prototype identifier: " + prototype)
 
       this.gameObjects[prototype].push(obj)
     })

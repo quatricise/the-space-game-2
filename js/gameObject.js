@@ -1,12 +1,23 @@
 class GameObject {
   constructor(transform = new Transform(), id) {
+    /** @type Transform */
     this.transform = transform
+    
     this.transform.gameObject = this
+    
+    /** @type String */
     this.id = id ?? Random.uniqueIDHEX()
+
+    /** @type String */
     this.type = "gameObject"
 
+    /** @type Array<String> */
     this.components = []
+
+    /** @type Array<Object> */
     this.overrides = []
+
+    /** @type Array<NPC> */
     this.npcs = []
 
     this.performanceData = {}
@@ -21,19 +32,19 @@ class GameObject {
     this.timers = null
 
     /* flags */
-    this.loaded = false //unused currently
-    this.vwb = false
-    this.canCollide = true
-    this.immovable = false
-    this.visible = true
-    this.steering = false
-    this.braking = false
-    this.colliding = false
-    this.stuck = false
-    this.wrecked = false
-    this.destroyed = false
-    this.dying = false
+    /** @type Boolean */ this.vwb = false
+    /** @type Boolean */ this.canCollide = true
+    /** @type Boolean */ this.immovable = false
+    /** @type Boolean */ this.visible = true
+    /** @type Boolean */ this.steering = false
+    /** @type Boolean */ this.braking = false
+    /** @type Boolean */ this.colliding = false
+    /** @type Boolean */ this.stuck = false
+    /** @type Boolean */ this.wrecked = false
+    /** @type Boolean */ this.destroyed = false
+    /** @type Boolean */ this.dying = false
 
+    /** @type Integer */
     this.broadphaseGrowFactor = 1
   }
   //#region instance methods
@@ -296,36 +307,32 @@ class GameObject {
   }
   static create(type, name, params = {}, options = {world: game, layer: null}) {
     let obj
-    if(type === "camera")                   obj = new Camera(params.transform, params.context, params.contextDim, params.lockedTo, params.baseZoom, params.zoomRange)
-    if(type === "asteroid")                 obj = new Asteroid(params.transform, name)
-    if(type === "ship")                     obj = new Ship(params.transform, name, params.pilot)
-    if(type === "station")                  obj = new Station(params.transform, name)
-    if(type === "satellite")                obj = new Satellite(params.transform, name)
-    if(type === "debris")                   obj = new Debris(params.transform, name)
-    if(type === "interactable")             obj = new Interactable(params.transform, name, params.hitbox, params.doOnEnter, params.doOnLeave, params.doOnDestroy, params.parent, params.interactionData, params.interactionId)
-    if(type === "hint")                     obj = new Hint(params.transform, params.hintData, params.fadeoutTime, params.parent)
-    if(type === "projectile")               obj = new Projectile(params.transform, name, params.owner, params.target)
-    if(type === "cluster")                  obj = new Cluster(params.transform)
-    if(type === "fragment")                 obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
-    if(type === "ultraportBeacon")          obj = new UltraportBeacon(params.transform, name, params.options)
-    if(type === "hintGraphic")              obj = new HintGraphic(params.transform, name, params.parent)
-    if(type === "gameOverlay")              obj = new GameOverlay(params.transform, name, params.parent)
-    if(type === "explosion")                obj = new Explosion(params.transform, name, params.SFXName)
-    if(type === "particle")                 obj = new Particle(params.transform, name)
-    if(type === "mapIcon")                  obj = new MapIcon(params.transform, name, params.locationReference)
-    if(type === "mapImage")                 obj = new MapImage(params.transform, params.scale, name)
-    if(type === "mapLabel")                 obj = new MapLabel(params.transform, params.text, params.color)
-    if(type === "npc")                      obj = new NPC(name, params.jobTitle, params.location)
-    if(type === "player")                   obj = new Player()
-    if(type === "lightSource")              obj = new LightSource(params.transform, name, params.parent, params.lightData)
-    if(type === "audioEmitter")             obj = new AudioEmitter(params.category, name, params.parent, params.options)
-    
-    /* unfinished objects */
-    if(type === "locationRandomizer")       throw "location randomizer not finished"
-    if(type === "randomSpawner")            throw "random spawner not finished"
 
-    /* exception for decoration objects */
-    if(type === "decoration") obj = new Decoration(params.transform, name)
+         if(type === "camera")            obj = new Camera(params.transform, params.context, params.contextDim, params.lockedTo, params.baseZoom, params.zoomRange)
+    else if(type === "asteroid")          obj = new Asteroid(params.transform, name)
+    else if(type === "ship")              obj = new Ship(params.transform, name, params.pilot)
+    else if(type === "station")           obj = new Station(params.transform, name)
+    else if(type === "satellite")         obj = new Satellite(params.transform, name)
+    else if(type === "debris")            obj = new Debris(params.transform, name)
+    else if(type === "interactable")      obj = new Interactable(params.transform, name, params.hitbox, params.doOnEnter, params.doOnLeave, params.doOnDestroy, params.parent, params.interactionData, params.interactionId)
+    else if(type === "hint")              obj = new Hint(params.transform, params.hintData, params.fadeoutTime, params.parent)
+    else if(type === "projectile")        obj = new Projectile(params.transform, name, params.owner, params.target)
+    else if(type === "cluster")           obj = new Cluster(params.transform)
+    else if(type === "fragment")          obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
+    else if(type === "ultraportBeacon")   obj = new UltraportBeacon(params.transform, name, params.options)
+    else if(type === "hintGraphic")       obj = new HintGraphic(params.transform, name, params.parent)
+    else if(type === "gameOverlay")       obj = new GameOverlay(params.transform, name, params.parent)
+    else if(type === "explosion")         obj = new Explosion(params.transform, name, params.SFXName)
+    else if(type === "particle")          obj = new Particle(params.transform, name)
+    else if(type === "mapIcon")           obj = new MapIcon(params.transform, name, params.locationReference)
+    else if(type === "mapImage")          obj = new MapImage(params.transform, params.scale, name)
+    else if(type === "mapLabel")          obj = new MapLabel(params.transform, params.text, params.color)
+    else if(type === "npc")               obj = new NPC(name, params.jobTitle, params.location)
+    else if(type === "player")            obj = new Player()
+    else if(type === "lightSource")       obj = new LightSource(params.transform, name, params.parent, params.lightData)
+    else if(type === "audioEmitter")      obj = new AudioEmitter(params.category, name, params.parent, params.options)
+    else if(type === "spawner")           obj = new Spawner(params.transform, name, params)
+    else if(type === "decoration")        obj = new Decoration(params.transform, name)
 
     if(!options.world)
       console.error("A GameObject needs to be placed inside a GameWorldWindow.", type, name, params, options)
@@ -356,6 +363,7 @@ class GameObject {
     if(obj instanceof GameOverlay)          obj.prototypeChain.push("gameOverlay")
     if(obj instanceof LocationRandomizer)   obj.prototypeChain.push("locationRandomizer")
     if(obj instanceof RandomSpawner)        obj.prototypeChain.push("randomSpawner")
+    if(obj instanceof Spawner)              obj.prototypeChain.push("spawner")
     if(obj instanceof MapIcon)              obj.prototypeChain.push("mapIcon")
     if(obj instanceof MapImage)             obj.prototypeChain.push("mapImage")
     if(obj instanceof MapLabel)             obj.prototypeChain.push("mapLabel")

@@ -6,7 +6,16 @@
     "maxY":  100000
   },
   "lightSources": [],
-  "markers": [],
+  "markers": [
+    {
+      "markerId": "beacon_marker",
+      "targetObjectId": "exit_beacon",
+      "options": { "conditional": true },
+      "markerData": {
+        "markerIcon": "ultraportBeacon"
+      }
+    }
+  ],
   "interactions": [
     {
       "interactionId": "begin_countdown",
@@ -25,11 +34,23 @@
       "interactionData": {
         "trigger":  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
         "doOnEnter":["showModal"],
-        "modalData": {
-          "title": "Show tutorial?",
+        "modal": {
+          "title":       "Show controls?",
+          "description": "You can always press ~bind=showControls~ to bring up <br> the controls later.",
           "options": {
-            "left": {"text": "Yes", "onclick": "showTutorial"},
-            "right": {"text": "No", "onclick": "createInteractions", "data": {"interactions": ["begin_countdown", "make_enemy_ships_hostile"]}}
+            "left": {
+              "text": "Show controls", 
+              "onclick": [
+                {"action": "openWindow", "data": {"window": "manual"}},
+                {"action": "createInteractions", "data": {"interactions": ["begin_countdown", "make_enemy_ships_hostile"]}}
+              ]
+            },
+            "right": {
+              "text": "No thanks",
+              "onclick": [
+                {"action": "createInteractions", "data": {"interactions": ["begin_countdown", "make_enemy_ships_hostile"]}}
+              ]
+            }
           }
         }
       }
@@ -66,7 +87,8 @@
       "options": {"useHostHitbox": true, "conditional": true},
       "interactionData": {
         "trigger" :  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
-        "doOnEnter": ["createGameObjects"],
+        "doOnEnter": ["createGameObjects", "createInteraction"],
+        "newInteractionId": "create_beacon_marker",
         "gameObjectData": [
           {
             "type": "ultraportBeacon", 
@@ -93,6 +115,17 @@
             "onComplete":  "destroyInteractable"
           }
         }
+      }
+    },
+    {
+      "interactionId": "create_beacon_marker",
+      "triggerObjectId": "player_ship",
+      "options": {"useHostHitbox": true, "conditional": true},
+      "interactionData": {
+        "trigger" :  {"allowAll": false, "allowedIds": ["player_ship"], "allowedTypes": []},
+        "doOnEnter": ["createMarker"],
+        "newMarkerId": "beacon_marker",
+        "interactionDelay": 4000
       }
     }
   ]

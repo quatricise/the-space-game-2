@@ -215,6 +215,7 @@ class GameManager {
           gameObject = new GameObject()
           gameObject.name = name
           gameObject.type = type
+          gameObject.dud = true
           gameObject.addComponent("sprite")
         }
         catch(e) {

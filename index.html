@@ -46,9 +46,13 @@
 
   <div id="modal" class="hidden">
     <div id="modal-content">
+      <div id="modal-text">
+        <div id="modal-title">Title</div>
+        <div id="modal-description">Description</div>
+      </div>
       <div id="modal-buttons">
-        <div id="modal-button-left" >Text</div>
-        <div id="modal-button-right">Text</div>
+        <div id="modal-button-left"  class="modal-button ui-button-minimal-alt-filled interactable-color">left</div>
+        <div id="modal-button-right" class="modal-button ui-button-minimal-alt-filled interactable-color">right</div>
       </div>
       <img id="modal-background-panel" src="assets/ui/modal.png" alt="">
     </div>
@@ -720,6 +724,8 @@
 <script src="js/data/dataExplosion.js"></script>
 <script src="js/data/dataParticle.js"></script>
 <script src="js/data/dataGameOverlay.js"></script>
+<script src="js/data/dataSpawner.js"></script>
+<script src="js/data/dataSpawn.js"></script>
 <script src="js/data/dataDecoration.js"></script>
 <script src="js/data/dataStatusEffect.js"></script>
 <script src="js/data/dataUIHintSequence.js"></script>
@@ -784,7 +790,7 @@
 <script src="js/gameObjects/asteroid.js"></script>
 <script src="js/gameObjects/debris.js"></script>
 <script src="js/gameObjects/cluster.js"></script>
-<script src="js/gameObjects/specialObjects.js"></script>
+<script src="js/gameObjects/spawner.js"></script>
 <script src="js/gameObjects/gameOverlay.js"></script>
 <script src="js/gameObjects/continuousGraphic.js"></script>
 <script src="js/gameObjects/ultraportBeacon.js"></script>

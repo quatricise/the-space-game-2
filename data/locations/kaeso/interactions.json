@@ -23,9 +23,7 @@
     {
       "markerId": "intro_depot_station_marker",
       "targetObjectId": "intro_depot_station",
-      "options": {
-        "conditional": true
-      },
+      "options": { "conditional": true },
       "markerData": {
         "markerIcon": "station"
       }
@@ -33,9 +31,7 @@
     {
       "markerId": "ultraport_beacon_marker",
       "targetObjectId": "ultraport_beacon",
-      "options": {
-        "conditional": true
-      },
+      "options": { "conditional": true },
       "markerData": {
         "markerIcon": "ultraportBeacon"
       }

@@ -30,6 +30,7 @@ const binds = {
   replayPage:          "KeyR",
   devIcons:            "Backquote",
   forwardSequence:     "Space",
+  showControls:        "F1",
 
   /* digits */
   selectWeapon0:      "Digit1",

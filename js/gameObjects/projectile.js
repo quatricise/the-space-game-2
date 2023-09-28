@@ -84,6 +84,15 @@ class Projectile extends GameObject {
     ).rotate(this.transform.rotation)
     this.transform.position.add(offsetVector)
   }
+  updateLava() {
+
+  }
+  updateLavaBig() {
+    
+  }
+  updateLavaSmall() {
+      
+  }
   //#endregion
   handleImpact(event) {
     this[this.projectileData.onHit](event)

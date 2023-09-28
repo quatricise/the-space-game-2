@@ -252,29 +252,6 @@ textarea {
   font-size: 16px;
 }
 
-
-.modal-button {
-  background-color: var(--color-accent);
-  color: white;
-  border-radius: 5px;
-  outline: none;
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 1rem;
-  padding: 10px 20px;
-  border: 2px solid var(--color-accent);
-  cursor: var(--cursor-pointer);
-}
-
-.modal-button:hover {
-  border-color: white!important;
-}
-
-.modal-button.warning {
-  background-color: var(--color-warning);
-  border: 2px solid var(--color-warning);
-}
-
 button {
   font-family: inherit;
   cursor: unset;
@@ -374,6 +351,8 @@ button.generic:hover {
   height: 100vh;
   color: #b9a79e;
   font-family: "big-t-comic";
+  letter-spacing: -0.08em;
+  line-height: 160%;
 }
 #modal-content {
   position: relative;
@@ -390,17 +369,36 @@ button.generic:hover {
   position: absolute;
   bottom: 30px;
   display: flex;
+  gap: 10px;
   width: 490px;
 }
 #modal-button-left, 
 #modal-button-right {
-  padding: 20px;
+  padding: 10px;
   width: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
 }
-#modal-button-left:hover, 
-#modal-button-right:hover {
-  background-color: #b9a79e;
+
+#modal-text {
+  position: absolute;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 140px;
+  width: 490px;
+}
+
+#modal-title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+#modal-description {
+  text-align: center;
 }
