@@ -112,7 +112,6 @@ class HullSystem extends ShipSystem {
     }
   }
   spawnHurtParticles() {
-    console.log("f")
     this.createParticles(CollisionEvent.fakeEvent(10, 1000, this.gameObject.transform.position.copy))
     this.timers.hullDamageIndicate.duration = Random.int(700, 1500)
     this.timers.hullDamageIndicate.reset()
@@ -148,7 +147,6 @@ class HullSystem extends ShipSystem {
         )
       )
       if(spawnAttempts > maxSpawnAttempts) {
-        console.warn("> 50 attempts to spawn particles, breaking loop prematurely")
         break
       }
       if(!Collision.auto(position, this.gameObject.hitbox)) {

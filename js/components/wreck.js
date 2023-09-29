@@ -9,7 +9,25 @@ class Wreck extends Component {
     this.createExplosion()
     
     setTimeout(() => GameObject.destroy(this.gameObject), 0)
-    
+
+    /* create health pickups */
+    let pickupTransform = this.gameObject.transform.clone()
+    setTimeout(() => {
+      let count = Random.int(1, 3)
+      for(let i = 0; i < count; i++) {
+        let transform = pickupTransform.clone()
+        transform.position.x += Random.int(-40, 40)
+        transform.position.y += Random.int(-40, 40)
+        transform.rotation = Random.rotation()
+        GameObject.create(
+          "pickup", 
+          "health", 
+          {transform}, 
+          {world: game}
+        )
+      }
+    }, 10)
+
     if(this.gameObject === player.ship)
       gameManager.endGame()
   }

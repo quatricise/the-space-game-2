@@ -763,6 +763,12 @@ let sources = {
         auto: ["gameOverlay5"],
       },
     },
+    pickup: {
+      health: {
+        folder: "./assets/pickup/health/",
+        auto: ["linework2"],
+      },
+    },
   },
   audio: {
     music: [

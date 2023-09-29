@@ -335,7 +335,7 @@ data.weapon = {
   plasmaCannonI: {
     displayName: "Plasma Cannon Mk. I",
     displayNameShort: "Plasma I",
-    description: "A very standard plasma cannon. Does very small damage with no special effects.",
+    description: "A very standard plasma cannon. Does 1 damage with no special effects.",
     buyCost: 60,
     spriteCount: 7,
     weaponData: {

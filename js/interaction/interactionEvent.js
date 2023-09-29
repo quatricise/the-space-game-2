@@ -54,6 +54,14 @@ class TriggerEvent extends InteractionEvent {
   }
 }
 
+class PickupEvent extends InteractionEvent {
+  constructor( /** @type Pickup */ pickup, /** @type Ship */ ship) {
+    super( /** @type Pickup */ pickup, /** @type Ship */ ship)
+    this.pickup = pickup
+    this.ship = ship
+  }
+}
+
 class LightEvent extends InteractionEvent {
   constructor(light, visibleObject) {
     super(light, visibleObject)

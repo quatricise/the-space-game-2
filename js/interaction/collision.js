@@ -20,7 +20,7 @@ class Collision {
 
       let others = Collision.broadphase(world, obj, {exclude: [Interactable]})
       for(let other of others) {
-        if(!other.rigidbody) 
+        if(!other.rigidbody)
           continue
         if(world === game && GameObject.distanceFast(other, player.ship) > data.detectCollisionWithinThisFastDistanceOfPlayer) 
           continue
@@ -47,6 +47,20 @@ class Collision {
           interactionEvents.push(new TriggerEvent(obj, other))
       }
     }
+
+    /* 
+    solve pickup events 
+    this can potentially lead to weird bugs when pickups are consumed inside the editor, but that should be easy to fix
+    */
+    for(let obj of world.gameObjects.pickup) {
+      let others = Collision.broadphase(world, obj, {exclude: [Interactable, Pickup]})
+      for(let other of others) {
+        if(other instanceof Ship === false) return
+        if(Collision.auto(other.hitbox, obj.hitbox))
+          interactionEvents.push(new PickupEvent(obj, other))
+      }
+    }
+
     Collision.solve(world, collisionEvents, world.previousCollisions)
     Collision.solve(world, interactionEvents, world.previousInteractions)
 
@@ -281,9 +295,11 @@ class Collision {
       
       if(event instanceof CollisionEvent)
         this.solveCollision(world, event, previousEvents)
-      if(event instanceof TriggerEvent) 
+      else if(event instanceof TriggerEvent) 
         this.solveTrigger(world, event, previousEvents)
-      if(event instanceof LightEvent) 
+      else if(event instanceof PickupEvent) 
+        event.pickup.handleImpact(event)
+      else if(event instanceof LightEvent) 
         this.solveLightEvent(world, event, previousEvents)
     }
   }

@@ -20,7 +20,7 @@ class Modal extends GameWindow {
   handleKeydown(e) {
     if(e.code === "KeyN") 
       this.buttons.right.click()
-    if(e.code === "KeyY" || e.code === "KeyZ") 
+    if(e.code === "KeyY" || e.code === "KeyZ")
       this.buttons.left.click()
   }
   clearButtons() {

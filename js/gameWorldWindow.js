@@ -95,6 +95,7 @@ class GameWorldWindow extends GameWindow {
       ultraportBeacon: [],
       hintGraphic: [],
       gameOverlay: [],
+      pickup: [],
       explosion: [],
       particle: [],
       spawner: [],

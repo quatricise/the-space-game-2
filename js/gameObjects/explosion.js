@@ -20,6 +20,7 @@ class Explosion extends GameObject {
     let targets = Collision.broadphase(this.gameWorld, this, {exclude: [Interactable, HintGraphic, Hint, Explosion]})
     targets.forEach(target => {
       if(Collision.isSameCollisionGroup(this, target)) return
+      if(target.immovable) return
 
       let distance = GameObject.distance(this, target) 
       if(distance > this.effectRadius) return

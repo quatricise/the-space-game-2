@@ -179,7 +179,7 @@ class Sprite extends Component {
     })
 
     /* minimap sprite insertion */
-    if(gameObject.type.includesAny("asteroid", "debris", "ship", "station", "ultraportBeacon", "satellite"))
+    if(gameObject.type.includesAny("asteroid", "debris", "ship", "station", "ultraportBeacon", "satellite", "fragment"))
       newSources.push({src: "minimapIcon.png", length: 1})
     
     newSources.forEach((source) => {
@@ -223,12 +223,14 @@ class Sprite extends Component {
       if(length > 1 && !name.includes("wreck")) 
       {
         sprite = Sprite.animatedSprite(url, length)
-        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "travelAnimation")) 
+        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "travelAnimation", "linework")) 
         {
           if(name.includes("stealth"))
             sprite.animationSpeed = 0.05
           else if(name.includes("travelAnimation"))
             sprite.animationSpeed = 0.2
+          else if(name.includes("linework"))
+            sprite.animationSpeed = 0.05
           else
             sprite.animationSpeed = 0.1
           sprite.play()
@@ -320,7 +322,12 @@ class Sprite extends Component {
     sprite = PIXI.Sprite.from(url)
     sprite.anchor.set(0.5)
 
-    spriteComponent.all.push(sprite)
+    /* insert minimap icon */
+    let micon = PIXI.Sprite.from("assets/minimapIcon/fragment.png")
+    spriteComponent.minimapIcon = micon
+    game.minimapApp.stage.addChild(micon)
+
+    spriteComponent.all.push(sprite, micon)
     spriteComponent.container.addChild(sprite)
   }
   static createForMapLabel(gameObject, text, color = "ffffff") {

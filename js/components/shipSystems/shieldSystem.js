@@ -138,6 +138,7 @@ class ShieldSystem extends ShipSystem {
     })
   }
   pulseParseCollision(object) {
+    if(object.immovable) return
     let angle = GameObject.angle(this.gameObject, object)
     let distance = GameObject.distance(this.gameObject, object)
     let strength = ((this.shieldData.pulseStrength / distance ) / object.mass) * 1000
@@ -152,7 +153,6 @@ class ShieldSystem extends ShipSystem {
       object.owner = null
       object.target = null
     }
-      
 
     object.transform.velocity.add(velocity)
   }

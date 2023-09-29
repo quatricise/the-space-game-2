@@ -193,7 +193,7 @@ class GameManager {
     this.activeWindow.uiComponents.forEach(comp => comp.update())
   }
   loadDeathmatch() {
-    this.loadStartingLocation('deathmatch4')
+    this.loadStartingLocation('deathmatch0')
     Q("#ui-left-side-panel").classList.remove("hidden")
     Q("#ui-right-side-panel").classList.remove("hidden")
     data.updateObjectsWithinThisFastDistanceOfPlayer = 3000
