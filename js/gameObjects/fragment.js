@@ -8,9 +8,15 @@ class Fragment extends GameObject {
         definition: fragmentData.hitbox
       }
     }
+    /** @type Number */
     this.mass = parent.mass / 3
-    this.health = 3
+
+    /** @type Number */
+    this.health = 4
+
+    /** @type Boolean */
     this.scrappable = true
+
     this.debrisYield = {min: 6, max: 12}
     this.type = "fragment"
     this.name = name
@@ -38,7 +44,7 @@ class Fragment extends GameObject {
     if(this.invulnerable) return
 
     this.health -= amt
-    this.invulnerable = true
+    this.setInvulnerableState(true)
     this.timers.invulnerableWindow.start()
 
     AudioManager.playSFX("hullDamage")
@@ -70,6 +76,9 @@ class Fragment extends GameObject {
   move() {
     this.transform.position.x += this.transform.velocity.x * dt
     this.transform.position.y += this.transform.velocity.y * dt
+
+    /* slow this down so it's recoverable if it drifts too fast */
+    this.transform.velocity.mult(1 - (dt/3.5))
   }
   update() {
     this.move()

@@ -1210,10 +1210,19 @@ data.weapon = {
         this.ready = false
         this.timers.chargeBegin.start()
       },
+      updateWeaponSprite() {
+        let spriteCount = this.gameObject.sprite.laserChargeProgress.textures.length
+        let index = (this.timers.chargeBegin.currentTime / this.timers.chargeBegin.duration) * (spriteCount - 1)
+        index = Math.round(index)
+        if(index !== this.index) console.log("index change to: " + index)
+        this.index = index
+        this.gameObject.sprite.laserChargeProgress.gotoAndStop(index)
+      },
       updateSpecific() {
         if(!this.powered) return
 
         this.timers.update()
+        this.updateWeaponSprite()
       },
       setup() {
         this.timers = new Timer(

@@ -26,6 +26,9 @@ data.particle = {
   lava: {
     destroyAfterPlay: true
   },
+  lavaSlow: {
+    destroyAfterPlay: true
+  },
   asteroidRock: {
     destroyAfterPlay: true
   },
@@ -33,6 +36,9 @@ data.particle = {
     destroyAfterPlay: true
   },
   asteroidCopper: {
+    destroyAfterPlay: true
+  },
+  asteroidLava: {
     destroyAfterPlay: true
   },
   explosionHit: {

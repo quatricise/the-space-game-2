@@ -3,8 +3,13 @@ class WeaponSystem extends ShipSystem {
     super(gameObject, systemData)
     this.powerFree = this.power
     this.createWeaponSlots(systemData.slots)
+
+    /** @type Array<Weapon> */
     this.weapons = []
+
+    /** @type Weapon */
     this.activeWeapon = null
+    
     for(let weaponName of systemData.weapons)
       this.addWeapon(weaponName)
   }

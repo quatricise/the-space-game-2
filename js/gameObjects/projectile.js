@@ -12,11 +12,7 @@ class Projectile extends GameObject {
     this.lifeMax = objectData.life
     this.life = objectData.life
     this.projectileData = objectData.projectileData
-    this.components = [
-      "sprite",
-      "hitbox",
-      "rigidbody"
-    ]
+    this.components = ["sprite", "hitbox", "rigidbody"]
     this.registerComponents(objectData)
   }
   move() {

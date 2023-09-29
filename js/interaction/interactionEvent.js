@@ -36,13 +36,14 @@ class CollisionEvent extends InteractionEvent {
 
     this.impactSpeed = obj1.transform.velocity.clone().sub(obj2.transform.velocity).length()
   }
-  static fakeEvent(impactDamage, impactSpeed) {
+  static fakeEvent(/** @type Integer */ impactDamage, /** @type Float */ impactSpeed, /** @type Vector */ collisionPoint) {
     return {
       obj1: null,
       obj2: null,
       collisionType: "impact",
       impactDamage, 
       impactSpeed,
+      collisionPoint,
     }
   }
 }

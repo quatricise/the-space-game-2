@@ -193,10 +193,12 @@ class GameManager {
     this.activeWindow.uiComponents.forEach(comp => comp.update())
   }
   loadDeathmatch() {
-    this.loadStartingLocation('deathmatch0')
+    this.loadStartingLocation('deathmatch4')
     Q("#ui-left-side-panel").classList.remove("hidden")
     Q("#ui-right-side-panel").classList.remove("hidden")
     data.updateObjectsWithinThisFastDistanceOfPlayer = 3000
+    setTimeout(() => player.ship.weapons.addWeapon("debrisGun"), 1000)
+    setTimeout(() => AudioManager.playLoopedAudio("music", "deathmatch", 0.42), 2000)
   }
   loadNextDeathmatchArena() {
     let index = +game.locationName.replace(/[^0-9\.]+/g, '')

@@ -6,4 +6,7 @@ class Manual extends GameWindow {
     if(e.code === "Escape")             gameManager.setWindow(game)
     if(e.code === binds.showControls)   gameManager.setWindow(game)
   }
+  handleMousedown(e) {
+    if(e.button === 0) gameManager.setWindow(game)
+  }
 }

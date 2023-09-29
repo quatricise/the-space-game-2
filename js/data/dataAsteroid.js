@@ -245,4 +245,34 @@ data.asteroid = {
       definition: null
     }
   },
+  lavaSmall0: {
+    mass: 40, 
+    health: 6,
+    material: "lava",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidLavaSmall0",
+      definition: null
+    }
+  },
+  lavaMedium0: {
+    mass: 40, 
+    health: 6,
+    material: "lava",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidLavaMedium0",
+      definition: null
+    }
+  },
+  lavaLarge0: {
+    mass: 100, 
+    health: 12,
+    material: "lava",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidlavaLarge0",
+      definition: null
+    }
+  },
 }

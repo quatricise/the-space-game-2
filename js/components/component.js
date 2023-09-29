@@ -1,5 +1,6 @@
 class Component {
   constructor(gameObject) {
+    /** @type GameObject */
     this.gameObject = gameObject
   }
   update() {

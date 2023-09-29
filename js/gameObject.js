@@ -290,7 +290,7 @@ class GameObject {
   }
   //#endregion
   //#region static methods
-  static updateOnPlay(gameObject) {
+  static updateOnPlay(/** @type GameObject */ gameObject) {
     gameObject.updateStatusEffects()
     gameObject.update()
     gameObject.updateRotation()
@@ -299,7 +299,7 @@ class GameObject {
     gameObject.resetVelocityIfImmovable()
     gameObject.clampVelocity()
   }
-  static updateOnAll(gameObject) {
+  static updateOnAll(/** @type GameObject */ gameObject) {
     gameObject.updateComponents()
     gameObject.transform.update()
     gameObject.setPerformanceData()

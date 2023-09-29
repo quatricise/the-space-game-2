@@ -107,7 +107,7 @@ data.projectile = {
       type: "circle",
       filename: null,
       definition: {
-        radius: 8,
+        radius: 10,
       }
     },    
     life: 10000,
@@ -124,7 +124,7 @@ data.projectile = {
       type: "circle",
       filename: null,
       definition: {
-        radius: 8,
+        radius: 15,
       }
     },    
     life: 10000,
@@ -141,7 +141,7 @@ data.projectile = {
       type: "circle",
       filename: null,
       definition: {
-        radius: 8,
+        radius: 7,
       }
     },    
     life: 10000,

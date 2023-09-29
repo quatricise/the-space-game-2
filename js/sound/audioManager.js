@@ -1,5 +1,17 @@
 class AudioManager {
-  static musicVolume = 1
+  static _musicVolume = 1
+  static set musicVolume(value) {
+    this._musicVolume = clamp(value, 0, 1)
+    for(let key in this.musicAudioClips) {
+      this.musicAudioClips[key].updateVolume()
+    }
+    for(let key in this.SFXAudioClips) {
+      this.SFXAudioClips[key].updateVolume()
+    }
+  }
+  static get musicVolume() {
+    return this._musicVolume
+  }
   static SFXVolume = 1
   static ready = false
 

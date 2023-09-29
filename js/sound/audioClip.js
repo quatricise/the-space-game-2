@@ -81,12 +81,15 @@ class LoopedAudioClip {
     this.timers.fadeTick.start()
   }
   fadeEnd() {
-    if(this.volume < 0.25) this.stop() //this basically
+    if(this.volume < 0.25) this.stop()
   }
   fadeTick() {
     this.setVolume(
       Ease.Linear(this.timers.fadeTick.currentTime, this.fadeData.from, this.fadeData.to - this.fadeData.from, this.timers.fadeTick.duration)
     )
+  }
+  updateVolume() {
+    this.setVolume(this.volume)
   }
   setVolume(volume) {
     this.volume = clamp(volume, 0, 1)

@@ -134,6 +134,7 @@ let sources = {
           "weapons",
           "fill",
           "stealthFill4",
+          "laserChargeProgress6",
           "shieldChargeIndicator",
           "boostersIndicator",
           "brakeIndicator",
@@ -306,6 +307,18 @@ let sources = {
       overgrownLarge5: {
         folder: "./assets/asteroid/overgrownLarge5/",
         auto: ["thumbnail", "linework"],
+      },
+      lavaSmall0: {
+        folder: "./assets/asteroid/lavaSmall0/",
+        auto: ["thumbnail", "fill", "highlights", "linework"],
+      },
+      lavaMedium0: {
+        folder: "./assets/asteroid/lavaMedium0/",
+        auto: ["thumbnail", "fill", "highlights", "linework"],
+      },
+      lavaLarge0: {
+        folder: "./assets/asteroid/lavaLarge0/",
+        auto: ["thumbnail", "fill", "highlights", "linework"],
       },
     },
     debris: {
@@ -679,6 +692,10 @@ let sources = {
         folder: "./assets/particle/lava/",
         auto: ["particles4"],
       },
+      lavaSlow: {
+        folder: "./assets/particle/lavaSlow/",
+        auto: ["particles10"],
+      },
       asteroidRock: {
         folder: "./assets/particle/asteroidRock/",
         auto: ["particles3"],
@@ -689,6 +706,10 @@ let sources = {
       },
       asteroidCopper: {
         folder: "./assets/particle/asteroidCopper/",
+        auto: ["particles4"],
+      },
+      asteroidLava: {
+        folder: "./assets/particle/lava/",
         auto: ["particles4"],
       },
       explosionHit: {
@@ -748,6 +769,7 @@ let sources = {
       "mainTheme loop",
       "introCutscene loop",
       "kaesoBackground loop",
+      "deathmatch loop",
     ],
     SFX: [
       "buttonHover",

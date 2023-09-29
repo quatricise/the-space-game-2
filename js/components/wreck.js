@@ -5,7 +5,7 @@ class Wreck extends Component {
     this.fragments = []
   }
   activate() {
-    this.generateFragments()
+    this.createFragments()
     this.createExplosion()
     
     setTimeout(() => GameObject.destroy(this.gameObject), 0)
@@ -14,17 +14,31 @@ class Wreck extends Component {
       gameManager.endGame()
   }
   createExplosion() {
-    let transform = this.gameObject.transform.clone()
-        transform.angularVelocity = 0
-        transform.velocity.set(0)
+    let 
+    transform = this.gameObject.transform.clone()
+    transform.angularVelocity = 0
+    transform.velocity.set(0)
+    
     GameObject.create("explosion", "default", {transform, SFXName: "explosionDefault"}, {world: this.gameObject.gameWorld})
   }
-  generateFragments() {
-    let createPopupForWreckByIndex = Random.int(0, this.fragmentCount - 1)
+  createFragments() {
+    let indexOfLootableWreck = Random.int(0, this.fragmentCount - 1)
+
+    /* 
+    sometimes insert a single weapon into the cargo system, 
+    this could result in duplication later when I fix NPC ships not having weapons in cargo, but that's a future problem 
+    */
+    if(Random.chance(50) && this.gameObject.weapons) {
+
+      let weapon = this.gameObject.weapons.weapons.random()
+      if(weapon.canBeDismounted) {
+        this.gameObject.cargo.addItems(new Item(weapon.name))
+      }
+    }
     
     for(let i = 0; i < this.fragmentCount; i++) {
       let fragment = this.createFragment(i)
-      if(i === createPopupForWreckByIndex && this.gameObject !== player.ship) {
+      if(i === indexOfLootableWreck && this.gameObject !== player.ship) {
         new UILootingPopupComponent(game, fragment, this.gameObject.cargo)
       }
         

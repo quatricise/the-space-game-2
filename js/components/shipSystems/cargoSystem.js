@@ -33,7 +33,7 @@ class CargoSystem extends ShipSystem {
     }
   }
   displayFullWarning() {
-    console.warn("Ship cargo is full. Any overflowing items have been lost to the void.")
+    // console.warn("Ship cargo is full. Any overflowing items have been lost to the void.")
   }
   findItemByName(name) {
     return this.items.find(i => i.name === name) || null

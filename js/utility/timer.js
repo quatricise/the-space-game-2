@@ -14,11 +14,11 @@ class Timer {
       timer.currentTime += 1000 * delta
       if(timer.currentTime >= timer.duration) {
         timer.currentTime = 0
-        timer.onfinish()
         if(!timer.loop) {
           timer.finished = true
           timer.active = false
         }
+        timer.onfinish()
       }
     }
   }

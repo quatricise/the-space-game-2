@@ -44,6 +44,9 @@ Array.prototype.findChild = function(child) {
 Array.prototype.last = function() {
   return this[this.length - 1]
 }
+Array.prototype.random = function() {
+  return this[Random.int(0, this.length - 1)]
+}
 Array.prototype.removeAt = function(index) {
   return this.splice(index, 1)
 }

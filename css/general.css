@@ -353,6 +353,7 @@ button.generic:hover {
   font-family: "big-t-comic";
   letter-spacing: -0.08em;
   line-height: 160%;
+  user-select: none;
 }
 #modal-content {
   position: relative;

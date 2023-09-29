@@ -1,15 +1,25 @@
 class HullSystem extends ShipSystem {
   constructor(gameObject, data) {
     super(gameObject, data)
+
+    /** @type Integer */
     this.level = data.level
+
+    /** @type Integer */
     this.levelMax = data.levelMax
+
+    /** @type Integer */
     this.current = data.level
+
+    /** @type Integer */
     this.impactResistance = data.impactResistance
 
+    /** @type Integer */
     this.coatingLayers = 0
 
     this.timers = new Timer(
-      ["invulnerableWindow", 1500, {loop: false, active: false, onfinish: this.toggleInvulnerability.bind(this)}]
+      ["invulnerableWindow", 1500, {loop: false, active: false, onfinish: this.toggleInvulnerability.bind(this)}],
+      ["hullDamageIndicate", 1000, {loop: true, active: false, onfinish: this.spawnHurtParticles.bind(this)}],
     )
   }
   upgrade() {
@@ -22,6 +32,9 @@ class HullSystem extends ShipSystem {
     this.current++
     if(this.gameObject === player.ship)
       this.handlePlayerShipHullRepair()
+
+    if(this.current > 3)
+      this.timers.hullDamageIndicate.stop()
   }
   toggleInvulnerability() {
     this.invulnerable = !this.invulnerable
@@ -42,6 +55,11 @@ class HullSystem extends ShipSystem {
   }
   damage(collisionEvent) {
     if(this.invulnerable) return
+
+    /* timer used to spawn particles when ship is low on health */
+    if(this.current <= 3 && !this.timers.hullDamageIndicate.active) {
+      this.timers.hullDamageIndicate.start()
+    }
 
     if(this.coatingLayers)
       this.processCoatingDamage()
@@ -88,6 +106,13 @@ class HullSystem extends ShipSystem {
       let alphaRedux = Ease.InOut(this.timers.invulnerableWindow.currentTime - startValueAbsolute, 0, 1, offsetFromEnd)
       this.gameObject.sprite.hullInvulnerableAnimation.alpha = 1 - alphaRedux
     }
+  }
+  spawnHurtParticles() {
+    console.log("f")
+    this.createParticles(CollisionEvent.fakeEvent(10, 1000, this.gameObject.transform.position.copy))
+    this.timers.hullDamageIndicate.duration = Random.int(700, 1500)
+    this.timers.hullDamageIndicate.reset()
+    this.timers.hullDamageIndicate.start()
   }
   createParticles(collisionEvent) {
     let particleOrigin = this.setParticleOrigin(collisionEvent)
