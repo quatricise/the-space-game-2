@@ -206,6 +206,14 @@ class Ship extends GameObject {
   }
   //#endregion
   handleImpact(collisionEvent) {
+    /* hot touch property */
+    if(this.hull.properties.hotTouch) {
+      let obj = collisionEvent.obj1 !== this ? collisionEvent.obj1 : collisionEvent.obj2
+      if(obj instanceof Ship) {
+        obj.hull.damage(CollisionEvent.fakeEvent(1, 1000, this.transform.position.copy))
+      }
+    }
+
     this.hull.handleImpact(collisionEvent)
   }
   autoPowerSystems(systems) {

@@ -483,6 +483,9 @@ data.ship["lavaShipI"] = {
     levelMax: 12,
     current: 12,
     impactResistance: 120,
+    properties: {
+      hotTouch: true
+    }
   },
   reactor: {
     power: 20,

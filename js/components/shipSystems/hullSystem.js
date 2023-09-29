@@ -17,6 +17,10 @@ class HullSystem extends ShipSystem {
     /** @type Integer */
     this.coatingLayers = 0
 
+    this.properties = {
+      hotTouch: data.properties?.hotTouch ?? false
+    }
+
     this.timers = new Timer(
       ["invulnerableWindow", 1500, {loop: false, active: false, onfinish: this.toggleInvulnerability.bind(this)}],
       ["hullDamageIndicate", 1000, {loop: true, active: false, onfinish: this.spawnHurtParticles.bind(this)}],
