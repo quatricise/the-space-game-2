@@ -1054,7 +1054,7 @@ data.weapon = {
         .rotate(this.gameObject.transform.rotation)
 
         let basePosition = this.gameObject.transform.position.clone().add(projectileOffset)
-        let projectileCount = Random.int(3, 7)
+        let projectileCount = Random.int(3, 8)
         let collisionGroup = uniqueIDString()
 
         for(let i = 0; i < projectileCount; i++) {
@@ -1176,8 +1176,8 @@ data.weapon = {
               Random.int(-25, 25)
             )
           )
-          let angleToShipTargetPosition = basePosition.angleTo(this.gameObject.targetPosition) + Random.float(-0.4, 0.4)
-          let velocity = Vector.fromAngle(angleToShipTargetPosition)
+          let randomizedAngle = basePosition.angleTo(this.gameObject.targetPosition) + Random.float(-0.5, 0.5)
+          let velocity = Vector.fromAngle(randomizedAngle)
           .mult(data.projectile[this.projectiles[0]].speed * (1 - Random.float(0, speedVariation)))
           let angularVelocity = Random.float(0, PI/2)
           let rotation = Random.float(0, TAU)
@@ -1214,8 +1214,6 @@ data.weapon = {
         let spriteCount = this.gameObject.sprite.laserChargeProgress.textures.length
         let index = (this.timers.chargeBegin.currentTime / this.timers.chargeBegin.duration) * (spriteCount - 1)
         index = Math.round(index)
-        if(index !== this.index) console.log("index change to: " + index)
-        this.index = index
         this.gameObject.sprite.laserChargeProgress.gotoAndStop(index)
       },
       updateSpecific() {

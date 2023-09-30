@@ -39,6 +39,16 @@ class HullSystem extends ShipSystem {
 
     if(this.current > 3)
       this.timers.hullDamageIndicate.stop()
+
+    /* animate sprite if it exists */
+    if(this.gameObject.sprite.hullRepairAnimation) {
+      let sp = this.gameObject.sprite.hullRepairAnimation
+      sp.renderable = true
+      sp.alpha = 1
+      sp.loop = false
+      sp.gotoAndPlay(0)
+      sp.onComplete = () => {sp.renderable = false}
+    }
   }
   toggleInvulnerability() {
     this.invulnerable = !this.invulnerable

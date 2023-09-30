@@ -25,6 +25,7 @@ let sources = {
           "boostersIndicator",
           "brakeIndicator",
           "hullInvulnerableAnimation10",
+          "hullRepairAnimation8",
           "linework",
           "stealthLinework",
           "skip5",
@@ -263,6 +264,14 @@ let sources = {
       copperMedium1: {
         folder: "./assets/asteroid/copperMedium1/",
         auto: ["thumbnail", "fill", "highlights", "linework", "death5"],
+      },
+      copperSmall0: {
+        folder: "./assets/asteroid/copperSmall0/",
+        auto: ["thumbnail", "fill", "highlights", "linework"],
+      },
+      copperSmall1: {
+        folder: "./assets/asteroid/copperSmall1/",
+        auto: ["thumbnail", "fill", "highlights", "linework"],
       },
       clayLarge0: {
         folder: "./assets/asteroid/clayLarge0/",

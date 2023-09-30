@@ -3,6 +3,7 @@ class Decoration {
     this.transform = transform || new Transform()
     this.type = "decoration"
     this.name = name
+    this.id = Random.uniqueIDHEX()
 
     /* 
     get sprite source to avoid having to create a sprite component 
@@ -14,6 +15,12 @@ class Decoration {
     this.sprite = PIXI.Sprite.from(src)
     this.sprite.anchor.set(0.5)
     this.sprite.rotation = this.transform.rotation
+  }
+  set alpha(/** @type Float - 0 to 1 */ value) {
+    this.sprite.alpha = clamp(value, 0, 1)
+  }
+  get alpha() {
+    return this.sprite.alpha
   }
   update() {
     this.transform.position.x += this.transform.velocity.x * dt

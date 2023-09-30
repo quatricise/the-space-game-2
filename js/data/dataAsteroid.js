@@ -129,6 +129,26 @@ data.asteroid = {
       definition: null,
     }
   },
+  copperSmall0: {
+    mass: 12, 
+    health: 2,
+    material: "copper",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidCopperSmall0",
+      definition: null,
+    }
+  },
+  copperSmall1: {
+    mass: 12, 
+    health: 2,
+    material: "copper",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidCopperSmall1",
+      definition: null,
+    }
+  },
   clayLarge0: {
     mass: 110, 
     health: 6,

@@ -513,6 +513,11 @@ class LocationEditor extends GameWorldWindow {
       props.forEach(prop => createProp(prop))
     }
     else
+    if(obj instanceof Decoration) {
+      props.push("alpha")
+      props.forEach(prop => createProp(prop))
+    }
+    else
     if(obj instanceof Station) {
       props.forEach(prop => createProp(prop))
     }
@@ -946,7 +951,7 @@ class LocationEditor extends GameWorldWindow {
 
       if(target.closest("#search-dropdown-category-switch")) {
         /* remake this shit */
-        alert("remake")
+        console.warn("remake dropdowns, add the spawner category")
         this.toggleDropdownListCategory()
       }
       if(target.closest("#add-override-button")) {
@@ -1166,6 +1171,10 @@ class LocationEditor extends GameWorldWindow {
           }
         })
         obj.addComponent("rigidbody", {rigidbody: {}})
+        break
+      }
+      case "camera": {
+        console.log("tried to add hitbox to a camera, silly goose...")
         break
       }
       default: {

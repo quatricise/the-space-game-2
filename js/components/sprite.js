@@ -25,6 +25,7 @@ class Sprite extends Component {
 
     objectSources.auto.forEach((src) => {
       let length = src.replace(/[^0-9\.]+/g, '') || 1
+
       if(src.includes("thumbnail")) 
         return
       else 
@@ -161,6 +162,10 @@ class Sprite extends Component {
         newSources.push({src: "hullInvulnerableAnimation0000.png", length: length})
       }
       else
+      if(src.includes("hullRepairAnimation")) {
+        newSources.push({src: "hullRepairAnimation0000.png", length: length})
+      }
+      else
       if(src.includes("weapons")) {
         newSources.push({src: "weapons", length: length})
       }
@@ -223,7 +228,7 @@ class Sprite extends Component {
       if(length > 1 && !name.includes("wreck")) 
       {
         sprite = Sprite.animatedSprite(url, length)
-        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "travelAnimation", "linework")) 
+        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation", "linework")) 
         {
           if(name.includes("stealth"))
             sprite.animationSpeed = 0.05
@@ -284,27 +289,28 @@ class Sprite extends Component {
       if(name.includes("death"))                      spriteComponent.death = sprite
       if(name.includes("minimapIcon"))                spriteComponent.minimapIcon = sprite
       if(name.includes("hullInvulnerableAnimation"))  spriteComponent.hullInvulnerableAnimation = sprite
+      if(name.includes("hullRepairAnimation"))        spriteComponent.hullRepairAnimation = sprite
       if(name.includes("travelAnimationSubmerge"))    spriteComponent.travelAnimationSubmerge = sprite
       if(name.includes("travelAnimationEmerge"))      spriteComponent.travelAnimationEmerge = sprite
       
       sprite.anchor.set(0.5)
 
-      if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "travelAnimation")) 
+      if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation")) 
       {
         sprite.renderable = false
       }
       if(name.includes("flame")) 
       {
-        if(name.includes("Low"))                  spriteComponent.flames.low = sprite
-        if(name.includes("Medium"))               spriteComponent.flames.medium = sprite
-        if(name.includes("High"))                 spriteComponent.flames.high = sprite
+        if(name.includes("Low"))    spriteComponent.flames.low = sprite
+        if(name.includes("Medium")) spriteComponent.flames.medium = sprite
+        if(name.includes("High"))   spriteComponent.flames.high = sprite
       }
 
       spriteComponent.all.push(sprite)
       
-      //this is to prevent adding certain sprites to the container, they're not supposed to be bound to the GameObject's position
-      if(name.includesAny("skip", "ghost", "shieldPulse", "minimapIcon", "travelAnimation"))
-        return
+      /* this is to prevent adding certain sprites to the container, they're not supposed to be bound to the GameObject's position */
+      if(name.includesAny("skip", "ghost", "shieldPulse", "minimapIcon", "travelAnimation")) return
+
       spriteComponent.container.addChild(sprite)
     })
 
