@@ -185,6 +185,30 @@ data.asteroid = {
       },
     }
   },
+  claySmall0: {
+    mass: 20, 
+    health: 3,
+    material: "clay",
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 50,
+      },
+    }
+  },
+  claySmall1: {
+    mass: 20, 
+    health: 3,
+    material: "clay",
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 50,
+      },
+    }
+  },
   overgrownMedium0: {
     mass: 200, 
     health: 5,

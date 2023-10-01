@@ -285,6 +285,14 @@ let sources = {
         folder: "./assets/asteroid/clayMedium1/",
         auto: ["thumbnail", "fill", "highlights", "linework", "death5"],
       },
+      claySmall0: {
+        folder: "./assets/asteroid/claySmall0/",
+        auto: ["thumbnail", "fill", "highlights", "linework", "death6"],
+      },
+      claySmall1: {
+        folder: "./assets/asteroid/claySmall1/",
+        auto: ["thumbnail", "fill", "highlights", "linework", "death5"],
+      },
       overgrownMedium0: {
         folder: "./assets/asteroid/overgrownMedium0/",
         auto: ["thumbnail", "linework"],

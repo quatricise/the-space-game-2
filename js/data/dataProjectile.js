@@ -2,14 +2,9 @@ data.projectile = {
   missileHelios: {
     speed: 500,
     mass: 6,
-    impactDamage: 3,
+    impactDamage: 2,
     life: 30000,
-    effects: [
-      {
-        type: "fire",
-        chance: 0.5,
-      }
-    ],
+    effects: [{type: "fire", chance: 0.5,}],
     hitbox: {
       type: "polygonHitbox",
       filename: "projectileMissileHelios",
@@ -84,7 +79,7 @@ data.projectile = {
     life: 12000, 
   },
   trapMissile: {
-    speed: 820,
+    speed: 860,
     mass: 2,
     impactDamage: 0,
     hitbox: {
@@ -97,6 +92,23 @@ data.projectile = {
     life: 10000,
     projectileData: {
       onHit: "trapTarget",
+    }
+  },
+  snakeMissile: {
+    speed: 450,
+    mass: 2,
+    impactDamage: 2,
+    hitbox: {
+      type: "circle",
+      filename: null,
+      definition: {
+        radius: 8,
+      }
+    },    
+    life: 10000,
+    projectileData: {
+      onHit: "explode",
+      explosionSize: 400,
     }
   },
   lava: {

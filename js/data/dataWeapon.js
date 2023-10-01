@@ -2,7 +2,7 @@ data.weapon = {
   missileHelios: {
     displayName: "Helios Missile Launcher Mk. I",
     displayNameShort: "Helios I",
-    description: "Homing missile that does serious damage and causes internal fires. Standard weapon of the Crown fleet.",
+    description: "Homing missile that does 2 damage and causes internal fires. Standard weapon of the Crown fleet.",
     spriteCount: 5,
     buyCost: 90,
     weaponData: {
@@ -12,7 +12,7 @@ data.weapon = {
       power: 1,
       type: "missile",
       projectile: "missileHelios",
-      chargeDurationMS: 3800, 
+      chargeDurationMS: 3500, 
     },
     methods: {
       onkeydown(event) {
@@ -70,6 +70,135 @@ data.weapon = {
             world: this.gameObject.gameWorld
           }
         )
+        this.ready = false
+        this.timers.recharge.start()
+        AudioManager.playSFX("rocketWeaponFire")
+      },
+      recharge() {
+        this.ready = true
+        this.gameObject.sprite.weapons.children[this.slotIndex]?.gotoAndStop(1)
+      },
+      findTarget() {
+        if(!this.ready) return
+        let foundTarget = false
+        if(this.gameObject === player.ship) {
+          game.gameObjects.ship.forEach(ship => {
+            if(!Collision.auto(mouse.worldPosition, ship.hitbox)) return
+            if(ship === player.ship) return
+            foundTarget = true
+            if(ship === this.target) return
+            this.setTarget(ship)
+          })
+        }
+
+        if(!foundTarget)
+          this.unsetTarget()
+      },
+      setTarget(target) {
+        AudioManager.playSFX("buttonNoAction", 0.4)
+        this.target = target
+        this.targetOverlay = GameObject.create("gameOverlay", "targetSmall", {parent: target}, {world: this.gameObject.gameWorld})
+      },
+      unsetTarget() {
+        if(this.targetOverlay)
+          GameObject.destroy(this.targetOverlay)
+        this.targetOverlay = null
+        this.target = null
+      },
+      updateSpecific() {
+        if(!this.powered) return
+
+        this.findTarget()
+        this.timers.update()
+      },
+      setup() {
+        this.timers = new Timer(
+          ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
+        )
+      }
+    }
+  },
+  snakeMissileII: {
+    displayName: "Snake Missile Launcher Mk. II",
+    displayNameShort: "Snake M. II",
+    description: "Launches 3 small missiles, each moves in a wonky pattern, which is hard to dodge.",
+    spriteCount: 5,
+    buyCost: 80,
+    weaponData: {
+      chargeMethod: "auto",
+      fireMethod: "mousedown",
+      canBeDismounted: true,
+      power: 1,
+      type: "missile",
+      projectile: "snakeMissile",
+      chargeDurationMS: 4000, 
+      collisionGroup: uniqueIDString(),
+    },
+    methods: {
+      onkeydown(event) {
+
+      },
+      onkeyup(event) {
+        
+      },
+      onmousemove(event) {
+        
+      },
+      onmousedown(event) {
+        if(this.ready)
+          this.fire()
+      },
+      onmouseup(event) {
+        
+      },
+      onclick(event) {
+
+      },
+      onwheel(event) {
+        
+      },
+      fire() {
+        let sprite = this.gameObject.sprite.weapons.children[this.slotIndex]
+        if(sprite) {
+          sprite.gotoAndPlay(2)
+          sprite.onComplete = () => sprite.gotoAndStop(0)
+        }
+
+        /* where the projectile will originate from */
+        let origin = this.gameObject.transform.position.clone()
+
+        /* based on the weapon slot location on the ship */
+        let offset = new Vector(
+          this.gameObject.weaponSlots[this.slotIndex].x,
+          this.gameObject.weaponSlots[this.slotIndex].y,
+        )
+        .rotate(this.gameObject.transform.rotation)
+
+        origin.add(offset)
+
+        let angleToShipTargetPosition = origin.angleTo(this.gameObject.targetPosition)
+        let velocity = Vector.fromAngle(angleToShipTargetPosition).mult(data.projectile[this.projectile].speed / 4)
+        
+        let count = 3
+        for(let i = 0; i < count; i++) {
+          GameObject.create(
+            "projectile", 
+            this.projectile, 
+            {
+              transform: new Transform(
+                origin,
+                velocity,
+              ),
+              owner: this.gameObject,
+              target: this.target,
+              collisionGroup: this.collisionGroup
+            },
+            {
+              world: this.gameObject.gameWorld
+            }
+          )
+        }
+        
         this.ready = false
         this.timers.recharge.start()
         AudioManager.playSFX("rocketWeaponFire")

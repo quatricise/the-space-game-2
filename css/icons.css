@@ -33,6 +33,9 @@
 .tool-icon.select {
   background-image: url(../assets/hitboxEditor/iconSelect.png);
 }
+.tool-icon.scale {
+  background-image: url(../assets/icons/iconScale.png);
+}
 .tool-icon.pen-tool {
   background-image: url(../assets/hitboxEditor/iconPenTool.png);
 }

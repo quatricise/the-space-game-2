@@ -1,6 +1,5 @@
 class FilterManager {
   constructor() {
-    this.filters = filters
     this.setupFilters()
   }
   setupFilters() {
@@ -10,6 +9,13 @@ class FilterManager {
     filters.laserHit =        new PIXI.filters.ColorMatrixFilter()
     filters.glitch =          new PIXI.filters.GlitchFilter()
     filters.distMap =         new PIXI.filters.ShockwaveFilter()
+
+    filters.highlightsContrast = new PIXI.filters.ColorMatrixFilter()
+    filters.highlightsContrast.contrast(1.2)
+    filters.highlightsHueShift = new PIXI.filters.ColorMatrixFilter()
+    filters.highlightsHueShift.hue(-30, false)
+    filters.highlightsBrightness = new PIXI.filters.ColorMatrixFilter()
+    filters.highlightsBrightness.brightness(1.3)
 
     filters.vwb.brightness(0.5)
     
@@ -48,10 +54,5 @@ class FilterManager {
     filters.invulnerable.saturate(
       (Math.round((Math.sin(dateNow/75) - 1) / 2) / 2) - 0.5
     )
-  }
-  updateGameWorldFilters() {
-    gameWorld.filters.forEach(filter => {
-      filter
-    })
   }
 }

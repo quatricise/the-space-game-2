@@ -150,10 +150,12 @@ class Hitbox extends Component {
   //#endregion
   //#region static update methods
   static updatePolygonHitbox(object, hitbox) {
-    if(object.performanceData.previousRotation === object.transform.rotation && object.gameWorld === game && !(object instanceof Interactable) && !object.vwb)
+    if(object.performanceData.previousRotation === object.transform.rotation && object.gameWorld === game && !(object instanceof Interactable) && !object.vwb) {
       this.offsetPolygonHitbox(object, hitbox)
-    else
+    }
+    else {
       this.recalculatePolygonHitbox(object, hitbox)
+    }
   }
   static offsetPolygonHitbox(object, hitbox) {
     let offset = object.transform.position.clone().sub(object.performanceData.previousPosition)
@@ -164,42 +166,30 @@ class Hitbox extends Component {
       }
     }
   }
-  static recalculatePolygonHitbox(object, hitbox) {
-    /* resets position to the hitbox definition */
+  static recalculatePolygonHitbox(/**@type GameObject */ go, /** @type PolygonHitbox */ hitbox) {
+
+    /* reset position to the hitbox definition */
     for(let i = 0; i < hitbox.bodies.length; i++) {
       for(let j = 0; j < hitbox.bodies[i].vertices.length; j++) {
-        hitbox.bodies[i].vertices[j].x = object.transform.position.x + hitbox.definition[i].vertices[j].x
-        hitbox.bodies[i].vertices[j].y = object.transform.position.y + hitbox.definition[i].vertices[j].y
+        hitbox.bodies[i].vertices[j].x = go.transform.position.x + hitbox.definition[i].vertices[j].x
+        hitbox.bodies[i].vertices[j].y = go.transform.position.y + hitbox.definition[i].vertices[j].y
       }
     }
+
     /* rotate and return to the object's position */
     for(let b = 0; b < hitbox.bodies.length; b++) {
       for(let v = 0; v < hitbox.bodies[b].vertices.length; v++) {
         hitbox.bodies[b].vertices[v].x = hitbox.definition[b].vertices[v].x
         hitbox.bodies[b].vertices[v].y = hitbox.definition[b].vertices[v].y
       }
-      hitbox.bodies[b].rotate(-object.transform.rotation)
+      hitbox.bodies[b].rotate(-go.transform.rotation)
       for(let v = 0; v < hitbox.bodies[b].vertices.length; v++) {
-        hitbox.bodies[b].vertices[v].x += object.transform.position.x
-        hitbox.bodies[b].vertices[v].y += object.transform.position.y
+        hitbox.bodies[b].vertices[v].x += go.transform.position.x
+        hitbox.bodies[b].vertices[v].y += go.transform.position.y
       }
     }
   }
   //#endregion
-}
-
-class HitboxVault extends Component {
-  constructor(gameObject, hitboxes = []) {
-    super(gameObject)
-    this.hitboxes = hitboxes ?? []
-  }
-  addHitbox(hitbox) {
-    this.hitboxes.push(hitbox)
-  }
-  update() {
-    for(let hitbox of this.hitboxes)
-      hitbox.update()
-  }
 }
 
 class CircleHitbox extends Hitbox {
@@ -412,5 +402,19 @@ class BoundingBox {
   }
   get position() {
     return new Vector(this.x - this.w/2, this.y - this.h/2)
+  }
+}
+
+class HitboxVault extends Component {
+  constructor(gameObject, hitboxes = []) {
+    super(gameObject)
+    this.hitboxes = hitboxes ?? []
+  }
+  addHitbox(hitbox) {
+    this.hitboxes.push(hitbox)
+  }
+  update() {
+    for(let hitbox of this.hitboxes)
+      hitbox.update()
   }
 }

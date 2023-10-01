@@ -3,9 +3,36 @@ class Sprite extends Component {
     super(gameObject)
   }
   update() {
-    Sprite.updateGeneric(this)
-    if(this.highlights)   Sprite.updateHighlights(this)
-    if(this.minimapIcon)  Sprite.updateMinimapIcon(this)
+    /* update container */
+    this.container.position.set(this.gameObject.transform.position.x, this.gameObject.transform.position.y)
+    this.container.rotation = this.gameObject.transform.rotation
+
+    /* highlights */
+    if(this.highlights) {
+      if(this.gameObject.transform.rotation === this.gameObject.performanceData.previousRotation) return
+      if(this.gameObject.stealth?.active) return
+      if(this.gameObject.wrecked) return
+      if(this.gameObject.dying) return
+  
+      let deg = this.gameObject.transform.rotation * 180/PI
+      this.highlights.forEach((image, index) => {
+        /* offset in degrees from the facing direction of the object */
+        let offsetFromFront = index * 90 - deg
+        if(offsetFromFront <= -270) 
+          offsetFromFront += 360
+        offsetFromFront = Math.abs(offsetFromFront)
+
+        /* this puts the alpha between 0 and 1 with 0.01 precision */
+        image.alpha = Math.max(0, Math.round((1 - offsetFromFront/90 )*100)/100) 
+        image.alpha <= 0 ? image.renderable = false : image.renderable = true
+        })
+    }
+
+    /* minimap icon */
+    if(this.minimapIcon) {
+      this.minimapIcon.position.set(this.gameObject.transform.position.x * Game.minimapScaleFactor, this.gameObject.transform.position.y * Game.minimapScaleFactor)
+      this.minimapIcon.rotation = this.gameObject.transform.rotation
+    }
   }
   //#region static methods
   static createDefault(gameObject) {
@@ -295,6 +322,10 @@ class Sprite extends Component {
       
       sprite.anchor.set(0.5)
 
+      if(name.includes("highlights")) {
+        sprite.filters = [filters.highlightsContrast, filters.highlightsHueShift, filters.highlightsBrightness]
+      }
+
       if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation")) 
       {
         sprite.renderable = false
@@ -351,31 +382,6 @@ class Sprite extends Component {
     spriteComponent.text = sprite
     spriteComponent.container.addChild(sprite)
   }
-  static updateGeneric(sprite) {
-    let transform = sprite.gameObject.transform
-    sprite.container.position.set(transform.position.x, transform.position.y)
-    sprite.container.rotation = transform.rotation
-  }
-  static updateHighlights(sprite) {
-    if(sprite.gameObject.transform.rotation === sprite.gameObject.performanceData.previousRotation) return
-    if(sprite.gameObject.stealth?.active) return
-    if(sprite.gameObject.wrecked) return
-    if(sprite.gameObject.dying) return
-
-    let deg = sprite.gameObject.transform.rotation * 180/PI
-    for (let [index, image] of sprite.highlights.entries()) {
-
-      //offset in degrees from the facing direction of the object
-      let offsetFromFront = index * 90 - deg
-      if(offsetFromFront <= -270) 
-        offsetFromFront += 360
-      offsetFromFront = Math.abs(offsetFromFront)
-      
-      //this puts the alpha between 0 and 1 with 0.01 precision
-      image.alpha = Math.max(0, Math.round((1 - offsetFromFront/90 )*100)/100) 
-      image.alpha <= 0 ? image.renderable = false : image.renderable = true
-    }
-  }
   static updateFlames(gameObject, intensity) {
     for(let key in gameObject.sprite.flames)
       gameObject.sprite.flames[key].renderable = false
@@ -388,10 +394,6 @@ class Sprite extends Component {
     gameObject.sprite.orbits.forEach((orbit, index) => {
       orbit.rotation += gameObject.orbitalVelocities[index] * dt
     })
-  }
-  static updateMinimapIcon(sprite) {
-    sprite.minimapIcon.position.set(sprite.gameObject.transform.position.x * Game.minimapScaleFactor, sprite.gameObject.transform.position.y * Game.minimapScaleFactor)
-    sprite.minimapIcon.rotation = sprite.gameObject.transform.rotation
   }
   static imgSequence(src = "path/to/file0000.png", framesTotal = 5) {
     let str = src.replaceAll("0000", "").replaceAll(".png", "")

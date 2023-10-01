@@ -462,7 +462,7 @@ data.ship["lavaShipI"] = {
     items: [],
   },
   engine: {
-    angularVelocity: (90 * PI) / 180,
+    angularVelocity: (75 * PI) / 180,
     glideReduction: 0.04,
     acceleration: 5,
     maxSpeed: 480,
@@ -510,7 +510,7 @@ data.ship["lavaShipI"] = {
     type: "visualCloak",
   },
   weapons: {
-    slots: 4,
+    slots: 3,
     power: 0,
     weapons: ["lavaGun"],
   },

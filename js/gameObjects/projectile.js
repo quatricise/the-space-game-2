@@ -19,20 +19,25 @@ class Projectile extends GameObject {
     this.transform.position.x += this.transform.velocity.x * dt
     this.transform.position.y += this.transform.velocity.y * dt
   }
-  rotateToTarget() {
+  rotateToTarget(/** @type Float 0.0 to 1.0 */ factor) {
     if(!this.target) return
     //this is too overpowered, should just find out if to turn left or right, this makes it not fun
 
     let angle = GameObject.angle(this, this.target)
 
     this.transform.rotation = angle
-    let vec = Vector.fromAngle(angle).mult(this.speed)
-    this.transform.velocity.set(vec.x, vec.y)
+
+    let newVel = 
+    Vector.fromAngle(angle)
+    .mult(this.speed)
+    .mult(factor)
+
+    this.transform.velocity.mult(1 - factor).add(newVel)
   }
   matchRotationToVelocity() {
     this.transform.rotation = this.transform.velocity.angle()
   }
-  //#region methods specific per projectile name
+  //#region update methods specific per projectile name
   updateBlackhole() {
     let objs = Collision.broadphase(game, this)
     objs.forEach(obj => {
@@ -55,7 +60,7 @@ class Projectile extends GameObject {
 
   }
   updateMissileHelios() {
-    this.rotateToTarget()
+    this.rotateToTarget(0.04)
     this.matchRotationToVelocity()
     let currentSpeed = this.transform.velocity.length()
     if(currentSpeed < this.speed)
@@ -67,17 +72,20 @@ class Projectile extends GameObject {
     this.matchRotationToVelocity()
   }
   updateTrapMissile() {
+    this.rotateToTarget(0.02)
     this.matchRotationToVelocity()
   }
   updateDebris() {
 
   }
   updateSnakeMissile() {
+    this.rotateToTarget(0.01)
     let offsetVector = 
     new Vector(
       0,
       Math.sin(Date.now() / 100) * 400 * dt, 
     ).rotate(this.transform.rotation)
+
     this.transform.position.add(offsetVector)
   }
   updateLava() {

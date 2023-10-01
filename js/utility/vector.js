@@ -39,6 +39,12 @@ class Vector {
   fastLength() {
     return Math.abs(this.x) + Math.abs(this.y)
   }
+  scaleTo(vector, factor) {
+    let relative = this.copy.sub(vector)
+    relative.mult(factor)
+    this.setFrom(vector).add(relative)
+    return this
+  }
   distance(vector) {
     let v = new Vector(
       Math.abs(this.x - vector.x),
