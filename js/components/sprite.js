@@ -77,6 +77,10 @@ class Sprite extends Component {
         newSources.push({src: "coatingLayer0000.png", length: length})
       }
       else 
+      if(src.includes("coatingAnimation")) {
+        newSources.push({src: "coatingAnimation0000.png", length: length})
+      }
+      else 
       if(src.includes("shieldCharge")) {
         newSources.push({src: "shieldChargeIndicator.png", length: length})
       }      
@@ -255,9 +259,11 @@ class Sprite extends Component {
       if(length > 1 && !name.includes("wreck")) 
       {
         sprite = Sprite.animatedSprite(url, length)
-        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation", "linework")) 
+        if(name.includesAny("skip", "flame", "stealth", "particles", "hullDamage", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation", "coatingAnimation", "linework")) 
         {
           if(name.includes("stealth"))
+            sprite.animationSpeed = 0.05
+          else if(name.includes("coatingAnimation"))
             sprite.animationSpeed = 0.05
           else if(name.includes("travelAnimation"))
             sprite.animationSpeed = 0.2
@@ -299,6 +305,7 @@ class Sprite extends Component {
       if(name.includes("flame"))                      spriteComponent.flame = sprite
       if(name.includes("fill"))                       spriteComponent.fill = sprite
       if(name.includes("coatingLayer"))               spriteComponent.coatingLayer = sprite
+      if(name.includes("coatingAnimation"))           spriteComponent.coatingAnimation = sprite
       if(name.includes("linework"))                   spriteComponent.linework = sprite
       if(name.includes("shieldCharge"))               spriteComponent.shieldCharge = sprite
       if(name.includes("shieldForceField"))           spriteComponent.shieldForceField = sprite
@@ -326,7 +333,7 @@ class Sprite extends Component {
         sprite.filters = [filters.highlightsContrast, filters.highlightsHueShift, filters.highlightsBrightness]
       }
 
-      if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation")) 
+      if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation", "coatingAnimation")) 
       {
         sprite.renderable = false
       }

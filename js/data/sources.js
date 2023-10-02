@@ -28,6 +28,7 @@ let sources = {
           "hullRepairAnimation8",
           "linework",
           "stealthLinework",
+          "coatingAnimation8",
           "skip5",
           "wreck6",
           "travelAnimationSubmerge",
