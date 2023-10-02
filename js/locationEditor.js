@@ -18,6 +18,8 @@ class LocationEditor extends GameWorldWindow {
       "erasingFog",
       "circleSelecting",
     )
+    /** @type String */
+    this.tool = "move"
     this.tools = [
       "move",
       "circle-select",
@@ -111,7 +113,9 @@ class LocationEditor extends GameWorldWindow {
       extra: []
     }
 
+    /* flags */
     this.limitSelectionToLayer = false
+    this.unlockFogSprites = false
     this.circleSelectRadius = 50
     
     /** @type String */
@@ -123,12 +127,28 @@ class LocationEditor extends GameWorldWindow {
       this.lockedLayers[key] = false
     }
 
+    /** This only works for rotating a single object */
     this.rotationData = {
+      /** @type Vector */
       clickOrigin: new Vector(),
+      /** @type Float */
       angleStart: 0,
+      /** @type Float */
+      mouseAngleToCenterPrevious: 0,
+      /** @type Float */
       angleNow: 0,
+      /** @type Vector */
       pivot: new Vector(),
+      /** @type Float - Original rotation */
       orig: 0,
+      /** @type Array<GameObject> */
+      objects: [],
+      /** @type Array<Vector> - Object positions, relative from the pivot */
+      positions: [],
+    }
+
+    this.multiRotation = {
+      
     }
 
     /* fog stuff */
@@ -285,9 +305,9 @@ class LocationEditor extends GameWorldWindow {
     })
   }
   generateObjectList() {
-    let regularList =     this.element.querySelector(".search-dropdown-window .dropdown-list-regular")
-    let backgroundList =  this.element.querySelector(".search-dropdown-window .dropdown-list-background")
-    let specialList =     this.element.querySelector(".search-dropdown-window .dropdown-list-background")
+    let regularList =     this.element.querySelector(".search-dropdown-window .dropdown-list.regular")
+    let backgroundList =  this.element.querySelector(".search-dropdown-window .dropdown-list.background")
+    let specialList =     this.element.querySelector(".search-dropdown-window .dropdown-list.special")
     let names = []
     let types = []
 
@@ -300,6 +320,7 @@ class LocationEditor extends GameWorldWindow {
       "satellite",
       "ultraportBeacon",
       "decoration",
+      "spawner"
     ]
 
     for(let type of typesDef)
@@ -329,6 +350,8 @@ class LocationEditor extends GameWorldWindow {
 
       if(types[index].includes("decoration"))
         backgroundList.append(cont)
+      else if(types[index].includes("spawner"))
+        specialList.append(cont)
       else
         regularList.append(cont)
     })
@@ -362,24 +385,37 @@ class LocationEditor extends GameWorldWindow {
     Q("#location-editor-layer-dropdown").classList.add("hidden")
   }
   toggleDropdownListCategory() {
-    Q(".dropdown-list-regular").classList.toggle("hidden")
-    Q(".dropdown-list-background").classList.toggle("hidden")
-    Q("#search-dropdown-category-switch-regular").classList.toggle("active")
-    Q("#search-dropdown-category-switch-background").classList.toggle("active")
+    throw "s"
+    // Q(".dropdown-list.regular").classList.toggle("hidden")
+    // Q(".dropdown-list.background").classList.toggle("hidden")
+    // Q("#search-dropdown-category-switch-regular").classList.toggle("active")
+    // Q("#search-dropdown-category-switch-background").classList.toggle("active")
+  }
+  setDropdownCategory(/** @type String */ category) {
+    Qa(`.dropdown-category-switch`).forEach(s => s.classList.remove("active"))
+    Q(`#search-dropdown-category-switch-${category}`).classList.add("active")
+
+    Qa(`.dropdown-list`).forEach(l => l.classList.add("hidden"))
+    Q(`.dropdown-list.${category}`).classList.remove("hidden")
   }
   setTool(name) {
     let tool = this.tools.find(t => t === name)
-    if(!tool) return
+    if(!tool) throw "Invalid tool name: " + name
 
     this.prevTool = this.tool
     this.tool = tool
     Array.from(this.element.querySelectorAll('.tool-cont')).forEach(el => el.classList.remove('active'))
-    this.element.querySelector('[data-toolname="' + tool + '"').classList.add('active')
+    this.element.querySelector(`[data-toolname='${tool}'`).classList.add('active')
 
-    if(tool !== "select-object") 
+    if(tool !== "select-object") {
       this.dropdown.classList.add("hidden")
-    else
+    }
+    else {
       this.dropdown.classList.toggle("hidden")
+      this.dropdown.style.left = mouse.clientPosition.x + "px"
+      this.dropdown.style.top = mouse.clientPosition.y + "px"
+      this.fitInViewport(this.dropdown)
+    }
 
     if(tool !== "add-special") 
       this.dropdownSpecial.classList.add("hidden")
@@ -387,6 +423,26 @@ class LocationEditor extends GameWorldWindow {
       this.state.set("addingObj")
     else
       this.state.set("default")
+  }
+  fitInViewport(element) {
+    let rect = element.getBoundingClientRect()
+    let inset = 20
+    if(rect.bottom > ch - inset) {
+      let top = ch - rect.height - inset
+      element.style.top = top + "px"
+    }
+    if(rect.right > cw - inset) {
+      let left = cw - rect.width - inset
+      element.style.left = left + "px"
+    }
+    if(rect.top < inset) {
+      let top = inset
+      element.style.top = top + "px"
+    }
+    if(rect.left < inset) {
+      let left = inset
+      element.style.left = left + "px"
+    }
   }
   addOverrideRow() {
     let row = El("div", "context-window-override-row", undefined, "Click to set override")
@@ -405,8 +461,6 @@ class LocationEditor extends GameWorldWindow {
   revertTool() {
     this.setTool(this.prevTool)
     if(this.tool === "select-object") 
-      this.state.set("addingObj")
-    if(this.tool === "add-special") 
       this.state.set("addingObj")
   }
   setActiveObject(target) {
@@ -762,17 +816,22 @@ class LocationEditor extends GameWorldWindow {
   }
   //#region input handlers
   handleKeydown(event) {
+    /* escape tree of events */
     if(event.code === "Escape" && (keys.shift || keys.shiftRight))
       this.reselect()
     else 
     if(event.code === "Escape" && !this.dropdown.classList.contains("hidden")) {
       this.dropdown.classList.add("hidden")
     }
+    if(event.code === "Escape" && this.tool.matchAgainst("circle-select", "rotate", "scale")) {
+      this.setTool("move")
+    }
     else if(event.code === "Escape") {
       this.deselectAll()
     }
+
     /* scale */
-    if(event.code === "KeyK" && !keys.alt && !keys.shift)     this.setTool("scale")
+    if(event.code === "KeyS" && !keys.alt && !keys.shift)     this.setTool("scale")
     
     /* rotate */
     if(event.code === "KeyR" && !keys.alt && !keys.shift)     this.setTool("rotate")
@@ -780,14 +839,14 @@ class LocationEditor extends GameWorldWindow {
     if(event.code === "KeyR" && !keys.alt && keys.shift)      this.randomizeRotationForAll()
 
     /* select object */    
-    if(event.code === "KeyS" && !keys.shift)                  this.setTool("select-object")
-    if(event.code === "KeyS" && keys.shift)                   this.setSprayModeParameters()
+    if(event.code === "KeyA" && !keys.shift)                  this.setTool("select-object")
 
+    if(event.code === "KeyS" && keys.shift)                   this.setSprayModeParameters()
     if(event.code === "KeyD")                                 this.duplicateSelected()
     if(event.code === "KeyV")                                 this.setTool("move")
     if(event.code === "KeyC")                                 this.setTool("circle-select")
     if(event.code === "KeyX")                                 this.deleteSelected()
-    if(event.code === "KeyA")                                 this.selectAll()
+    if(event.code === "KeyA" && keys.shift)                   this.selectAll()
     if(event.code === "KeyE")                                 this.contestWindowToggle()
     if(event.code === "KeyN")                                 this.state.set("addingSpawn")
   }               
@@ -841,6 +900,7 @@ class LocationEditor extends GameWorldWindow {
 
     /* rotate objects */
     if(this.state.is("rotating")) {
+      /* single */
       if(this.selected.length === 1) {
         let pos = mouse.locationEditorPosition.clone()
         let obj = this.selected[0]
@@ -848,22 +908,27 @@ class LocationEditor extends GameWorldWindow {
         let result = angle - this.rotationData.angleStart
         obj.transform.rotation = this.rotationData.orig + result
       }
-      else
-      if(this.selected.length > 1) {
-        console.warn("cannot rotate multiple objects, sorry mate")
+
+      /* multiple */
+      else if(this.selected.length > 1) {
+        this.selected.forEach(obj => {
+          let angleNow = mouse.locationEditorPosition.angleTo(this.rotationData.pivot)
+          let offset = angleNow - this.rotationData.mouseAngleToCenterPrevious
+          obj.transform.position.rotateAround(this.rotationData.pivot, offset)
+
+          /* this should be made optional but objects' rotation also changes */
+          obj.transform.rotation += offset
+        })
       }
+
+      /* update previous angle to be now */
+      this.rotationData.mouseAngleToCenterPrevious = mouse.locationEditorPosition.angleTo(this.rotationData.pivot)
     }
 
     /* scale objects */
     if(this.state.is("scaling")) {
-      let points = this.selected.map(obj => obj.transform.position)
-      let left = Math.min(...points.map(p => p.x))
-      let top = Math.min(...points.map(p => p.y))
-      let right = Math.max(...points.map(p => p.x))
-      let bottom = Math.max(...points.map(p => p.y))
-
-      let center = new Vector(left + (right - left) / 2, top + (bottom - top) / 2)
-      this.scalingBox = {left, top, right, bottom, center}
+      let center = Vector.center(...this.selected.map(obj => obj.transform.position))
+      this.scalingBox = {center}
 
       let prevPos = mouse.locationEditorPosition.copy.sub(mouse.locationEditorMoved)
       let distanceFactor = mouse.locationEditorPosition.distance(center) / prevPos.distance(center)
@@ -914,6 +979,7 @@ class LocationEditor extends GameWorldWindow {
           gameManager.setWindow(hitboxEditor)
           hitboxEditor.select(obj)
         }
+        setTimeout(()=> {this.revertTool()},100)
       }
       if(target.closest(".tool-icon.moveSpawnsAlong")) {
         this.moveSpawnsAlong = !this.moveSpawnsAlong
@@ -1004,8 +1070,8 @@ class LocationEditor extends GameWorldWindow {
 
       if(target.closest("#search-dropdown-category-switch")) {
         /* remake this shit */
-        console.warn("remake dropdowns, add the spawner category")
-        this.toggleDropdownListCategory()
+        let category = target.closest("[data-category]").dataset.category
+        this.setDropdownCategory(category)
       }
       if(target.closest("#add-override-button")) {
         this.addOverrideRow()
@@ -1013,10 +1079,22 @@ class LocationEditor extends GameWorldWindow {
       if(target.closest(".context-window-override-row")) {
         this.setOverride(target.closest(".context-window-override-row"))
       }
-      if(target.closest("#limit-selection-to-active-layer")) {
-        this.limitSelectionToLayer = !this.limitSelectionToLayer
-        target.closest("#limit-selection-to-active-layer").classList.toggle("active")
+
+      /* toggles */
+      if(target.closest(".location-editor-toggle")) {
+        target.closest(".location-editor-toggle").classList.toggle("active")
+
+        switch(target.id) {
+          case "limit-selection-to-active-layer": {
+            this.limitSelectionToLayer = !this.limitSelectionToLayer
+            break
+          }
+          case "unlock-fog-sprites": {
+            this.unlockFogSprites = !this.unlockFogSprites
+          }
+        }
       }
+
       /* edit object property in inspector */
       if(target.closest(".property .value")) {
         if(this.selected.length == 0) return
@@ -1129,19 +1207,18 @@ class LocationEditor extends GameWorldWindow {
           if(this.selected.length === 0) return
           this.state.set("rotating")
           this.rotationData.clickOrigin.setFrom(mouse.locationEditorPosition)
+
+          /* single */
           if(this.selected.length === 1) {
             let pos = this.rotationData.clickOrigin
             let obj = this.selected[0]
             this.rotationData.angleStart = Math.atan2(pos.y - obj.transform.position.y, pos.x - obj.transform.position.x)
             this.rotationData.orig = obj.transform.rotation
           }
-          else {
-            throw "cannot rotate multiple objects, sorry"
-            let pos = this.rotationData.clickOrigin
-            let positions = this.selected.map(s => s.pos)
-            let pivot = Vector.avg(...positions)
-            this.rotationData.pivot = pivot
-            this.rotationData.angleStart = Math.atan2(pos.y - pivot.y, pos.x - pivot.x)
+          /* multiple */
+          else if(this.selected.length > 1) {
+            this.rotationData.pivot = Vector.center(...this.selected.map(s => s.transform.position))
+            this.rotationData.mouseAngleToCenterPrevious = this.rotationData.clickOrigin.angleTo(this.rotationData.pivot)
           }
         }
 
@@ -1320,6 +1397,7 @@ class LocationEditor extends GameWorldWindow {
     }
   }
   drawSelectedObjects() {
+    if(this.state.is("rotating")) return
     this.selected.forEach(obj => {
       Hitbox.drawBoundingBox(obj, this.graphics, this.camera.currentZoom)
     })
@@ -1337,16 +1415,9 @@ class LocationEditor extends GameWorldWindow {
     this.updateLayers()
 
     if(this.state.is("scaling") && this.scalingBox) {
-      /* draw the thing */
+      /* draw the scaling origin */
       this.graphics.lineStyle(2 * this.camera.currentZoom, colors.hitbox.shapeSelected, 1)
-      this.graphics.drawRect(
-        this.scalingBox.left, 
-        this.scalingBox.top, 
-        this.scalingBox.right - this.scalingBox.left,
-        this.scalingBox.bottom - this.scalingBox.top
-      )
-      this.graphics.closePath()
-      this.graphics.drawCircle(this.scalingBox.center.x, this.scalingBox.center.y, 50)
+      this.graphics.drawCircle(this.scalingBox.center.x, this.scalingBox.center.y, 4)
       this.graphics.closePath()
     }
   }

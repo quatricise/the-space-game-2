@@ -521,10 +521,10 @@
 
         </div>
       </div>
-      <div id="limit-selection-to-active-layer">
+      <div id="limit-selection-to-active-layer" class="location-editor-toggle">
         Limit selection to active layer
       </div>
-      <div id="unlock-fog-sprites">
+      <div id="unlock-fog-sprites" class="location-editor-toggle">
         Unlock fog sprites
       </div>
     </div>
@@ -561,14 +561,16 @@
     
     <div class="search-dropdown-window hidden">
       <div id="search-dropdown-category-switch">
-        <div id="search-dropdown-category-switch-regular"     class="button active">regular</div>
-        <div id="search-dropdown-category-switch-background"  class="button">background</div>
+        <div id="search-dropdown-category-switch-regular"    data-category="regular"      class="dropdown-category-switch button active">regular</div>
+        <div id="search-dropdown-category-switch-background" data-category="background"   class="dropdown-category-switch button">background</div>
+        <div id="search-dropdown-category-switch-special"    data-category="special"      class="dropdown-category-switch button">special</div>
       </div>
       <div class="dropdown-search-bar">
         <input type="text" name="" id="dropdown-search-bar-input" placeholder="gameObject type, gameObject name">
       </div>
-      <div class="dropdown-list-regular"></div>
-      <div class="dropdown-list-background hidden"></div>
+      <div class="dropdown-list regular"></div>
+      <div class="dropdown-list background hidden"></div>
+      <div class="dropdown-list special hidden"></div>
     </div>
     <div class="special-dropdown-window hidden">
       <div class="dropdown-search-bar">

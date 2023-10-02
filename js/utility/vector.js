@@ -215,6 +215,14 @@ class Vector {
     vectors.map(vec => {x.push(vec.x); y.push(vec.y)})
     return new Vector(avg(...x), avg(...y))
   }
+  /** Find the mathematical center of a bounding box made of input vectors */
+  static center(...vectors) {
+    let left = Math.min(...vectors.map(p => p.x))
+    let top = Math.min(...vectors.map(p => p.y))
+    let right = Math.max(...vectors.map(p => p.x))
+    let bottom = Math.max(...vectors.map(p => p.y))
+    return new Vector(left + (right - left) / 2, top + (bottom - top) / 2)
+  }
   static rotatePlain(obj, rotation) {
     let sin = Math.sin(rotation);
     let cos = Math.cos(rotation);

@@ -786,6 +786,12 @@ let sources = {
         auto: ["linework2"],
       },
     },
+    spawner: {
+      default: {
+        folder: "./assets/pickup/spawner/",
+        auto: ["thumbnail, linework"],
+      }
+    }
   },
   audio: {
     music: [

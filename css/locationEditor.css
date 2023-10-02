@@ -288,7 +288,7 @@
   width: 32px;
 }
 
-#limit-selection-to-active-layer {
+.location-editor-toggle {
   padding: 10px;
   border: 2px solid transparent;
   border-radius: 5px;
@@ -296,10 +296,10 @@
   background-color: var(--dark-2);
   user-select: none;
 }
-#limit-selection-to-active-layer:hover {
+.location-editor-toggle:hover {
   background-color: var(--dark-3);
 }
-#limit-selection-to-active-layer.active {
+.location-editor-toggle.active {
   color: white;
   border: 2px solid white;
 }

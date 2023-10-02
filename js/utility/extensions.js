@@ -11,6 +11,7 @@ String.prototype.bool = function() {
   if(this.includes("false")) return false
   if(this.includes("true")) return true
 }
+/** Return true if the string is equal any of the input strings. */
 String.prototype.matchAgainst = function(...strings) {
   let match = false
   strings.forEach(str => {
