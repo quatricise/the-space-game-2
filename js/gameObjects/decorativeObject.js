@@ -1,3 +1,4 @@
+/** (Deprecated) Simple-ish object that doesn't collide with anything. Deprecated by Decoration for performance reasons. */
 class DecorativeObject extends GameObject {
   constructor(transform, name, isPermanent = true, opacity = 1) {
     super(transform)
@@ -23,6 +24,7 @@ class DecorativeObject extends GameObject {
       ["tickLife", Random.int(5000, 15000), {loop: false, active: !isPermanent, onfinish: this.fadeOutBegin.bind(this)}],
       ["fadeOut", DecorativeObject.fadeTime, {loop: false, active: false, onfinish: this.kill.bind(this)}],
     )
+    throw "do not use this class"
   }
   fadeOutBegin() {
     this.dying = true

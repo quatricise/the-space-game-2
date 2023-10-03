@@ -1,4 +1,14 @@
 data.asteroid = {
+  box: {
+    mass: 10,
+    health: 1,
+    material: "rock",
+    hitbox: {
+      type: "polygonHitbox",
+      filename: "asteroidBox",
+      definition: null
+    }
+  },
   small0: {
     mass: 10, 
     health: 1,

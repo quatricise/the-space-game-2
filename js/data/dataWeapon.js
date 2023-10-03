@@ -474,7 +474,7 @@ data.weapon = {
       power: 1,
       type: "plasma",
       projectile: "plasmaShotI",
-      chargeDurationMS: 1800,
+      chargeDurationMS: 1600,
     },
     methods: {
       onkeydown(event) {
@@ -564,7 +564,7 @@ data.weapon = {
       power: 2,
       type: "plasma",
       projectile: "plasmaShotI",
-      chargeDurationMS: 1800,
+      chargeDurationMS: 1600,
       chargesMax: 2,
       charges: 0,
     },

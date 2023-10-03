@@ -67,7 +67,7 @@ class NPC extends Person {
       setupTimers(state) {
         return new Timer(
           ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
-          ["fireWeapon",    900,  {loop: true, active: true, onfinish: NPC.useWeapon.bind(state)}],
+          ["useWeapon",     1000,  {loop: true, active: true, onfinish: NPC.useWeapon.bind(state)}],
           ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
           ["useShield",     600,  {loop: true, active: true, onfinish: NPC.useShields.bind(state)}],
 

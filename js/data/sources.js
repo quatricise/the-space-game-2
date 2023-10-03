@@ -218,6 +218,10 @@ let sources = {
       },
     },
     asteroid: {
+      box: {
+        folder: "./assets/asteroid/box/",
+        auto: ["thumbnail", "linework"],
+      },
       small0: {
         folder: "./assets/asteroid/small0/",
         auto: ["thumbnail", "fill", "highlights", "linework", "death5"],

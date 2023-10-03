@@ -1,15 +1,20 @@
+/** Abstract. Base class for most in-game objects. Do not instantiate directly. */
 class GameObject {
   constructor(transform = new Transform(), id) {
     /** @type Transform */
     this.transform = transform
     
+    /** @type GameObject */
     this.transform.gameObject = this
     
     /** @type String */
     this.id = id ?? Random.uniqueIDHEX()
 
-    /** @type String */
+    /** @type String - GameObject type. Set per descendant object. */
     this.type = "gameObject"
+
+    /** @type String - GameObject name. Used to identify a sub-type of the GameObject. */
+    this.name = "gameObject"
 
     /** @type Array<String> */
     this.components = []
@@ -24,6 +29,12 @@ class GameObject {
     
     /** @type Array<StatusEffect> */
     this.statusEffects = []
+
+    /** @type Set<GameObject> */
+    this.clusterConnections = new Set()
+
+    /** @type Cluster */
+    this.cluster = null
     
     /** @type GameWorldWindow */
     this.gameWorld = null
@@ -48,15 +59,16 @@ class GameObject {
     this.broadphaseGrowFactor = 1
   }
   //#region instance methods
+  /** Inefficient clone method that will probably fail. */
   clone() {
     return _.cloneDeep(this)
   }
-  onHitboxLoad() {
-    //use this to attach some custom methods for handling the loading of the hitbox, by default it's empty
-  }
-  onWreckHitboxVaultLoad() {
-    //use this to attach some custom methods for handling the loading of the hitboxVault, by default it's empty
-  }
+  /** Use this to attach some custom methods for handling the loading of the hitbox, by default it's empty */
+  onHitboxLoad() {}
+
+  /** Use this to attach some custom methods for handling the loading of the hitboxVault, by default it's empty */
+  onWreckHitboxVaultLoad() {}
+
   calculateBroadphaseGrowFactor() {
     if(!this.hitbox?.boundingBox) 
       console.error("growFactor calculation fail:", this)
@@ -105,6 +117,7 @@ class GameObject {
   clampVelocity() {
     this.transform.velocity.clamp(data.maxObjectVelocity)
   }
+  /** (Deprecated) Is be used for gradually slowing down objects. */
   applyInertia() {
     throw "inertia id deprecated"
     if(this.brakes && this.brakes.auto == false) return
@@ -135,19 +148,21 @@ class GameObject {
     for(let effect of this.statusEffects)
       effect.update()
   }
+  /** Actually used to cache rotation and position so hitboxes don't need to be recalculated every frame. */
   setPerformanceData() {
     this.performanceData.previousRotation = this.transform.rotation
     this.performanceData.previousPosition = this.transform.position.clone()
   }
+  /** Custom update method. Descendant objects should replace it. */
   update() {
     console.error("supply a new update method", this)
   }
-  handleImpact(collisionEvent) {
-    //custom method for handling impacts of descendant objects
-  }
-  destroy() {
-    //custom method for handling the destruction of descendant objects
-  }
+  /** Custom method for handling impacts. Descendant objects should replace it. */
+  handleImpact(collisionEvent) {}
+  
+  /** Custom method for handling destruction. Descendant objects should replace it. */
+  destroy() {}
+  
   //#endregion
   //#region component methods
   registerComponents(objData = []) {
@@ -179,8 +194,9 @@ class GameObject {
         if(objData.hitbox.filename === undefined || objData.hitbox.type === undefined || objData.hitbox.definition === undefined)
           throw "invalid hitbox data structure" + this.type + ", " + this.name
         
-        this.objectData = { hitbox: objData.hitbox }
+        this.objectData = {hitbox: objData.hitbox}
 
+        /* Load hitbox async if it's from a filename */
         if(objData.hitbox.filename) {
           readJSONFile(`data/hitboxes/${objData.hitbox.filename}.json`, (text) => {
             let hitboxData = JSON.parse(text)
@@ -194,6 +210,7 @@ class GameObject {
             this.calculateBroadphaseGrowFactor()
           })
         }
+        /* Load it directly from the definition */
         else {
           let def = objData.hitbox.definition
 
@@ -284,6 +301,10 @@ class GameObject {
       }
       case "coater" : {
         this.coater = new Coater(this, objData.coater)
+        break
+      }
+      case "shell" : {
+        this.shell = new Shell(this, objData.coater)
         break
       }
     }

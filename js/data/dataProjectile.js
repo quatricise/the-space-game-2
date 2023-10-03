@@ -17,7 +17,7 @@ data.projectile = {
   },
   debris: {
     speed: 550,
-    mass: 8,
+    mass: 7,
     impactDamage: 1,
     life: 30000,
     hitbox: {

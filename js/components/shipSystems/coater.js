@@ -21,10 +21,8 @@ class Coater extends ShipSystem {
     sprite.loop = false
     sprite.animationSpeed = 200 / this.durationMS /* this should be the optimal length given the coating animation has 8 frames */
     sprite.gotoAndPlay(0)
-    console.log(sprite)
     sprite.onComplete = () => {
       sprite.renderable = false
-      console.log(sprite.playing)
     }
 
     this.active = true
