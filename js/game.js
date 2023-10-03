@@ -69,14 +69,22 @@ class Game extends GameWorldWindow {
   showLocalMap() {
     let panel = Q("#local-map-background-panel")
     let map = Q("#local-map")
-    let rect = panel.getBoundingClientRect()
 
     map.classList.remove("hidden")
     panel.append(this.minimapApp.view)
 
     this.minimapApp.view.classList.add("big")
     this.minimapApp.resizeTo = panel
+
+    
+    this.zoomLocalMap(-2000)
     this.localMapOpen = true
+
+    /* 
+    This is hard-set and may change if the panel is ever resized 
+    it also sets the map to the center of the location, which does not account for player ship position
+    */
+    this.minimapApp.stage.position.set(600, 400)
   }
   hideLocalMap() {
     Q("#local-map").classList.add("hidden")
@@ -88,6 +96,14 @@ class Game extends GameWorldWindow {
     this.localMapOpen = false  
     this.minimapApp.stage.scale.set(1)
     this.gameObjects.gameObject.forEach(obj => obj.sprite?.minimapIcon?.scale.set(1))
+  }
+  zoomLocalMap(/** Integer */ amt) {
+    let scale = this.minimapApp.stage.scale._x - (amt / 1000)
+    let inverseScale = 1 / scale
+    this.minimapApp.stage.scale.set(scale)
+    this.gameObjects.gameObject.forEach(obj => {
+      obj.sprite?.minimapIcon?.scale.set(inverseScale)
+    })
   }
   //#region input
   handleInput(event) {
@@ -160,14 +176,7 @@ class Game extends GameWorldWindow {
     let target = event.target
 
     if(target.closest("#local-map")) {
-      let start = performance.now()
-      let scale = this.minimapApp.stage.scale._x - (event.deltaY / 1000)
-      let inverseScale = 1 / scale
-      this.minimapApp.stage.scale.set(scale)
-      this.gameObjects.gameObject.forEach(obj => {
-        obj.sprite?.minimapIcon?.scale.set(inverseScale)
-      })
-      console.log(performance.now() - start)
+      this.zoomLocalMap(event.deltaY)
     }
   }
   //#endregion

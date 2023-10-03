@@ -2,6 +2,11 @@ class Player extends Person {
   constructor(ship) {
     super("player")
     this.ship = ship
+
+    /* Modify inventory to display message when you receive a new item */
+    this.inventory.onItemAdd = () => {
+      GameObject.create("gameOverlay", "itemAdded", {parent: this.ship, offset: new Vector(0, 200)}, {world: this.gameWorld})
+    }
   }
   handleInput(event) {
     this["handle" + event.type.capitalize()](event)
@@ -117,6 +122,10 @@ class Player extends Person {
   }
   scrapDebris() {
     if(!this.targetDebris) return
+    if(this.ship.cargo.isFull) {
+      GameObject.create("gameOverlay", "cargoFull", {parent: this.ship, offset: new Vector(0, 200)}, {world: this.gameWorld})
+      return
+    }
     for(let i = 0; i < 3; i++) {
       GameObject.create(
         "particle", 
@@ -139,11 +148,13 @@ class Player extends Person {
       this.targetDebris.debrisYield.min,
       this.targetDebris.debrisYield.max
     )
-    for(let i = 0; i < debrisCount; i++)
+    for(let i = 0; i < debrisCount; i++) {
       this.ship.cargo.addItems(new Item("debris"))
+    }
     GameObject.destroy(this.targetDebris)
   }
   createDebrisHighlight() {
+    if(mouse.target !== Q("#game")) return
     let targets = Collision.broadphase(this.ship.gameWorld, this.ship, {solo: [Debris, Fragment]})
     if(!targets.length) {
       this.destroyDebrisHighlight()

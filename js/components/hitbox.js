@@ -137,12 +137,13 @@ class Hitbox extends Component {
       )
     })
   }
+  /** Draws origin for an object; Do not touch this shit, or else i'll never fix it again. */
   static drawOrigin(gameObject, graphics, color, widthMultiplier = 1) {
-    let layerOffsetMultiplier = GameWorldWindow.layerCounterOffset[gameObject.layer] ?? 1
+    let layerOffsetMultiplier = GameWorldWindow.layerCounterOffset[gameObject.layer] ?? 0
     graphics.lineStyle(2 * widthMultiplier, color, 1);
     graphics.drawCircle(
-      gameObject.transform.position.x + (gameObject.gameWorld.camera.transform.position.x * layerOffsetMultiplier),
-      gameObject.transform.position.y + (gameObject.gameWorld.camera.transform.position.y * layerOffsetMultiplier),
+      (gameObject.gameWorld.camera.transform.position.x * (layerOffsetMultiplier)) + gameObject.transform.position.x,
+      (gameObject.gameWorld.camera.transform.position.y * (layerOffsetMultiplier)) + gameObject.transform.position.y,
       4
     )
     graphics.closePath();

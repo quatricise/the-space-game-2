@@ -1138,7 +1138,7 @@ data.weapon = {
   debrisGun: {
     displayName: "Debris Gun",
     displayNameShort: "Debris",
-    description: "A garbage weapon. Literally. Drains collected debris from ship's cargo to function.",
+    description: "A garbage weapon. Literally. Uses collected debris from ship's cargo to function.",
     buyCost: 60,
     spriteCount: 7,
     weaponData: {
@@ -1174,6 +1174,12 @@ data.weapon = {
         
       },
       fire() {
+        if(!this.gameObject.cargo.removeItemByName("debris")) {
+          this.createNoAmmoOverlay()
+          this.createNotReadyOverlay()
+          return
+        }
+
         let sprite = this.gameObject.sprite.weapons.children[this.slotIndex]
         if(sprite) {
           sprite.gotoAndPlay(2)
@@ -1187,6 +1193,7 @@ data.weapon = {
         let collisionGroup = uniqueIDString()
 
         for(let i = 0; i < projectileCount; i++) {
+          /* break if run out of debris */
           if(!this.gameObject.cargo.removeItemByName("debris")) break
 
           let position = basePosition.clone()
@@ -1237,7 +1244,7 @@ data.weapon = {
       },
       setup() {
         this.timers = new Timer(
-          ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
+          ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}],
         )
       }
     }

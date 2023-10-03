@@ -46,4 +46,22 @@ data.gameOverlay = {
     refreshSpriteFrequencyMS: 1000 / 30,
     onFinishPlaying: "destroyOverlay",
   },
+  noAmmo: {
+    overlayType: "gameOverlay",
+    refreshSpriteFrequencyMS: 1000 / 10,
+    onFinishPlaying: "destroyOverlay",
+    onFinishPlayingDelayMS: 250,
+  },
+  itemAdded: {
+    overlayType: "gameOverlay",
+    refreshSpriteFrequencyMS: 1000 / 10,
+    onFinishPlaying: "destroyOverlay",
+    onFinishPlayingDelayMS: 250,
+  },
+  cargoFull: {
+    overlayType: "gameOverlay",
+    refreshSpriteFrequencyMS: 1000 / 10,
+    onFinishPlaying: "destroyOverlay",
+    onFinishPlayingDelayMS: 250,
+  },
 }

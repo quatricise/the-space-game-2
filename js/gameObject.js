@@ -321,7 +321,7 @@ class GameObject {
     else if(type === "fragment")          obj = new Fragment(params.transform, name, params.parent, params.fragmentData)
     else if(type === "ultraportBeacon")   obj = new UltraportBeacon(params.transform, name, params.options)
     else if(type === "hintGraphic")       obj = new HintGraphic(params.transform, name, params.parent)
-    else if(type === "gameOverlay")       obj = new GameOverlay(params.transform, name, params.parent)
+    else if(type === "gameOverlay")       obj = new GameOverlay(params.transform, name, params.parent, params.offset)
     else if(type === "pickup")            obj = new Pickup(params.transform, name, params.objectData)
     else if(type === "explosion")         obj = new Explosion(params.transform, name, params.SFXName)
     else if(type === "particle")          obj = new Particle(params.transform, name)

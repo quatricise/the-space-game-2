@@ -1,3 +1,4 @@
+/** Class that manages items, both UI and internal representations, it should also track and verify items */
 class Item {
   constructor(name) {
     this.name = name

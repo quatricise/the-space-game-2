@@ -9,6 +9,10 @@ class Inventory {
       this.updateContainer()
     }
   }
+  /* Replace with a custom handling method */
+  onItemAdd() {
+
+  }
   assignContainer(containerId) {
     this.containerId = containerId
   }
@@ -20,6 +24,7 @@ class Inventory {
       if(this.isFull) break
       if(!(item instanceof Item)) throw "only input Item class instances"
       this.items.push(item)
+      this.onItemAdd()
     }
   }
   findItemByName(name) {

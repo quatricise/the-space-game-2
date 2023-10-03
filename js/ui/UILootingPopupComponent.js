@@ -21,7 +21,12 @@ class UILootingPopupComponent extends UIComponent {
       if(this.items[i]) {
         item = Item.createItemElement(data.item[this.items[i].name], {smallItem: true})
         item.onclick = () => {
-          player.ship.cargo.addItems(this.items[i])
+          /* 
+          add to player inventory for now, even though it should be in ship, 
+          because I'm not at the stage where player is separate from their ship yet 
+          */
+          player.inventory.addItems(this.items[i])
+          
           this.items.remove(this.items[i])
           item.replaceWith(Item.createEmptyItemElement({smallItem: true}))
         }
@@ -42,7 +47,7 @@ class UILootingPopupComponent extends UIComponent {
     this.visible.popup = true
     this.element.classList.remove("hidden")
     this.element.animate(
-      [{filter: "opacity(0)"}, {filter: "opacity(1)"}], 
+      [{filter: "opacity(0)"}, {filter: "opacity(1)"}],
       {duration: 500, easing: "ease-in-out"})
     .onfinish = () => this.element.style.filter = ""
   }
@@ -129,6 +134,6 @@ class UILootingPopupComponent extends UIComponent {
     this.element.remove()
     this.indicator.remove()
   }
-  static elementViewportInset = 100
-  static maxDistanceToLoot = 250
+  static elementViewportInset = 120
+  static maxDistanceToLoot = 300
 }

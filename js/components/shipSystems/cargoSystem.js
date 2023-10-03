@@ -6,6 +6,14 @@ class CargoSystem extends ShipSystem {
     for(let item of data.items)
       this.addItems(new Item(item))
   }
+  /* 
+  Miserable little method to show player indication.
+  Later can be replaced with a custom handling method.
+  */
+  onItemAdd() {
+    if(this.gameObject === player.ship)
+      GameObject.create("gameOverlay", "itemAdded", {parent: this.gameObject, offset: new Vector(0, 200)}, {world: this.gameObject.gameWorld})
+  }
   removeItems(...items) {
     items.forEach(i => this.items.remove(i))
   }
@@ -30,6 +38,7 @@ class CargoSystem extends ShipSystem {
         break
       }
       this.items.push(item)
+      this.onItemAdd()
     }
   }
   displayFullWarning() {

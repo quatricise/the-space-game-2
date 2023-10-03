@@ -780,6 +780,18 @@ let sources = {
         folder: "./assets/gameOverlay/weaponNotCharged/",
         auto: ["gameOverlay5"],
       },
+      noAmmo: {
+        folder: "./assets/gameOverlay/noAmmo/",
+        auto: ["gameOverlay5"],
+      },
+      itemAdded: {
+        folder: "./assets/gameOverlay/itemAdded/",
+        auto: ["gameOverlay6"],
+      },
+      cargoFull: {
+        folder: "./assets/gameOverlay/cargoFull/",
+        auto: ["gameOverlay5"],
+      },
     },
     pickup: {
       health: {

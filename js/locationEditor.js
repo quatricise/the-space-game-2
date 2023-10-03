@@ -398,7 +398,7 @@ class LocationEditor extends GameWorldWindow {
     Qa(`.dropdown-list`).forEach(l => l.classList.add("hidden"))
     Q(`.dropdown-list.${category}`).classList.remove("hidden")
   }
-  setTool(name) {
+  setTool(name, /** If the tool was reverted */ fromRevert = false) {
     let tool = this.tools.find(t => t === name)
     if(!tool) throw "Invalid tool name: " + name
 
@@ -407,18 +407,18 @@ class LocationEditor extends GameWorldWindow {
     Array.from(this.element.querySelectorAll('.tool-cont')).forEach(el => el.classList.remove('active'))
     this.element.querySelector(`[data-toolname='${tool}'`).classList.add('active')
 
-    if(tool !== "select-object") {
-      this.dropdown.classList.add("hidden")
-    }
-    else {
-      this.dropdown.classList.toggle("hidden")
-      this.dropdown.style.left = mouse.clientPosition.x + "px"
-      this.dropdown.style.top = mouse.clientPosition.y + "px"
-      this.fitInViewport(this.dropdown)
+    if(!fromRevert) {
+      if(tool !== "select-object") {
+        this.dropdown.classList.add("hidden")
+      }
+      else {
+        this.dropdown.classList.toggle("hidden")
+        this.dropdown.style.left = mouse.clientPosition.x + "px"
+        this.dropdown.style.top = mouse.clientPosition.y + "px"
+        this.fitInViewport(this.dropdown)
+      }
     }
 
-    if(tool !== "add-special") 
-      this.dropdownSpecial.classList.add("hidden")
     if(tool === "select-object")
       this.state.set("addingObj")
     else
@@ -459,7 +459,7 @@ class LocationEditor extends GameWorldWindow {
     overrideElement.innerText = value
   }
   revertTool() {
-    this.setTool(this.prevTool)
+    this.setTool(this.prevTool, true)
     if(this.tool === "select-object") 
       this.state.set("addingObj")
   }
@@ -965,6 +965,7 @@ class LocationEditor extends GameWorldWindow {
         obj.destroy()
       }
       if(target.closest(".tool-icon.add-special")) {
+        throw "this should not get used"
         let el = target.closest(".tool-cont")
         let rect = el.getBoundingClientRect()
         

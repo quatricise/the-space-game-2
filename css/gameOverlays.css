@@ -363,7 +363,7 @@
   border-radius: 10px;
   color: #93867f;
   background-color: var(--dark-2-05);
-  backdrop-filter: blur(10px);
+  /* backdrop-filter: blur(10px); */
   font-family: "big-t-comic";
   font-size: 1rem;
   z-index: 10;

@@ -172,7 +172,7 @@ class Projectile extends GameObject {
       GameObject.destroy(this)
   }
   deleteIfFarFromPlayer() {
-    if(GameObject.distanceFast(this, player.ship) > data.detectCollisionWithinThisFastDistanceOfPlayer)
+    if(GameObject.distanceFast(this, player.ship) > data.detectCollisionWithinThisFastDistanceOfPlayer && this.destroyed === false)
       GameObject.destroy(this)
   }
   update() {
