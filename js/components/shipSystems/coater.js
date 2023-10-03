@@ -14,11 +14,18 @@ class Coater extends ShipSystem {
     if(this.active) return
     if(this.gameObject.hull.coatingLayers >= this.layersMax) return
 
-    this.gameObject.sprite.coatingAnimation.renderable = true
-    this.gameObject.sprite.coatingAnimation.loop = false
-    this.gameObject.sprite.coatingAnimation.animationSpeed = this.durationMS / 200 /* this should be the optimal length given the coating animation has 8 frames */
-    this.gameObject.sprite.coatingAnimation.gotoAndPlay(0)
-    this.gameObject.sprite.coatingAnimation.onComplete = () => this.gameObject.sprite.coatingAnimation.renderable = false
+    let sprite = this.gameObject.sprite.coatingAnimation
+
+    sprite.renderable = true
+    sprite.alpha = 1.0
+    sprite.loop = false
+    sprite.animationSpeed = 200 / this.durationMS /* this should be the optimal length given the coating animation has 8 frames */
+    sprite.gotoAndPlay(0)
+    console.log(sprite)
+    sprite.onComplete = () => {
+      sprite.renderable = false
+      console.log(sprite.playing)
+    }
 
     this.active = true
     this.gameObject.reactor.unpower()

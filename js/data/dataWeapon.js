@@ -1148,7 +1148,7 @@ data.weapon = {
       power: 1,
       type: "solid",
       projectile: "debris",
-      chargeDurationMS: 3000, 
+      chargeDurationMS: 2800, 
     },
     methods: {
       onkeydown(event) {
