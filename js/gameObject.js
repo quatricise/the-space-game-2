@@ -110,13 +110,6 @@ class GameObject {
   unsetAsImmovable() {
     this.immovable = false
   }
-  resetVelocityIfImmovable() {
-    if(!this.immovable) return
-    this.transform.velocity.set(0)
-  }
-  clampVelocity() {
-    this.transform.velocity.clamp(data.maxObjectVelocity)
-  }
   /** (Deprecated) Is be used for gradually slowing down objects. */
   applyInertia() {
     throw "inertia id deprecated"
@@ -126,26 +119,11 @@ class GameObject {
 
     this.transform.velocity.mult(data.inertia)
   }
-  updateRotation() {
-    if(this.gameWorld !== game) return
-    
-    this.transform.rotation += this.transform.angularVelocity * dt
-    if(this.engine && !this.steering)
-      this.transform.angularVelocity *= (1 - this.engine.glideReduction)
-    if(Math.abs(this.transform.angularVelocity) < 0.01) 
-      this.transform.angularVelocity = 0
-  }
   wrapRotation() {
     if(this.transform.rotation > TAU) 
       this.transform.rotation -= TAU
     if(this.transform.rotation < 0) 
       this.transform.rotation += TAU
-  }
-  updateTimers() {
-    this.timers?.update()
-  }
-  updateStatusEffects() {
-    for(let effect of this.statusEffects) effect.update()
   }
   /** Actually used to cache rotation and position so hitboxes don't need to be recalculated every frame. */
   setPerformanceData() {
@@ -170,14 +148,6 @@ class GameObject {
         this.components.push(systemName)
     for(let component of this.components)
       this.addComponent(component, objData)
-  }
-  updateComponents() {
-    for(let comp of this.components) {
-      if(!this[comp]) return
-
-      this[comp].update()
-      this[comp].timers?.update()
-    }
   }
   addSpriteComponentToFragment(fragmentIndex) {
     Sprite.createForFragment(this, fragmentIndex)
@@ -311,18 +281,46 @@ class GameObject {
   //#endregion
   //#region static methods
   static updateOnPlay(/** @type GameObject */ gameObject) {
-    gameObject.updateStatusEffects()
+    for(let effect of this.statusEffects) effect.update()
+
     gameObject.update()
-    gameObject.updateRotation()
-    gameObject.wrapRotation()
-    gameObject.updateTimers()
-    gameObject.resetVelocityIfImmovable()
-    gameObject.clampVelocity()
+   
+    /* update rotation */
+    if(this.gameWorld === game) {
+      this.transform.rotation += this.transform.angularVelocity * dt
+      if(this.engine && !this.steering)
+        this.transform.angularVelocity *= (1 - this.engine.glideReduction)
+      if(Math.abs(this.transform.angularVelocity) < 0.01) 
+        this.transform.angularVelocity = 0
+    }
+
+    /* wrap rotation */
+    if(this.transform.rotation > TAU) 
+      this.transform.rotation -= TAU
+    else
+    if(this.transform.rotation < 0) 
+      this.transform.rotation += TAU
+
+    this.timers?.update()
+
+    if(this.immovable) this.transform.velocity.set(0)
+
+    this.transform.velocity.clamp(data.maxObjectVelocity)
   }
   static updateOnAll(/** @type GameObject */ gameObject) {
-    gameObject.updateComponents()
+    for(let comp of this.components) {
+      if(!this[comp]) return
+
+      this[comp].update()
+      this[comp].timers?.update()
+    }
+
     gameObject.transform.update()
-    gameObject.setPerformanceData()
+
+    /* cache rotation and position so hitboxes don't need to be recalculated every frame. */
+    this.performanceData.previousRotation = this.transform.rotation
+    this.performanceData.previousPosition = this.transform.position.clone()
+
     gameObject.cull()
   }
   static create(type, name, params = {}, options = {world: game, layer: null}) {
