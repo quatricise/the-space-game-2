@@ -50,6 +50,7 @@ class Sprite extends Component {
     let folder = objectSources["folder"]
     delete objectSources["folder"]
 
+    /* Preprocess sources, for some reason I've forgotten why this needs to be done. */
     objectSources.auto.forEach((src) => {
       let length = src.replace(/[^0-9\.]+/g, '') || 1
 
@@ -215,11 +216,43 @@ class Sprite extends Component {
     })
 
     /* minimap sprite insertion */
-    if(gameObject.type.includesAny("asteroid", "debris", "ship", "station", "ultraportBeacon", "satellite", "fragment"))
+    if(gameObject.type.includesAny("asteroid", "debris", "ship", "station", "ultraportBeacon", "satellite", "fragment", "pickup"))
       newSources.push({src: "minimapIcon.png", length: 1})
     
+  //   /* shader attempt */
+  //   let texture = PIXI.Texture.from("assets/asteroid/box.png")
+  //   let uniforms = {
+  //     color1: [255 / 255, 134 / 255, 48 / 255, 0.0],
+  //     color2: [255 / 255, 134 / 255, 48 / 255, 1.0],
+  //   }
+  //   let frag = `
+  //   precision mediump float;
+  
+  //   uniform vec4 color1;
+  //   uniform vec4 color2;
+  
+  //   void main(void) {
+
+  //     // Assuming a canvas width
+  //     float factorX = gl_FragCoord.x / 1920.0;
+  //     float factorY = gl_FragCoord.y / 1920.0;
+      
+  //     // Red to Blue gradient
+  //     vec4 color = mix(color1, color2, factorX);
+  
+  //     gl_FragColor = color;
+  //   }
+  // `
+
+  //   let program = PIXI.Program(undefined, frag, "test")
+  //   let shader = new PIXI.Filter(null, frag, uniforms)
+  //   spriteComponent.container.filters = [shader]
+  //   /* shader attempt */
+
+    /* create the actual pixi sprites and sort them */
     newSources.forEach((source) => {
-      /* lets not create minimap icons for the preloaded gameObjects */
+
+      /* lets not create minimap icons for the dud preloaded gameObjects */
       if(gameObject.dud) return
 
       let url = folder + source.src
@@ -242,6 +275,7 @@ class Sprite extends Component {
         length = 8
       }
       else
+      /* this is a weird hack too, it returns because it actually registers a PIXI container, not a sprite. */
       if(name.includes("weapons")) {
         spriteComponent.weapons = new PIXI.Container()
         spriteComponent.container.addChild(spriteComponent.weapons)

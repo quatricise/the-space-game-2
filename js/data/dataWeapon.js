@@ -1138,7 +1138,7 @@ data.weapon = {
   debrisGun: {
     displayName: "Debris Gun",
     displayNameShort: "Debris",
-    description: "A garbage weapon. Literally. Uses collected debris from ship's cargo to function.",
+    description: "A garbage weapon. Literally. Uses collected debris from ship's cargo to function. Good for spamming.",
     buyCost: 60,
     spriteCount: 7,
     weaponData: {
@@ -1148,7 +1148,8 @@ data.weapon = {
       power: 1,
       type: "solid",
       projectile: "debris",
-      chargeDurationMS: 2800, 
+      chargeDurationMS: 1800, 
+      // chargeDurationMS: 2800, 
     },
     methods: {
       onkeydown(event) {

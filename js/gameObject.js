@@ -1,4 +1,4 @@
-/** Abstract. Base class for most in-game objects. Do not instantiate directly. */
+/** @abstract Base class for most in-game objects. Do not instantiate directly. */
 class GameObject {
   constructor(transform = new Transform(), id) {
     /** @type Transform */
@@ -145,8 +145,7 @@ class GameObject {
     this.timers?.update()
   }
   updateStatusEffects() {
-    for(let effect of this.statusEffects)
-      effect.update()
+    for(let effect of this.statusEffects) effect.update()
   }
   /** Actually used to cache rotation and position so hitboxes don't need to be recalculated every frame. */
   setPerformanceData() {
@@ -383,8 +382,6 @@ class GameObject {
     if(obj instanceof Hint)                 obj.prototypeChain.push("hint")
     if(obj instanceof HintGraphic)          obj.prototypeChain.push("hintGraphic")
     if(obj instanceof GameOverlay)          obj.prototypeChain.push("gameOverlay")
-    if(obj instanceof LocationRandomizer)   obj.prototypeChain.push("locationRandomizer")
-    if(obj instanceof RandomSpawner)        obj.prototypeChain.push("randomSpawner")
     if(obj instanceof Spawner)              obj.prototypeChain.push("spawner")
     if(obj instanceof Pickup)               obj.prototypeChain.push("pickup")
     if(obj instanceof MapIcon)              obj.prototypeChain.push("mapIcon")
@@ -395,7 +392,6 @@ class GameObject {
     if(obj instanceof Player)               obj.prototypeChain.push("player")
     if(obj instanceof LightSource)          obj.prototypeChain.push("lightSource")
     if(obj instanceof AudioEmitter)         obj.prototypeChain.push("audioEmitter")
-
     /* special exception for the Decoration object, which has less overheads when updating */
     if(obj instanceof Decoration)           obj.prototypeChain.push("decoration")
 
@@ -435,7 +431,6 @@ class GameObject {
   static addToStage(obj, stage) {
     obj.stage = stage
 
-    /* Decoration objects are simpler so they need some custom handling */
     switch(obj.type) {
       case "decoration" : {
         obj.stage.addChild(obj.sprite)
@@ -472,6 +467,19 @@ class GameObject {
   }
   static byId(world, id) {
     return world.gameObjects.gameObject.find(obj => obj.id === id)
+  }
+  /** @returns Array<GameObject> */
+  static filter(/** @type GameWorldWindow */ world, type, name, properties = {}) {
+    return world.gameObjects.gameObject.filter(obj => {
+      let passed = true
+      if(type && obj.type !== type) passed = false
+      if(name && obj.name !== name) passed = false
+
+      for(let key in properties) {
+        if(obj[key] !== properties[key]) passed = false
+      }
+      return passed
+    })
   }
   //#endregion
 }

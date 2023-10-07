@@ -100,9 +100,7 @@ class Weapon extends Component {
   destroyNoAmmoOverlay() {
     if(this.noAmmoOverlay) {
       GameObject.destroy(this.noAmmoOverlay)
-      console.log("f")
     }
-      
     this.noAmmoOverlay = null
   }
   update() {

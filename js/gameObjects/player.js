@@ -1,6 +1,8 @@
 class Player extends Person {
-  constructor(ship) {
+  constructor(/** @type Ship */ ship) {
     super("player")
+
+    /** @type Ship */
     this.ship = ship
 
     /* Modify inventory to display message when you receive a new item */

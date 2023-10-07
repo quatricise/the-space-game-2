@@ -146,7 +146,7 @@ class ShieldSystem extends ShipSystem {
 
     if(this.gameObject.vwb) {
       velocity.mult(5)
-      object.handleImpact(CollisionEvent.fakeEvent(1, 100))
+      object.handleImpact(CollisionEvent.fakeEvent(1, 1000))
     }
 
     if(object instanceof Projectile) {

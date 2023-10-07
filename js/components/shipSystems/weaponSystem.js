@@ -70,7 +70,7 @@ class WeaponSystem extends ShipSystem {
     if(this.gameObject === player?.ship) 
       this.createWeaponSelectOverlay(this.weapons.indexOf(this.activeWeapon))
   }
-  cycleActiveWeapon(direction) {
+  cycleActiveWeapon( /** 1 = forwards, any other values mean backwards */ direction) {
     let weaponIndex = this.weapons.indexOf(this.activeWeapon)
     if(direction === 1) 
       weaponIndex === this.weapons.length - 1 ? this.setActiveWeapon(this.weapons[0])     : this.setActiveWeapon(this.weapons[weaponIndex + 1])

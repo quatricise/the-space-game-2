@@ -805,7 +805,7 @@ let sources = {
     },
     spawner: {
       default: {
-        folder: "./assets/pickup/spawner/",
+        folder: "./assets/spawner/default/",
         auto: ["thumbnail, linework"],
       }
     }

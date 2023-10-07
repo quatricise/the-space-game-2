@@ -51,17 +51,23 @@ data.gameOverlay = {
     refreshSpriteFrequencyMS: 1000 / 10,
     onFinishPlaying: "destroyOverlay",
     onFinishPlayingDelayMS: 250,
+    maxOnScreen: 1,
+    onLimitReach: "destroyOthers"
   },
   itemAdded: {
     overlayType: "gameOverlay",
     refreshSpriteFrequencyMS: 1000 / 10,
     onFinishPlaying: "destroyOverlay",
     onFinishPlayingDelayMS: 250,
+    maxOnScreen: 1,
+    onLimitReach: "destroyOthers"
   },
   cargoFull: {
     overlayType: "gameOverlay",
     refreshSpriteFrequencyMS: 1000 / 10,
     onFinishPlaying: "destroyOverlay",
     onFinishPlayingDelayMS: 250,
+    maxOnScreen: 1,
+    onLimitReach: "destroyOthers"
   },
 }

@@ -8,6 +8,29 @@ class GameOverlay extends GameObject {
     this.offset = offset ?? null
     this.onFinishPlaying = objectData.onFinishPlaying
     this.onFinishPlayingDelayMS = objectData.onFinishPlayingDelayMS
+
+    /* If there is a limit to how many can exist, handle that inefficiently here. */
+    if(objectData.maxOnScreen) {
+      let objects = GameObject.filter(game, this.type, this.name)
+      if(objects.length >= objectData.maxOnScreen) {
+        switch(objectData.onLimitReach) {
+          case "destroyThis": {
+            throw "This isn't supposed to be here, because it could flash for one frame before being destroyed, do not use unless I properly implement the limiting"
+            break
+          }
+          case "destroyOthers": {
+            objects.forEach(o => GameObject.destroy(o))
+            break
+          }
+        }
+      }
+    }
+
+    /* There is an assumption that the gameWorld is game, otherwise throw error. Other windows are not currently supposed to use this class. */
+    setTimeout(() => {
+      if(this.gameWorld && this.gameWorld !== game) throw "GameOverlay not in game, that is not designed to happen."
+    }, 20)
+    
     this.finished = false
     this.components = ["sprite"]
     this.registerComponents(objectData)
@@ -49,6 +72,9 @@ class GameOverlay extends GameObject {
   //#region onFinishPlaying commands
   destroyOverlay() {
     GameObject.destroy(this)
+  }
+  destroy() {
+    
   }
   //#endregion
   update() {
