@@ -76,7 +76,6 @@ class GameObject {
   }
   cull() {
     if(!this.sprite) return
-    if(this instanceof DecorativeObject) return
     
     let offsetFromCamera = this.transform.position.clone().sub(this.gameWorld.camera.transform.position)
     if(offsetFromCamera.fastLength() > (cw + (grid.cellSize * this.broadphaseGrowFactor)) * this.gameWorld.camera.currentZoom)
@@ -281,45 +280,51 @@ class GameObject {
   //#endregion
   //#region static methods
   static updateOnPlay(/** @type GameObject */ gameObject) {
-    for(let effect of this.statusEffects) effect.update()
+
+    for(let effect of gameObject.statusEffects) 
+      effect.update()
 
     gameObject.update()
    
     /* update rotation */
-    if(this.gameWorld === game) {
-      this.transform.rotation += this.transform.angularVelocity * dt
-      if(this.engine && !this.steering)
-        this.transform.angularVelocity *= (1 - this.engine.glideReduction)
-      if(Math.abs(this.transform.angularVelocity) < 0.01) 
-        this.transform.angularVelocity = 0
+    if(gameObject.gameWorld === game) {
+      gameObject.transform.rotation += gameObject.transform.angularVelocity * dt
+      if(gameObject.engine && !gameObject.steering)
+        gameObject.transform.angularVelocity *= (1 - gameObject.engine.glideReduction)
+      if(Math.abs(gameObject.transform.angularVelocity) < 0.01) 
+        gameObject.transform.angularVelocity = 0
     }
 
     /* wrap rotation */
-    if(this.transform.rotation > TAU) 
-      this.transform.rotation -= TAU
+    if(gameObject.transform.rotation > TAU) {
+      gameObject.transform.rotation -= TAU
+    }
     else
-    if(this.transform.rotation < 0) 
-      this.transform.rotation += TAU
+    if(gameObject.transform.rotation < 0) {
+      gameObject.transform.rotation += TAU
+    }
 
-    this.timers?.update()
+    gameObject.timers?.update()
 
-    if(this.immovable) this.transform.velocity.set(0)
+    if(gameObject.immovable) 
+      gameObject.transform.velocity.set(0)
 
-    this.transform.velocity.clamp(data.maxObjectVelocity)
+    gameObject.transform.velocity.clamp(data.maxObjectVelocity)
   }
   static updateOnAll(/** @type GameObject */ gameObject) {
-    for(let comp of this.components) {
-      if(!this[comp]) return
+    /* update components */
+    for(let comp of gameObject.components) {
+      if(!gameObject[comp]) return
 
-      this[comp].update()
-      this[comp].timers?.update()
+      gameObject[comp].update()
+      gameObject[comp].timers?.update()
     }
 
     gameObject.transform.update()
 
     /* cache rotation and position so hitboxes don't need to be recalculated every frame. */
-    this.performanceData.previousRotation = this.transform.rotation
-    this.performanceData.previousPosition = this.transform.position.clone()
+    gameObject.performanceData.previousRotation = gameObject.transform.rotation
+    gameObject.performanceData.previousPosition = gameObject.transform.position.clone()
 
     gameObject.cull()
   }
