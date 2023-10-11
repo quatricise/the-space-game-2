@@ -126,6 +126,7 @@ class Player extends Person {
     if(!this.targetDebris) return
     if(this.ship.cargo.isFull) {
       GameObject.create("gameOverlay", "cargoFull", {parent: this.ship, offset: new Vector(0, 200)}, {world: this.gameWorld})
+      AudioManager.playSFX("buttonNegative", 1.0)
       return
     }
     for(let i = 0; i < 3; i++) {

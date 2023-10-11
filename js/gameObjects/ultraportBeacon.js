@@ -2,16 +2,13 @@ class UltraportBeacon extends GameObject {
   constructor(transform, name, options = {isDeathmatchBeacon: false, travelDestination: "locationName"}) {
     super(transform)
     let objectData = data.ultraportBeacon[name]
-    this.name = name
-    this.setAsImmovable()
-    this.mass = 1_000_000
     this.type = "ultraportBeacon"
     this.name = name
 
-    /** 
-    @type Boolean
-    this is only used inside the deathmatch arenas
-    */
+    this.setAsImmovable()
+    this.mass = 1_000_000
+
+    /** @type Boolean - this is only used inside the deathmatch arenas */
     this.isDeathmatchBeacon = options.isDeathmatchBeacon ?? false
     
     /** @type String - only used for the deathmatch beacon */

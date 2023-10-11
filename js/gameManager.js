@@ -49,7 +49,7 @@ class GameManager {
     let playerInventory = player.inventory
     let shipWeapons = player.ship.weapons.weapons.map(weapon => weapon.name)
 
-    AudioManager.playSFX("ultraportTravel")
+    AudioManager.playSFX("ultraportTravel", 0.2)
     this.removePlayerControl()
     gameManager.setWindow(game)
     console.log(player.ship)
@@ -198,7 +198,7 @@ class GameManager {
     Q("#ui-right-side-panel").classList.remove("hidden")
     data.updateObjectsWithinThisFastDistanceOfPlayer = 3000
     setTimeout(() => player.ship.weapons.addWeapon("debrisGun"), 1000)
-    setTimeout(() => AudioManager.playLoopedAudio("music", "deathmatch", 0.42), 2000)
+    setTimeout(() => AudioManager.playLoopedAudio("music", "deathmatch", 0.5), 4000)
   }
   loadNextDeathmatchArena() {
     let index = +game.locationName.replace(/[^0-9\.]+/g, '')

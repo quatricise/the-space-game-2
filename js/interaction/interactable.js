@@ -315,6 +315,10 @@ class Interactable extends GameObject {
       if(datablock.particleBefore) {
         let particle = GameObject.create("particle", datablock.particleBefore.name, {transform: datablock.params.transform}, {world: this.gameWorld})
         particle.onDestroy = () => createGameObject()
+
+        if(datablock.particleBefore.name === "beaconAppear") {
+          AudioManager.playSFX("beaconAppear", 0.8)
+        }
       }
       else {
         createGameObject()

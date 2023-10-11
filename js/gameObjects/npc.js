@@ -7,6 +7,10 @@ class NPC extends Person {
     this.target = null
     
     /* flags */
+
+    /** This affects whether the NPC can do anything special like fire weapon, use shield, or coater. 
+     * It resets after a short timer, but it prevents the NPC to accidentally do a bunch of things in a tiny time window, which would feel unnatural
+     */
     this.canUseAbility = true
 
     this.followDistance = 1400
@@ -69,7 +73,7 @@ class NPC extends Person {
           ["createNavmesh", 400,  {loop: true, active: true, onfinish: NPC.createNavmesh.bind(state)}],
           ["useWeapon",     1000,  {loop: true, active: true, onfinish: NPC.useWeapon.bind(state)}],
           ["skip",          8000, {loop: true, active: true, onfinish: NPC.useSkip.bind(state)}],
-          ["useShield",     600,  {loop: true, active: true, onfinish: NPC.useShields.bind(state)}],
+          ["useShield",     900,  {loop: true, active: true, onfinish: NPC.useShields.bind(state)}],
 
           /* 
           this is used to limit the rate of abilities so that the NPC doesn't fire weapon and use a shield within a time window

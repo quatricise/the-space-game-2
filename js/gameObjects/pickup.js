@@ -25,6 +25,7 @@ class Pickup extends GameObject {
     switch(this.name) {
       case "health": {
         targetObj.hull.repair()
+        AudioManager.playSFX("cardShimmer", 1.0)
         break
       }
     }

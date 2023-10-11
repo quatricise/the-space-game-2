@@ -9,6 +9,7 @@ class SkipSystem extends ShipSystem {
     this.timers = new Timer(
       ["recharge", SkipSystem.rechargeTimeMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}],
       ["skip", SkipSystem.skipDurationMin,    {loop: false, active: false, onfinish: this.finish.bind(this)}],
+      ["playEmergeSound", 600,                {loop: false, active: false, onfinish: this.playEmergeSound.bind(this)}],
     )
   }
   activate(destination) {
@@ -37,6 +38,15 @@ class SkipSystem extends ShipSystem {
 
     this.timers.recharge.start()
     this.timers.skip.start()
+
+    AudioManager.playSFX("voidEnter", 1.0)
+
+    this.timers.playEmergeSound.duration = duration - 600
+    this.timers.playEmergeSound.start()
+  }
+  playEmergeSound() {
+    /* schedule the sound to appear just before the skip stops */
+    AudioManager.playSFX("voidLeave", 1.0)
   }
   playTravelAnimation(destination) {
     let [submerge, emerge] = [this.gameObject.sprite.travelAnimationSubmerge, this.gameObject.sprite.travelAnimationEmerge]
@@ -135,7 +145,7 @@ class SkipSystem extends ShipSystem {
     if(this.gameObject === player.ship)
       this.updateUISkipCharge()
   }
-  static skipDurationMin = 480 
+  static skipDurationMin = 600 
   static shipImmobilizeTime = 150
   static rechargeTimeMS = 4500
 }

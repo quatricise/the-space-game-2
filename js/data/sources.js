@@ -818,9 +818,11 @@ let sources = {
       "deathmatch loop",
     ],
     SFX: [
+      "beaconAppear",
       "buttonHover",
       "buttonClick",
       "buttonNoAction",
+      "buttonNegative",
       "cardShimmer",
       "dialogueLetter1",
       "dialogueLetter2",
@@ -846,6 +848,8 @@ let sources = {
       "tightbeamCall loop",
       "shipEngineStart",
       "shipEngineStop",
+      "voidLeave",
+      "voidEnter",
     ]
   }
 };

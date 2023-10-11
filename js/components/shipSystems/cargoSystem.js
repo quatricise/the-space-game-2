@@ -11,8 +11,10 @@ class CargoSystem extends ShipSystem {
   Later can be replaced with a custom handling method.
   */
   onItemAdd() {
-    if(this.gameObject === player.ship)
-      GameObject.create("gameOverlay", "itemAdded", {parent: this.gameObject, offset: new Vector(0, 200)}, {world: this.gameObject.gameWorld})
+    if(this.gameObject === player.ship) {
+      GameObject.create("gameOverlay", "itemAdded", {parent: this.gameObject, offset: new Vector(0, 200)}, {world: this.gameObject.gameWorld ?? game})
+      AudioManager.playSFX("cardShimmer", 0.9)
+    }
   }
   removeItems(...items) {
     items.forEach(i => this.items.remove(i))
