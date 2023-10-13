@@ -363,9 +363,10 @@ class Sprite extends Component {
       
       sprite.anchor.set(0.5)
 
-      if(name.includes("highlights")) {
-        sprite.filters = [filters.highlightsContrast, filters.highlightsHueShift, filters.highlightsBrightness]
-      }
+      /* let's not add a filter to highlights anymore */
+      // if(name.includes("highlights")) {
+      //   sprite.filters = [filters.highlightsContrast, filters.highlightsHueShift, filters.highlightsBrightness]
+      // }
 
       if(name.includesAny("shield", "stealth", "death", "hullInvulnerableAnimation", "hullRepairAnimation", "travelAnimation", "coatingAnimation")) 
       {

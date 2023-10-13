@@ -34,11 +34,15 @@ class Coater extends ShipSystem {
     
     this.onCoatingEnd()
     this.timers.coat.reset()
+
+    AudioManager.playSFX("buttonNegative", 1.0)
   }
   completeCoating() {
     this.onCoatingEnd()
     this.gameObject.hull.coatingLayers++
     this.gameObject.sprite.coatingLayer.gotoAndStop(this.gameObject.hull.coatingLayers)
+
+    AudioManager.playSFX("cardShimmer", 1.0)
   }
   onCoatingEnd() {
     this.active = false

@@ -21,10 +21,10 @@ class Pickup extends GameObject {
       this.consume(obj)
     }
   }
-  consume(/** @type Ship */ targetObj) {
+  consume(/** @type Ship */ ship) {
     switch(this.name) {
       case "health": {
-        targetObj.hull.repair()
+        ship.hull.repair()
         AudioManager.playSFX("cardShimmer", 1.0)
         break
       }

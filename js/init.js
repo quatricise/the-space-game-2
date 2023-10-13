@@ -43,5 +43,5 @@ const initMacros = {
   gameUI.toggleDevIcons()
 
   /* macro */
-  gameManager.loadDeathmatch()
+  // gameManager.loadDeathmatch()
 })();

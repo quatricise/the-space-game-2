@@ -37,14 +37,14 @@ class GameUI extends GameWindow {
   }
   //#region input
   handleKeydown(event) {
-    if(event.code === binds.hitbox) 
-      visible.hitbox = !visible.hitbox
-    if(event.code === binds.navMesh) 
-      visible.navMesh = !visible.navMesh
-    if(event.code === binds.gameStats)
-      this.toggleGameStats()
-    if(event.code === binds.devIcons) 
-      this.toggleDevIcons()
+    if(event.code === binds.hitbox)       visible.hitbox = !visible.hitbox
+    if(event.code === binds.navMesh)      visible.navMesh = !visible.navMesh
+    if(event.code === binds.gameStats)    this.toggleGameStats()
+    if(event.code === binds.devIcons)     this.toggleDevIcons()
+    if(event.code === binds.showControls) {
+      if(gameManager.activeWindow !== manual && gameManager.activeWindow !== loadingScreen) 
+      setTimeout(() => gameManager.setWindow(manual), 0)
+    }
 
     /* rudimentary key-buttons highlighting for hints */
     Qa(".keyboard-key").forEach(key => {

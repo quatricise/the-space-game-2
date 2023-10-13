@@ -100,4 +100,7 @@ class LoopedAudioClip {
     if(this.timers.fadeTick.active)
       this.fadeTick()
   }
+  destroy() {
+    this.stop()
+  }
 }

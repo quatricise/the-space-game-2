@@ -72,6 +72,8 @@ class ShieldSystem extends ShipSystem {
   pulseUpdateSprites(NPCShipAngle) {
     this.gameObject.sprite.shieldCharge.renderable = false
 
+    
+    /* sprite */
     let sprite = this.gameObject.sprite.shieldPulse
     this.gameObject.gameWorld.layers.overlays.addChild(sprite)
     sprite.position.set(this.gameObject.transform.position.x, this.gameObject.transform.position.y)
@@ -80,13 +82,13 @@ class ShieldSystem extends ShipSystem {
     sprite.animationSpeed = 0.25
     sprite.gotoAndPlay(0)
     sprite.loop = false
+
     if(this.gameObject === player.ship) 
       sprite.rotation = mouse.shipAngle
-    else
-      {
-        sprite.rotation = NPCShipAngle
-        console.log(NPCShipAngle)
-      }
+    else {
+      sprite.rotation = NPCShipAngle
+      console.log(NPCShipAngle)
+    }
 
     sprite.onComplete = () => sprite.renderable = false
   }
@@ -137,16 +139,35 @@ class ShieldSystem extends ShipSystem {
         this.pulseParseCollision(target)
     })
   }
-  pulseParseCollision(object) {
+  pulseParseCollision(/** @type GameObject */ object) {
     if(object.immovable) return
     let angle = GameObject.angle(this.gameObject, object)
     let distance = GameObject.distance(this.gameObject, object)
     let strength = ((this.shieldData.pulseStrength / distance ) / object.mass) * 1000
     let velocity = Vector.fromAngle(angle).mult(strength).clamp(1000)
 
+    /* blend (ship to projectile) angle and (the actual direction of the pulse) */
+    let velCopy = Vector.fromAngle(mouse.shipAngle).mult(strength).clamp(1000).mult(0.9)
+    velocity.mult(0.1).add(velCopy)
+    console.log(velocity.length)
+
+    /* if you pierce through the void, it does damage */
     if(this.gameObject.vwb) {
       velocity.mult(5)
       object.handleImpact(CollisionEvent.fakeEvent(1, 1000))
+
+      /* if the object has a skip system, theres a chance it'll explode */
+      if(object.skip && Random.chance(30)) {
+        GameObject.create(
+          "explosion",
+          "default",
+          {
+            SFXName: "explosionDefault",
+            transform: new Transform(object.transform.position.copy),
+          },
+          { world: object.gameWorld }
+        );
+      }
     }
 
     if(object instanceof Projectile) {

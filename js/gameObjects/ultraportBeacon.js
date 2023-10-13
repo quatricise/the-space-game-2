@@ -23,6 +23,16 @@ class UltraportBeacon extends GameObject {
     this.registerComponents(objectData)
     this.cloneParticleSprite(2)
     this.cloneParticleSprite(3)
+
+    if(this.isDeathmatchBeacon) {
+      setTimeout(() => {
+        GameObject.create("audioEmitter", "ultraportAmbience", {category: "SFX", parent: this, options: {
+          volumeFadeDistance: 800,
+          maxVolume: 0.7
+        }}, {world: this.gameWorld})
+      }, 0)
+    }
+
   }
   cloneParticleSprite(newParticleIndex) {
     let src = this.sprite.particles.texture.textureCacheIds[0]

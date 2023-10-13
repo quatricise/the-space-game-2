@@ -311,6 +311,12 @@ class Interactable extends GameObject {
         }
       }
 
+      /* parent */
+      if(datablock.parentId) {
+        let parent = GameObject.byId(this.gameWorld, datablock.parentId)
+        datablock.params.parent = parent
+      }
+
       /* particle before the object appears */
       if(datablock.particleBefore) {
         let particle = GameObject.create("particle", datablock.particleBefore.name, {transform: datablock.params.transform}, {world: this.gameWorld})

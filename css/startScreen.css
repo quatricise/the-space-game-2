@@ -79,6 +79,12 @@
 #credits-button:hover {
   background-image: url(../assets/ui/startMenu/creditsButtonHover.png);
 }
+#controls-button {
+  background-image: url(../assets/ui/startMenu/controlsButton.png);
+}
+#controls-button:hover {
+  background-image: url(../assets/ui/startMenu/controlsButtonHover.png);
+}
 
 #start-screen-overlay-picture {
   position: absolute;

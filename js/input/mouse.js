@@ -17,7 +17,10 @@ class Mouse {
     this.clickedNotMoved = false
     this.travelled = 0
     this.pressure = 1
+
+    /** Should be between 0 and 2*PI */
     this.shipAngle = 0
+    
     this.keys = {
       left: false,
       middle: false,

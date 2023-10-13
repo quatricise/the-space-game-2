@@ -21,6 +21,7 @@ class Random {
   static bool() {
     return !!this.int(0, 1)
   }
+  /** How many %. */
   static chance(chance) {
     return this.int(0, 100) < chance
   }

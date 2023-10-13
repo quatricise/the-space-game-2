@@ -1,15 +1,16 @@
 class AudioEmitter extends GameObject {
   constructor(category, name, parent, options = {volumeFadeDistance: 1000, maxVolume: 1}) {
     super()
-    this.type = "audioSource"
+    this.type = "audioEmitter"
     this.name = name
     this.category = category
     this.parent = parent
     this.volumeFadeDistance = options.volumeFadeDistance
     this.maxVolume = options.maxVolume ?? 1
 
-    this.wasWithinDistanceLastFrame = false
+    this._wasCloseLastFrame = false
 
+    /** @type LoopedAudioClip */
     this.audioClip = new LoopedAudioClip(
       `audio/${this.category}/${this.name}.ogg`,
       this.name,
@@ -25,16 +26,19 @@ class AudioEmitter extends GameObject {
   checkDistance() {
     let distance = GameObject.distance(this, player?.ship)
 
-    if(distance < this.volumeFadeDistance && !this.wasWithinDistanceLastFrame)
+    if(distance < this.volumeFadeDistance && !this._wasCloseLastFrame)
       this.audioClip.start()
-    if(distance >= this.volumeFadeDistance && this.wasWithinDistanceLastFrame)
+    if(distance >= this.volumeFadeDistance && this._wasCloseLastFrame)
       this.audioClip.stop()
     
-    this.wasWithinDistanceLastFrame = distance < this.volumeFadeDistance
+    this._wasCloseLastFrame = distance < this.volumeFadeDistance
     
     if(this.category === "SFX")
       this.audioClip.setVolume((1 - distance/this.volumeFadeDistance) * this.maxVolume * AudioManager.SFXVolume)
     else
       this.audioClip.setVolume((1 - distance/this.volumeFadeDistance) * this.maxVolume * AudioManager.musicVolume)  
+  }
+  destroy() {
+    this.audioClip?.destroy()
   }
 }
