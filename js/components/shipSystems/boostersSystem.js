@@ -25,6 +25,8 @@ class BoosterSystem extends ShipSystem {
     let angle = this.gameObject.transform.position.angleTo(mouse.worldPosition)
     let v = Vector.fromAngle(angle).mult(this.strength * dt)
     this.gameObject.transform.velocity.add(v)
+
+    this.gameObject.sprite.boostersGlow.rotation = angle - this.gameObject.transform.rotation
   }
   activatePulse() {
 

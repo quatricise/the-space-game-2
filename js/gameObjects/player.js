@@ -7,7 +7,8 @@ class Player extends Person {
 
     /* Modify inventory to display message when you receive a new item */
     this.inventory.onItemAdd = () => {
-      GameObject.create("gameOverlay", "itemAdded", {parent: this.ship, offset: new Vector(0, 200)}, {world: this.gameWorld})
+      GameObject.create("gameOverlay", "itemAdded", {parent: this.ship, offset: new Vector(0, 200)}, {world: game})
+      console.log(this.gameWorld)
     }
   }
   handleInput(event) {
@@ -135,15 +136,13 @@ class Player extends Person {
         "debris", 
         {
           transform: new Transform(
-            this.targetDebris.transform.position.clone().add(new Vector(...Random.intArray(-12, 12, 2))),
+            this.targetDebris.transform.position.copy.add(new Vector(...Random.intArray(-12, 12, 2))),
             new Vector(...Random.intArray(-12, 12, 2)),
             Random.rotation(),
             Random.float(-PI/4, PI/4)
           )
         },
-        {
-          world: this.targetDebris.gameWorld
-        }
+        {world: game}
       )
     }
     

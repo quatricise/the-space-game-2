@@ -24,8 +24,8 @@ class Weapon extends Component {
     /** @type Boolean */
     this.powered = true
 
-    /** @type Boolean */    
-    this.ready = true
+    /** @type Boolean - If it can shoot or be activated in some way.*/    
+    this.ready = false
 
     /** @type Number */
     this.slotIndex = null

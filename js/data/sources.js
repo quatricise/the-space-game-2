@@ -6,7 +6,7 @@ let sources = {
         auto: [
           "thumbnail",
           "glow",
-          "boostersGlow",
+          "boostersGlow1",
           "shieldHardLightFront",
           "shieldForceField",
           "shieldBubble",

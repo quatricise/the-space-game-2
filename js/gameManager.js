@@ -74,7 +74,6 @@ class GameManager {
           world: game
         }
       )
-      console.log(ship.gameWorld)
       player.ship = ship
       game.camera.lockTo(player.ship)
 

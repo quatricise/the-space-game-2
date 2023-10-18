@@ -115,6 +115,8 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
         )
+
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -336,6 +338,7 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -458,6 +461,7 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -548,6 +552,7 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -648,6 +653,7 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}]
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -765,6 +771,7 @@ data.weapon = {
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}],
           ["fireNextShot", this.nextShotDelay, {loop: true, active: false, onfinish: this.fireNextShot.bind(this)}],
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -819,8 +826,8 @@ data.weapon = {
   burstLaser: {
     displayName: "Burst Laser Mk. I",
     displayNameShort: "Burst L. I",
-    description: "Poorly designed but powerful weapon. Suffers from slight inaccuracy. Shoots three consecutive layers, each with a 50% chance to do damage.",
-    buyCost: 80,
+    description: "Poorly designed but potent weapon. Suffers from slight inaccuracy. Shoots three consecutive layers, each with a 50% chance to do damage.",
+    buyCost: 75,
     spriteCount: 1,
     weaponData: {
       chargeMethod: "auto",
@@ -829,6 +836,7 @@ data.weapon = {
       power: 1,
       type: "laser",
       chargeDurationMS: 3000,
+      nextShotDelayMS: 120,
       charges: 0,
       chargesMax: 3,
       damagePerBeam: 1,
@@ -874,6 +882,7 @@ data.weapon = {
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}],
           ["fireNextShot", this.nextShotDelay, {loop: true, active: false, onfinish: this.fireNextShot.bind(this)}],
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },
@@ -1149,7 +1158,6 @@ data.weapon = {
       type: "solid",
       projectile: "debris",
       chargeDurationMS: 1800, 
-      // chargeDurationMS: 2800, 
     },
     methods: {
       onkeydown(event) {
@@ -1247,6 +1255,7 @@ data.weapon = {
         this.timers = new Timer(
           ["recharge", this.chargeDurationMS, {loop: false, active: false, onfinish: this.recharge.bind(this)}],
         )
+        if(this.powered) this.timers.recharge.start()
       }
     }
   },

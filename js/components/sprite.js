@@ -123,7 +123,7 @@ class Sprite extends Component {
       }
       else
       if(src.includes("boostersGlow")) {
-        newSources.push({src: "boostersGlow.png", length: length})
+        newSources.push({src: "boostersGlow0000.png", length: length})
       }
       else
       if(src.includes("wreck")) {

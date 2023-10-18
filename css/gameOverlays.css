@@ -998,3 +998,57 @@
   width: 100vw;
   height: 100vh;
 }
+#pilot-manual-video-hitboxes {
+  position: absolute;
+}
+
+.pilot-manual-hitbox {
+  position: absolute;
+  /* background-color: #ffffff50; */
+  width: 100px;
+  height: 100px;
+}
+.pilot-manual-hitbox:hover video {
+  display: block;
+}
+.pilot-manual-hitbox video {
+  display: none;
+  position: fixed;
+  left: calc(50vw - 210px);
+  top: calc(50vh - 210px);
+  width: 420px;
+}
+.box-1 {
+  left: -900px;
+  top: -340px;
+  width: 600px;
+  height: 340px;
+}
+
+.box-2 {
+  left: -900px;
+  top: 20px;
+  width: 600px;
+  height: 200px;
+}
+
+.box-3 {
+  left: -900px;
+  top: 280px;
+  width: 600px;
+  height: 200px;
+}
+
+.box-4 {
+  right: -900px;
+  top: -340px;
+  width: 600px;
+  height: 260px;
+}
+
+.box-5 {
+  right: -900px;
+  top: -60px;
+  width: 600px;
+  height: 220px;
+}

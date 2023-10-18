@@ -1,12 +1,14 @@
 class UILootingPopupComponent extends UIComponent {
-  constructor(gameWindow, gameObject, cargoSystem) {
+  constructor(gameWindow, gameObject, /** @type CargoSystem */ cargoSystem) {
     super(gameWindow)
     this.gameObject = gameObject
     this.visible = {
       popup: false,
       indicator: false,
     }
+    /** @type Array<Item> */
     this.items = [...cargoSystem.items]
+    
     this.createPopup()
     this.createIndicator()
   }

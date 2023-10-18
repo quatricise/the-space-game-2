@@ -2,17 +2,21 @@ class CargoSystem extends ShipSystem {
   constructor(gameObject, data) {
     super(gameObject, data)
     this.capacity = data.capacity
+    
+    /** @type Array<Item> */
     this.items = []
+
     for(let item of data.items)
       this.addItems(new Item(item))
   }
   /* 
   Miserable little method to show player indication.
   Later can be replaced with a custom handling method.
+  Let's also assume game is the only world this overlay will ever be displayed in.
   */
   onItemAdd() {
     if(this.gameObject === player.ship) {
-      GameObject.create("gameOverlay", "itemAdded", {parent: this.gameObject, offset: new Vector(0, 200)}, {world: this.gameObject.gameWorld ?? game})
+      GameObject.create("gameOverlay", "itemAdded", {parent: this.gameObject, offset: new Vector(0, 200)}, {world: game})
       AudioManager.playSFX("cardShimmer", 0.9)
     }
   }
