@@ -559,19 +559,19 @@ class LocationEditor extends GameWorldWindow {
 
     let props = ["id", "rotation", "angularVelocity"]
 
-    if(obj instanceof RandomSpawner) {
-      props.push("radius", "spawnsMin", "spawnsMax")
-      props.forEach(prop => createProp(prop))
-      obj.objects.forEach(o => {
-        obj.generateThumbnail(o.type, o.name, o.src)
-      })
-    }
-    else
-    if(obj instanceof RandomSpawnerSpawn) {
-      props.push("weight")
-      props.forEach(prop => createProp(prop))
-    }
-    else
+    // if(obj instanceof RandomSpawner) {
+    //   props.push("radius", "spawnsMin", "spawnsMax")
+    //   props.forEach(prop => createProp(prop))
+    //   obj.objects.forEach(o => {
+    //     obj.generateThumbnail(o.type, o.name, o.src)
+    //   })
+    // }
+    // else
+    // if(obj instanceof RandomSpawnerSpawn) {
+    //   props.push("weight")
+    //   props.forEach(prop => createProp(prop))
+    // }
+    // else
     if(obj instanceof Asteroid) {
       props.forEach(prop => createProp(prop))
     }
@@ -1149,19 +1149,6 @@ class LocationEditor extends GameWorldWindow {
         mouse.travelled = 0
         let selectable = this.gameObjects.gameObject.concat(this.gameObjects.decoration)
 
-        selectable.forEach(obj => {
-          if(!(obj instanceof LocationRandomizer) && !(obj instanceof RandomSpawner)) return
-          if(Collision.vectorCircle(mouse.locationEditorPosition, obj.hitbox)) {
-            if(obj instanceof LocationRandomizer) {
-              hit = true
-              obj.setObject(this.activeObject.type, this.activeObject.name)
-            }
-            if(obj instanceof RandomSpawner) {
-              hit = true
-              obj.addObject(this.activeObject.type, this.activeObject.name, 0, 0, 1)
-            }
-          }
-        })
         if(!hit) this.addObject()
       }
       if(target.closest('.icon-export')) {

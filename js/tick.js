@@ -1,5 +1,6 @@
 function tick(deltaFactor) {
   setDelta(deltaFactor)
+
   //#region update
   mouse.updateShipAngle()
   mouse.updateWorldPosition()
@@ -18,6 +19,7 @@ function tick(deltaFactor) {
     win.update()
   })
   //#endregion
+  
   //#region interact
   collisionChecksPerFrame = 0
   broadphaseCallsPerFrame = 0
