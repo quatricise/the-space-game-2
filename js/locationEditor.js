@@ -559,19 +559,6 @@ class LocationEditor extends GameWorldWindow {
 
     let props = ["id", "rotation", "angularVelocity"]
 
-    // if(obj instanceof RandomSpawner) {
-    //   props.push("radius", "spawnsMin", "spawnsMax")
-    //   props.forEach(prop => createProp(prop))
-    //   obj.objects.forEach(o => {
-    //     obj.generateThumbnail(o.type, o.name, o.src)
-    //   })
-    // }
-    // else
-    // if(obj instanceof RandomSpawnerSpawn) {
-    //   props.push("weight")
-    //   props.forEach(prop => createProp(prop))
-    // }
-    // else
     if(obj instanceof Asteroid) {
       props.forEach(prop => createProp(prop))
     }
