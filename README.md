@@ -1,1 +1,2 @@
 # star-liberation
+Prototype of the computer game Star Liberation. This is a technical demo that demonstrates most of the game mechanics. In this 2D sci-fi game the player pilots a spaceship and his task is to find out who kidnapped the princess. The game combines investigation, real-time space battles and exploration of the world. The game and the UI itself are dominated by hand-drawn illustrations.
