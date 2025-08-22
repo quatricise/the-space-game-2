@@ -1285,8 +1285,8 @@ data.weapon = {
         
       },
       onmousedown(event) {
-        if(this.charging) return
-          this.chargeBegin()
+        if(this.charging) return;
+        this.chargeBegin()
       },
       onmouseup(event) {
         
@@ -1324,7 +1324,7 @@ data.weapon = {
           )
           let randomizedAngle = basePosition.angleTo(this.gameObject.targetPosition) + Random.float(-0.5, 0.5)
           let velocity = Vector.fromAngle(randomizedAngle)
-          .mult(data.projectile[this.projectiles[0]].speed * (1 - Random.float(0, speedVariation)))
+          .mult(data.projectile[this.projectiles[0]].speed * (1 - Random.float(0, speedVariation)));
           let angularVelocity = Random.float(0, PI/2)
           let rotation = Random.float(0, TAU)
 
@@ -1370,7 +1370,7 @@ data.weapon = {
       },
       setup() {
         this.timers = new Timer(
-          ["chargeBegin", this.chargeDurationMS, {loop: false, active: false, onfinish: this.fire.bind(this)}]
+          ["chargeBegin", this.chargeDurationMS, {loop: true, active: true, onfinish: this.fire.bind(this)}]
         )
       }
     }
